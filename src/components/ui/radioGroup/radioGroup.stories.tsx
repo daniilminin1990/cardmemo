@@ -13,6 +13,39 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    namesArr: ['Did not know', 'Forgot', 'A lot of thought', 'Confused', 'Knew the answer'],
+    items: [
+      {
+        disabled: false,
+        id: '1',
+        value: 'aaa',
+      },
+      {
+        disabled: false,
+        id: '2',
+        value: 'qqq',
+      },
+      {
+        disabled: false,
+        id: '3',
+        value: 'www',
+      },
+      {
+        disabled: false,
+        id: '4',
+        value: 'eee',
+      },
+    ],
+  },
+}
+
+export const Disabled: Story = {
+  args: {
+    items: [
+      {
+        disabled: true,
+        id: '1',
+        value: 'aaa',
+      },
+    ],
   },
 }
