@@ -42,16 +42,14 @@ export const Default = () => {
           </Table.HeadCell>
           <Table.HeadCell>
             <div>
-              <span> </span>
+              <span></span>
             </div>
           </Table.HeadCell>
         </Table.Row>
       </Table.Head>
       <Table.Body>
         <Table.Row>
-          <Table.Cell className={s.empty} colSpan={100}>
-            Empty
-          </Table.Cell>
+          <Table.Cell colSpan={100}>Empty</Table.Cell>
         </Table.Row>
       </Table.Body>
     </Table.Root>
@@ -61,9 +59,23 @@ export const WithContent = () => {
   const items = [
     {
       cardsCount: 1,
-      created: '02.05.2024',
+      created: 'BD',
       id: '1',
       name: 'Hello World',
+      updated: '02.05.2024',
+    },
+    {
+      cardsCount: 2,
+      created: 'BD',
+      id: '2',
+      name: 'Hello World 1',
+      updated: '02.05.2024',
+    },
+    {
+      cardsCount: 3,
+      created: 'BD',
+      id: '3',
+      name: 'Hello World 2',
       updated: '02.05.2024',
     },
   ]
@@ -73,27 +85,27 @@ export const WithContent = () => {
       <Table.Head>
         <Table.Row>
           <Table.HeadCell>
-            <div className={s.itemsBlock}>
+            <div>
               <span>Name {/*add sort icon*/}</span>
             </div>
           </Table.HeadCell>
           <Table.HeadCell>
-            <div className={s.itemsBlock}>
+            <div>
               <span>Cards{/*add sort icon*/}</span>
             </div>
           </Table.HeadCell>
           <Table.HeadCell>
-            <div className={s.itemsBlock}>
+            <div>
               <span>Last Updated {/*add sort icon*/}</span>
             </div>
           </Table.HeadCell>
           <Table.HeadCell>
-            <div className={s.itemsBlock}>
+            <div>
               <span>Created By {/*add sort icon*/}</span>
             </div>
           </Table.HeadCell>
           <Table.HeadCell>
-            <div className={s.itemsBlock}>
+            <div>
               <span> {/*add sort icon*/}</span>
             </div>
           </Table.HeadCell>
@@ -129,7 +141,7 @@ export const WithContent = () => {
           ))
         ) : (
           <Table.Row>
-            <h3 className={s.empty}>Empty</h3>
+            <Table.Cell colSpan={100}>Empty</Table.Cell>
           </Table.Row>
         )}
       </Table.Body>

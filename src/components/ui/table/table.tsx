@@ -54,7 +54,7 @@ export type CellProps = ComponentProps<'td'>
 
 export const Cell = ({ className, ...rest }: CellProps) => {
   const classNames = {
-    cell: clsx(className, s.tableCell),
+    cell: clsx(className, s.cell),
   }
 
   return <td className={classNames.cell} {...rest} />
