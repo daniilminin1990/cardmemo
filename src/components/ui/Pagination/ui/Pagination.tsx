@@ -6,7 +6,7 @@ import SvgArrowIosForward from '@/assets/icons/svg/ArrowIosForward'
 import { getPaginationItems } from '@/components/ui/Pagination/lib/paginationLogic'
 import { PageLink } from '@/components/ui/Pagination/ui/PageLink/PageLink'
 
-import s from './Pagination.module.scss'
+import s from './pagination.module.scss'
 
 type Props = {
   initPage: number

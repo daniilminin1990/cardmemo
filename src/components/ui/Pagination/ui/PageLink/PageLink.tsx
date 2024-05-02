@@ -2,7 +2,7 @@ import { HTMLProps } from 'react'
 
 import clsx from 'clsx'
 
-import s from '../Pagination.module.scss'
+import s from '../pagination.module.scss'
 
 type Props = { active?: boolean } & HTMLProps<HTMLAnchorElement>
 
