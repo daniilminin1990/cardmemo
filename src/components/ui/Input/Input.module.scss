@@ -1,0 +1,120 @@
+.boxInput {
+  &[type='search'] {
+    &::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    &::-ms-clear {
+      display: none;
+    }
+  }
+}
+.box{
+  margin-left: 40px;
+  margin-top: 40px;
+}
+
+.boxImg{
+  position: relative;
+  transform: translate(1000%,20%);
+}
+
+.boxInput{
+  outline: 2px solid var(--color-dark-300);
+  border: none;
+  background-color: transparent;
+  padding-left: 12px;
+}
+.boxPadding{
+  padding-left: 35px;
+}
+
+.boxInput:hover{
+  background-color:  rgba(128, 128, 128,20%);
+}
+
+
+.active{
+  outline: 2px solid var(--color-light-100);
+  border: none;
+  background-color: transparent;
+}
+
+.hover{
+  outline: 2px solid var(--color-dark-100);
+  background-color: transparent;
+  padding-left: 12px;
+}
+
+.errorSeach{
+  outline: 2px solid var(--color-danger-300);
+  border: none;
+  background-color: transparent;
+}
+.errorSeach.boxInput{
+  color: var(--color-danger-300);
+}
+.errorTextAndPassword{
+  outline: 2px solid var(--color-danger-300);
+  border: none;
+  background-color: transparent;
+  padding-left: 12px;
+}
+
+.errorText{
+  color: var(--color-danger-300);
+  font-size: 12px;
+}
+
+.boxInput:focus {
+    color: var(--color-light-100);
+    outline: 2px solid var(--color-info-700);
+    border: none;
+}
+
+.search {
+  position: relative;
+  transform: translate(250%,20%);
+}
+.close {
+  position: relative;
+  transform: translate(1000%,20%);
+}
+
+.Eye {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: 10px;
+  top: 50%;
+  transform:translateY(-50%);
+}
+.Search{
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 12px;
+  top: 50%;
+  transform:translateY(-50%);
+}
+
+.Close{
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: 10px;
+  top: 50%;
+  transform:translateY(-50%);
+
+}
+
+.searchClose{
+  width: max-content;
+  position: relative;
+
+}
+
+.label{
+  font-size: 14px;
+}
