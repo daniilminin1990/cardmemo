@@ -23,7 +23,7 @@ const SelectDemo = () => {
       </Select.Trigger>
       <Select.Portal>
         <Select.Content className={clsx(s.selectContent)}>
-          <Select.Viewport className={'SelectViewport'}>
+          <Select.Viewport className={clsx(s.selectViewport)}>
             {selectOptions.map(option => {
               return (
                 <Select.Item key={option.value} value={option.value}>
