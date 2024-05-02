@@ -3,10 +3,10 @@ import { useState } from 'react'
 
 import SvgArrowIosBack from '@/assets/icons/svg/ArrowIosBack'
 import SvgArrowIosForward from '@/assets/icons/svg/ArrowIosForward'
-import { getPaginationItems } from '@/components/ui/pagination/lib/paginationLogic'
-import { PageLink } from '@/components/ui/pagination/ui/pageLink/pageLink'
+import { getPaginationItems } from '@/components/ui/Pagination/lib/paginationLogic'
+import { PageLink } from '@/components/ui/Pagination/ui/PageLink/PageLink'
 
-import s from './pagination.module.scss'
+import s from './Pagination.module.scss'
 
 type Props = {
   initPage: number

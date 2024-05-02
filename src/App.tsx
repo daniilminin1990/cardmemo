@@ -1,5 +1,5 @@
+import { Pagination } from '@/components/ui/Pagination/ui/Pagination'
 import { Button } from '@/components/ui/button'
-import { Pagination } from '@/components/ui/pagination/ui/pagination'
 
 export function App() {
   const lastPage = 10
