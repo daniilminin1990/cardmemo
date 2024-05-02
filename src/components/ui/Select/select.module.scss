@@ -1,32 +1,73 @@
+.selectRoot {
+  color: var(--color-dark-100);
+
+  &.rootDisabled {
+    color: var(--color-dark-300);
+  }
+}
 .selectTrigger {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  padding: 0 15px;
-  font-size: 13px;
-  line-height: 1;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 2px;
+  border: 1px solid var(--color-dark-100);
+  color: var(--color-light-100);
+  background-color: var(--color-dark-700);
+  padding: 6px 12px;
   height: 35px;
   gap: 5px;
-  background-color: white;
-  color: blueviolet;
-  box-shadow: 0 2px 10px black;
-  &:hover {
-    background-color: lightcyan;
+  &[data-state = 'open'] {
+    border-color: var(--color-dark-100);
+    border-radius: 2px 2px 0 0;
+    .selectIcon{
+      transform: rotate(180deg);
+    }
   }
-  &[data-placeholder] {
-    color: blueviolet;
+  &:focus:not([data-disabled]) {
+    border-color: var(--color-info-700);
+    outline: 1px solid var(--color-info-700);
+  }
+  &:hover:not([data-disabled]) {
+    cursor: pointer;
+    background-color: var(--color-dark-500);
+  }
+  &[data-disabled] {
+    cursor: initial;
+    color: var(--color-dark-300);
+    border-color: var(--color-dark-300);
+  }
+}
+
+.selectTriggerDisabled {
+  cursor: auto;
+  border: 1px solid var(--color-dark-300);
+  .selectIconDisabled{
+    fill: var(--color-dark300);
+    color: var(--color-dark-300);
   }
 }
 .selectIcon {
-  color: blueviolet;
+  fill: var(--color-light-100);
+  transition: .2s;
 }
 .selectContent {
   overflow: hidden;
-  background-color: white;
-  border-radius: 6px;
-  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2);
-}
-.selectViewport {
-  padding: 5px;
+  width: var(--radix-select-trigger-width);
+  background-color: var(--color-dark-700);
+  border-radius: 0 0 2px 2px;
+  border: 1px solid var(--color-dark-100);
+  .selectItem{
+    cursor: pointer;
+    padding: 6px 12px;
+    outline: none;
+    transition: 0.2s ease-out;
+
+    &:hover,
+    &:focus,
+    &[data-state='checked']{
+      color: var(--color-accent-300);
+      background-color: var(--color-accent-900);
+    }
+  }
 }
