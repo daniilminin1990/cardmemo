@@ -1,62 +1,22 @@
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
-import defaltDeckImg from '@/assets/img/defaultDeckImg.png'
 
-import s from '@/components/ui/table/decks/decks.module.scss'
+import s from './decks.module.scss'
 
-import { Table } from './table'
+import defaltDeckImg from '../../../../assets/img/defaultDeckImg.png'
+import { Table } from '../table'
 
-const meta = {
-  component: Table,
-  tags: ['autodocs'],
-  title: 'Components/Table',
+type DecksProps = {
+  cardsCount: number
+  created: string
+  id: string
+  name: string
+  updated: string
 }
 
-export default meta
-
-export const Default = () => {
-  return (
-    <Table.Root>
-      <Table.Head>
-        <Table.Row>
-          <Table.HeadCell>
-            <div>
-              <span>Name</span>
-            </div>
-          </Table.HeadCell>
-          <Table.HeadCell>
-            <div>
-              <span>Name</span>
-            </div>
-          </Table.HeadCell>
-          <Table.HeadCell>
-            <div>
-              <span>Name</span>
-            </div>
-          </Table.HeadCell>
-          <Table.HeadCell>
-            <div>
-              <span>Name</span>
-            </div>
-          </Table.HeadCell>
-          <Table.HeadCell>
-            <div>
-              <span></span>
-            </div>
-          </Table.HeadCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell colSpan={100}>Empty</Table.Cell>
-        </Table.Row>
-      </Table.Body>
-    </Table.Root>
-  )
-}
-export const WithContent = () => {
-  const items = [
+export const Decks = () => {
+  const items: DecksProps[] = [
     {
       cardsCount: 1,
       created: 'BD',

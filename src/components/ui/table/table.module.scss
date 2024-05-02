@@ -3,12 +3,14 @@
 
   width: 100%;
   max-width: 756px;
-
+  min-height: 100px;
+  height: 100%;
   font-family: var(--font-family-primary), sans-serif;
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-m);
   text-align: left;
+  border-bottom: 1px solid var(--color-dark-300);
 }
 
 .thead {
@@ -24,4 +26,9 @@
     background-color: var(--color-dark-300);
     transition: 0.3s;
   }
+}
+
+.cell {
+  padding: 6px 24px;
+  text-align: center;
 }

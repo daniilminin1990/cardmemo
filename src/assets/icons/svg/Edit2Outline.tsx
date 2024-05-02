@@ -1,14 +1,6 @@
-import type { SVGProps } from 'react'
-import { Ref, forwardRef, memo } from 'react'
+import { Ref, SVGProps, forwardRef, memo } from 'react'
 const SvgEdit2Outline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
-  <svg
-    fill={'none'}
-    height={24}
-    ref={ref}
-    width={24}
-    xmlns={'http://www.w3.org/2000/svg'}
-    {...props}
-  >
+  <svg fill={'none'} ref={ref} xmlns={'http://www.w3.org/2000/svg'} {...props}>
     <g clipPath={'url(#edit-2-outline_svg__a)'} fill={'currentcolor'}>
       <path
         d={
