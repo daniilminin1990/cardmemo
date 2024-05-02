@@ -1,4 +1,6 @@
 // type Props = {}
+import { useState } from 'react'
+
 import SvgArrowIosBack from '@/assets/icons/svg/ArrowIosBack'
 import SvgArrowIosForward from '@/assets/icons/svg/ArrowIosForward'
 import { getPaginationItems } from '@/components/ui/pagination/lib/paginationLogic'
@@ -7,13 +9,14 @@ import { PageLink } from '@/components/ui/pagination/ui/pageLink/pageLink'
 import s from './pagination.module.scss'
 
 type Props = {
-  currentPage: number
+  initPage: number
   lastPage: number
   maxLength: number
-  setCurrentPage: (page: number) => void
 }
 
-export const Pagination = ({ currentPage, lastPage, maxLength, setCurrentPage }: Props) => {
+export const Pagination = ({ initPage, lastPage, maxLength }: Props) => {
+  // State for Pagination
+  const [currentPage, setCurrentPage] = useState(initPage)
   const pageNumbers = getPaginationItems(currentPage, lastPage, maxLength)
 
   return (
