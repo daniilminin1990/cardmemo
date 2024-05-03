@@ -17,20 +17,20 @@ const meta: Meta<StoryProps> = {
     title: { control: { type: 'text' } },
   },
   component: Modal,
-  render: ({ footer, ...args }: StoryProps) => {
-    const [open, setOpen] = useState(false)
-
-    return (
-      <>
-        <Button onClick={() => setOpen(true)} style={{ borderRadius: '5px', padding: '10px' }}>
-          Open Modal
-        </Button>
-        <Modal {...args} open={open} setOpen={() => setOpen(false)} />
-      </>
-    )
-  },
   tags: ['autodocs'],
   title: 'Components/Modal',
+  // render: ({ footer, ...args }: StoryProps) => {
+  //   const [open, setOpen] = useState(true)
+  //
+  //   return (
+  //     <>
+  //       <Button onClick={() => setOpen(true)} style={{ borderRadius: '5px', padding: '10px' }}>
+  //         Open Modal
+  //       </Button>
+  //       <Modal {...args} open={open} setOpen={() => setOpen(false)} />
+  //     </>
+  //   )
+  // },
 }
 
 export default meta
@@ -38,13 +38,14 @@ export default meta
 const DefaultModal: StoryObj<StoryProps> = {
   args: {
     children: <div>Some content for the modal</div>,
+    // open: true,
     title: 'Default Modal',
   },
 }
 
 export { DefaultModal }
 
-const CustomTitleModal: StoryFn<StoryProps> = (args: StoryProps) => {
+const ToggleModal: StoryFn<StoryProps> = (args: StoryProps) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -65,4 +66,4 @@ const CustomTitleModal: StoryFn<StoryProps> = (args: StoryProps) => {
   )
 }
 
-export { CustomTitleModal }
+export { ToggleModal }
