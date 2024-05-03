@@ -24,7 +24,7 @@
   color: var(--color-light-100);
   font-weight: var(--font-weight-regular);
 }
-
+.link1,
 .link2,
 .link2:visited {
   margin: 0;
