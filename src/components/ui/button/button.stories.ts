@@ -6,7 +6,7 @@ const meta = {
   argTypes: {
     variant: {
       control: { type: 'radio' },
-      options: ['primary', 'secondary'],
+      options: ['primary', 'secondary', 'default'],
     },
   },
   component: Button,
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    children: 'Primary Button',
+    children: 'Primary',
     disabled: false,
     variant: 'primary',
   },
@@ -27,9 +27,17 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
-    children: 'Secondary Button',
+    children: 'Secondary',
     disabled: false,
     variant: 'secondary',
+  },
+}
+
+export const Default: Story = {
+  args: {
+    children: 'Default',
+    disabled: false,
+    variant: 'default',
   },
 }
 
