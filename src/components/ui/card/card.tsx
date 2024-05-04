@@ -1,6 +1,13 @@
-import { ComponentPropsWithRef, ElementType, ReactNode, forwardRef } from 'react'
+import {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  ElementType,
+  ForwardedRef,
+  ReactNode,
+  forwardRef,
+} from 'react'
 
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import s from './card.module.scss'
 
@@ -8,13 +15,17 @@ export type CardProps<T extends ElementType = 'div'> = {
   as?: T
   children: ReactNode
   className?: string
-} & ComponentPropsWithRef<'div'>
+} & ComponentPropsWithoutRef<T>
 
-const CardWithoutRef = <T extends ElementType = 'div'>(props: CardProps<T>, ref: any) => {
-  const { as: Component = 'div', ...rest } = props
-  const classNames = clsx(s.root, props.className)
+const CardPolymorph = <T extends ElementType = 'div'>(props: CardProps<T>, ref: any) => {
+  const { as: Component = 'div', className, ...rest } = props
 
-  return <Component className={classNames} {...rest} ref={ref} />
+  return <Component className={clsx(s.root, className)} {...rest} ref={ref} />
 }
 
-export const Card = forwardRef(CardWithoutRef)
+export const Card = forwardRef(CardPolymorph) as <T extends ElementType = 'div'>(
+  props: {
+    ref?: ForwardedRef<ElementRef<T>>
+  } & CardProps<T> &
+    Omit<ComponentPropsWithoutRef<T>, keyof CardProps<T>>
+) => ReturnType<typeof CardPolymorph>
