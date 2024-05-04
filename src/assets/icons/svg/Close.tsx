@@ -3,9 +3,7 @@ import { Ref, forwardRef, memo } from 'react'
 const SvgClose = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
     fill={'none'}
-    height={24}
     ref={ref}
-    width={24}
     xmlns={'http://www.w3.org/2000/svg'}
     {...props}
   >
