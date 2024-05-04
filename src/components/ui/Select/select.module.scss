@@ -1,0 +1,73 @@
+.selectRoot {
+  color: var(--color-dark-100);
+
+  &.rootDisabled {
+    color: var(--color-dark-300);
+  }
+}
+.selectTrigger {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 2px;
+  border: 1px solid var(--color-dark-100);
+  color: var(--color-light-100);
+  background-color: var(--color-dark-700);
+  padding: 6px 12px;
+  height: 35px;
+  gap: 5px;
+  &[data-state = 'open'] {
+    border-color: var(--color-dark-100);
+    border-radius: 2px 2px 0 0;
+    .selectIcon{
+      transform: rotate(180deg);
+    }
+  }
+  &:focus:not([data-disabled]) {
+    border-color: var(--color-info-700);
+    outline: 1px solid var(--color-info-700);
+  }
+  &:hover:not([data-disabled]) {
+    cursor: pointer;
+    background-color: var(--color-dark-500);
+  }
+  &[data-disabled] {
+    cursor: initial;
+    color: var(--color-dark-300);
+    border-color: var(--color-dark-300);
+  }
+}
+
+.selectTriggerDisabled {
+  cursor: auto;
+  border: 1px solid var(--color-dark-300);
+  .selectIconDisabled{
+    fill: var(--color-dark300);
+    color: var(--color-dark-300);
+  }
+}
+.selectIcon {
+  fill: var(--color-light-100);
+  transition: .2s;
+}
+.selectContent {
+  overflow: hidden;
+  width: var(--radix-select-trigger-width);
+  background-color: var(--color-dark-700);
+  border-radius: 0 0 2px 2px;
+  border: 1px solid var(--color-dark-100);
+  .selectItem{
+    cursor: pointer;
+    padding: 6px 12px;
+    outline: none;
+    transition: 0.2s ease-out;
+
+    &:hover,
+    &:focus,
+    &[data-state='checked']{
+      color: var(--color-accent-300);
+      background-color: var(--color-accent-900);
+    }
+  }
+}
