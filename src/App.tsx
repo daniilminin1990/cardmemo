@@ -5,7 +5,6 @@ export function App() {
   return (
     <div>
       <Button>123 </Button>
-      <TabSwitcherDemo />
     </div>
   )
 }
