@@ -1,0 +1,104 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/violet.css';
+
+/* reset */
+button,
+fieldset,
+input {
+  all: unset;
+}
+
+.DialogOverlay {
+  background-color: var(--black-a9);
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.DialogContent {
+  border-radius: 6px;
+  box-shadow:
+    hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 532px;
+  max-height: 85vh;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card {
+  padding: 0 0 30px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid var(--color-dark-500);
+}
+
+.DialogContent:focus {
+  outline: none;
+}
+
+.title {
+  margin: 0;
+  font-weight: 500;
+  color: var(--color-light-100);
+  font-size: 18px;
+}
+
+.content {
+  padding: 24px;
+}
+
+.closeBtn {
+  font-family: inherit;
+  height: 25px;
+  width: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-light-100);
+  background-color: transparent;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+
+  svg {
+    width: 25px;
+    height: 25px;
+  }
+}
+.closeBtn:hover {
+  opacity: 0.7;
+}
+.closeBtn:focus {
+  opacity: 0.7;
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

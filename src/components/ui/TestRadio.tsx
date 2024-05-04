@@ -1,14 +1,10 @@
-import  {ReactNode} from "react";
+import { ReactNode } from 'react'
 type TestRadioProps = {
-    children: ReactNode
+  children: ReactNode
 }
 
-const TestRadio = (props:TestRadioProps ) => {
-    return (
-        <div>
-            {props.children}
-        </div>
-    );
-};
+const TestRadio = (props: TestRadioProps) => {
+  return <div>{props.children}</div>
+}
 
-export default TestRadio;
+export default TestRadio
