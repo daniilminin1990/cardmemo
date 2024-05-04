@@ -2,7 +2,7 @@ import { ComponentProps, ElementType } from 'react'
 
 import clsx from 'clsx'
 
-import s from './Typography.module.css'
+import s from './Typography.module.scss'
 
 type TypographyVariant =
   | 'body1'

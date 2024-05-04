@@ -5,7 +5,6 @@ import clsx from 'clsx'
 
 import s from './Input.module.scss'
 
-import CloseEye from '../../../assets/icons/eye-off.svg'
 import Close from '../../../assets/icons/svg/Close'
 import Eye from '../../../assets/icons/svg/Eye'
 import Search from '../../../assets/icons/svg/Search'
@@ -22,15 +21,8 @@ const Input = (props: inputProps) => {
   const { disabled = 'default', error, label, type } = props
 
   const [tex, setText] = useState('')
-  const [isFocused, setIsFocused] = useState(false)
   const [isShow, setIsShow] = useState(false)
-  const handleFocus = () => {
-    setIsFocused(true)
-  }
 
-  const handleBlur = () => {
-    setIsFocused(false)
-  }
   const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.currentTarget.value)
   }
@@ -55,7 +47,7 @@ const Input = (props: inputProps) => {
 
   return (
     <div className={s.box}>
-      <div className={s.label}>{label}</div>
+      <div className={s.label}>{type !== 'search' && label}</div>
       <div className={s.searchClose}>
         {type === 'password' && (
           <EyeIcon className={s.Eye} onClick={isShowChangeHandler} viewBox={'0 0 24 24'} />
@@ -69,9 +61,7 @@ const Input = (props: inputProps) => {
         <input
           className={classNameForInput}
           disabled={!!disabled}
-          onBlur={handleBlur}
           onChange={onChangeInputHandler}
-          onFocus={handleFocus}
           placeholder={placeHolder}
           type={type === 'password' ? (isShow ? 'text' : 'password') : type}
           value={tex}

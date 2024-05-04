@@ -1,3 +1,4 @@
+import Typography from '@/components/ui/Typography/Typography'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 type DropDownItemProps = {
@@ -9,14 +10,14 @@ const DropDownItem = (props: DropDownItemProps) => {
   const { icon, text } = props
 
   return (
-    <>
-      <DropdownMenu.Separator className={'ferstSeparator'} />
-      <DropdownMenu.Separator className={'DropdownMenuSeparator'} />
+    <div className={'DropdownMenuItemBox'}>
       <DropdownMenu.Item className={'DropdownMenuItem'}>
         <img alt={''} src={icon} />
-        <div>{text}</div>
+        <Typography className={'dropdownText'} variant={'caption'}>
+          {text}
+        </Typography>
       </DropdownMenu.Item>
-    </>
+    </div>
   )
 }
 

@@ -1,68 +1,22 @@
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Input from '@/components/ui/Input/Input'
-import Typography from '@/components/ui/Typography/Typography'
 
-import icon from '../src/assets/icons/person.svg'
-
+import headerIcon from '../src/assets/icons/WhiteSVG/Ellipse 1.svg'
+import menuIcon from '../src/assets/icons/WhiteSVG/Group 1399.svg'
+import icon1 from '../src/assets/icons/WhiteSVG/Layer 2.svg'
+import icon from '../src/assets/icons/WhiteSVG/person-outline.svg'
 export function App() {
   return (
-    <div>
-      <Typography as={'h1'} variant={'caption'}>
-        Typography-caption
-      </Typography>
-      <Typography as={'h1'} variant={'link2'}>
-        Typography-link2
-      </Typography>
-      <Typography as={'h2'} variant={'error'}>
-        Typography-error
-      </Typography>
-      <Typography as={'p'} variant={'link1'}>
-        Typography-link1
-      </Typography>
-      <Typography as={'p'} variant={'subtitle1'}>
-        Typography-subtitle1
-      </Typography>
-      <div style={{ marginTop: '80px' }}>Убрать "Eye" при нажитии на пустое место</div>
-      <Input disabled={false} label={'Pochta'} placeholder={'Input'} type={'search'} />
-      <Input disabled={false} label={'HZ'} placeholder={'Input'} type={'text'} />
-      <Input disabled={false} label={'Mail'} placeholder={'Input'} type={'password'} />
-      <Input
-        disabled={false}
-        error={'Error!'}
-        label={'Input'}
-        placeholder={'Input'}
-        type={'search'}
-      />
-      <Input disabled={false} error={'Error!'} label={'123'} placeholder={'Input'} type={'text'} />
-      <Input
-        disabled={false}
-        error={'Error!'}
-        label={'Errooorrrr'}
-        placeholder={'Input'}
-        type={'password'}
-      />
-      <div style={{ display: 'flex' }}>
-        <div>Не понятно как убрать сепоратор сверху когда type={'menu'} в Dropdown</div>
-        <div style={{ marginRight: '20px', marginTop: '50px' }}>
-          {/* ........................Не понятно как убрать сепоратор сверху................................*/}
+    <>
+      <Input disabled={false} placeholder={'Input'} type={'text'} />
 
-          <DropdownMenuDemo type={'head'}>
-            <DropDownItem icon={icon} text={'123'} />
-            <DropDownItem icon={icon} text={'222'} />
-            <DropDownItem icon={icon} text={'33'} />
-            <DropDownItem icon={icon} text={'444'} />
-          </DropdownMenuDemo>
-        </div>
-        <div style={{ marginBottom: '200px', marginTop: '50px' }}>
-          <DropdownMenuDemo type={'menu'}>
-            <DropDownItem icon={icon} text={'123'} />
-            <DropDownItem icon={icon} text={'222'} />
-            <DropDownItem icon={icon} text={'33'} />
-            <DropDownItem icon={icon} text={'444'} />
-          </DropdownMenuDemo>
-        </div>
+      <div>
+        <DropdownMenuDemo icon={menuIcon} type={'menu'}>
+          <DropDownItem icon={icon} text={'My Profile'} />
+          <DropDownItem icon={icon1} text={'My Profile'} />
+        </DropdownMenuDemo>
       </div>
-    </div>
+    </>
   )
 }

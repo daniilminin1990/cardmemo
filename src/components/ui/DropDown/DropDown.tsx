@@ -1,39 +1,57 @@
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 
+import Typography from '@/components/ui/Typography/Typography'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import './DropDown.scss'
 
-import icon from '../../../assets/icons/person.svg'
-import icon2 from '../../../assets/icons/search.svg'
-
 type DropdownMenuDemoProps = {
   children: ReactNode
+  icon: string
   type: 'head' | 'menu'
 }
 
 const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
-  const { children, type } = props
+  const { children, icon, type } = props
 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button aria-label={'Customise options'} className={'IconButton'}>
-          {type === 'head' ? <img alt={''} src={icon} /> : <img alt={''} src={icon2} />}
+          <img alt={''} src={icon} />
         </button>
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content className={'DropdownMenuContent'} sideOffset={5}>
+        <DropdownMenu.Content
+          className={type === 'menu' ? 'DropdownMenuContentForMenu' : 'DropdownMenuContent'}
+          sideOffset={5}
+        >
           {type === 'head' && (
-            <DropdownMenu.Item className={'DropdownMenuItem'}>
+            <div className={'header'}>
               <img alt={''} src={icon} />
-              <div>Ivan</div>
-              <div>Email</div>
-            </DropdownMenu.Item>
+              <div>
+                <Typography className={'dropdownTextHeader'} variant={'subtitle1'}>
+                  Ivan
+                </Typography>
+                <Typography className={'dropdownTextHeader'} variant={'caption'}>
+                  j&johnson@gmail.com
+                </Typography>
+              </div>
+            </div>
           )}
 
-          {children}
+          {React.Children.toArray(children).map((child, index) => (
+            <React.Fragment key={index}>
+              {type === 'menu' && index !== 0 ? (
+                <DropdownMenu.Separator className={'DropdownMenuSeparator'} />
+              ) : (
+                ''
+              )}
+              {type === 'head' && <DropdownMenu.Separator className={'DropdownMenuSeparator'} />}
+              {child}
+            </React.Fragment>
+          ))}
 
           <DropdownMenu.Arrow className={'DropdownMenuArrow'} />
         </DropdownMenu.Content>
