@@ -1,5 +1,5 @@
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
-import { selectOptionsType } from '@/components/ui/SelectDemo'
+import { selectOptionsType } from '@/components/ui/Pagination/PaginationWithSelect'
 import * as Select from '@radix-ui/react-select'
 import clsx from 'clsx'
 
