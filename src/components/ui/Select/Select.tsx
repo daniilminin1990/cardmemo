@@ -13,8 +13,8 @@ type Props = {
 const SelectUI = ({ disabled, placeholder, selectOptions }: Props) => {
   const selectClasses = {
     content: clsx(s.selectContent),
-    icon: clsx(s.selectIcon, disabled && s.selectIconDisabled),
-    trigger: clsx(s.selectTrigger),
+    icon: clsx(s.selectIcon),
+    trigger: clsx(s.selectTrigger, disabled && s.selectTriggerDisabled),
     viewport: clsx(s.selectViewport),
   }
 
