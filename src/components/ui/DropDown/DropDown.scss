@@ -2,48 +2,50 @@
 @import '@radix-ui/colors/mauve.css';
 @import '@radix-ui/colors/violet.css';
 
-
 button {
   all: unset;
 }
 
-.DropdownMenuContent,
-{
+.DropdownMenuContent {
   min-width: 217px;
   background-color: var(--color-dark-700);
   border-radius: 6px;
   padding: 5px;
-  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+  box-shadow:
+    0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 
-.DropdownMenuContentForMenu{
+.DropdownMenuContentForMenu {
   man-width: 97px;
   background-color: var(--color-dark-700);
   border-radius: 6px;
   padding: 12px;
-  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+  box-shadow:
+    0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 
-.DropdownMenuContent[data-side='top']{
+.DropdownMenuContent[data-side='top'] {
   animation-name: slideDownAndFade;
 }
-.DropdownMenuContent[data-side='right']{
+.DropdownMenuContent[data-side='right'] {
   animation-name: slideLeftAndFade;
 }
-.DropdownMenuContent[data-side='bottom']{
+.DropdownMenuContent[data-side='bottom'] {
   animation-name: slideUpAndFade;
 }
-.DropdownMenuContent[data-side='left']{
+.DropdownMenuContent[data-side='left'] {
   animation-name: slideRightAndFade;
 }
 
-.DropdownMenuItem{
+.DropdownMenuItem {
   font-size: 13px;
   line-height: 1;
   border-radius: 3px;
@@ -55,20 +57,18 @@ button {
   outline: none;
 }
 
-.icon{
- fill: #0a6638;
+.icon {
+  fill: #0a6638;
 }
 
 .dropdownText:hover,
-.icon:hover{
+.icon:hover {
   color: var(--color-accent-500);
 }
 
-
-
 .DropdownMenuSeparator {
   height: 1px;
-  background-color: var(  --color-dark-500);
+  background-color: var(--color-dark-500);
   margin: 5px;
 }
 
@@ -85,7 +85,6 @@ button {
   fill: var(--color-dark-700);
 }
 
-
 .IconButton {
   font-family: inherit;
   border-radius: 100%;
@@ -99,8 +98,8 @@ button {
   box-shadow: 0 2px 10px var(--black-a7);
 }
 
-.IconButton:focus{
-  color: var(  --color-accent-500);
+.IconButton:focus {
+  color: var(--color-accent-500);
   background-color: black;
 }
 
@@ -108,14 +107,14 @@ button {
   display: flex;
   margin: 6px 0 12px 0;
 }
-.dropdownTextHeader{
+.dropdownTextHeader {
   padding-left: 6px;
 }
-.dropdownText{
+.dropdownText {
   padding-left: 6px;
 }
-.DropdownMenuItemBox{
-  margin: 6px 0 6px 0 ;
+.DropdownMenuItemBox {
+  margin: 6px 0 6px 0;
 }
 
 @keyframes slideUpAndFade {

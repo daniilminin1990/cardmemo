@@ -10,76 +10,76 @@
     }
   }
 }
-.box{
-  margin: 24px;
+.box {
+  margin-left: 40px;
+  margin-top: 40px;
 }
 
-.boxImg{
+.boxImg {
   position: relative;
-  transform: translate(1000%,20%);
+  transform: translate(1000%, 20%);
 }
 
-.boxInput{
+.boxInput {
   outline: 2px solid var(--color-dark-300);
   border: none;
   background-color: transparent;
   padding-left: 12px;
 }
-.boxPadding{
+.boxPadding {
   max-width: 195px;
   padding-left: 35px;
 }
 
-.boxInput:hover{
-  background-color:  rgba(128, 128, 128,20%);
+.boxInput:hover {
+  background-color: rgba(128, 128, 128, 20%);
 }
 
-
-.active{
+.active {
   outline: 2px solid var(--color-light-100);
   border: none;
   background-color: transparent;
 }
 
-.hover{
+.hover {
   outline: 2px solid var(--color-dark-100);
   background-color: transparent;
   padding-left: 12px;
 }
 
-.errorSeach{
+.errorSeach {
   outline: 2px solid var(--color-danger-300);
   border: none;
   background-color: transparent;
 }
-.errorSeach.boxInput{
+.errorSeach.boxInput {
   color: var(--color-danger-300);
 }
-.errorTextAndPassword{
+.errorTextAndPassword {
   outline: 2px solid var(--color-danger-300);
   border: none;
   background-color: transparent;
   padding-left: 12px;
 }
 
-.errorText{
+.errorText {
   color: var(--color-danger-300);
   font-size: 12px;
 }
 
 .boxInput:focus {
-    color: var(--color-light-100);
-    outline: 2px solid var(--color-info-700);
-    border: none;
+  color: var(--color-light-100);
+  outline: 2px solid var(--color-info-700);
+  border: none;
 }
 
 .search {
   position: relative;
-  transform: translate(250%,20%);
+  transform: translate(250%, 20%);
 }
 .close {
   position: relative;
-  transform: translate(1000%,20%);
+  transform: translate(1000%, 20%);
 }
 
 .Eye {
@@ -88,33 +88,31 @@
   height: 16px;
   right: 10px;
   top: 50%;
-  transform:translateY(-50%);
+  transform: translateY(-50%);
 }
-.Search{
+.Search {
   position: absolute;
   width: 16px;
   height: 16px;
   left: 12px;
   top: 50%;
-  transform:translateY(-50%);
+  transform: translateY(-50%);
 }
 
-.Close{
+.Close {
   position: absolute;
   width: 16px;
   height: 16px;
   right: 10px;
   top: 50%;
-  transform:translateY(-50%);
-
+  transform: translateY(-50%);
 }
 
-.searchClose{
+.searchClose {
   width: max-content;
   position: relative;
-
 }
 
-.label{
+.label {
   font-size: 14px;
 }

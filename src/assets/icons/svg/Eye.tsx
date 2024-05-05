@@ -3,7 +3,10 @@ import { Ref, forwardRef, memo } from 'react'
 const SvgEye = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
     fill={'none'}
+    height={'1em'}
     ref={ref}
+    viewBox={'0 0 24 24'}
+    width={'1em'}
     xmlns={'http://www.w3.org/2000/svg'}
     {...props}
   >

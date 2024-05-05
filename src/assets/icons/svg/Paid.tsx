@@ -3,9 +3,10 @@ import { Ref, forwardRef, memo } from 'react'
 const SvgPaid = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
     fill={'none'}
-    height={24}
+    height={'1em'}
     ref={ref}
-    width={24}
+    viewBox={'0 0 24 24'}
+    width={'1em'}
     xmlns={'http://www.w3.org/2000/svg'}
     {...props}
   >
@@ -15,7 +16,7 @@ const SvgPaid = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
       }
       fill={'#397DF6'}
     />
-    <g clipPath={'url(#Paid_svg__a)'} fill={'currentcolor'}>
+    <g clipPath={'url(#Paid_svg__a)'} fill={'#fff'}>
       <path
         d={
           'M15.08 8.14a.667.667 0 0 0-.94.113l-4.667 6-2.286-2.786a.668.668 0 1 0-1.04.833l2.78 3.453a.67.67 0 0 0 .52.247.67.67 0 0 0 .553-.253l5.22-6.667a.667.667 0 0 0-.14-.94M18.413 8.14a.666.666 0 0 0-.94.113l-4.666 6-.407-.5-.84 1.08.733.914a.67.67 0 0 0 1.04-.007l5.22-6.667a.666.666 0 0 0-.14-.933'
@@ -25,7 +26,7 @@ const SvgPaid = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
     </g>
     <defs>
       <clipPath id={'Paid_svg__a'}>
-        <path d={'M4 4h16v16H4z'} fill={'currentcolor'} />
+        <path d={'M4 4h16v16H4z'} fill={'#fff'} />
       </clipPath>
     </defs>
   </svg>
