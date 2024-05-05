@@ -38,8 +38,11 @@ export const Body = forwardRef<HTMLTableSectionElement, BodyProps>(
 )
 export type RowProps = ComponentProps<'tr'>
 
-export const Row = forwardRef<HTMLTableRowElement, RowProps>(({ ...props }: RowProps, ref) => {
-  return <tr {...props} ref={ref} />
+export const Row = forwardRef<HTMLTableRowElement, RowProps>(({className, ...props }: RowProps, ref) => {
+    const classNames = {
+        row: clsx(className, s.row),
+    }
+  return <tr className={classNames.row} {...props} ref={ref} />
 })
 export type HeadCellProps = ComponentProps<'th'>
 
