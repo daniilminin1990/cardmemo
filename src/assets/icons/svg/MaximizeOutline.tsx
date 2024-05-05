@@ -3,9 +3,10 @@ import { Ref, forwardRef, memo } from 'react'
 const SvgMaximizeOutline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
     fill={'none'}
-    height={24}
+    height={'1em'}
     ref={ref}
-    width={24}
+    viewBox={'0 0 24 24'}
+    width={'1em'}
     xmlns={'http://www.w3.org/2000/svg'}
     {...props}
   >
@@ -21,7 +22,7 @@ const SvgMaximizeOutline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGEleme
     </g>
     <defs>
       <clipPath id={'maximize-outline_svg__a'}>
-        <path d={'M0 0h24v24H0z'} fill={'currentcolor'} />
+        <path d={'M0 0h24v24H0z'} fill={'#fff'} />
       </clipPath>
     </defs>
   </svg>
