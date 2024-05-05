@@ -4,10 +4,10 @@
   align-items: center;
   margin-right: 24px;
 }
-
 .pageLinkWrapper:not(:last-child){
   margin-right: 12px;
 }
+
 
 .pageLink{
   width: 24px;
@@ -21,6 +21,7 @@
   text-decoration: none;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
   cursor: pointer;
+  color: var(--color-light-100)
 }
 
 .icon {

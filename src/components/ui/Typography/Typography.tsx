@@ -1,4 +1,4 @@
-import { ComponentProps, ElementType } from 'react'
+import { ComponentProps, ElementType, ReactNode } from 'react'
 
 import clsx from 'clsx'
 
@@ -21,7 +21,7 @@ type TypographyVariant =
 
 type TextOwnProps<E extends ElementType = ElementType> = {
   as?: E
-  children?: string
+  children?: ReactNode | string
   className?: string
   variant?: TypographyVariant
 }

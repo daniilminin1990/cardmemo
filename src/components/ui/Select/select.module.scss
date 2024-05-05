@@ -18,7 +18,7 @@
   color: var(--color-light-100);
   background-color: var(--color-dark-700);
   padding: 6px 12px;
-  height: 35px;
+  //height: 35px;
   gap: 5px;
   &[data-state = 'open'] {
     border-color: var(--color-dark-100);
@@ -45,8 +45,8 @@
 .selectTriggerDisabled {
   cursor: auto;
   border: 1px solid var(--color-dark-300);
-  .selectIconDisabled{
-    fill: var(--color-dark300);
+  .selectIcon{
+    fill: var(--color-dark-300);
     color: var(--color-dark-300);
   }
 }

@@ -38,7 +38,7 @@ export const Pagination = ({ initPage, lastPage, maxLength }: Props) => {
             key={index}
             onClick={() => setCurrentPage(pageNum)}
           >
-            {!isNaN(pageNum) ? pageNum : '...'}
+            {!isNaN(pageNum) ? pageNum.toString() : '...'}
           </PageLink>
         )
       })}
