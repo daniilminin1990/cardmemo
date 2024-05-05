@@ -87,6 +87,7 @@ export const Decks = () => {
       userId: '1',
     },
   ]
+  
   const [searchParams, setSearchParams] = useSearchParams()
   const activeColumn = searchParams.get('sort') || 'Last Updated'
   const sortOrder = searchParams.get('order') || 'asc'

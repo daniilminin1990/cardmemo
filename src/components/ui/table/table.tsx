@@ -44,6 +44,7 @@ export const Row = forwardRef<HTMLTableRowElement, RowProps>(({className, ...pro
     }
   return <tr className={classNames.row} {...props} ref={ref} />
 })
+
 export type HeadCellProps = ComponentProps<'th'>
 
 export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(

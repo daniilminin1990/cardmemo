@@ -16,6 +16,7 @@ export const Default = () => {
   const headersName = ['Name', 'Cards', 'Last Updated', 'Created By']
 
   return (
+
     <MemoryRouter initialEntries={['/']}>
       <Table.Root>
         <Table.Head>
