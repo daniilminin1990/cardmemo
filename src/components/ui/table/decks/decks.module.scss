@@ -13,6 +13,7 @@
 .iconBtns {
   display: flex;
   flex-flow: row nowrap;
+  justify-content: center;
   gap: 10px;
 
   button {
@@ -29,4 +30,12 @@
   height: 16px;
   cursor: pointer;
   color: var(--color-light-100);
+}
+.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.arrow {
+  width: 24px;
+  height: 24px;
 }

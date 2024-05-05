@@ -21,14 +21,18 @@
   padding: 6px 24px;
   white-space: nowrap;
 
-  &:nth-child(-n + 4):hover {
+  &:not(:last-child):hover {
     cursor: pointer;
     background-color: var(--color-dark-300);
     transition: 0.3s;
+  }
+  & span {
+    display: flex;
+    align-items: center;
   }
 }
 
 .cell {
   padding: 6px 24px;
-  text-align: center;
+  text-align: left;
 }

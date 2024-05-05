@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react'
+import { ComponentProps, forwardRef } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -6,60 +6,64 @@ import s from './table.module.scss'
 
 export type RootProps = ComponentProps<'table'>
 
-export const Root = ({ className, ...rest }: RootProps) => {
+export const Root = forwardRef<HTMLTableElement, RootProps>(({ className, ...rest }, ref) => {
   const classNames = {
     table: clsx(className, s.table),
   }
 
-  return <table className={classNames.table} {...rest} />
-}
+  return <table className={classNames.table} ref={ref} {...rest} />
+})
 
 export type HeadProps = ComponentProps<'thead'>
 
-export const Head = ({ className, ...props }: HeadProps) => {
-  const classNames = {
-    thead: clsx(className, s.thead),
+export const Head = forwardRef<HTMLTableSectionElement, HeadProps>(
+  ({ className, ...props }: HeadProps, ref) => {
+    const classNames = {
+      thead: clsx(className, s.thead),
+    }
+
+    return <thead className={classNames.thead} {...props} ref={ref} />
   }
-
-  return <thead className={classNames.thead} {...props} />
-}
-
+)
 export type BodyProps = ComponentProps<'tbody'>
 
-export const Body = ({ className, ...props }: BodyProps) => {
-  const classNames = {
-    tbody: clsx(className, s.tbody),
+export const Body = forwardRef<HTMLTableSectionElement, BodyProps>(
+  ({ className, ...props }: BodyProps, ref) => {
+    const classNames = {
+      tbody: clsx(className, s.tbody),
+    }
+
+    return <tbody className={classNames.tbody} {...props} ref={ref} />
   }
-
-  return <tbody className={classNames.tbody} {...props} />
-}
-
+)
 export type RowProps = ComponentProps<'tr'>
 
-export const Row = ({ ...props }: RowProps) => {
-  return <tr {...props} />
-}
-
+export const Row = forwardRef<HTMLTableRowElement, RowProps>(({ ...props }: RowProps, ref) => {
+  return <tr {...props} ref={ref} />
+})
 export type HeadCellProps = ComponentProps<'th'>
 
-export const HeadCell = ({ className, ...rest }: HeadCellProps) => {
-  const classNames = {
-    headCell: clsx(className, s.headCell),
-  }
+export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
+  ({ className, ...rest }: HeadCellProps, ref) => {
+    const classNames = {
+      headCell: clsx(className, s.headCell),
+    }
 
-  return <th className={classNames.headCell} {...rest} />
-}
+    return <th className={classNames.headCell} {...rest} ref={ref} />
+  }
+)
 
 export type CellProps = ComponentProps<'td'>
 
-export const Cell = ({ className, ...rest }: CellProps) => {
-  const classNames = {
-    cell: clsx(className, s.cell),
+export const Cell = forwardRef<HTMLTableCellElement, CellProps>(
+  ({ className, ...rest }: CellProps, ref) => {
+    const classNames = {
+      cell: clsx(className, s.cell),
+    }
+
+    return <td className={classNames.cell} {...rest} ref={ref} />
   }
-
-  return <td className={classNames.cell} {...rest} />
-}
-
+)
 export const Table = {
   Body,
   Cell,
