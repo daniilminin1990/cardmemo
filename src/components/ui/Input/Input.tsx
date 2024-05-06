@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react'
+import { forwardRef, useState } from 'react'
+import { ChangeHandler, FieldError } from 'react-hook-form'
 
 import EyeOff from '@/assets/icons/svg/EyeOff'
 import clsx from 'clsx'
@@ -11,21 +12,18 @@ import Search from '../../../assets/icons/svg/Search'
 
 type inputProps = {
   disabled: boolean
-  error?: string
+  error?: FieldError | undefined
   label?: string
+  onBlur: ChangeHandler
+  onChange: ChangeHandler
   placeholder: string
   type: 'password' | 'search' | 'text'
 }
 
-const Input = (props: inputProps) => {
-  const { disabled = false, error, label, type } = props
+const Input = forwardRef<HTMLInputElement, inputProps>((props: inputProps, ref) => {
+  const { disabled = false, error, label, type, ...restProps } = props
 
-  const [tex, setText] = useState('')
   const [isShow, setIsShow] = useState(false)
-
-  const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setText(e.currentTarget.value)
-  }
 
   const isShowChangeHandler = () => {
     setIsShow(!isShow)
@@ -36,12 +34,12 @@ const Input = (props: inputProps) => {
     type === 'search' && !!error
       ? clsx(s.boxInput, s.boxPadding, s.errorSeach)
       : type === 'text' && !!error
-        ? clsx(s.boxInput, s.boxPadding, s.errorTextAndPassword)
-        : type === 'password' && !!error
-          ? clsx(s.boxInput, s.boxPadding, s.errorTextAndPassword)
-          : type === 'search'
-            ? clsx(s.boxInput, s.boxPadding)
-            : s.boxInput
+      ? clsx(s.boxInput, s.boxPadding, s.errorTextAndPassword)
+      : type === 'password' && !!error
+      ? clsx(s.boxInput, s.boxPadding, s.errorTextAndPassword)
+      : type === 'search'
+      ? clsx(s.boxInput, s.boxPadding)
+      : s.boxInput
 
   const placeHolder = type === 'search' ? 'Input search' : 'Input'
 
@@ -54,22 +52,21 @@ const Input = (props: inputProps) => {
         )}
         {type === 'search' && <Search className={s.Search} viewBox={'0 0 24 24'} />}
 
-        <div onClick={() => setText('')}>
-          {type === 'search' && <Close className={s.Close} viewBox={'0 0 24 24'} />}
-        </div>
+        <div>{type === 'search' && <Close className={s.Close} viewBox={'0 0 24 24'} />}</div>
 
         <input
+          {...restProps}
           className={classNameForInput}
           disabled={disabled}
-          onChange={onChangeInputHandler}
+          onChange={restProps.onChange}
           placeholder={placeHolder}
+          ref={ref}
           type={type === 'password' ? (isShow ? 'text' : 'password') : type}
-          value={tex}
         />
       </div>
-      {error && <div className={s.errorText}>{error}</div>}
+      {error && <div className={s.errorText}>{error.message}</div>}
     </div>
   )
-}
+})
 
 export default Input
