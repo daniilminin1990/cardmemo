@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { ElementRef, useRef, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { StoryProps } from '@storybook/blocks'
@@ -33,7 +33,7 @@ export const WithContent: Story = {
 }
 
 const WithRef: StoryFn<StoryProps> = (args: StoryProps) => {
-  const cardRef = useRef<HTMLElement | null>(null)
+  const cardRef = useRef<ElementRef<'div'> | null>(null)
   const [width, setWidth] = useState<null | number>(null)
 
   const showRef = () => {

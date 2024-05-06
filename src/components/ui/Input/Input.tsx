@@ -1,5 +1,4 @@
-import { forwardRef, useState } from 'react'
-import { ChangeHandler, FieldError } from 'react-hook-form'
+import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import EyeOff from '@/assets/icons/svg/EyeOff'
 import clsx from 'clsx'
@@ -10,18 +9,19 @@ import Close from '../../../assets/icons/svg/Close'
 import Eye from '../../../assets/icons/svg/Eye'
 import Search from '../../../assets/icons/svg/Search'
 
-type inputProps = {
-  disabled: boolean
-  error?: FieldError | undefined
+export type inputProps = {
+  error?: string | undefined
   label?: string
-  onBlur: ChangeHandler
-  onChange: ChangeHandler
-  placeholder: string
-  type: 'password' | 'search' | 'text'
-}
+  // disabled: boolean
+  // onBlur: ChangeHandler
+  // onChange: ChangeHandler
+  // placeholder: string
+  // type: ('password' | 'search' | 'text'
+  type: ('password' & ComponentPropsWithoutRef<'input'>['type']) | 'search' | 'text'
+} & ComponentPropsWithoutRef<'input'>
 
 const Input = forwardRef<HTMLInputElement, inputProps>((props: inputProps, ref) => {
-  const { disabled = false, error, label, type, ...restProps } = props
+  const { error, label, type, ...restProps } = props
 
   const [isShow, setIsShow] = useState(false)
 
@@ -57,14 +57,13 @@ const Input = forwardRef<HTMLInputElement, inputProps>((props: inputProps, ref) 
         <input
           {...restProps}
           className={classNameForInput}
-          disabled={disabled}
           onChange={restProps.onChange}
           placeholder={placeHolder}
           ref={ref}
           type={type === 'password' ? (isShow ? 'text' : 'password') : type}
         />
       </div>
-      {error && <div className={s.errorText}>{error.message}</div>}
+      {error && <div className={s.errorText}>{error}</div>}
     </div>
   )
 })
