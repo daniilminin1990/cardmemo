@@ -1,105 +1,115 @@
-import { ComponentProps, ComponentPropsWithoutRef } from 'react'
+import { ComponentPropsWithRef, forwardRef } from 'react'
+import { useController } from 'react-hook-form'
 
 import * as RadioGroup from '@radix-ui/react-radio-group'
 import { clsx } from 'clsx'
 
 import s from './radio.module.scss'
 
-export type RadioRootProps = ComponentProps<'form'>
-export const Root = ({ children, className, ...rest }: RadioRootProps) => {
-  const classNames = {
-    form: clsx(className, s.form),
-  }
+export type RadioRootProps = {
+  control?: any
+  defaultValue?: string
+  name?: string
+} & ComponentPropsWithRef<'div'>
+export const Root = forwardRef<HTMLDivElement, RadioRootProps>(
+  ({ children, className, control, defaultValue = '1', name = 'radio', ...rest }: any, ref) => {
+    const classNames = {
+      root: clsx(className, s.root),
+    }
+    const {
+      field: { onChange, value },
+    } = useController({
+      control,
+      name,
+    })
 
-  return (
-    <form {...rest}>
+    return (
       <RadioGroup.Root
         aria-label={'View density'}
-        className={classNames.form}
-        defaultValue={'default'}
+        className={classNames.root}
+        defaultValue={defaultValue}
+        onValueChange={value => onChange(value)}
+        ref={ref}
+        value={value}
+        {...rest}
       >
         {children}
       </RadioGroup.Root>
-    </form>
-  )
-}
+    )
+  }
+)
 
 export type RadioBodyProps = {
   isDisabled?: boolean
-} & ComponentPropsWithoutRef<'div'>
-export const Body = ({ children, className, isDisabled = false, ...rest }: RadioBodyProps) => {
-  const classNames = {
-    body: clsx(className, s.body, isDisabled && s.disabled),
+} & ComponentPropsWithRef<'div'>
+export const Body = forwardRef<HTMLDivElement, RadioBodyProps>(
+  ({ children, className, isDisabled = false, ...rest }: RadioBodyProps, ref) => {
+    const classNames = {
+      body: clsx(className, s.body, isDisabled && s.disabled),
+    }
+
+    return (
+      <div className={classNames.body} ref={ref} {...rest}>
+        {children}
+      </div>
+    )
   }
-
-  return (
-    <div className={classNames.body} {...rest}>
-      {children}
-    </div>
-  )
-}
-
+)
 export type RadioItemProps = {
   isDisabled?: boolean
-  tabIndex: number
   value: string
-} & ComponentPropsWithoutRef<'button'>
-export const Item = ({
-  className,
-  isDisabled = false,
-  tabIndex,
-  value,
-  ...rest
-}: RadioItemProps) => {
-  const classNames = {
-    item: clsx(className, s.item),
-  }
+} & ComponentPropsWithRef<'button'>
+export const Item = forwardRef<HTMLButtonElement, RadioItemProps>(
+  ({ className, isDisabled = false, value, ...rest }: RadioItemProps, ref) => {
+    const classNames = {
+      item: clsx(className, s.item),
+    }
 
-  return (
-    <RadioGroup.Item
-      className={classNames.item}
-      disabled={isDisabled}
-      id={value}
-      tabIndex={tabIndex}
-      value={value}
-      {...rest}
-    />
-  )
-}
+    return (
+      <RadioGroup.Item
+        className={classNames.item}
+        disabled={isDisabled}
+        id={value}
+        ref={ref}
+        tabIndex={0}
+        value={value}
+        {...rest}
+      />
+    )
+  }
+)
 
 export type RadioLabelProps = {
   isDisabled?: boolean
   label: string
   value: string
-} & ComponentPropsWithoutRef<'label'>
-export const Label = ({
-  className,
-  isDisabled = false,
-  label,
-  value,
-  ...rest
-}: RadioLabelProps) => {
-  const classNames = {
-    label: clsx(className, s.label, isDisabled && s.disabled),
-  }
+} & ComponentPropsWithRef<'label'>
+export const Label = forwardRef<HTMLLabelElement, RadioLabelProps>(
+  ({ className, isDisabled = false, label, value, ...rest }: RadioLabelProps, ref) => {
+    const classNames = {
+      label: clsx(className, s.label, isDisabled && s.disabled),
+    }
 
-  return (
-    <label className={classNames.label} htmlFor={value} {...rest}>
-      {label}
-    </label>
-  )
-}
+    return (
+      <label className={classNames.label} htmlFor={value} ref={ref} {...rest}>
+        {label}
+      </label>
+    )
+  }
+)
 
 export type RadioSpanProps = {
   isDisabled?: boolean
-} & ComponentPropsWithoutRef<'span'>
-export const Span = ({ className, isDisabled = false, ...rest }: RadioSpanProps) => {
-  const classNames = {
-    span: clsx(className, s.span, isDisabled && s.disabled),
-  }
+} & ComponentPropsWithRef<'span'>
+export const Span = forwardRef<HTMLSpanElement, RadioSpanProps>(
+  ({ className, isDisabled = false, ...rest }: RadioSpanProps, ref) => {
+    const classNames = {
+      span: clsx(className, s.span, isDisabled && s.disabled),
+    }
 
-  return <RadioGroup.Indicator className={classNames.span} {...rest} />
-}
+    return <RadioGroup.Indicator className={classNames.span} {...rest} ref={ref} />
+  }
+)
 export const Radio = {
   Body,
   Item,
