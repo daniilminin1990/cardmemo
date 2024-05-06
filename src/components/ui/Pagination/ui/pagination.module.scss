@@ -4,11 +4,12 @@
   align-items: center;
   margin-right: 24px;
 }
-.pageLinkWrapper:not(:last-child) {
+
+.pageLinkWrapper:not(:last-child){
   margin-right: 12px;
 }
 
-.pageLink {
+.pageLink{
   width: 24px;
   height: 24px;
   padding: 8px;
@@ -18,12 +19,9 @@
   border-radius: 3px;
   font-size: 14px;
   text-decoration: none;
-  transition:
-    color 0.15s ease-in-out,
-    background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
   cursor: pointer;
-  color: var(--color-light-100);
+  color: var(--color-light-100)
 }
 
 .icon {
@@ -36,14 +34,14 @@
   align-items: center;
 }
 
-.pageLink:hover {
+.pageLink:hover{
   background-color: var(--color-dark-500);
 }
-.pageLink:focus {
+.pageLink:focus{
   outline: 2px solid var(--color-info-900);
 }
 
-.pageLink:focus {
+.pageLink:focus{
   z-index: 3;
 }
 

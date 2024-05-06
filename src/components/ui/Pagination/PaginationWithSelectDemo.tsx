@@ -2,7 +2,7 @@ import {
   PaginationWithSelect,
   selectOptionsType,
 } from '@/components/ui/Pagination/PaginationWithSelect'
-
+// presentation
 export const PaginationWithSelectDemo = () => {
   const lastPage = 10
   const maxLength = 7
