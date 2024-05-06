@@ -17,7 +17,7 @@ export type inputProps = {
   // onChange: ChangeHandler
   // placeholder: string
   // type: ('password' | 'search' | 'text'
-  type: ('password' & ComponentPropsWithoutRef<'input'>['type']) | 'search' | 'text'
+  // type: ('password' & ComponentPropsWithoutRef<'input'>['type']) | 'search' | 'text'
 } & ComponentPropsWithoutRef<'input'>
 
 const Input = forwardRef<HTMLInputElement, inputProps>((props: inputProps, ref) => {
