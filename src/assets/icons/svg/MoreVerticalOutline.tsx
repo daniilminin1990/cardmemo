@@ -3,9 +3,10 @@ import { Ref, forwardRef, memo } from 'react'
 const SvgMoreVerticalOutline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
     fill={'none'}
-    height={24}
+    height={'1em'}
     ref={ref}
-    width={24}
+    viewBox={'0 0 24 24'}
+    width={'1em'}
     xmlns={'http://www.w3.org/2000/svg'}
     {...props}
   >
@@ -19,7 +20,7 @@ const SvgMoreVerticalOutline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGE
     </g>
     <defs>
       <clipPath id={'more-vertical-outline_svg__a'}>
-        <path d={'M6 6h12v12H6z'} fill={'currentcolor'} />
+        <path d={'M6 6h12v12H6z'} fill={'#fff'} />
       </clipPath>
     </defs>
   </svg>
