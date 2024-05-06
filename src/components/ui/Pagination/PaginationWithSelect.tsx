@@ -36,7 +36,7 @@ export const PaginationWithSelect = (props: Props) => {
       <Pagination initPage={initPage} lastPage={lastPage} maxLength={maxLength} />
       <span className={s.firstText}>Показать </span>
       <SelectUI disabled={disabled} placeholder={placeholder} selectOptions={selectOptions} />
-      <span className={s.lastText}>на странице</span>
+      <div className={s.lastText}>на странице</div>
     </div>
   )
 }

@@ -5,7 +5,7 @@
     color: var(--color-dark-300);
   }
 }
-.selectText {
+.selectText{
   font-size: 14px;
 }
 .selectTrigger {
@@ -13,6 +13,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-radius: 2px;
   border: 1px solid var(--color-dark-100);
   color: var(--color-light-100);
@@ -20,10 +21,10 @@
   padding: 6px 12px;
   //height: 35px;
   gap: 5px;
-  &[data-state='open'] {
+  &[data-state = 'open'] {
     border-color: var(--color-dark-100);
     border-radius: 2px 2px 0 0;
-    .selectIcon {
+    .selectIcon{
       transform: rotate(180deg);
     }
   }
@@ -60,7 +61,7 @@
   background-color: var(--color-dark-700);
   border-radius: 0 0 2px 2px;
   border: 1px solid var(--color-dark-100);
-  .selectItem {
+  .selectItem{
     cursor: pointer;
     padding: 6px 12px;
     outline: none;
@@ -68,7 +69,7 @@
 
     &:hover,
     &:focus,
-    &[data-state='checked'] {
+    &[data-state='checked']{
       color: var(--color-accent-300);
       background-color: var(--color-accent-900);
     }
