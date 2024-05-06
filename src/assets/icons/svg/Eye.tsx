@@ -20,7 +20,7 @@ const SvgEye = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
     </g>
     <defs>
       <clipPath id={'eye_svg__a'}>
-        <path d={'M0 0h24v24H0z'} fill={'#fff'} />
+        <path d={'M0 0h24v24H0z'} fill={'currentcolor'} />
       </clipPath>
     </defs>
   </svg>

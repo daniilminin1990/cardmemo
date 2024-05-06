@@ -18,7 +18,7 @@ type inputProps = {
 }
 
 const Input = (props: inputProps) => {
-  const { disabled = 'default', error, label, type } = props
+  const { disabled = false, error, label, type } = props
 
   const [tex, setText] = useState('')
   const [isShow, setIsShow] = useState(false)
@@ -60,7 +60,7 @@ const Input = (props: inputProps) => {
 
         <input
           className={classNameForInput}
-          disabled={!!disabled}
+          disabled={disabled}
           onChange={onChangeInputHandler}
           placeholder={placeHolder}
           type={type === 'password' ? (isShow ? 'text' : 'password') : type}
