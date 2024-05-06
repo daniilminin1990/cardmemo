@@ -9,18 +9,12 @@ import Close from '../../../assets/icons/svg/Close'
 import Eye from '../../../assets/icons/svg/Eye'
 import Search from '../../../assets/icons/svg/Search'
 
-export type inputProps = {
+export type InputProps = {
   error?: string | undefined
   label?: string
-  // disabled: boolean
-  // onBlur: ChangeHandler
-  // onChange: ChangeHandler
-  // placeholder: string
-  // type: ('password' | 'search' | 'text'
-  // type: ('password' & ComponentPropsWithoutRef<'input'>['type']) | 'search' | 'text'
 } & ComponentPropsWithoutRef<'input'>
 
-const Input = forwardRef<HTMLInputElement, inputProps>((props: inputProps, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
   const { error, label, type, ...restProps } = props
 
   const [isShow, setIsShow] = useState(false)
