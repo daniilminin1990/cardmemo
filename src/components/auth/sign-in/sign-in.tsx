@@ -1,53 +1,47 @@
-import { SubmitHandler, useController, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
-import Input from '@/components/ui/Input/Input'
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { FormCheckbox } from '@/components/ui/form/form-checkbox'
+import { FormTextfield } from '@/components/ui/form/form-textfield'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
-type FormValue = {
-  login: string
-  password: string
-  rememberMe: boolean
-}
+import s from './sign-in.module.scss'
 
-export default function LoginForm() {
+const signInSchema = z.object({
+  email: z.string().trim().email('Please enter a valid enail'),
+  password: z.string().min(3, 'Password must be at least 3 characters'),
+  rememberMe: z.literal(true, {
+    errorMap: () => ({
+      message: 'Please check the box',
+    }),
+  }),
+})
+
+type FormValues = z.infer<typeof signInSchema>
+
+export const SignIn = () => {
   const {
     control,
-    formState: { errors },
+    // formState: { errors },
     handleSubmit,
-    register,
-  } = useForm<FormValue>()
-  const {
-    field: { onChange, value, ...field },
-  } = useController({
-    control,
-    name: 'rememberMe',
+  } = useForm<FormValues>({
+    resolver: zodResolver(signInSchema),
   })
-  const onSubmit: SubmitHandler<FormValue> = data => console.log(data)
 
-  // 123
+  const onSubmit = (data: FormValues) => {
+    console.log(data)
+  }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <Input
-          {...register('login', { required: true })}
-          disabled={false}
-          error={errors.login?.message}
-          label={'Login'}
-          placeholder={'Login'}
-          type={'text'}
-        />
-      </div>
-      <div>
-        <Input
-          {...register('password', { required: true })}
-          disabled={false}
-          error={errors.password?.message}
-          label={'Password'}
-          placeholder={'Password'}
-          type={'password'}
-        />
-      </div>
-      <Button type={'submit'}> Submit </Button>
-    </form>
+    <Card className={s.root}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormTextfield control={control} label={'Email'} name={'email'} />
+        <FormTextfield control={control} label={'Password'} name={'password'} />
+        <FormCheckbox control={control} label={'RememberMe'} name={'rememberMe'} />
+        <Button type={'submit'}> Submit </Button>
+      </form>
+    </Card>
   )
 }

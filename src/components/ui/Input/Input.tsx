@@ -1,6 +1,7 @@
-import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import { ComponentPropsWithoutRef, forwardRef, useId, useState } from 'react'
 
 import EyeOff from '@/assets/icons/svg/EyeOff'
+import Typography from '@/components/ui/Typography/Typography'
 import clsx from 'clsx'
 
 import s from './Input.module.scss'
@@ -15,7 +16,7 @@ export type InputProps = {
 } & ComponentPropsWithoutRef<'input'>
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
-  const { error, label, type, ...restProps } = props
+  const { error, id, label, type, ...restProps } = props
 
   const [isShow, setIsShow] = useState(false)
 
@@ -37,9 +38,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
 
   const placeHolder = type === 'search' ? 'Input search' : 'Input'
 
+  const generatedId = useId()
+
   return (
     <div className={s.box}>
-      <div className={s.label}>{type !== 'search' && label}</div>
+      <Typography className={s.label} htmlFor={id ?? generatedId} variant={'body2'}>
+        {type !== 'search' && label}
+      </Typography>
       <div className={s.searchClose}>
         {type === 'password' && (
           <EyeIcon className={s.Eye} onClick={isShowChangeHandler} viewBox={'0 0 24 24'} />
@@ -51,6 +56,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
         <input
           {...restProps}
           className={classNameForInput}
+          id={id ?? generatedId}
           onChange={restProps.onChange}
           placeholder={placeHolder}
           ref={ref}
