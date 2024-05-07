@@ -31,7 +31,7 @@ export default function LoginForm() {
         <Input
           {...register('login', { required: true })}
           disabled={false}
-          error={errors.login}
+          error={errors.login?.message}
           label={'Login'}
           placeholder={'Login'}
           type={'text'}
@@ -41,7 +41,7 @@ export default function LoginForm() {
         <Input
           {...register('password', { required: true })}
           disabled={false}
-          error={errors.password}
+          error={errors.password?.message}
           label={'Password'}
           placeholder={'Password'}
           type={'password'}
