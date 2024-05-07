@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { FormCheckbox } from '@/components/ui/form/form-checkbox'
+import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -24,8 +24,9 @@ type FormValues = z.infer<typeof signInSchema>
 export const SignIn = () => {
   const {
     control,
-    // formState: { errors },
+    formState: { errors },
     handleSubmit,
+    register,
   } = useForm<FormValues>({
     resolver: zodResolver(signInSchema),
   })
@@ -45,12 +46,7 @@ export const SignIn = () => {
           name={'password'}
           type={'password'}
         />
-        <FormCheckbox
-          className={s.checkbox}
-          control={control}
-          label={'RememberMe'}
-          name={'rememberMe'}
-        />
+        <Checkbox className={s.checkbox} {...register('rememberMe')} label={'RememberMe'} />
         <Button type={'submit'}> Submit </Button>
       </form>
     </Card>
