@@ -5,18 +5,21 @@ import Input, { InputProps } from '@/components/ui/Input/Input'
 export type ControlledInputProps<TFieldValues extends FieldValues> = {
   control: Control<TFieldValues>
   name: FieldPath<TFieldValues>
-} & Omit<InputProps, 'id' | 'onChange' | 'value'>
+} & Omit<InputProps, 'onChange' | 'value'>
 
-export const FormTextfield = <TFieldValues extends FieldValues>(
-  props: ControlledInputProps<TFieldValues>
-) => {
+export const FormTextfield = <TFieldValues extends FieldValues>({
+  control,
+  name,
+  ...rest
+}: ControlledInputProps<TFieldValues>) => {
   const {
     field,
     fieldState: { error },
   } = useController({
-    control: props.control,
-    name: props.name,
+    control,
+    name,
+    shouldUnregister: true,
   })
 
-  return <Input {...props} {...field} error={error?.message} id={props.name} />
+  return <Input {...rest} {...field} error={error?.message} />
 }
