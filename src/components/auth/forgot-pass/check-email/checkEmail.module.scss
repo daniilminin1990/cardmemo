@@ -1,0 +1,35 @@
+.card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 36px 25px;
+}
+
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.title {
+  margin-bottom: 28px;
+}
+
+.checkEmailIcon {
+  width: 96px;
+  height: 96px;
+  margin-bottom: 20px;
+}
+
+.subtitle,
+.textEmail {
+  color: var(--color-dark-100);
+}
+
+.textEmail {
+  margin-bottom: 65px;
+}
+
+.submitBtn {
+  margin-bottom: 20px;
+  text-decoration: none;
+}
