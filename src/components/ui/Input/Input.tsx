@@ -16,7 +16,7 @@ export type InputProps = {
 } & ComponentPropsWithoutRef<'input'>
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
-  const { error, id, label, type, ...restProps } = props
+  const { error, id, label, placeholder, type, ...restProps } = props
 
   const [isShow, setIsShow] = useState(false)
 
@@ -35,8 +35,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
       : type === 'search'
       ? clsx(s.boxInput, s.boxPadding)
       : s.boxInput
-
-  const placeHolder = type === 'search' ? 'Input search' : 'Input'
 
   const generatedId = useId()
 
@@ -58,7 +56,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
           className={classNameForInput}
           id={id ?? generatedId}
           onChange={restProps.onChange}
-          placeholder={placeHolder}
+          placeholder={placeholder}
           ref={ref}
           type={type === 'password' ? (isShow ? 'text' : 'password') : type}
         />

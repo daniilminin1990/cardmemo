@@ -5,7 +5,7 @@ import { Label } from '@radix-ui/react-label'
 
 import './checkbox.scss'
 
-export type Props = {} & ComponentPropsWithoutRef<typeof Checkbox.Root>
+export type Props = { className?: string } & ComponentPropsWithoutRef<typeof Checkbox.Root>
 
 const StyledCheckbox = (props: Props) => {
   const { id, isChecked, isDisabled, label, onCheckedChange } = props
@@ -13,7 +13,7 @@ const StyledCheckbox = (props: Props) => {
   const generatedId = useId()
 
   return (
-    <div className={`checkboxContainer ${disabledClass}`}>
+    <div className={`checkboxContainer ${disabledClass} ${props.className}`}>
       <Checkbox.Root
         checked={isChecked}
         className={`CheckboxRoot ${disabledClass}`}

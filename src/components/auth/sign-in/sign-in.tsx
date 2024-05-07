@@ -38,8 +38,19 @@ export const SignIn = () => {
     <Card className={s.root}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormTextfield className={s.input} control={control} label={'Email'} name={'email'} />
-        <FormTextfield className={s.input} control={control} label={'Password'} name={'password'} />
-        <FormCheckbox control={control} label={'RememberMe'} name={'rememberMe'} />
+        <FormTextfield
+          className={s.input}
+          control={control}
+          label={'Password'}
+          name={'password'}
+          type={'password'}
+        />
+        <FormCheckbox
+          className={s.checkbox}
+          control={control}
+          label={'RememberMe'}
+          name={'rememberMe'}
+        />
         <Button type={'submit'}> Submit </Button>
       </form>
     </Card>

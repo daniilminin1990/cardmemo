@@ -11,8 +11,7 @@
   }
 }
 .box {
-  margin-left: 40px;
-  margin-top: 40px;
+  width: 200px;
 }
 
 .boxImg {
@@ -109,8 +108,12 @@
 }
 
 .searchClose {
-  width: max-content;
+  width: 100%;
   position: relative;
+
+  input {
+    width: 100%;
+  }
 }
 
 .label {
