@@ -10,7 +10,7 @@ import { z } from 'zod'
 import s from './sign-in.module.scss'
 
 const signInSchema = z.object({
-  email: z.string().trim().email('Please enter a valid enail'),
+  email: z.string().trim().email('Please enter a valid email'),
   password: z.string().min(3, 'Password must be at least 3 characters'),
   rememberMe: z.literal(true, {
     errorMap: () => ({
@@ -31,13 +31,13 @@ export const SignIn = () => {
     resolver: zodResolver(signInSchema),
   })
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = handleSubmit((data: FormValues) => {
     console.log(data)
-  }
+  })
 
   return (
     <Card className={s.root}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit}>
         <FormTextfield className={s.input} control={control} label={'Email'} name={'email'} />
         <FormTextfield
           className={s.input}
