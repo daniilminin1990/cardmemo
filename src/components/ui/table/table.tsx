@@ -1,10 +1,10 @@
-import { ComponentProps, forwardRef } from 'react'
+import { ComponentPropsWithRef, forwardRef } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './table.module.scss'
 
-export type RootProps = ComponentProps<'table'>
+export type RootProps = ComponentPropsWithRef<'table'>
 
 export const Root = forwardRef<HTMLTableElement, RootProps>(({ className, ...rest }, ref) => {
   const classNames = {
@@ -14,7 +14,7 @@ export const Root = forwardRef<HTMLTableElement, RootProps>(({ className, ...res
   return <table className={classNames.table} ref={ref} {...rest} />
 })
 
-export type HeadProps = ComponentProps<'thead'>
+export type HeadProps = ComponentPropsWithRef<'thead'>
 
 export const Head = forwardRef<HTMLTableSectionElement, HeadProps>(
   ({ className, ...props }: HeadProps, ref) => {
@@ -25,7 +25,7 @@ export const Head = forwardRef<HTMLTableSectionElement, HeadProps>(
     return <thead className={classNames.thead} {...props} ref={ref} />
   }
 )
-export type BodyProps = ComponentProps<'tbody'>
+export type BodyProps = ComponentPropsWithRef<'tbody'>
 
 export const Body = forwardRef<HTMLTableSectionElement, BodyProps>(
   ({ className, ...props }: BodyProps, ref) => {
@@ -36,7 +36,7 @@ export const Body = forwardRef<HTMLTableSectionElement, BodyProps>(
     return <tbody className={classNames.tbody} {...props} ref={ref} />
   }
 )
-export type RowProps = ComponentProps<'tr'>
+export type RowProps = ComponentPropsWithRef<'tr'>
 
 export const Row = forwardRef<HTMLTableRowElement, RowProps>(
   ({ className, ...props }: RowProps, ref) => {
@@ -47,7 +47,7 @@ export const Row = forwardRef<HTMLTableRowElement, RowProps>(
     return <tr className={classNames.row} {...props} ref={ref} />
   }
 )
-export type HeadCellProps = ComponentProps<'th'>
+export type HeadCellProps = ComponentPropsWithRef<'th'>
 
 export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
   ({ className, ...rest }: HeadCellProps, ref) => {
@@ -59,7 +59,7 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
   }
 )
 
-export type CellProps = ComponentProps<'td'>
+export type CellProps = ComponentPropsWithRef<'td'>
 
 export const Cell = forwardRef<HTMLTableCellElement, CellProps>(
   ({ className, ...rest }: CellProps, ref) => {
