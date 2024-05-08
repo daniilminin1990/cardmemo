@@ -6,9 +6,9 @@ import s from './table.module.scss'
 
 export type RootProps = ComponentPropsWithRef<'table'>
 
-export const Root = forwardRef<HTMLTableElement, RootProps>(({ className, ...rest }, ref) => {
+export const Root = forwardRef<HTMLTableElement, RootProps>(({ className = '', ...rest }, ref) => {
   const classNames = {
-    table: clsx(className, s.table),
+    table: clsx(s[className], s.table),
   }
 
   return <table className={classNames.table} ref={ref} {...rest} />
@@ -17,9 +17,9 @@ export const Root = forwardRef<HTMLTableElement, RootProps>(({ className, ...res
 export type HeadProps = ComponentPropsWithRef<'thead'>
 
 export const Head = forwardRef<HTMLTableSectionElement, HeadProps>(
-  ({ className, ...props }: HeadProps, ref) => {
+  ({ className = '', ...props }: HeadProps, ref) => {
     const classNames = {
-      thead: clsx(className, s.thead),
+      thead: clsx(s[className], s.thead),
     }
 
     return <thead className={classNames.thead} {...props} ref={ref} />
@@ -28,9 +28,9 @@ export const Head = forwardRef<HTMLTableSectionElement, HeadProps>(
 export type BodyProps = ComponentPropsWithRef<'tbody'>
 
 export const Body = forwardRef<HTMLTableSectionElement, BodyProps>(
-  ({ className, ...props }: BodyProps, ref) => {
+  ({ className = '', ...props }: BodyProps, ref) => {
     const classNames = {
-      tbody: clsx(className, s.tbody),
+      tbody: clsx(s[className], s.tbody),
     }
 
     return <tbody className={classNames.tbody} {...props} ref={ref} />
@@ -39,9 +39,9 @@ export const Body = forwardRef<HTMLTableSectionElement, BodyProps>(
 export type RowProps = ComponentPropsWithRef<'tr'>
 
 export const Row = forwardRef<HTMLTableRowElement, RowProps>(
-  ({ className, ...props }: RowProps, ref) => {
+  ({ className = '', ...props }: RowProps, ref) => {
     const classNames = {
-      row: clsx(className, s.row),
+      row: clsx(s[className], s.row),
     }
 
     return <tr className={classNames.row} {...props} ref={ref} />
@@ -50,9 +50,9 @@ export const Row = forwardRef<HTMLTableRowElement, RowProps>(
 export type HeadCellProps = ComponentPropsWithRef<'th'>
 
 export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
-  ({ className, ...rest }: HeadCellProps, ref) => {
+  ({ className = '', ...rest }: HeadCellProps, ref) => {
     const classNames = {
-      headCell: clsx(className, s.headCell),
+      headCell: clsx(s[className], s.headCell),
     }
 
     return <th className={classNames.headCell} {...rest} ref={ref} />
@@ -62,9 +62,9 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
 export type CellProps = ComponentPropsWithRef<'td'>
 
 export const Cell = forwardRef<HTMLTableCellElement, CellProps>(
-  ({ className, ...rest }: CellProps, ref) => {
+  ({ className = '', ...rest }: CellProps, ref) => {
     const classNames = {
-      cell: clsx(className, s.cell),
+      cell: clsx(s[className], s.cell),
     }
 
     return <td className={classNames.cell} {...rest} ref={ref} />

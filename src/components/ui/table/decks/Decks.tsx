@@ -125,7 +125,7 @@ export const Decks = () => {
     })
   }, [items, activeColumn, sortOrder, columnKeys])
 
-  return (
+  return sortedItems.length !== 0 ? (
     <Table.Root>
       <Table.Head>
         <Table.Row>
@@ -143,16 +143,14 @@ export const Decks = () => {
         </Table.Row>
       </Table.Head>
       <Table.Body>
-        {sortedItems.length !== 0 ? (
-          sortedItems.map(item => <Deck item={item} key={item.id} />)
-        ) : (
-          <Table.Row>
-            <Table.Cell className={s.empty} colSpan={100} style={{ textAlign: 'center' }}>
-              Empty
-            </Table.Cell>
-          </Table.Row>
-        )}
+        {sortedItems.map(item => (
+          <Deck item={item} key={item.id} />
+        ))}
       </Table.Body>
     </Table.Root>
+  ) : (
+    <Typography as={'div'} className={s.empty} variant={'body1'}>
+      No content with these terms...
+    </Typography>
   )
 }
