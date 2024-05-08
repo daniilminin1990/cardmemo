@@ -32,7 +32,7 @@ export const WithContent: Story = {
   },
 }
 
-const WithRef: StoryFn<StoryProps> = (args: StoryProps) => {
+const WithRef: StoryFn<StoryProps> = (_: StoryProps) => {
   const cardRef = useRef<ElementRef<'div'> | null>(null)
   const [width, setWidth] = useState<null | number>(null)
 
