@@ -1,0 +1,21 @@
+.card {
+  width: 420px;
+}
+
+.box{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 24px ;
+  justify-items: center;
+}
+.button{
+  margin-top: 60px;
+}
+
+.footer{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+  grid-gap: 7px;
+  margin-top: 20px;
+}
