@@ -24,9 +24,10 @@
   border: none;
   background-color: transparent;
   padding-left: 12px;
+  height: 36px;
 }
 .boxPadding {
-  max-width: 195px;
+
   padding-left: 35px;
 }
 
@@ -78,7 +79,7 @@
 }
 .close {
   position: relative;
-  transform: translate(1000%, 20%);
+  transform: translate(1000%,0);
 }
 
 .Eye {
@@ -118,4 +119,5 @@
 
 .label {
   font-size: 14px;
+  color: var(--color-dark-100);
 }

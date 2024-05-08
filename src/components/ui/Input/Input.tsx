@@ -19,6 +19,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
   const { error, id, label, placeholder, type, ...restProps } = props
 
   const [isShow, setIsShow] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+
+    const clearInput = () => {
+        setInputValue('')
+    }
 
   const isShowChangeHandler = () => {
     setIsShow(!isShow)
@@ -49,16 +54,17 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
         )}
         {type === 'search' && <Search className={s.Search} viewBox={'0 0 24 24'} />}
 
-        <div>{type === 'search' && <Close className={s.Close} viewBox={'0 0 24 24'} />}</div>
+        <div>{type === 'search' && <Close onClick={clearInput} className={s.Close} viewBox={'0 0 24 24'} />}</div>
 
         <input
           {...restProps}
           className={classNameForInput}
           id={id ?? generatedId}
-          onChange={restProps.onChange}
+          onChange={e => setInputValue(e.target.value)}
           placeholder={placeholder}
           ref={ref}
           type={type === 'password' ? (isShow ? 'text' : 'password') : type}
+          value={inputValue}
         />
       </div>
       {error && <div className={s.errorText}>{error}</div>}
