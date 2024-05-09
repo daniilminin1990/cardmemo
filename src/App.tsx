@@ -1,4 +1,4 @@
-import ErrorPage from '@/components/auth/ErrorPage/ErrorPage'
+import Header from '@/components/auth/Header/Header'
 
 export function App() {
   return (
@@ -9,7 +9,7 @@ export function App() {
         justifyContent: 'center',
       }}
     >
-      <ErrorPage />
+      <Header isAuth={false} />
     </div>
   )
 }
