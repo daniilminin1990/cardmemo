@@ -1,71 +1,87 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { FormTextfield } from '@/components/ui/form/form-textfield'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 import style from '@/components/auth/sign-up/SignUp.module.scss'
 
-type FormValue = {
-  login: string
-  password: string
-  confirmPassword: string
-}
+const signUpSchema = z
+  .object({
+    confirmPassword: z.string().min(3),
+    login: z.string().email(),
+    password: z.string().min(3),
+  })
+  .superRefine((data, ctx) => {
+    if (data.password !== data.confirmPassword) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Passwords do not match',
+        path: ['confirmPassword'],
+      })
+    }
+
+    return data
+  })
+
+type FormValues = z.infer<typeof signUpSchema>
 
 export default function SignUp() {
-  const {
-    formState: { errors },
-    handleSubmit,
-    register,
-  } = useForm<FormValue>()
+  const { control, handleSubmit } = useForm<FormValues>({
+    defaultValues: {
+      confirmPassword: '',
+      login: '',
+      password: '',
+    },
+    resolver: zodResolver(signUpSchema),
+  })
 
-  const onSubmit: SubmitHandler<FormValue> = data => console.log(data)
+  const onSubmit: SubmitHandler<FormValues> = data => console.log(data)
 
   // 123
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card className={style.card}>
         <div className={style.header}>
-        <Typography as={'h1'} className={style.typographyHead} variant={'h1'}>
-          Sign Up
-        </Typography>
+          <Typography as={'h1'} className={style.typographyHead} variant={'h1'}>
+            Sign Up
+          </Typography>
         </div>
         <div className={style.box}>
-          <Input
-            {...register('login', { required: true })}
-            disabled={false}
-            error={errors.login?.message}
+          <FormTextfield
+            className={style.inputStyle}
+            control={control}
             label={'Login'}
-            placeholder={'Login'}
+            name={'login'}
+            placeholder={'Input'}
             type={'text'}
-            className={style.inputStyle}
           />
-          <Input
-            {...register('password', { required: true })}
-            disabled={false}
-            error={errors.password?.message}
+          <FormTextfield
+            className={style.inputStyle}
+            control={control}
             label={'Password'}
-            placeholder={'Password'}
+            name={'password'}
+            placeholder={'Input'}
             type={'password'}
-            className={style.inputStyle}
           />
-          <Input
-            {...register('confirmPassword', { required: true })}
-            disabled={false}
-            error={errors.password?.message}
-            label={'Confirm Password'}
-            placeholder={'Password'}
-            type={'password'}
+          <FormTextfield
             className={style.inputStyle}
+            control={control}
+            label={'Confirm Password'}
+            name={'confirmPassword'}
+            placeholder={'Input'}
+            type={'password'}
           />
         </div>
 
-        <Button fullWidth>
-          Submit
-        </Button>
+        <Button fullWidth>Submit</Button>
         <div className={style.footer}>
-          <Typography as={'label'} variant={"body2"} className={style.typographyFooterTitle}>Already have an account?</Typography>
+          <Typography as={'label'} className={style.typographyFooterTitle} variant={'body2'}>
+            Already have an account?
+          </Typography>
           <Typography className={style.typographyFooterSubtitle} variant={'link1'}>
             Sign In
           </Typography>
