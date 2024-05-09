@@ -35,6 +35,8 @@ export const SignIn = () => {
     console.log(data)
   })
 
+  console.log(errors) // Just for vercel not to yell at me
+
   return (
     <Card className={s.root}>
       <form onSubmit={onSubmit}>
