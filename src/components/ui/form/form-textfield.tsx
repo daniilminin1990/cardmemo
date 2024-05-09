@@ -22,19 +22,5 @@ export const FormTextfield = <TFieldValues extends FieldValues>({
     shouldUnregister: true,
   })
 
-  console.log(rest.itemRef)
-
-  // return <Input {...rest} {...field} error={error?.message} />
-  return (
-    <Input
-      {...rest}
-      {...field}
-      // error={errors.password?.message}
-      error={error?.message}
-      // label={rest.label}
-      // placeholder={rest.label}
-      // type={rest.type}
-    />
-  )
-  // <Input {...rest} {...field} error={error?.message} />
+  return <Input {...rest} {...field} error={error?.message} />
 }
