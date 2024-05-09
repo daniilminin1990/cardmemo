@@ -13,7 +13,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const HeadersStory: Story = {
-  render: () => {
-    return <Header />
+  args: {
+    isAuth: true,
   },
 }

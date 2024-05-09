@@ -9,7 +9,7 @@ export function App() {
         justifyContent: 'center',
       }}
     >
-      <Header />
+      <Header isAuth={false} />
     </div>
   )
 }
