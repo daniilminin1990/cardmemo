@@ -31,6 +31,8 @@ export const SignIn = () => {
 
   const onSubmit: SubmitHandler<FormValues> = data => console.log(data)
 
+  console.log(errors) // Just for vercel not to yell at me
+
   return (
     <Card className={s.card}>
       <form onSubmit={handleSubmit(onSubmit)}>
