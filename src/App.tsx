@@ -1,4 +1,4 @@
-import Header from '@/components/auth/Header/Header'
+import { CreateNewPassword } from '@/components/auth/CreateNewPassword/CreateNewPassword'
 
 export function App() {
   return (
@@ -9,7 +9,7 @@ export function App() {
         justifyContent: 'center',
       }}
     >
-      <Header isAuth={false} />
+      <CreateNewPassword />
     </div>
   )
 }
