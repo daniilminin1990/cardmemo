@@ -1,4 +1,4 @@
-import ErrorPage from '@/components/auth/ErrorPage/ErrorPage'
+import { CreateNewPassword } from '@/components/auth/CreateNewPassword/CreateNewPassword'
 
 export function App() {
   return (
@@ -9,7 +9,7 @@ export function App() {
         justifyContent: 'center',
       }}
     >
-      <ErrorPage />
+      <CreateNewPassword />
     </div>
   )
 }
