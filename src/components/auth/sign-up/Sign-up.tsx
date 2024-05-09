@@ -1,26 +1,45 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { FormTextfield } from '@/components/ui/form/form-textfield'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 import style from '@/components/auth/sign-up/SignUp.module.scss'
 
-type FormValue = {
-  confirmPassword: string
-  login: string
-  password: string
-}
+const signUpSchema = z
+  .object({
+    confirmPassword: z.string().min(3),
+    login: z.string().email(),
+    password: z.string().min(3),
+  })
+  .superRefine((data, ctx) => {
+    if (data.password !== data.confirmPassword) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Passwords do not match',
+        path: ['confirmPassword'],
+      })
+    }
+
+    return data
+  })
+
+type FormValues = z.infer<typeof signUpSchema>
 
 export default function SignUp() {
-  const {
-    formState: { errors },
-    handleSubmit,
-    register,
-  } = useForm<FormValue>()
+  const { control, handleSubmit } = useForm<FormValues>({
+    defaultValues: {
+      confirmPassword: '',
+      login: '',
+      password: '',
+    },
+    resolver: zodResolver(signUpSchema),
+  })
 
-  const onSubmit: SubmitHandler<FormValue> = data => console.log(data)
+  const onSubmit: SubmitHandler<FormValues> = data => console.log(data)
 
   // 123
   return (
@@ -32,31 +51,28 @@ export default function SignUp() {
           </Typography>
         </div>
         <div className={style.box}>
-          <Input
-            {...register('login', { required: true })}
+          <FormTextfield
             className={style.inputStyle}
-            disabled={false}
-            error={errors.login?.message}
+            control={control}
             label={'Login'}
-            placeholder={'Login'}
+            name={'login'}
+            placeholder={'Input'}
             type={'text'}
           />
-          <Input
-            {...register('password', { required: true })}
+          <FormTextfield
             className={style.inputStyle}
-            disabled={false}
-            error={errors.password?.message}
+            control={control}
             label={'Password'}
-            placeholder={'Password'}
+            name={'password'}
+            placeholder={'Input'}
             type={'password'}
           />
-          <Input
-            {...register('confirmPassword', { required: true })}
+          <FormTextfield
             className={style.inputStyle}
-            disabled={false}
-            error={errors.password?.message}
+            control={control}
             label={'Confirm Password'}
-            placeholder={'Password'}
+            name={'confirmPassword'}
+            placeholder={'Input'}
             type={'password'}
           />
         </div>
