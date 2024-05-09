@@ -76,24 +76,24 @@ export function getPaginationItems(currentPage: number, lastPage: number, maxLen
   return res
 }
 
-console.log(getPaginationItems(1, 5, 7)) // [1, 2, 3, 4, 5]
-console.log(getPaginationItems(5, 7, 7)) // [1, 2, 3, 4, 5, 6, 7]
-// handle ellipsis МНОГОТОЧИЕ logic
-// this case works same for currentPage = 1, 2 / lastPage = 9, 10
-console.log(getPaginationItems(1, 10, 7)) // [1, 2, 3, ..., 8, 9, 10]
-console.log(getPaginationItems(9, 10, 7)) // [1, 2, 3, ..., 8, 9, 10]
-// cases
-// currentPage = 1, firstPage = 1 | currentPage - firstPage = 0
-// currentPage = 9, lastPage = 10 | lastPage - currentPage = 1
-// currentPage = 2, firstPage = 1 | currentPage - firstPage = 1
-// currentPage = 10, lastPage = 10 | lastPage - currentPage = 0
-//? case For 2 ellipses
-console.log(getPaginationItems(5, 10, 7)) // [1, NaN, 4, 5, 6, NaN, 10]
-console.log(getPaginationItems(6, 10, 7)) // [1, NaN, 5, 6, 7, NaN, 10]
-// currentPage = 5, firstPage = 1 | currentPage - firstPage = 4
-// currentPage = 6, lastPage = 10 | lastPage - currentPage = 4
-//? case for 1 ellipsis in the begging or at the end of array
-console.log(getPaginationItems(3, 10, 7)) // [1, 2, 3, 4, 5, 6, NaN, 10]
-console.log(getPaginationItems(4, 10, 7)) // [1, 2, 3, 4, 5, NaN, 9, 10]
-console.log(getPaginationItems(7, 10, 7)) // [1, NaN, 6, 7, 8, 9, 10]
-console.log(getPaginationItems(8, 10, 7)) // [1, 2, NaN, 7, 8, 9, 10]
+// console.log(getPaginationItems(1, 5, 7)) // [1, 2, 3, 4, 5]
+// console.log(getPaginationItems(5, 7, 7)) // [1, 2, 3, 4, 5, 6, 7]
+// // handle ellipsis МНОГОТОЧИЕ logic
+// // this case works same for currentPage = 1, 2 / lastPage = 9, 10
+// console.log(getPaginationItems(1, 10, 7)) // [1, 2, 3, ..., 8, 9, 10]
+// console.log(getPaginationItems(9, 10, 7)) // [1, 2, 3, ..., 8, 9, 10]
+// // cases
+// // currentPage = 1, firstPage = 1 | currentPage - firstPage = 0
+// // currentPage = 9, lastPage = 10 | lastPage - currentPage = 1
+// // currentPage = 2, firstPage = 1 | currentPage - firstPage = 1
+// // currentPage = 10, lastPage = 10 | lastPage - currentPage = 0
+// //? case For 2 ellipses
+// console.log(getPaginationItems(5, 10, 7)) // [1, NaN, 4, 5, 6, NaN, 10]
+// console.log(getPaginationItems(6, 10, 7)) // [1, NaN, 5, 6, 7, NaN, 10]
+// // currentPage = 5, firstPage = 1 | currentPage - firstPage = 4
+// // currentPage = 6, lastPage = 10 | lastPage - currentPage = 4
+// //? case for 1 ellipsis in the begging or at the end of array
+// console.log(getPaginationItems(3, 10, 7)) // [1, 2, 3, 4, 5, 6, NaN, 10]
+// console.log(getPaginationItems(4, 10, 7)) // [1, 2, 3, 4, 5, NaN, 9, 10]
+// console.log(getPaginationItems(7, 10, 7)) // [1, NaN, 6, 7, 8, 9, 10]
+// console.log(getPaginationItems(8, 10, 7)) // [1, 2, NaN, 7, 8, 9, 10]

@@ -1,5 +1,6 @@
-import { PaginationWithSelectDemo } from '@/components/ui/Pagination/PaginationWithSelectDemo'
-import { Button } from '@/components/ui/button'
+import {PaginationWithSelectDemo} from '@/components/ui/Pagination/PaginationWithSelectDemo'
+import {Button} from '@/components/ui/button'
+import LoginForm from "@/components/auth/sign-up/Sign-up";
 
 export function App() {
   return (
@@ -12,6 +13,7 @@ export function App() {
     >
       <Button>123 </Button>
       <PaginationWithSelectDemo />
+        <LoginForm/>
     </div>
   )
 }

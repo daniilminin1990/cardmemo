@@ -1,15 +1,12 @@
 import { useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import ArrowIosDownOutline from '@/assets/icons/svg/ArrowIosDownOutline'
 import ArrowIosUp from '@/assets/icons/svg/ArrowIosUp'
-import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
-import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
-import TrashOutline from '@/assets/icons/svg/TrashOutline'
+import Typography from '@/components/ui/Typography/Typography'
+import { Deck } from '@/components/ui/table/decks/deck/Deck'
 
 import s from './decks.module.scss'
 
-import defaltDeckImg from '../../../../assets/img/defaultDeckImg.png'
 import { Table } from '../table'
 
 export type DecksProps = {
@@ -87,6 +84,7 @@ export const Decks = () => {
       userId: '1',
     },
   ]
+
   const [searchParams, setSearchParams] = useSearchParams()
   const activeColumn = searchParams.get('sort') || 'Last Updated'
   const sortOrder = searchParams.get('order') || 'asc'
@@ -127,74 +125,32 @@ export const Decks = () => {
     })
   }, [items, activeColumn, sortOrder, columnKeys])
 
-  return (
+  return sortedItems.length !== 0 ? (
     <Table.Root>
       <Table.Head>
         <Table.Row>
           {headersName.map(name => (
-            <Table.HeadCell className={s.visible} key={name} onClick={() => handleSort(name)}>
-              <span>
+            <Table.HeadCell key={name} onClick={() => handleSort(name)}>
+              <Typography as={'span'} variant={'subtitle2'}>
                 {name}
-                {activeColumn === name && sortOrder === 'desc' && (
-                  <ArrowIosUp className={s.arrow} />
+                {activeColumn === name && (
+                  <ArrowIosUp className={`${s.arrow} ${sortOrder === 'asc' ? s.rotate : ''}`} />
                 )}
-                {activeColumn === name && sortOrder === 'asc' && (
-                  <ArrowIosDownOutline className={s.arrow} />
-                )}
-              </span>
+              </Typography>
             </Table.HeadCell>
           ))}
           <Table.HeadCell></Table.HeadCell>
         </Table.Row>
       </Table.Head>
       <Table.Body>
-        {sortedItems.length !== 0 ? (
-          sortedItems.map(item => (
-            <Table.Row key={item.id}>
-              <Table.Cell>
-                <a className={s.nameBlock} href={'/'}>
-                  <img alt={'default card img'} className={s.defaltDeckImg} src={defaltDeckImg} />
-                  <h3>{item.name}</h3>
-                </a>
-              </Table.Cell>
-              <Table.Cell>{item.cardsCount}</Table.Cell>
-              <Table.Cell>{item.updated}</Table.Cell>
-              <Table.Cell>{item.author.name}</Table.Cell>
-              <Table.Cell>
-                {item.userId === item.author.id ? (
-                  <div className={s.iconBtns}>
-                    <button>
-                      <Edit2Outline className={s.Edit2Outline} />
-                    </button>
-                    <button disabled={item.cardsCount === 0}>
-                      <PlayCircleOutline
-                        className={`${s.playCircleOutline} ${item.cardsCount === 0 && s.disabled}`}
-                      />
-                    </button>
-                    <button>
-                      <TrashOutline className={s.TrashOutline} />
-                    </button>
-                  </div>
-                ) : (
-                  <div className={s.iconBtns}>
-                    <button disabled={item.cardsCount === 0}>
-                      <PlayCircleOutline
-                        className={`${s.playCircleOutline} ${item.cardsCount === 0 && s.disabled}`}
-                      />
-                    </button>
-                  </div>
-                )}
-              </Table.Cell>
-            </Table.Row>
-          ))
-        ) : (
-          <Table.Row>
-            <Table.Cell colSpan={100} style={{ textAlign: 'center' }}>
-              Empty
-            </Table.Cell>
-          </Table.Row>
-        )}
+        {sortedItems.map(item => (
+          <Deck item={item} key={item.id} />
+        ))}
       </Table.Body>
     </Table.Root>
+  ) : (
+    <Typography as={'div'} className={s.empty} variant={'body1'}>
+      No content with these terms...
+    </Typography>
   )
 }

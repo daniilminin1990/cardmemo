@@ -1,0 +1,27 @@
+.nameBlock {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10px;
+  justify-content: flex-start;
+
+  padding: 0;
+
+  text-decoration: none;
+  white-space: nowrap;
+
+  background-color: transparent;
+  box-shadow: none;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+  }
+
+  .defaltDeckImg {
+    width: 118px;
+  }
+}
+
+.container:hover {
+  background-color: var(--color-dark-700);
+}

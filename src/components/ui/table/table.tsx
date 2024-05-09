@@ -1,70 +1,70 @@
-import { ComponentProps, forwardRef } from 'react'
+import { ComponentPropsWithRef, forwardRef } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './table.module.scss'
 
-export type RootProps = ComponentProps<'table'>
+export type RootProps = ComponentPropsWithRef<'table'>
 
-export const Root = forwardRef<HTMLTableElement, RootProps>(({ className, ...rest }, ref) => {
+export const Root = forwardRef<HTMLTableElement, RootProps>(({ className = '', ...rest }, ref) => {
   const classNames = {
-    table: clsx(className, s.table),
+    table: clsx(s.table, className?.startsWith('_') ? className : s[className]),
   }
 
   return <table className={classNames.table} ref={ref} {...rest} />
 })
 
-export type HeadProps = ComponentProps<'thead'>
+export type HeadProps = ComponentPropsWithRef<'thead'>
 
 export const Head = forwardRef<HTMLTableSectionElement, HeadProps>(
-  ({ className, ...props }: HeadProps, ref) => {
+  ({ className = '', ...props }: HeadProps, ref) => {
     const classNames = {
-      thead: clsx(className, s.thead),
+      thead: clsx(s.thead, className?.startsWith('_') ? className : s[className]),
     }
 
     return <thead className={classNames.thead} {...props} ref={ref} />
   }
 )
-export type BodyProps = ComponentProps<'tbody'>
+export type BodyProps = ComponentPropsWithRef<'tbody'>
 
 export const Body = forwardRef<HTMLTableSectionElement, BodyProps>(
-  ({ className, ...props }: BodyProps, ref) => {
+  ({ className = '', ...props }: BodyProps, ref) => {
     const classNames = {
-      tbody: clsx(className, s.tbody),
+      tbody: clsx(s.tbody, className?.startsWith('_') ? className : s[className]),
     }
 
     return <tbody className={classNames.tbody} {...props} ref={ref} />
   }
 )
-export type RowProps = ComponentProps<'tr'>
+export type RowProps = ComponentPropsWithRef<'tr'>
 
 export const Row = forwardRef<HTMLTableRowElement, RowProps>(
-  ({ className, ...props }: RowProps, ref) => {
+  ({ className = '', ...props }: RowProps, ref) => {
     const classNames = {
-      row: clsx(className, s.row),
+      row: clsx(s.row, className?.startsWith('_') ? className : s[className]),
     }
 
     return <tr className={classNames.row} {...props} ref={ref} />
   }
 )
-export type HeadCellProps = ComponentProps<'th'>
+export type HeadCellProps = ComponentPropsWithRef<'th'>
 
 export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
-  ({ className, ...rest }: HeadCellProps, ref) => {
+  ({ className = '', ...rest }: HeadCellProps, ref) => {
     const classNames = {
-      headCell: clsx(className, s.headCell),
+      headCell: clsx(s.headCell, className?.startsWith('_') ? className : s[className]),
     }
 
     return <th className={classNames.headCell} {...rest} ref={ref} />
   }
 )
 
-export type CellProps = ComponentProps<'td'>
+export type CellProps = ComponentPropsWithRef<'td'>
 
 export const Cell = forwardRef<HTMLTableCellElement, CellProps>(
-  ({ className, ...rest }: CellProps, ref) => {
+  ({ className = '', ...rest }: CellProps, ref) => {
     const classNames = {
-      cell: clsx(className, s.cell),
+      cell: clsx(s.cell, className?.startsWith('_') ? className : s[className]),
     }
 
     return <td className={classNames.cell} {...rest} ref={ref} />
