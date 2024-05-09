@@ -1,5 +1,6 @@
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
+import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import Checkbox from '@/components/ui/checkbox/checkbox'
@@ -10,44 +11,65 @@ import { z } from 'zod'
 import s from './sign-in.module.scss'
 
 const signInSchema = z.object({
-  email: z.string().trim().email('Please enter a valid email'),
-  password: z.string().min(3, 'Password must be at least 3 characters'),
-  rememberMe: z.literal(true, {
-    errorMap: () => ({
-      message: 'Please check the box',
-    }),
-  }),
+  email: z.string().email('Invalid email address').nonempty('Enter email'),
+  password: z.string().nonempty('Enter password'),
+  rememberMe: z.boolean().optional(),
 })
 
 type FormValues = z.infer<typeof signInSchema>
 
 export const SignIn = () => {
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    register,
-  } = useForm<FormValues>({
+  const { control, handleSubmit, register } = useForm<FormValues>({
+    defaultValues: {
+      email: '',
+      password: '',
+      rememberMe: true,
+    },
+    mode: 'onSubmit',
     resolver: zodResolver(signInSchema),
   })
 
-  const onSubmit = handleSubmit((data: FormValues) => {
-    console.log(data)
-  })
+  const onSubmit: SubmitHandler<FormValues> = data => console.log(data)
 
   return (
-    <Card className={s.root}>
-      <form onSubmit={onSubmit}>
-        <FormTextfield className={s.input} control={control} label={'Email'} name={'email'} />
-        <FormTextfield
-          className={s.input}
-          control={control}
-          label={'Password'}
-          name={'password'}
-          type={'password'}
-        />
-        <Checkbox className={s.checkbox} {...register('rememberMe')} label={'RememberMe'} />
-        <Button type={'submit'}> Submit </Button>
+    <Card className={s.card}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={s.header}>
+          <Typography as={'h1'} className={s.typographyHead} variant={'h1'}>
+            Sign In
+          </Typography>
+        </div>
+        <div className={s.box}>
+          <FormTextfield
+            className={s.inputStyle}
+            control={control}
+            label={'Email'}
+            name={'email'}
+            placeholder={'Email'}
+            type={'email'}
+          />
+          <FormTextfield
+            className={s.inputStyle}
+            control={control}
+            label={'Password'}
+            name={'password'}
+            placeholder={'Password'}
+            type={'password'}
+          />
+          <Checkbox className={s.checkbox} {...register('rememberMe')} label={'RememberMe'} />
+          <Typography as={'label'} className={s.typographyForgotTitle} variant={'body2'}>
+            Forgot Password?
+          </Typography>
+        </div>
+        <Button fullWidth>Sign In</Button>
+        <div className={s.footer}>
+          <Typography as={'label'} className={s.typographyFooterTitle} variant={'body2'}>
+            Don't have an account?
+          </Typography>
+          <Typography className={s.typographyFooterSubtitle} variant={'link1'}>
+            Sign Up
+          </Typography>
+        </div>
       </form>
     </Card>
   )
