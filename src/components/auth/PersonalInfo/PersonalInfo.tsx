@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import Edit2 from '@/assets/icons/svg/Edit2'
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import LogOut from '@/assets/icons/svg/LogOut'
 import Typography from '@/components/ui/Typography/Typography'
@@ -18,7 +16,7 @@ import s from './personalInfo.module.scss'
 import ellipseIcon from '../../../assets/icons/WhiteSVG/Ellipse 1.svg'
 
 const createNewPassScheme = z.object({
-  nickname: z.string().min(1, 'Type new nickname'),
+  nickName: z.string().min(1, 'Type new nickname'),
 })
 
 type FormValue = z.infer<typeof createNewPassScheme>
@@ -26,17 +24,26 @@ type FormValue = z.infer<typeof createNewPassScheme>
 type Props = {
   email: string
   isEditNickname?: boolean
+  nickName: string
   setIsEditNickname: (value: boolean) => void
-  title: string
+  setNickName: (value: string) => void
 }
-export const PersonalInfo = ({ email, isEditNickname, setIsEditNickname, title }: Props) => {
+export const PersonalInfo = ({
+  email,
+  isEditNickname,
+  nickName,
+  setIsEditNickname,
+  setNickName,
+}: Props) => {
   const { control, handleSubmit } = useForm<FormValue>({
     defaultValues: {
-      nickname: '',
+      nickName: nickName,
     },
     mode: 'onSubmit',
     resolver: zodResolver(createNewPassScheme),
   })
+
+  console.log(nickName)
 
   const onSubmit: SubmitHandler<FormValue> = data => console.log(data)
 
@@ -67,7 +74,7 @@ export const PersonalInfo = ({ email, isEditNickname, setIsEditNickname, title }
             {isEditNickname ? (
               <div className={s.profileEdit}>
                 <Typography variant={'h1'}>
-                  {title}{' '}
+                  {nickName}{' '}
                   <Button
                     className={clsx(s.editIconButton, s.editIconButtonTxt)}
                     onClick={() => setIsEditNickname(!isEditNickname)}
@@ -84,14 +91,13 @@ export const PersonalInfo = ({ email, isEditNickname, setIsEditNickname, title }
                 className={s.inputStyle}
                 control={control}
                 label={'Nickname'}
-                name={'nickname'}
+                name={'nickName'}
                 placeholder={'Type new nickname'}
                 type={'text'}
               />
             )}
           </div>
           <div className={clsx(s.buttonWrapper, isEditNickname && s.buttonWrapperEdit)}>
-            {/*<Button fullWidth={!isEditNickname} variant={isEditNickname ? 'secondary' : 'primary'}>*/}
             {isEditNickname ? (
               <Button fullWidth={false} variant={'secondary'}>
                 <Typography variant={'body2'}>
@@ -100,11 +106,20 @@ export const PersonalInfo = ({ email, isEditNickname, setIsEditNickname, title }
                 </Typography>
               </Button>
             ) : (
-              <Button fullWidth onClick={() => setIsEditNickname(true)} variant={'primary'}>
+              <Button
+                fullWidth
+                onClick={() => {
+                  // Here should be request to change
+                  handleSubmit(data => {
+                    console.log(data.nickName)
+                    setNickName(data.nickName)
+                  })
+                  setIsEditNickname(true)
+                }}
+              >
                 <Typography variant={'body2'}>Save changes</Typography>
               </Button>
             )}
-            {/*</Button>*/}
           </div>
         </form>
       </Card>
