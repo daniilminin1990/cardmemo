@@ -27,13 +27,9 @@ input {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90vw;
-  max-width: 532px;
+  max-width: 542px;
   max-height: 85vh;
   animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.card {
-  padding: 0 0 30px;
 }
 
 .header {
