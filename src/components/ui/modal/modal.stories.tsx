@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button'
 import Checkbox from '@/components/ui/checkbox/checkbox'
 import { Meta, StoryFn } from '@storybook/react'
 
+import s from './stories.module.scss'
+
 import { Modal, Props as ModalProps } from './modal'
 
 interface CustomArgs {
@@ -50,7 +52,7 @@ const ToggleModal: StoryFn<StoryProps> = (args: StoryProps) => {
             }}
           >
             <Button fullWidth variant={'secondary'}>
-              <ImageOutline /> Upload Image
+              <ImageOutline className={s.icon} /> Upload Image
             </Button>
           </div>
 
