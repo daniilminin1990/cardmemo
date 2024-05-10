@@ -12,15 +12,18 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
-
-export const PersonalInfoDefault: Story = () => {
-  const [isEdit, setIsEdit] = useState<boolean>(false)
-
-  return <PersonalInfo isEdit={isEdit} />
-}
-
 export const PersonalInfoEdit: Story = () => {
-  const [isEdit, setIsEdit] = useState<boolean>(true)
+  const [isEditNickname, setIsEditNickname] = useState<boolean>(true)
+  const title = 'Ivan' // Need interaction with Form, to get values
+  const email = 'j&johnson@gmail.com'
+  // Need state to interact with avatar, also modal to change
 
-  return <PersonalInfo isEdit={isEdit} />
+  return (
+    <PersonalInfo
+      email={email}
+      isEditNickname={isEditNickname}
+      setIsEditNickname={setIsEditNickname}
+      title={title}
+    />
+  )
 }

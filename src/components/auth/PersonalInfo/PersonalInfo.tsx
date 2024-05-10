@@ -24,9 +24,12 @@ const createNewPassScheme = z.object({
 type FormValue = z.infer<typeof createNewPassScheme>
 
 type Props = {
-  isEdit?: boolean
+  email: string
+  isEditNickname?: boolean
+  setIsEditNickname: (value: boolean) => void
+  title: string
 }
-export const PersonalInfo = ({ isEdit }: Props) => {
+export const PersonalInfo = ({ email, isEditNickname, setIsEditNickname, title }: Props) => {
   const { control, handleSubmit } = useForm<FormValue>({
     defaultValues: {
       nickname: '',
@@ -52,19 +55,28 @@ export const PersonalInfo = ({ isEdit }: Props) => {
           <div className={s.box}>
             <div className={s.imgGroup}>
               <img alt={''} className={s.img} src={ellipseIcon} />
-              {isEdit && (
-                <Button className={s.editIconButton} variant={'secondary'}>
-                  <Edit2Outline />
+              {isEditNickname && (
+                <Button
+                  className={clsx(s.editIconButton, s.editIconButtonImg)}
+                  variant={'secondary'}
+                >
+                  <Edit2Outline className={s.editIcon} />
                 </Button>
               )}
             </div>
-            {isEdit ? (
+            {isEditNickname ? (
               <div className={s.profileEdit}>
                 <Typography variant={'h1'}>
-                  Ivan <Edit2Outline className={s.editIcon} />
+                  {title}{' '}
+                  <Button
+                    className={clsx(s.editIconButton, s.editIconButtonTxt)}
+                    onClick={() => setIsEditNickname(!isEditNickname)}
+                  >
+                    <Edit2Outline className={s.editIcon} />
+                  </Button>
                 </Typography>
                 <Typography className={s.email} variant={'body2'}>
-                  j&johnson@gmail.com
+                  {email}
                 </Typography>
               </div>
             ) : (
@@ -78,17 +90,21 @@ export const PersonalInfo = ({ isEdit }: Props) => {
               />
             )}
           </div>
-          <div className={clsx(s.buttonWrapper, isEdit && s.buttonWrapperEdit)}>
-            <Button fullWidth={!isEdit} variant={isEdit ? 'secondary' : 'primary'}>
-              {isEdit ? (
+          <div className={clsx(s.buttonWrapper, isEditNickname && s.buttonWrapperEdit)}>
+            {/*<Button fullWidth={!isEditNickname} variant={isEditNickname ? 'secondary' : 'primary'}>*/}
+            {isEditNickname ? (
+              <Button fullWidth={false} variant={'secondary'}>
                 <Typography variant={'body2'}>
                   <LogOut className={s.logoutIcon} />
                   Logout
                 </Typography>
-              ) : (
+              </Button>
+            ) : (
+              <Button fullWidth onClick={() => setIsEditNickname(true)} variant={'primary'}>
                 <Typography variant={'body2'}>Save changes</Typography>
-              )}
-            </Button>
+              </Button>
+            )}
+            {/*</Button>*/}
           </div>
         </form>
       </Card>
