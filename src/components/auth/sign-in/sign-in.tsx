@@ -34,7 +34,7 @@ export const SignIn = () => {
 
   return (
     <>
-      <DevTool control={control} />
+      {import.meta.env.DEV && <DevTool control={control} />}
       <Card className={s.card}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={s.header}>

@@ -76,7 +76,8 @@ button {
 
 /* Изменяем стили при наведении */
 .CheckboxRoot:hover::before,
-.CheckboxRoot:active::before {
+.CheckboxRoot:active::before,
+.CheckboxRoot:focus::before {
   //это кстати при active
   transform: translate(-50%, -50%) scale(1); // Расширяем круг до полного размера
   background: var(--color-dark-500);
