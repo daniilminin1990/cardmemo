@@ -13,7 +13,7 @@ import s from './card.module.scss'
 
 export type CardProps<T extends ElementType = 'div'> = {
   as?: T
-  children: ReactNode
+  children?: ReactNode
   className?: string
 } & ComponentPropsWithoutRef<T>
 

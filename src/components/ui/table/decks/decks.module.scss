@@ -1,32 +1,14 @@
-.nameBlock {
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 10px;
-  text-decoration: none;
-  white-space: nowrap;
-
-  .defaltDeckImg {
-    width: 118px;
-  }
+.arrow {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.5s;
 }
 
-.iconBtns {
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 10px;
-
-  button {
-    padding: 0;
-    background: none;
-    border: none;
-  }
+.rotate {
+  transform: rotate(180deg);
 }
 
-.playCircleOutline,
-.Edit2Outline,
-.TrashOutline {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  color: var(--color-light-100);
+.empty {
+  padding: 60px 0;
+  text-align: center;
 }

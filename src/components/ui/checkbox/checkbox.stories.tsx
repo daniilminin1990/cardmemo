@@ -18,36 +18,36 @@ type Story = StoryObj<typeof meta>
 
 export const Checked: Story = {
   args: {
+    checked: true,
+    disabled: false,
     id: 'checked-checkbox',
-    isChecked: true,
-    isDisabled: false,
     label: 'Click me',
   },
 }
 
 export const Unchecked: Story = {
   args: {
+    checked: false,
+    disabled: false,
     id: 'unchecked-checkbox',
-    isChecked: false,
-    isDisabled: false,
     label: 'Click me',
   },
 }
 
 export const DisabledChecked: Story = {
   args: {
+    checked: true,
+    disabled: true,
     id: 'disabled-unchecked-checkbox',
-    isChecked: true,
-    isDisabled: true,
     label: 'Click me',
   },
 }
 
 export const DisabledUnchecked: Story = {
   args: {
+    checked: false,
+    disabled: true,
     id: 'disabled-checked-checkbox',
-    isChecked: false,
-    isDisabled: true,
     label: 'Click me',
   },
 }
@@ -60,12 +60,7 @@ export const Controlled: Story = {
     const [checked, setChecked] = useState(true)
 
     return (
-      <Checkbox
-        {...args}
-        id={'controlled-checkbox'}
-        isChecked={checked}
-        onCheckedChange={() => setChecked(!checked)}
-      />
+      <Checkbox {...args} id={'controlled-checkbox'} onCheckedChange={() => setChecked(!checked)} />
     )
   },
 }

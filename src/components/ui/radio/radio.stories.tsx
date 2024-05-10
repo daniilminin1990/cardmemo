@@ -1,3 +1,5 @@
+import { useForm } from 'react-hook-form'
+
 import { Radio } from '@/components/ui/radio/radio'
 
 const meta = {
@@ -9,22 +11,24 @@ const meta = {
 export default meta
 
 export const DefaultGroup = () => {
+  const { control } = useForm()
+
   return (
-    <Radio.Root>
+    <Radio.Root control={control} defaultValue={'default'} name={'radio'}>
       <Radio.Body>
-        <Radio.Item tabIndex={1} value={'1'}>
+        <Radio.Item value={'1'}>
           <Radio.Span />
         </Radio.Item>
         <Radio.Label label={'one'} value={'1'} />
       </Radio.Body>
       <Radio.Body>
-        <Radio.Item tabIndex={2} value={'2'}>
+        <Radio.Item value={'2'}>
           <Radio.Span />
         </Radio.Item>
         <Radio.Label label={'two'} value={'2'} />
       </Radio.Body>
       <Radio.Body>
-        <Radio.Item tabIndex={3} value={'3'}>
+        <Radio.Item value={'3'}>
           <Radio.Span />
         </Radio.Item>
         <Radio.Label label={'three'} value={'3'} />
@@ -34,10 +38,12 @@ export const DefaultGroup = () => {
 }
 
 export const Default = () => {
+  const { control } = useForm()
+
   return (
-    <Radio.Root>
+    <Radio.Root control={control} defaultValue={'default'} name={'radio'}>
       <Radio.Body>
-        <Radio.Item tabIndex={1} value={'1'}>
+        <Radio.Item value={'1'}>
           <Radio.Span />
         </Radio.Item>
         <Radio.Label label={'common'} value={'1'} />
@@ -47,10 +53,12 @@ export const Default = () => {
 }
 
 export const Disabled = () => {
+  const { control } = useForm()
+
   return (
-    <Radio.Root>
+    <Radio.Root control={control} defaultValue={'default'} name={'radio'}>
       <Radio.Body isDisabled>
-        <Radio.Item isDisabled tabIndex={5} value={'5'}>
+        <Radio.Item isDisabled value={'5'}>
           <Radio.Span />
         </Radio.Item>
         <Radio.Label isDisabled label={'disabled'} value={'5'} />

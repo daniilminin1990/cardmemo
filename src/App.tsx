@@ -1,9 +1,15 @@
-import { Button } from '@/components/ui/button'
+import { CreateNewPassword } from '@/components/auth/CreateNewPassword/CreateNewPassword'
 
 export function App() {
   return (
-    <div>
-      <Button>123 </Button>
+    <div
+      style={{
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
+      <CreateNewPassword />
     </div>
   )
 }
