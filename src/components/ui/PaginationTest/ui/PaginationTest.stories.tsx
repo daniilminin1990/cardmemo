@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta } from '@storybook/react'
 
 import { useState } from 'react'
 
@@ -12,9 +12,9 @@ const meta = {
 } satisfies Meta<typeof PaginationTest>
 
 export default meta
-type Story = StoryObj<typeof meta>
+// type Story = StoryObj<typeof meta>
 
-export const Default: Story = () => {
+export const Default = () => {
   const [currentPage, setCurrentPage] = useState(1)
   // const [pagesInARow, setPagesInARow] = useState(5)
   const pagesInARow = 5
