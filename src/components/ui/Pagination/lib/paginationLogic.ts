@@ -1,30 +1,33 @@
 export function getPaginationItems(
   currentPage: number,
-  lastPage: number,
-  paginationLength: number
+  totalPages: number, // 100
+  paginationLength: number, // 7
+  pagesInARow: number // 3
 ) {
   const res: Array<number> = []
 
-  if (lastPage <= paginationLength) {
-    for (let i = 1; i <= lastPage; i++) {
+  // * Это остается
+  if (totalPages <= paginationLength) {
+    for (let i = 1; i <= totalPages; i++) {
       res.push(i)
     }
   }
+  // ? Это?
   // handle ellipsis МНОГОТОЧИЕ logic
   else {
     const firstPage = 1
-    const confirmedPagesCount = 3 // acceptable count of pages in a row if there would be ellipses
+    // ? Может это передавать сверху???
     // deducted -- how many elements should show on the sides
-    const deductedMaxLength = paginationLength - confirmedPagesCount // 7 - 3 = 4 // means that we need 4 elements in the array
-    const sideLength = deductedMaxLength / 2 // now we know how many elements should show on the sides
+    const deductedMaxLength = paginationLength - pagesInARow // 7 - 3 = 4 // means that we need 4 elements in the array
+    const sideLength = Math.ceil(deductedMaxLength / 2) // now we know how many elements should show on the sides
 
     // case 1 ellipsis in the middle
-    if (currentPage - firstPage < sideLength || lastPage - currentPage < sideLength) {
+    if (currentPage - firstPage < sideLength || totalPages - currentPage < sideLength) {
       for (let j = 1; j <= firstPage + sideLength; j++) {
         res.push(j)
       }
       res.push(NaN)
-      for (let k = lastPage - sideLength; k <= lastPage; k++) {
+      for (let k = totalPages - sideLength; k <= totalPages; k++) {
         res.push(k)
       }
     }
@@ -32,7 +35,7 @@ export function getPaginationItems(
     // case 2 ellipsis on both sides
     else if (
       currentPage - firstPage >= deductedMaxLength &&
-      lastPage - currentPage >= deductedMaxLength
+      totalPages - currentPage >= deductedMaxLength
     ) {
       const deductedSideLength = sideLength - 1
 
@@ -42,12 +45,12 @@ export function getPaginationItems(
         res.push(l)
       }
       res.push(NaN)
-      res.push(lastPage)
+      res.push(totalPages)
     }
 
     // case 3 ellipsis in the beginning or in the end of array
     else {
-      const isNearFirstPage = currentPage - firstPage < lastPage - currentPage
+      const isNearFirstPage = currentPage - firstPage < totalPages - currentPage
       let remainedLength = paginationLength
 
       if (isNearFirstPage) {
@@ -58,12 +61,12 @@ export function getPaginationItems(
         }
         res.push(NaN)
         remainedLength -= 1
-        for (let n = lastPage - (remainedLength - 1); n <= lastPage; n++) {
+        for (let n = totalPages - (remainedLength - 1); n <= totalPages; n++) {
           res.push(n)
         }
       } else {
         // generate the expected result array
-        for (let o = lastPage; o >= currentPage - 1; o--) {
+        for (let o = totalPages; o >= currentPage - 1; o--) {
           res.unshift(o)
           remainedLength -= 1
         }

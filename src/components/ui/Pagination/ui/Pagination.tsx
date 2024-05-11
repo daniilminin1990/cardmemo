@@ -10,16 +10,23 @@ import s from './pagination.module.scss'
 
 type Props = {
   currentPage: number
-  lastPage: number
+  pagesInARow: number
   paginationLength: number
   setCurrentPage: (currentPage: number) => void
+  totalPages: number
 }
 
-export const Pagination = ({ currentPage, lastPage, paginationLength, setCurrentPage }: Props) => {
+export const Pagination = ({
+  currentPage,
+  pagesInARow,
+  paginationLength,
+  setCurrentPage,
+  totalPages,
+}: Props) => {
   // State for Pagination
   const pageNumbers = useMemo(() => {
-    return getPaginationItems(currentPage, lastPage, paginationLength)
-  }, [currentPage, lastPage, paginationLength])
+    return getPaginationItems(currentPage, totalPages, paginationLength, pagesInARow)
+  }, [currentPage, totalPages, paginationLength, pagesInARow])
 
   return (
     <nav aria-label={'Pagination'} className={s.pagination}>
@@ -46,7 +53,7 @@ export const Pagination = ({ currentPage, lastPage, paginationLength, setCurrent
       })}
       <PageLink
         className={s.icon}
-        disabled={currentPage === lastPage}
+        disabled={currentPage === totalPages}
         href={'#'}
         onClick={() => setCurrentPage(currentPage + 1)}
       >

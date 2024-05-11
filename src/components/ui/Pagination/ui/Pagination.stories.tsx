@@ -16,15 +16,17 @@ export default meta
 
 export const Default = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  const lastPage = 10
+  const totalPages = 10
   const paginationLength = 7
+  const pagesInARow = 3
 
   return (
     <Pagination
       currentPage={currentPage}
-      lastPage={lastPage}
+      pagesInARow={pagesInARow}
       paginationLength={paginationLength}
       setCurrentPage={setCurrentPage}
+      totalPages={totalPages}
     />
   )
 }
