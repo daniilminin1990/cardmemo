@@ -21,7 +21,7 @@ export const Default: Story = {
     initPage: 1,
     lastPage: 10,
     maxLength: 7,
-    placeholder: 'Select-box',
+    placeholder: 'Select',
     selectOptions: [
       { text: '10', value: '10' },
       { text: '20', value: '20' },
@@ -38,7 +38,7 @@ export const TestPagin: Story = {
     initPage: 1,
     lastPage: 10,
     maxLength: 7,
-    placeholder: 'Select-box',
+    placeholder: 'Select',
     selectOptions: [
       { text: 'Banana', value: 'Banana' },
       { text: 'Smetana', value: 'Smetana' },

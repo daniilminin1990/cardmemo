@@ -16,14 +16,7 @@ type Props = {
   selectOptions: selectOptionsType[]
 }
 export const PaginationWithSelect = (props: Props) => {
-  const {
-    disabled,
-    initPage,
-    lastPage,
-    maxLength,
-    placeholder = 'Something',
-    selectOptions,
-  } = props
+  const { disabled, initPage, lastPage, maxLength, placeholder = 'Select', selectOptions } = props
 
   return (
     <div
@@ -35,7 +28,12 @@ export const PaginationWithSelect = (props: Props) => {
     >
       <Pagination initPage={initPage} lastPage={lastPage} maxLength={maxLength} />
       <span className={s.firstText}>Показать </span>
-      <SelectUI disabled={disabled} placeholder={placeholder} selectOptions={selectOptions} />
+      <SelectUI
+        customStyle={'select'}
+        disabled={disabled}
+        placeholder={placeholder}
+        selectOptions={selectOptions}
+      />
       <div className={s.lastText}>на странице</div>
     </div>
   )
