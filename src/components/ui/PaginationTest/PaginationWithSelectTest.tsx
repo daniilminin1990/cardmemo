@@ -1,9 +1,7 @@
-import { useState } from 'react'
-
-import { Pagination } from '@/components/ui/Pagination/ui/Pagination'
+import { PaginationTest } from '@/components/ui/PaginationTest/ui/PaginationTest'
 import SelectUI from '@/components/ui/Select/Select'
 
-import s from './paginationWithSelect.module.scss'
+import s from './paginationWithSelectTest.module.scss'
 export type selectOptionsType = {
   text: string
   value: string
@@ -13,21 +11,23 @@ type Props = {
   currentPage: number
   disabled?: boolean
   lastPage: number
-  paginationLength: number
+  pagesInARow: number
   placeholder?: string
   selectOptions: selectOptionsType[]
+  setCurrentPage: (page: number) => void
+  siblingCount?: number
 }
-export const PaginationWithSelect = (props: Props) => {
+export const PaginationWithSelectTest = (props: Props) => {
   const {
+    currentPage,
     disabled,
     lastPage,
-    paginationLength,
+    pagesInARow,
     placeholder = 'Select',
     selectOptions,
-    ...rest
+    setCurrentPage,
+    siblingCount,
   } = props
-
-  const [currentPage, setCurrentPage] = useState(rest.currentPage)
 
   return (
     <div
@@ -37,11 +37,12 @@ export const PaginationWithSelect = (props: Props) => {
         justifyContent: 'center',
       }}
     >
-      <Pagination
+      <PaginationTest
         currentPage={currentPage}
         lastPage={lastPage}
-        paginationLength={paginationLength}
+        pagesInARow={pagesInARow}
         setCurrentPage={setCurrentPage}
+        siblingCount={siblingCount}
       />
       <span className={s.firstText}>Показать </span>
       <SelectUI
