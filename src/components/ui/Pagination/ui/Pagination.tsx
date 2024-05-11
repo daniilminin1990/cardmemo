@@ -1,5 +1,5 @@
 // type Props = {}
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import SvgArrowIosBack from '@/assets/icons/svg/ArrowIosBack'
 import SvgArrowIosForward from '@/assets/icons/svg/ArrowIosForward'
@@ -17,7 +17,9 @@ type Props = {
 export const Pagination = ({ initPage, lastPage, maxLength }: Props) => {
   // State for Pagination
   const [currentPage, setCurrentPage] = useState(initPage)
-  const pageNumbers = getPaginationItems(currentPage, lastPage, maxLength)
+  const pageNumbers = useMemo(() => {
+    return getPaginationItems(currentPage, lastPage, maxLength)
+  }, [currentPage, lastPage, maxLength])
 
   return (
     <nav aria-label={'Pagination'} className={s.pagination}>
