@@ -1,7 +1,11 @@
-export function getPaginationItems(currentPage: number, lastPage: number, maxLength: number) {
+export function getPaginationItems(
+  currentPage: number,
+  lastPage: number,
+  paginationLength: number
+) {
   const res: Array<number> = []
 
-  if (lastPage <= maxLength) {
+  if (lastPage <= paginationLength) {
     for (let i = 1; i <= lastPage; i++) {
       res.push(i)
     }
@@ -11,10 +15,10 @@ export function getPaginationItems(currentPage: number, lastPage: number, maxLen
     const firstPage = 1
     const confirmedPagesCount = 3 // acceptable count of pages in a row if there would be ellipses
     // deducted -- how many elements should show on the sides
-    const deductedMaxLength = maxLength - confirmedPagesCount // 7 - 3 = 4 // means that we need 4 elements in the array
+    const deductedMaxLength = paginationLength - confirmedPagesCount // 7 - 3 = 4 // means that we need 4 elements in the array
     const sideLength = deductedMaxLength / 2 // now we know how many elements should show on the sides
 
-    // handle 1 ellipsis in the middle
+    // case 1 ellipsis in the middle
     if (currentPage - firstPage < sideLength || lastPage - currentPage < sideLength) {
       for (let j = 1; j <= firstPage + sideLength; j++) {
         res.push(j)
@@ -25,7 +29,7 @@ export function getPaginationItems(currentPage: number, lastPage: number, maxLen
       }
     }
 
-    // handle 2 ellipsis on both sides
+    // case 2 ellipsis on both sides
     else if (
       currentPage - firstPage >= deductedMaxLength &&
       lastPage - currentPage >= deductedMaxLength
@@ -41,10 +45,10 @@ export function getPaginationItems(currentPage: number, lastPage: number, maxLen
       res.push(lastPage)
     }
 
-    // handle 1 ellipsis in the beginning or in the end of array
+    // case 3 ellipsis in the beginning or in the end of array
     else {
       const isNearFirstPage = currentPage - firstPage < lastPage - currentPage
-      let remainedLength = maxLength
+      let remainedLength = paginationLength
 
       if (isNearFirstPage) {
         // generate the expected result array

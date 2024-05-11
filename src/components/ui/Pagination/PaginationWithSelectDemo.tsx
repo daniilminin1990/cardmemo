@@ -5,7 +5,7 @@ import {
 // presentation
 export const PaginationWithSelectDemo = () => {
   const lastPage = 10
-  const maxLength = 7
+  const paginationLength = 7
   const placeholder = '10'
   const selectOptions: selectOptionsType[] = [
     { text: '10', value: '10' },
@@ -18,10 +18,10 @@ export const PaginationWithSelectDemo = () => {
 
   return (
     <PaginationWithSelect
+      currentPage={1}
       disabled={disabled}
-      initPage={1}
       lastPage={lastPage}
-      maxLength={maxLength}
+      paginationLength={paginationLength}
       placeholder={placeholder}
       selectOptions={selectOptions}
     />

@@ -15,6 +15,7 @@ const SelectUI = ({ customStyle, disabled, placeholder, selectOptions }: Props) 
   const selectClasses = {
     content: clsx(s.selectContent),
     icon: clsx(s.selectIcon),
+    root: s.selectRoot,
     trigger: clsx(
       s.selectTrigger,
       { [s.selectCustom]: customStyle },
@@ -24,7 +25,7 @@ const SelectUI = ({ customStyle, disabled, placeholder, selectOptions }: Props) 
   }
 
   return (
-    <div className={s.selectRoot}>
+    <div className={selectClasses.root}>
       <Select.Root disabled={disabled}>
         <Select.Trigger aria-label={'select'} asChild className={selectClasses.trigger}>
           <button>

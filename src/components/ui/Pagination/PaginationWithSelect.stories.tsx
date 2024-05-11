@@ -17,10 +17,10 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
+    currentPage: 1,
     disabled: false,
-    initPage: 1,
     lastPage: 10,
-    maxLength: 7,
+    paginationLength: 7,
     placeholder: 'Select',
     selectOptions: [
       { text: '10', value: '10' },
@@ -34,10 +34,10 @@ export const Default: Story = {
 
 export const TestPagin: Story = {
   args: {
+    currentPage: 1,
     disabled: false,
-    initPage: 1,
     lastPage: 10,
-    maxLength: 7,
+    paginationLength: 7,
     placeholder: 'Select',
     selectOptions: [
       { text: 'Banana', value: 'Banana' },

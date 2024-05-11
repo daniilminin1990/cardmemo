@@ -14,8 +14,8 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    initPage: 1,
+    currentPage: 1,
     lastPage: 10,
-    maxLength: 7,
+    paginationLength: 7,
   },
 }

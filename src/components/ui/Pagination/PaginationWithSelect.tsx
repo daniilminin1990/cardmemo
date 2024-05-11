@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Pagination } from '@/components/ui/Pagination/ui/Pagination'
 import SelectUI from '@/components/ui/Select/Select'
 
@@ -8,15 +10,24 @@ export type selectOptionsType = {
 }
 
 type Props = {
+  currentPage: number
   disabled?: boolean
-  initPage: number
   lastPage: number
-  maxLength: number
+  paginationLength: number
   placeholder?: string
   selectOptions: selectOptionsType[]
 }
 export const PaginationWithSelect = (props: Props) => {
-  const { disabled, initPage, lastPage, maxLength, placeholder = 'Select', selectOptions } = props
+  const {
+    disabled,
+    lastPage,
+    paginationLength,
+    placeholder = 'Select',
+    selectOptions,
+    ...rest
+  } = props
+
+  const [currentPage, setCurrentPage] = useState(rest.currentPage)
 
   return (
     <div
@@ -26,7 +37,12 @@ export const PaginationWithSelect = (props: Props) => {
         justifyContent: 'center',
       }}
     >
-      <Pagination initPage={initPage} lastPage={lastPage} maxLength={maxLength} />
+      <Pagination
+        currentPage={currentPage}
+        lastPage={lastPage}
+        paginationLength={paginationLength}
+        setCurrentPage={setCurrentPage}
+      />
       <span className={s.firstText}>Показать </span>
       <SelectUI
         customStyle={'select'}
