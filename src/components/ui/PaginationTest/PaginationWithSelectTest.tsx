@@ -46,7 +46,7 @@ export const PaginationWithSelectTest = (props: Props) => {
       />
       <span className={s.firstText}>Показать </span>
       <SelectUI
-        customStyle={'select'}
+        className={'select'}
         disabled={disabled}
         placeholder={placeholder}
         selectOptions={selectOptions}
