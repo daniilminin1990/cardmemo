@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef, useId, useState } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useId, useState } from 'react'
 
 import EyeOff from '@/assets/icons/svg/EyeOff'
 import Typography from '@/components/ui/Typography/Typography'
@@ -19,7 +19,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
   const { error, id, label, placeholder, type, ...restProps } = props
 
   const [isShow, setIsShow] = useState(false)
+  const [inputValue, setInputValue] = useState('')
 
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    props.onChange?.(e)
+    setInputValue?.(e.target.value)
+  }
+  const clearInput = () => {
+    setInputValue('')
+  }
   const isShowChangeHandler = () => {
     setIsShow(!isShow)
   }
@@ -49,16 +57,21 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
         )}
         {type === 'search' && <Search className={s.Search} viewBox={'0 0 24 24'} />}
 
-        <div>{type === 'search' && <Close className={s.Close} viewBox={'0 0 24 24'} />}</div>
+        <div>
+          {type === 'search' && (
+            <Close className={s.Close} onClick={clearInput} viewBox={'0 0 24 24'} />
+          )}
+        </div>
 
         <input
           {...restProps}
           className={classNameForInput}
           id={id ?? generatedId}
-          onChange={restProps.onChange}
+          onChange={handleChange}
           placeholder={placeholder}
           ref={ref}
           type={type === 'password' ? (isShow ? 'text' : 'password') : type}
+          value={inputValue}
         />
       </div>
       {error && <div className={s.errorText}>{error}</div>}
