@@ -20,7 +20,7 @@ button {
 }
 
 .DropdownMenuContentForMenu {
-  man-width: 97px;
+  min-width: 97px;
   background-color: var(--color-dark-700);
   border-radius: 6px;
   padding: 12px;
@@ -35,7 +35,7 @@ button {
 .DropdownMenuContent[data-side='top'] {
   animation-name: slideDownAndFade;
 }
-.DropdownMenuContent[data-side='right'] {
+.DropdownMenuContent[data-side='right']{
   animation-name: slideLeftAndFade;
 }
 .DropdownMenuContent[data-side='bottom'] {
@@ -43,6 +43,10 @@ button {
 }
 .DropdownMenuContent[data-side='left'] {
   animation-name: slideRightAndFade;
+}
+
+.DropdownMenuItem p[data-highlighted]{
+  color: var(--violet-1);
 }
 
 .DropdownMenuItem {
@@ -61,16 +65,17 @@ button {
   fill: #0a6638;
 }
 
-.dropdownText:hover,
-.icon:hover {
+.dropdownText:focus-visible{
   color: var(--color-accent-500);
 }
+
 
 .DropdownMenuSeparator {
   height: 1px;
   background-color: var(--color-dark-500);
   margin: 5px;
 }
+
 
 .DropdownMenuItemIndicator {
   position: absolute;
@@ -98,9 +103,21 @@ button {
   box-shadow: 0 2px 10px var(--black-a7);
 }
 
-.IconButton:focus {
+.IconButton:hover{
+  cursor: pointer;
+}
+.DropdownMenuItem{
+  cursor: pointer;
+}
+
+.IconButton[data-state = 'open'] img, .IconButton:focus-visible img {
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 8px rgba(137, 74, 255, 0.5);
+}
+
+.DropdownMenuItem:focus p {
   color: var(--color-accent-500);
-  background-color: black;
 }
 
 .header {
