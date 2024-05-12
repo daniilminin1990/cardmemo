@@ -1,5 +1,6 @@
-import { PropsWithChildren } from 'react'
+import { ComponentPropsWithoutRef } from 'react'
 
+import Typography from '@/components/ui/Typography/Typography'
 import { Card } from '@/components/ui/card'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
@@ -7,19 +8,21 @@ import { Cross2Icon } from '@radix-ui/react-icons'
 import s from './modal.module.scss'
 
 export type Props = {
+  onOpenChange: (value: boolean) => void
   open: boolean
-  setOpen: (value: boolean) => void
-  title: string
-} & PropsWithChildren
+  title?: string
+} & Omit<ComponentPropsWithoutRef<typeof Dialog.Dialog>, 'onOpenChange' | 'open'>
 
-export const Modal = ({ children, open, setOpen, title }: Props) => (
-  <Dialog.Root onOpenChange={() => setOpen(open)} open={open}>
+export const Modal = ({ children, title, ...props }: Props) => (
+  <Dialog.Root {...props}>
     <Dialog.Portal>
       <Dialog.Overlay className={s.DialogOverlay} />
       <Dialog.Content className={s.DialogContent}>
-        <Card className={s.card}>
+        <Card>
           <div className={s.header}>
-            <Dialog.Title className={s.title}>{title}</Dialog.Title>
+            <Typography as={'h2'} variant={'h2'}>
+              {title}
+            </Typography>
             <Dialog.Close asChild>
               <button aria-label={'Close'} className={s.closeBtn}>
                 <Cross2Icon />

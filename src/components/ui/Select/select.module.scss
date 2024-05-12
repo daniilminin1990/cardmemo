@@ -41,6 +41,9 @@
     color: var(--color-dark-300);
     border-color: var(--color-dark-300);
   }
+  &.selectCustom{
+    padding: 4px 6px;
+  }
 }
 
 .selectTriggerDisabled {
