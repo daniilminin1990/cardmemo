@@ -1,12 +1,11 @@
-import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
+import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
 import Input, { InputProps } from '@/components/ui/Input/Input'
 
 export type ControlledInputProps<TFieldValues extends FieldValues> = {
   className: string
-  control: Control<TFieldValues>
-  name: FieldPath<TFieldValues>
-} & Omit<InputProps, 'onChange' | 'value'>
+} & Omit<InputProps, 'onChange' | 'value'> &
+  Omit<UseControllerProps<TFieldValues>, 'defaultValue' | 'disabled' | 'rules'>
 
 export const FormTextfield = <TFieldValues extends FieldValues>({
   control,
@@ -18,6 +17,7 @@ export const FormTextfield = <TFieldValues extends FieldValues>({
     fieldState: { error },
   } = useController({
     control,
+    disabled: rest.disabled,
     name,
     shouldUnregister: true,
   })

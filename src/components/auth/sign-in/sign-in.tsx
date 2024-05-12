@@ -1,4 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -34,7 +35,7 @@ export const SignIn = () => {
 
   return (
     <>
-      <DevTool control={control} />
+      {import.meta.env.DEV && <DevTool control={control} />}
       <Card className={s.card}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={s.header}>
@@ -69,7 +70,12 @@ export const SignIn = () => {
             <Typography as={'label'} className={s.typographyFooterTitle} variant={'body2'}>
               Don't have an account?
             </Typography>
-            <Typography className={s.typographyFooterSubtitle} variant={'link1'}>
+            <Typography
+              as={Link}
+              className={s.typographyFooterSubtitle}
+              to={'/sign-up'}
+              variant={'link1'}
+            >
               Sign Up
             </Typography>
           </div>
