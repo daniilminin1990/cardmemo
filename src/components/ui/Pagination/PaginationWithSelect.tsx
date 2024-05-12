@@ -17,9 +17,7 @@ type Props = {
 }
 export const PaginationWithSelect = (props: Props) => {
   const { disabled, placeholder = 'Select', selectOptions } = props
-  const paginationLength = 7 // length of pagination
   const [currentPage, setCurrentPage] = useState(1)
-  const pagesInARow = 3 // acceptable count of pages in a row if there would be ellipses
   const [itemsPerPage, setItemsPerPage] = useState<number>(10)
   const totalItems: number = 100 // comes from API
   const totalPages: number = Math.ceil(totalItems / itemsPerPage) // Is this comes from, server???
@@ -44,8 +42,6 @@ export const PaginationWithSelect = (props: Props) => {
     >
       <Pagination
         currentPage={currentPage}
-        pagesInARow={pagesInARow}
-        paginationLength={paginationLength}
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
       />
