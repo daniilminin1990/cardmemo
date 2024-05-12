@@ -47,7 +47,7 @@ export const PaginationWithSelect = (props: Props) => {
       />
       <Typography className={s.firstText}>Показать </Typography>
       <SelectUI
-        customStyle={'select'}
+        className={'select'}
         disabled={disabled}
         itemsPerPageHandler={itemsPerPageHandler}
         placeholder={placeholder}

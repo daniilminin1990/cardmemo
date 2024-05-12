@@ -6,14 +6,14 @@ import clsx from 'clsx'
 import s from './select.module.scss'
 
 type Props = {
-  customStyle?: string
+  className?: string
   disabled?: boolean
   itemsPerPageHandler?: (items: string) => void
   placeholder?: string
   selectOptions: selectOptionsType[]
 }
 const SelectUI = ({
-  customStyle,
+  className,
   disabled,
   itemsPerPageHandler,
   placeholder,
@@ -25,7 +25,7 @@ const SelectUI = ({
     root: s.selectRoot,
     trigger: clsx(
       s.selectTrigger,
-      { [s.selectCustom]: customStyle },
+      { [s.selectCustom]: className },
       disabled && s.selectTriggerDisabled
     ),
     viewport: clsx(s.selectViewport),
