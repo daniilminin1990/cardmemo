@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { PersonalInfo } from '@/components/auth/PersonalInfo/PersonalInfo'
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta } from '@storybook/react'
 
 const meta = {
   component: PersonalInfo,
@@ -11,8 +11,8 @@ const meta = {
 
 export default meta
 
-type Story = StoryObj<typeof meta>
-export const PersonalInfoEdit: Story = () => {
+// type Story = StoryObj<typeof meta>
+export const PersonalInfoEdit = () => {
   const [isEditNickname, setIsEditNickname] = useState<boolean>(true)
   const [nickName, setNickName] = useState('Ivan') // Need interaction with Form, to get values
   const email = 'j&johnson@gmail.com'
