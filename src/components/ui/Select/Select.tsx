@@ -6,19 +6,26 @@ import clsx from 'clsx'
 import s from './select.module.scss'
 
 type Props = {
-  customStyle?: string
+  className?: string
   disabled?: boolean
+  itemsPerPageHandler?: (items: string) => void
   placeholder?: string
   selectOptions: selectOptionsType[]
 }
-const SelectUI = ({ customStyle, disabled, placeholder, selectOptions }: Props) => {
+const SelectUI = ({
+  className,
+  disabled,
+  itemsPerPageHandler,
+  placeholder,
+  selectOptions,
+}: Props) => {
   const selectClasses = {
     content: clsx(s.selectContent),
     icon: clsx(s.selectIcon),
     root: s.selectRoot,
     trigger: clsx(
       s.selectTrigger,
-      { [s.selectCustom]: customStyle },
+      { [s.selectCustom]: className },
       disabled && s.selectTriggerDisabled
     ),
     viewport: clsx(s.selectViewport),
@@ -26,7 +33,7 @@ const SelectUI = ({ customStyle, disabled, placeholder, selectOptions }: Props) 
 
   return (
     <div className={selectClasses.root}>
-      <Select.Root disabled={disabled}>
+      <Select.Root disabled={disabled} onValueChange={itemsPerPageHandler}>
         <Select.Trigger aria-label={'select'} asChild className={selectClasses.trigger}>
           <button>
             <Select.Value placeholder={placeholder} />
