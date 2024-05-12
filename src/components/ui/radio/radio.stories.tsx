@@ -14,7 +14,7 @@ export const DefaultGroup = () => {
   const { control } = useForm()
 
   return (
-    <Radio.Root control={control} defaultValue={'default'} name={'radio'}>
+    <Radio.Root control={control} defaultValue={'1'} name={'radio'}>
       <Radio.Body>
         <Radio.Item value={'1'}>
           <Radio.Span />
@@ -41,7 +41,7 @@ export const Default = () => {
   const { control } = useForm()
 
   return (
-    <Radio.Root control={control} defaultValue={'default'} name={'radio'}>
+    <Radio.Root control={control} defaultValue={'1'} name={'radio'}>
       <Radio.Body>
         <Radio.Item value={'1'}>
           <Radio.Span />
@@ -56,7 +56,7 @@ export const Disabled = () => {
   const { control } = useForm()
 
   return (
-    <Radio.Root control={control} defaultValue={'default'} name={'radio'}>
+    <Radio.Root control={control} defaultValue={'1'} name={'radio'}>
       <Radio.Body isDisabled>
         <Radio.Item isDisabled value={'5'}>
           <Radio.Span />

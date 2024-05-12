@@ -22,7 +22,7 @@ export const Deck = ({ item }: Props) => {
           </Typography>
         </Button>
       </Table.Cell>
-      <Table.Cell>{item.cardsCount}</Table.Cell>
+      <Table.Cell className={s.empty}>{item.cardsCount}</Table.Cell>
       <Table.Cell>{item.updated}</Table.Cell>
       <Table.Cell>{item.author.name}</Table.Cell>
       <Table.Cell>

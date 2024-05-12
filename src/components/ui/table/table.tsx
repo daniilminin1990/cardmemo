@@ -65,6 +65,7 @@ export const Cell = forwardRef<HTMLTableCellElement, CellProps>(
   ({ className = '', ...rest }: CellProps, ref) => {
     const classNames = {
       cell: clsx(s.cell, className?.startsWith('_') ? className : s[className]),
+      // cell: clsx(s.cell, className),
     }
 
     return <td className={classNames.cell} {...rest} ref={ref} />

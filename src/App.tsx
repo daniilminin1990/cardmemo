@@ -1,15 +1,9 @@
-import { CreateNewPassword } from '@/components/auth/CreateNewPassword/CreateNewPassword'
+import { Decks } from '@/components/ui/table/decks/Decks'
 
 export function App() {
   return (
-    <div
-      style={{
-        alignItems: 'center',
-        display: 'flex',
-        justifyContent: 'center',
-      }}
-    >
-      <CreateNewPassword />
+    <div>
+      <Decks />
     </div>
   )
 }
