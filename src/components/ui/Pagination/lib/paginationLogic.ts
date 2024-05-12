@@ -1,46 +1,53 @@
-export function getPaginationItems(
-  currentPage: number,
-  totalPages: number // 100
-) {
-  const paginationLength = 7 // length of pagination
-  const pagesInARow = 3 // acceptable count of pages in a row if there would be ellipses
+import { useMemo } from 'react'
 
-  if (totalPages <= paginationLength) {
-    return range(1, totalPages)
-  }
-  // case ellipsis МНОГОТОЧИЕ logic
-  else {
-    const firstPage = 1
-    // deducted -- how many elements should show on the sides
-    const deductedMaxLength = paginationLength - pagesInARow // 7 - 3 = 4 // means that we need 4 elements in the array
-    const sideLength = Math.ceil(deductedMaxLength / 2) // now we know how many elements should show on the sides
-
-    // case 1 - ellipsis in the middle
-    if (currentPage - firstPage < sideLength || totalPages - currentPage < sideLength) {
-      const leftSide = range(firstPage, sideLength + 1)
-      const rightSide = range(totalPages - sideLength, totalPages)
-
-      return [...leftSide, NaN, ...rightSide]
-    }
-
-    // case 2 - ellipsis on both sides
-    else if (
-      currentPage - firstPage >= deductedMaxLength &&
-      totalPages - currentPage >= deductedMaxLength
-    ) {
-      const deductedSideLength = sideLength - 1
-      const midArray = range(currentPage - deductedSideLength, currentPage + 1)
-
-      return [firstPage, NaN, ...midArray, NaN, totalPages]
-    }
-
-    // case 3 - ellipsis in the beginning or in the end of array
-    else {
-      return getEllipsedArray(currentPage, firstPage, totalPages, paginationLength)
-    }
-  }
+type UsePaginationArgs = {
+  currentPage: number
+  totalPages: number
 }
+export const usePagination = ({
+  currentPage,
+  totalPages, // 100
+}: UsePaginationArgs) => {
+  return useMemo(() => {
+    const paginationLength = 7 // length of pagination
+    const pagesInARow = 3 // acceptable count of pages in a row if there would be ellipses
 
+    if (totalPages <= paginationLength) {
+      return range(1, totalPages)
+    }
+    // case ellipsis МНОГОТОЧИЕ logic
+    else {
+      const firstPage = 1
+      // deducted -- how many elements should show on the sides
+      const deductedMaxLength = paginationLength - pagesInARow // 7 - 3 = 4 // means that we need 4 elements in the array
+      const sideLength = Math.ceil(deductedMaxLength / 2) // now we know how many elements should show on the sides
+
+      // case 1 - ellipsis in the middle
+      if (currentPage - firstPage < sideLength || totalPages - currentPage < sideLength) {
+        const leftSide = range(firstPage, sideLength + 1)
+        const rightSide = range(totalPages - sideLength, totalPages)
+
+        return [...leftSide, NaN, ...rightSide]
+      }
+
+      // case 2 - ellipsis on both sides
+      else if (
+        currentPage - firstPage >= deductedMaxLength &&
+        totalPages - currentPage >= deductedMaxLength
+      ) {
+        const deductedSideLength = sideLength - 1
+        const midArray = range(currentPage - deductedSideLength, currentPage + 1)
+
+        return [firstPage, NaN, ...midArray, NaN, totalPages]
+      }
+
+      // case 3 - ellipsis in the beginning or in the end of array
+      else {
+        return getEllipsedArray(currentPage, firstPage, totalPages, paginationLength)
+      }
+    }
+  }, [currentPage, totalPages])
+}
 function range(start: number, end: number) {
   const length = end - start + 1
 
@@ -75,3 +82,46 @@ function getEllipsedArray(
     return [...beginningArray, NaN, ...endArray]
   }
 }
+
+// export function getPaginationItems(
+//   currentPage: number,
+//   totalPages: number // 100
+// ) {
+//   const paginationLength = 7 // length of pagination
+//   const pagesInARow = 3 // acceptable count of pages in a row if there would be ellipses
+//
+//   if (totalPages <= paginationLength) {
+//     return range(1, totalPages)
+//   }
+//   // case ellipsis МНОГОТОЧИЕ logic
+//   else {
+//     const firstPage = 1
+//     // deducted -- how many elements should show on the sides
+//     const deductedMaxLength = paginationLength - pagesInARow // 7 - 3 = 4 // means that we need 4 elements in the array
+//     const sideLength = Math.ceil(deductedMaxLength / 2) // now we know how many elements should show on the sides
+//
+//     // case 1 - ellipsis in the middle
+//     if (currentPage - firstPage < sideLength || totalPages - currentPage < sideLength) {
+//       const leftSide = range(firstPage, sideLength + 1)
+//       const rightSide = range(totalPages - sideLength, totalPages)
+//
+//       return [...leftSide, NaN, ...rightSide]
+//     }
+//
+//     // case 2 - ellipsis on both sides
+//     else if (
+//       currentPage - firstPage >= deductedMaxLength &&
+//       totalPages - currentPage >= deductedMaxLength
+//     ) {
+//       const deductedSideLength = sideLength - 1
+//       const midArray = range(currentPage - deductedSideLength, currentPage + 1)
+//
+//       return [firstPage, NaN, ...midArray, NaN, totalPages]
+//     }
+//
+//     // case 3 - ellipsis in the beginning or in the end of array
+//     else {
+//       return getEllipsedArray(currentPage, firstPage, totalPages, paginationLength)
+//     }
+//   }
+// }
