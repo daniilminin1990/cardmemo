@@ -22,7 +22,7 @@ export const TabSwitcher = ({ className, label, onValueChange, tabs, value }: Pr
     <div className={clsx(s.div, className)}>
       {label}
       <Tabs.Root className={s.root} onValueChange={onValueChange} value={value}>
-        <Tabs.List>
+        <Tabs.List className={s.tabList}>
           {tabs.map(t => (
             <Tabs.Trigger className={s.trigger} disabled={t.disabled} key={t.value} value={t.value}>
               {t.text}

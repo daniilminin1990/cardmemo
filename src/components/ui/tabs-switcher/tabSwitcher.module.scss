@@ -1,10 +1,13 @@
 .div {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   gap: 7px;
-
+  //column-gap: 0px;
+  //row-gap: 7px;
   .root {
-    width: max-content;
+    width: 100%;
 
     &:has(:focus-visible) {
       border-radius: 2px;
@@ -12,8 +15,13 @@
       outline-offset: -1px;
     }
 
+    .tabList {
+      display: flex;
+    }
+
     .trigger {
-      all: unset;
+      flex-grow: 1;
+      text-align: center;
 
       cursor: pointer;
 

@@ -25,7 +25,11 @@ export const Default = {
     const label = 'Show tabs'
 
     return (
-      <div>
+      <div
+        style={{
+          width: '230px',
+        }}
+      >
         <TabSwitcher
           label={label}
           onValueChange={value => setValue(value)}
