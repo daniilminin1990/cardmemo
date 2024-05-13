@@ -14,7 +14,7 @@ const CheckboxDemo = forwardRef<ElementRef<typeof Checkbox.Root>, Props>((props:
   const { checked, disabled, id, label, onCheckedChange, ...rest } = props
   const disabledClass = disabled ? 'disabled' : ''
   const checkedClass = checked ? 'checked' : ''
-  const checkboxId = id ?? useId()
+  const generatedId = useId()
 
   return (
     <form>
@@ -24,7 +24,7 @@ const CheckboxDemo = forwardRef<ElementRef<typeof Checkbox.Root>, Props>((props:
           checked={checked}
           className={`CheckboxRoot ${disabledClass} ${checkedClass}`}
           defaultChecked
-          id={checkboxId}
+          id={id ?? generatedId}
           onCheckedChange={onCheckedChange}
         >
           {checked && (
@@ -36,7 +36,7 @@ const CheckboxDemo = forwardRef<ElementRef<typeof Checkbox.Root>, Props>((props:
             </Checkbox.Indicator>
           )}
         </Checkbox.Root>
-        <label className={`Label ${disabledClass}`} htmlFor={checkboxId}>
+        <label className={`Label ${disabledClass}`} htmlFor={id ?? generatedId}>
           {label}
         </label>
       </div>
