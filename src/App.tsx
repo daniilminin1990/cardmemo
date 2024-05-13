@@ -1,5 +1,4 @@
-import { PaginationWithSelectDemo } from '@/components/ui/Pagination/PaginationWithSelectDemo'
-import { Button } from '@/components/ui/button'
+import { CreateNewPassword } from '@/components/auth/CreateNewPassword/CreateNewPassword'
 
 export function App() {
   return (
@@ -10,8 +9,7 @@ export function App() {
         justifyContent: 'center',
       }}
     >
-      <Button>123 </Button>
-      <PaginationWithSelectDemo />
+      <CreateNewPassword />
     </div>
   )
 }
