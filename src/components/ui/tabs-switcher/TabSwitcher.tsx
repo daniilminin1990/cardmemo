@@ -1,3 +1,4 @@
+import Typography from '@/components/ui/Typography/Typography'
 import * as Tabs from '@radix-ui/react-tabs'
 import { clsx } from 'clsx'
 
@@ -20,7 +21,9 @@ type Props = {
 export const TabSwitcher = ({ className, label, onValueChange, tabs, value }: Props) => {
   return (
     <div className={clsx(s.div, className)}>
-      {label}
+      <Typography as={'label'} variant={'body2'}>
+        {label}
+      </Typography>
       <Tabs.Root className={s.root} onValueChange={onValueChange} value={value}>
         <Tabs.List className={s.tabList}>
           {tabs.map(t => (
