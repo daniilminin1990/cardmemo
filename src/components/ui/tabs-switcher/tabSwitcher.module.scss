@@ -1,8 +1,11 @@
 .div {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
-  justify-content: flex-start;
-
+  gap: 7px;
+  //column-gap: 0px;
+  //row-gap: 7px;
   .root {
     width: 100%;
 
@@ -12,8 +15,13 @@
       outline-offset: -1px;
     }
 
+    .tabList {
+      display: flex;
+    }
+
     .trigger {
-      all: unset;
+      flex-grow: 1;
+      text-align: center;
 
       cursor: pointer;
 
@@ -25,7 +33,7 @@
       border: 1px solid var(--color-dark-300);
       border-left: none;
 
-      transition: all 0.3s;
+      transition: all 0.2s;
 
       &:first-child {
         border-left: 1px solid var(--color-dark-300);

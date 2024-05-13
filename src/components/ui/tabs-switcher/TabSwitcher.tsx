@@ -11,16 +11,18 @@ export type Tab = {
 
 type Props = {
   className?: string
+  label?: string
   onValueChange: (value: string) => void
   tabs: Tab[]
   value: string
 }
 
-export const TabSwitcher = ({ className, onValueChange, tabs, value }: Props) => {
+export const TabSwitcher = ({ className, label, onValueChange, tabs, value }: Props) => {
   return (
     <div className={clsx(s.div, className)}>
+      {label}
       <Tabs.Root className={s.root} onValueChange={onValueChange} value={value}>
-        <Tabs.List>
+        <Tabs.List className={s.tabList}>
           {tabs.map(t => (
             <Tabs.Trigger className={s.trigger} disabled={t.disabled} key={t.value} value={t.value}>
               {t.text}
