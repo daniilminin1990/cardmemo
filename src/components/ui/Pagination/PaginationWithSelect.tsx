@@ -15,8 +15,8 @@ type Props = {
   placeholder?: string
   selectOptions: selectOptionsType[]
 }
-export const PaginationWithSelect = (props: Props) => {
-  const { disabled, placeholder = 'Select', selectOptions } = props
+export const PaginationWithSelect = ({ disabled, placeholder, selectOptions }: Props) => {
+  const placeholderText = placeholder || selectOptions[0].text
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState<number>(10)
   const totalItems: number = 100 // comes from API
@@ -45,15 +45,15 @@ export const PaginationWithSelect = (props: Props) => {
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
       />
-      <Typography className={s.firstText}>Показать </Typography>
+      <Typography className={s.firstText}>Show </Typography>
       <SelectUI
         className={'select'}
         disabled={disabled}
         itemsPerPageHandler={itemsPerPageHandler}
-        placeholder={placeholder}
+        placeholder={placeholderText}
         selectOptions={selectOptions}
       />
-      <Typography className={s.lastText}>на странице</Typography>
+      <Typography className={s.lastText}>on page</Typography>
     </div>
   )
 }
