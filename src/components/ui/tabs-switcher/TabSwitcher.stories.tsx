@@ -22,10 +22,20 @@ const tabs = [
 export const Default = {
   render: () => {
     const [value, setValue] = useState('myCards')
+    const label = 'Show tabs'
 
     return (
-      <div>
-        <TabSwitcher onValueChange={value => setValue(value)} tabs={tabs} value={value} />
+      <div
+        style={{
+          width: '230px',
+        }}
+      >
+        <TabSwitcher
+          label={label}
+          onValueChange={value => setValue(value)}
+          tabs={tabs}
+          value={value}
+        />
         <p style={{ marginTop: '36px' }}>{value}</p>
       </div>
     )

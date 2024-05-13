@@ -1,7 +1,12 @@
 import { useState } from 'react'
 
+import ImageOutline from '@/assets/icons/svg/ImageOutline'
+import Input from '@/components/ui/Input/Input'
 import { Button } from '@/components/ui/button'
-import { Meta, StoryFn, StoryObj } from '@storybook/react'
+import Checkbox from '@/components/ui/checkbox/checkbox'
+import { Meta, StoryFn } from '@storybook/react'
+
+import s from './stories.module.scss'
 
 import { Modal, Props as ModalProps } from './modal'
 
@@ -19,46 +24,46 @@ const meta: Meta<StoryProps> = {
   component: Modal,
   tags: ['autodocs'],
   title: 'Components/Modal',
-  // render: ({ footer, ...args }: StoryProps) => {
-  //   const [open, setOpen] = useState(true)
-  //
-  //   return (
-  //     <>
-  //       <Button onClick={() => setOpen(true)} style={{ borderRadius: '5px', padding: '10px' }}>
-  //         Open Modal
-  //       </Button>
-  //       <Modal {...args} open={open} setOpen={() => setOpen(false)} />
-  //     </>
-  //   )
-  // },
 }
 
 export default meta
-
-const DefaultModal: StoryObj<StoryProps> = {
-  args: {
-    children: <div>Some content for the modal</div>,
-    // open: true,
-    title: 'Default Modal',
-  },
-}
-
-export { DefaultModal }
 
 const ToggleModal: StoryFn<StoryProps> = (args: StoryProps) => {
   const [open, setOpen] = useState(false)
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} style={{ borderRadius: '5px', padding: '10px' }}>
+      <Button onClick={() => setOpen(true)} variant={'primary'}>
         Open Modal
       </Button>
-      <Modal {...args} open={open} setOpen={() => setOpen(false)}>
-        <div style={{ paddingBottom: '24px' }}>Some content for the modal</div>
+      <Modal {...args} onOpenChange={() => setOpen(false)} open={open} title={'Add New Deck'}>
+        <div style={{ paddingBottom: '34px' }}>
+          <div>
+            <Input
+              label={'Name Pack'}
+              placeholder={'Name'}
+              style={{ marginBottom: '14px', width: '100%' }}
+            />
+          </div>
+          <div
+            style={{
+              gap: '5px',
+              marginBottom: '24px',
+            }}
+          >
+            <Button fullWidth variant={'secondary'}>
+              <ImageOutline className={s.icon} /> Upload Image
+            </Button>
+          </div>
+
+          <div style={{ marginLeft: '5px' }}>
+            <Checkbox label={'Private pack'} />
+          </div>
+        </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button style={{ borderRadius: '5px', padding: '10px' }}>left btn</Button>
-          <Button onClick={() => setOpen(false)} style={{ borderRadius: '5px', padding: '10px' }}>
-            save
+          <Button variant={'secondary'}>Cancel</Button>
+          <Button onClick={() => setOpen(false)} variant={'primary'}>
+            Add New Pack
           </Button>
         </div>
       </Modal>

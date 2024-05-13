@@ -5,10 +5,11 @@
     color: var(--color-dark-300);
   }
 }
-.selectText{
+.selectText {
   font-size: 14px;
 }
 .selectTrigger {
+  box-sizing: border-box;
   cursor: pointer;
   width: 100%;
   display: flex;
@@ -21,10 +22,10 @@
   padding: 6px 12px;
   //height: 35px;
   gap: 5px;
-  &[data-state = 'open'] {
+  &[data-state='open'] {
     border-color: var(--color-dark-100);
     border-radius: 2px 2px 0 0;
-    .selectIcon{
+    .selectIcon {
       transform: rotate(180deg);
     }
   }
@@ -40,6 +41,9 @@
     cursor: initial;
     color: var(--color-dark-300);
     border-color: var(--color-dark-300);
+  }
+  &.selectCustom {
+    padding: 4px 6px;
   }
 }
 
@@ -61,7 +65,7 @@
   background-color: var(--color-dark-700);
   border-radius: 0 0 2px 2px;
   border: 1px solid var(--color-dark-100);
-  .selectItem{
+  .selectItem {
     cursor: pointer;
     padding: 6px 12px;
     outline: none;
@@ -69,7 +73,7 @@
 
     &:hover,
     &:focus,
-    &[data-state='checked']{
+    &[data-state='checked'] {
       color: var(--color-accent-300);
       background-color: var(--color-accent-900);
     }
