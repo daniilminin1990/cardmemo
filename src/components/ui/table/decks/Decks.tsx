@@ -1,140 +1,72 @@
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import ArrowIosUp from '@/assets/icons/svg/ArrowIosUp'
 import Typography from '@/components/ui/Typography/Typography'
 import { Deck } from '@/components/ui/table/decks/deck/Deck'
+import { useGetDecksQuery } from '@/services/flashCardsApi'
 
 import s from './decks.module.scss'
 
 import { Table } from '../table'
 
-export type DecksProps = {
-  author: {
-    id: string
-    name: string
-  }
-  cardsCount: number
-  cover: string
-  created: string
-  id: string
-  isPrivate: boolean
-  name: string
-  updated: string
-  userId: string
-}
-
 export const Decks = () => {
-  const headersName = ['Name', 'Cards', 'Last Updated', 'Created By']
-  const items: DecksProps[] = [
-    {
-      author: {
-        id: '1',
-        name: 'BD',
-      },
-      cardsCount: 0,
-      cover: '…',
-      created: '02.05.2024',
-      id: 'c1',
-      isPrivate: true,
-      name: 'My Deck',
-      updated: '02.05.2024',
-      userId: '1',
-    },
-    {
-      author: {
-        id: '2',
-        name: 'Author name',
-      },
-      cardsCount: 8,
-      cover: '…',
-      created: '02.05.2024',
-      id: 'c2',
-      isPrivate: false,
-      name: 'Other Deck',
-      updated: '12.02.2022',
-      userId: '1',
-    },
-    {
-      author: {
-        id: '3',
-        name: 'Other7',
-      },
-      cardsCount: 5,
-      cover: '…',
-      created: '17.02.2024',
-      id: 'c3',
-      isPrivate: false,
-      name: 'Z',
-      updated: '17.02.2023',
-      userId: '1',
-    },
-    {
-      author: {
-        id: '4',
-        name: 'Other1',
-      },
-      cardsCount: 0,
-      cover: '…',
-      created: '17.02.2023',
-      id: 'c4',
-      isPrivate: false,
-      name: 'C',
-      updated: '22.02.2023',
-      userId: '1',
-    },
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [direction, setDirection] = useState('desc')
+  const [activeSortColumn, setActiveSortColumn] = useState('updated')
+
+  const { data, isLoading } = useGetDecksQuery({
+    authorId: searchParams.get('authorId') ?? '',
+    name: searchParams.get('name') || '',
+    orderBy: searchParams.get('orderBy') ?? undefined,
+  })
+
+  const headersName = [
+    { key: 'name', title: 'Name' },
+    { key: 'cardsCount', title: 'Cards' },
+    { key: 'updated', title: 'Last Updated' },
+    { key: 'created', title: 'Created by' },
   ]
 
-  const [searchParams, setSearchParams] = useSearchParams()
-  const activeColumn = searchParams.get('sort') || 'Last Updated'
-  const sortOrder = searchParams.get('order') || 'asc'
+  useEffect(() => {
+    const orderBy = searchParams.get('orderBy')
 
-  const handleSort = (columnName: any) => {
-    const order = activeColumn === columnName && sortOrder === 'asc' ? 'desc' : 'asc'
+    if (orderBy) {
+      const [column, dir] = orderBy.split('-')
 
-    setSearchParams({ order, sort: columnName })
-  }
-
-  const columnKeys = {
-    Cards: 'cardsCount',
-    'Created By': 'author.name',
-    'Last Updated': 'updated',
-    Name: 'name',
-  }
-
-  const sortedItems = useMemo(() => {
-    //@ts-ignore
-    if (!activeColumn || !columnKeys[activeColumn]) {
-      return items
+      setDirection(dir)
+      setActiveSortColumn(column)
     }
-    //@ts-ignore
-    const key = columnKeys[activeColumn]
+  }, [])
 
-    return [...items].sort((a, b) => {
-      const aValue = key.split('.').reduce((o: string, i: number) => o[i], a)
-      const bValue = key.split('.').reduce((o: string, i: number) => o[i], b)
+  const handleSort = (key: string) => {
+    const currentOrderBy = searchParams.get('orderBy')
 
-      if (aValue < bValue) {
-        return sortOrder === 'asc' ? -1 : 1
-      }
-      if (aValue > bValue) {
-        return sortOrder === 'asc' ? 1 : -1
-      }
+    const newOrderBy = currentOrderBy === `${key}-asc` ? `${key}-desc` : `${key}-asc`
 
-      return 0
-    })
-  }, [items, activeColumn, sortOrder, columnKeys])
+    const newDirection = newOrderBy.split('-')[1]
 
-  return sortedItems.length !== 0 ? (
-    <Table.Root>
+    setActiveSortColumn(key)
+    setDirection(newDirection)
+
+    searchParams.set('orderBy', newOrderBy)
+    setSearchParams(searchParams)
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  return data?.items.length !== 0 ? (
+    <Table.Root className={s.root}>
       <Table.Head>
         <Table.Row>
           {headersName.map(name => (
-            <Table.HeadCell key={name} onClick={() => handleSort(name)}>
+            <Table.HeadCell key={name.key} onClick={() => handleSort(name.key)}>
               <Typography as={'span'} variant={'subtitle2'}>
-                {name}
-                {activeColumn === name && (
-                  <ArrowIosUp className={`${s.arrow} ${sortOrder === 'asc' ? s.rotate : ''}`} />
+                {name.title}
+                {name.key === activeSortColumn && (
+                  <ArrowIosUp className={`${s.arrow} ${direction === 'asc' ? s.rotate : ''}`} />
                 )}
               </Typography>
             </Table.HeadCell>
@@ -142,11 +74,7 @@ export const Decks = () => {
           <Table.HeadCell></Table.HeadCell>
         </Table.Row>
       </Table.Head>
-      <Table.Body>
-        {sortedItems.map(item => (
-          <Deck item={item} key={item.id} />
-        ))}
-      </Table.Body>
+      <Table.Body>{data?.items.map(item => <Deck item={item} key={item.id} />)}</Table.Body>
     </Table.Root>
   ) : (
     <Typography as={'div'} className={s.empty} variant={'body1'}>

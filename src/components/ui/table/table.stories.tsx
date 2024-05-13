@@ -31,7 +31,14 @@ export const WithContent = () => {
 }
 
 export const VisibleWithoutContent = () => {
-  const headersName = ['Name', 'Cards', 'Last Updated', 'Created By']
+
+  const headersName = [
+    { key: 'name', title: 'Name' },
+    { key: 'cardsCount', title: 'Cards' },
+    { key: 'updated', title: 'Last Updated' },
+    { key: 'created', title: 'Created by' },
+  ]
+
 
   return (
     <MemoryRouter initialEntries={['/']}>
@@ -39,8 +46,12 @@ export const VisibleWithoutContent = () => {
         <Table.Head>
           <Table.Row>
             {headersName.map(name => (
-              <Table.HeadCell key={name}>
-                <span>{name}</span>
+
+              <Table.HeadCell key={name.key}>
+                <Typography as={'span'} variant={'subtitle2'}>
+                  {name.title}
+                </Typography>
+
               </Table.HeadCell>
             ))}
             <Table.HeadCell></Table.HeadCell>
