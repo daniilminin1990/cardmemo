@@ -19,6 +19,7 @@ const SelectUI = ({
   placeholder,
   selectOptions,
 }: Props) => {
+  const placeholderText = placeholder || selectOptions[0].text
   const selectClasses = {
     content: clsx(s.selectContent),
     icon: clsx(s.selectIcon),
@@ -36,7 +37,7 @@ const SelectUI = ({
       <Select.Root disabled={disabled} onValueChange={itemsPerPageHandler}>
         <Select.Trigger aria-label={'select'} asChild className={selectClasses.trigger}>
           <button>
-            <Select.Value placeholder={placeholder} />
+            <Select.Value placeholder={placeholderText} />
             <ArrowIosDownOutline className={selectClasses.icon} />
           </button>
         </Select.Trigger>

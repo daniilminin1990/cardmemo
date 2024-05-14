@@ -16,7 +16,7 @@ export type InputProps = {
 } & ComponentPropsWithoutRef<'input'>
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
-  const { error, id, label, placeholder, type, ...restProps } = props
+  const { className, error, id, label, placeholder, type, ...restProps } = props
 
   const [isShow, setIsShow] = useState(false)
   const [inputValue, setInputValue] = useState('')
@@ -33,21 +33,30 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
   }
   const EyeIcon = isShow ? Eye : EyeOff
 
-  const classNameForInput =
-    type === 'search' && !!error
-      ? clsx(s.boxInput, s.boxPadding, s.errorSeach)
-      : type === 'text' && !!error
-      ? clsx(s.boxInput, s.boxPadding, s.errorTextAndPassword)
-      : type === 'password' && !!error
-      ? clsx(s.boxInput, s.boxPadding, s.errorTextAndPassword)
-      : type === 'search'
-      ? clsx(s.boxInput, s.boxPadding)
-      : s.boxInput
+  let classNameForInput = ''
+
+  switch (type) {
+    case 'search':
+      classNameForInput = error
+        ? clsx(s.boxInput, s.boxPadding, s.errorSeach)
+        : clsx(s.boxInput, s.boxPadding)
+      break
+    case 'text':
+    case 'password':
+      classNameForInput = error
+        ? clsx(s.boxInput, s.boxPadding, s.errorTextAndPassword)
+        : s.boxInput
+      break
+    default:
+      classNameForInput = s.boxInput
+  }
+
+  const styleForType = isShow ? 'text' : 'password'
 
   const generatedId = useId()
 
   return (
-    <div className={clsx(s.box, props.className)}>
+    <div className={clsx(s.box, className)}>
       <Typography as={'label'} className={s.label} htmlFor={id ?? generatedId} variant={'body2'}>
         {type !== 'search' && label}
       </Typography>
@@ -70,7 +79,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
           onChange={handleChange}
           placeholder={placeholder}
           ref={ref}
-          type={type === 'password' ? (isShow ? 'text' : 'password') : type}
+          type={type === 'password' ? styleForType : type}
           value={inputValue}
         />
       </div>
