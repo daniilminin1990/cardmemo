@@ -23,11 +23,11 @@
   outline: 2px solid var(--color-dark-300);
   border: none;
   background-color: transparent;
-  padding-left: 12px;
+  text-indent: 12px;
+  height: 36px;
 }
 .boxPadding {
-  max-width: 195px;
-  padding-left: 35px;
+  text-indent: 35px;
 }
 
 .boxInput:hover {
@@ -43,7 +43,7 @@
 .hover {
   outline: 2px solid var(--color-dark-100);
   background-color: transparent;
-  padding-left: 12px;
+  text-indent: 12px;
 }
 
 .errorSeach {
@@ -58,7 +58,7 @@
   outline: 2px solid var(--color-danger-300);
   border: none;
   background-color: transparent;
-  padding-left: 12px;
+  text-indent: 12px;
 }
 
 .errorText {
@@ -75,10 +75,11 @@
 .search {
   position: relative;
   transform: translate(250%, 20%);
+
 }
 .close {
   position: relative;
-  transform: translate(1000%, 20%);
+  transform: translate(1000%,0);
 }
 
 .Eye {
@@ -96,6 +97,7 @@
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
+
 }
 
 .Close {
@@ -118,4 +120,5 @@
 
 .label {
   font-size: 14px;
+  color: var(--color-dark-100);
 }

@@ -18,10 +18,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     disabled: false,
-    initPage: 1,
-    lastPage: 10,
-    maxLength: 7,
-    placeholder: 'Select-box',
+    placeholder: 'Select',
     selectOptions: [
       { text: '10', value: '10' },
       { text: '20', value: '20' },
