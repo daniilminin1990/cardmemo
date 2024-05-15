@@ -12,17 +12,20 @@ button {
   gap: 12px;
 }
 
-.body {
+.label {
   cursor: pointer;
 
-  position: relative;
-
-  display: inline-flex;
+  display: flex;
   flex-flow: row nowrap;
   gap: 12px;
   align-items: center;
 
   width: max-content;
+
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-m);
+  color: var(--color-light-100);
 }
 
 .item {
@@ -65,7 +68,7 @@ button {
   }
 
   &:focus-visible::before {
-    background-color: var(--color-dark-700);
+    background-color: var(--color-dark-500);
   }
 
   &:disabled::before {
@@ -73,7 +76,7 @@ button {
   }
 }
 
-.span {
+.indicator {
   position: relative;
 
   display: flex;
@@ -94,15 +97,6 @@ button {
     background-color: var(--color-accent-500);
     border-radius: 50%;
   }
-}
-
-.label {
-  cursor: pointer;
-
-  font-size: var(--font-size-m);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-m);
-  color: var(--color-light-100);
 }
 
 .disabled {
