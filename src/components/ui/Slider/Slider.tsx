@@ -6,10 +6,17 @@ import clsx from 'clsx'
 
 import s from './slider.module.scss'
 
-export type SliderProps = { label: string } & ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
+export type SliderProps = {
+  label: string
+  max?: number
+  min?: number
+  onChange?: (value: number[]) => void
+  step?: number
+  value: number[]
+} & ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
 
 export const Slider = forwardRef<ElementRef<typeof SliderPrimitive.Root>, SliderProps>(
-  ({ className, label, ...restProps }, ref) => {
+  ({ className, label, max, min, onChange, step = 1, value, ...restProps }, ref) => {
     return (
       <div>
         {label && (
@@ -19,9 +26,18 @@ export const Slider = forwardRef<ElementRef<typeof SliderPrimitive.Root>, Slider
         )}
         <div className={s.container}>
           <Typography as={'div'} className={s.sliderValues} variant={'body1'}>
-            {restProps?.value?.[0]}
+            {value?.[0]}
           </Typography>
-          <SliderPrimitive.Root className={clsx(s.root, className)} ref={ref} {...restProps}>
+          <SliderPrimitive.Root
+            className={clsx(s.root, className)}
+            max={max}
+            min={min}
+            onValueChange={onChange}
+            ref={ref}
+            step={step}
+            value={value}
+            {...restProps}
+          >
             <SliderPrimitive.Track className={s.track}>
               <SliderPrimitive.Range className={s.range} />
             </SliderPrimitive.Track>
@@ -29,7 +45,7 @@ export const Slider = forwardRef<ElementRef<typeof SliderPrimitive.Root>, Slider
             <SliderPrimitive.Thumb aria-label={'Value max'} className={s.thumb} />
           </SliderPrimitive.Root>
           <Typography as={'div'} className={s.sliderValues} variant={'body1'}>
-            {restProps?.value?.[1]}
+            {value?.[1]}
           </Typography>
         </div>
       </div>
