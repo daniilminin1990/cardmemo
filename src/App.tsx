@@ -1,15 +1,12 @@
-import PageDeckNextQuestion from '@/components/auth/PageDeckNextQuestion/PageDeckNextQuestion'
+import { Router } from '@/router'
 
 export function App() {
   return (
-    <div
-      style={{
-        alignItems: 'center',
-        display: 'flex',
-        justifyContent: 'center',
-      }}
-    >
-      <PageDeckNextQuestion status />
-    </div>
+    <>
+      <div>
+        ЖОПА
+        <Router />
+      </div>
+    </>
   )
 }

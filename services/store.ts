@@ -1,12 +1,12 @@
-import { flashcardsApi } from '@/services/flashCardsApi'
 import { configureStore } from '@reduxjs/toolkit'
 
+import { flashCardsAPI } from './flashCardsAPI'
+
 export const store = configureStore({
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(flashcardsApi.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(flashCardsAPI.middleware),
   reducer: {
-    [flashcardsApi.reducerPath]: flashcardsApi.reducer,
+    [flashCardsAPI.reducerPath]: flashCardsAPI.reducer,
   },
 })
-
 export type AppDispatch = typeof store.dispatch
 export type RootState = ReturnType<typeof store.getState>
