@@ -4,6 +4,7 @@ import { CheckEmail } from '@/components/auth/forgot-pass/check-email/checkEmail
 
 const meta = {
   component: CheckEmail,
+  tags: ['autodocs'],
   title: 'Components/Auth/ForgotPassword/CheckEmail',
 } satisfies Meta<typeof CheckEmail>
 
