@@ -1,4 +1,4 @@
-import { CreateNewPassword } from '@/components/auth/CreateNewPassword/CreateNewPassword'
+import PageDeckNextQuestion from '@/components/auth/PageDeckNextQuestion/PageDeckNextQuestion'
 
 export function App() {
   return (
@@ -9,7 +9,7 @@ export function App() {
         justifyContent: 'center',
       }}
     >
-      <CreateNewPassword />
+      <PageDeckNextQuestion status />
     </div>
   )
 }
