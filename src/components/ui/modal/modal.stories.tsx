@@ -30,38 +30,37 @@ export default meta
 
 const ToggleModal: StoryFn<StoryProps> = (args: StoryProps) => {
   const [open, setOpen] = useState(false)
+  const [checked, setChecked] = useState(false)
 
   return (
     <>
       <Button onClick={() => setOpen(true)} variant={'primary'}>
         Open Modal
       </Button>
-      <Modal {...args} onOpenChange={() => setOpen(false)} open={open} title={'Add New Deck'}>
-        <div style={{ paddingBottom: '34px' }}>
-          <div>
-            <Input
-              label={'Name Pack'}
-              placeholder={'Name'}
-              style={{ marginBottom: '14px', width: '100%' }}
-            />
-          </div>
-          <div
-            style={{
-              gap: '5px',
-              marginBottom: '24px',
-            }}
-          >
-            <Button fullWidth variant={'secondary'}>
-              <ImageOutline className={s.icon} /> Upload Image
-            </Button>
-          </div>
+      <Modal
+        {...args}
+        className={s.customClass}
+        onOpenChange={() => setOpen(false)}
+        open={open}
+        title={'Add New Deck'}
+      >
+        <div className={s.body}>
+          <Input className={s.input} label={'Name Pack'} placeholder={'Name'} />
 
-          <div style={{ marginLeft: '5px' }}>
-            <Checkbox label={'Private pack'} />
-          </div>
+          <Button className={s.uploadImg} fullWidth variant={'secondary'}>
+            <ImageOutline className={s.icon} /> Upload Image
+          </Button>
+          <Checkbox
+            checked={checked}
+            className={s.checkbox}
+            label={'Private pack'}
+            onCheckedChange={() => setChecked(!checked)}
+          />
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button variant={'secondary'}>Cancel</Button>
+        <div className={s.footer}>
+          <Button onClick={() => setOpen(false)} variant={'secondary'}>
+            Cancel
+          </Button>
           <Button onClick={() => setOpen(false)} variant={'primary'}>
             Add New Pack
           </Button>
