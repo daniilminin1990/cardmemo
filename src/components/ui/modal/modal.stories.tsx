@@ -30,20 +30,23 @@ export default meta
 
 const ToggleModal: StoryFn<StoryProps> = (args: StoryProps) => {
   const [open, setOpen] = useState(false)
+  const [checked, setChecked] = useState(false)
 
   return (
     <>
       <Button onClick={() => setOpen(true)} variant={'primary'}>
         Open Modal
       </Button>
-      <Modal {...args} onOpenChange={() => setOpen(false)} open={open} title={'Add New Deck'}>
+      <Modal
+        {...args}
+        className={s.customClass}
+        onOpenChange={() => setOpen(false)}
+        open={open}
+        title={'Add New Deck'}
+      >
         <div style={{ paddingBottom: '34px' }}>
           <div>
-            <Input
-              label={'Name Pack'}
-              placeholder={'Name'}
-              style={{ marginBottom: '14px', width: '100%' }}
-            />
+            <Input className={s.input} label={'Name Pack'} placeholder={'Name'} />
           </div>
           <div
             style={{
@@ -57,7 +60,11 @@ const ToggleModal: StoryFn<StoryProps> = (args: StoryProps) => {
           </div>
 
           <div style={{ marginLeft: '5px' }}>
-            <Checkbox label={'Private pack'} />
+            <Checkbox
+              checked={checked}
+              label={'Private pack'}
+              onCheckedChange={() => setChecked(!checked)}
+            />
           </div>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
