@@ -1,14 +1,16 @@
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
-import { DeckProps } from '@/components/pages/decksList1/decks/decks.types'
+// import { DeckProps } from '@/components/pages/decksList1/decks/decks.types'
 import { Button } from '@/components/ui/button'
 
 import s from './deckBtns.module.scss'
 
+import { Deck } from '../../../../../../services/decks/deck.types'
+
 type Props = {
   disabled: boolean
-  item: DeckProps
+  item: Deck
   showDeleteModal?: () => void
   showUpdateModal?: () => void
 }

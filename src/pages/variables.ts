@@ -12,8 +12,8 @@ export const headersNameCards = [
   { key: 'grade', title: 'Grade' },
 ]
 type updateSearchParamsType = {
-  currentPage: number
-  itemsPerPage: number
+  currentPage?: number
+  itemsPerPage?: number
   search: string
   searchParams: URLSearchParams
   setSearchParams: (searchParams: URLSearchParams) => void
@@ -27,10 +27,10 @@ export const updateSearchParams = ({
 }: updateSearchParamsType) => {
   currentPage === 1
     ? searchParams.delete('currentPage')
-    : searchParams.set('currentPage', currentPage.toString())
+    : searchParams.set('currentPage', currentPage?.toString() || '1')
   itemsPerPage === 10
     ? searchParams.delete('itemsPerPage')
-    : searchParams.set('itemsPerPage', itemsPerPage.toString())
+    : searchParams.set('itemsPerPage', itemsPerPage?.toString() || '10')
   search === '' ? searchParams.delete('search') : searchParams.set('search', search)
 
   setSearchParams(searchParams)
