@@ -18,12 +18,20 @@ const meta = {
 export default meta
 
 export const Default: StoryFn<StoryProps> = (_: StoryProps) => {
-  return <Card style={{ height: '100px' }}></Card>
+  return <Card style={{ height: '100px', width: '420px' }}></Card>
 }
 
 export const WithContent: StoryFn<StoryProps> = (_: StoryProps) => {
   return (
-    <Card style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '35px 24px' }}>
+    <Card
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
+        padding: '35px 24px',
+        width: '420px',
+      }}
+    >
       <Typography as={'h2'} variant={'h2'}>
         Card
       </Typography>

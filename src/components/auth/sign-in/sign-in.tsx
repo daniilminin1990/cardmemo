@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
 import Typography from '@/components/ui/Typography/Typography'
@@ -21,7 +21,7 @@ const signInSchema = z.object({
 type FormValues = z.infer<typeof signInSchema>
 
 export const SignIn = () => {
-  const { control, handleSubmit, register } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       email: '',
       password: '',
@@ -60,7 +60,14 @@ export const SignIn = () => {
               placeholder={'Password'}
               type={'password'}
             />
-            <Checkbox className={s.checkbox} {...register('rememberMe')} label={'RememberMe'} />
+            <Controller
+              control={control}
+              defaultValue={false}
+              name={'rememberMe'}
+              render={({ field: { onChange, value } }) => (
+                <Checkbox checked={value} label={'RememberMe'} onCheckedChange={onChange} />
+              )}
+            />
             <Typography as={'label'} className={s.typographyForgotTitle} variant={'body2'}>
               Forgot Password?
             </Typography>
@@ -68,6 +75,7 @@ export const SignIn = () => {
           <Button fullWidth>Sign In</Button>
           <div className={s.footer}>
             <Typography as={'label'} className={s.typographyFooterTitle} variant={'body2'}>
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
               Don't have an account?
             </Typography>
             <Typography
