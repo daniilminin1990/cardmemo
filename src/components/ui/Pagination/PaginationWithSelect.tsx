@@ -38,7 +38,7 @@ export const PaginationWithSelect = ({
   //   itemsPerPage,
   // })
   // const totalPages: number | undefined = data?.pagination.totalPages // Is this comes from, server???
-  const itemsPerPageHandler = (count: string) => {
+  const onValueChange = (count: string) => {
     setItemsPerPage(+count)
   }
 
@@ -59,7 +59,7 @@ export const PaginationWithSelect = ({
       <SelectUI
         className={'select'}
         disabled={disabled}
-        itemsPerPageHandler={itemsPerPageHandler}
+        onValueChange={onValueChange}
         placeholder={placeholderText}
         selectOptions={selectOptions}
       />
