@@ -21,8 +21,6 @@ export const ModalUpdateDeck = (props: Props) => {
     setOpen(false)
   }
 
-  console.log(updTitle)
-
   return (
     <Modal onOpenChange={() => setOpen(false)} open={open} title={'Update Deck'}>
       <div style={{ paddingBottom: '34px' }}>

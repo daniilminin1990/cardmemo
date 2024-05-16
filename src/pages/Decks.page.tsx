@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useSearchParams } from 'react-router-dom'
 
 import { ArrowIosUp } from '@/assets/icons/svg'
+import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import Input from '@/components/ui/Input/Input'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Typography from '@/components/ui/Typography/Typography'
@@ -30,22 +31,56 @@ export function DecksPage() {
   const [itemsPerPage, setItemsPerPage] = useState<number>(
     Number(searchParams.get('itemsPerPage')) || 10
   )
-
+  const [sortedColumn, setSortedColumn] = useState<string>(headersNameDecks[2].key)
+  const [direction, setDirection] = useState<string>('desc')
   const [search, setSearch] = useState<string>(searchParams.get('search') || '')
 
-  const sortBy = searchParams.get('sortBy') || ''
-  const sortDirection = searchParams.get('sortDirection') || ''
-  // Проверяем, что sortBy и sortDirection содержат допустимые значения
-  const isValidSortBy = ['author.name', 'cardsCount', 'created', 'name', 'updated'].includes(sortBy)
-  const isValidSortDirection = ['asc', 'desc'].includes(sortDirection)
+  const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setCurrentPage(1)
+    setSearch(e.target.value)
+  }
 
-  const orderBy = isValidSortBy && isValidSortDirection ? `${sortBy}-${sortDirection}` : undefined // или установить другое допустимое значение по умолчанию
+  const handleSort = (key: string) => {
+    const currentOrderBy = searchParams.get('orderBy')
+    let newOrderBy
+
+    // Проверяем текущее состояние и определяем новое состояние
+    if (currentOrderBy === `${key}-asc`) {
+      newOrderBy = `${key}-desc`
+    } else if (currentOrderBy === `${key}-desc`) {
+      newOrderBy = null // или '', если сервер принимает пустую строку вместо отсутствия параметра
+    } else {
+      newOrderBy = `${key}-asc`
+    }
+
+    // Обновляем Query-параметр orderBy
+    if (newOrderBy) {
+      searchParams.set('orderBy', newOrderBy)
+    } else {
+      searchParams.delete('orderBy')
+    }
+    setSearchParams(searchParams)
+
+    // Обновляем состояние компонента
+    setCurrentPage(1) // Обновляем текущую страницу, так как сортировка изменилась
+    if (newOrderBy) {
+      const [sortedColumn, direction] = newOrderBy.split('-')
+
+      setSortedColumn(sortedColumn)
+      setDirection(direction)
+    } else {
+      setSortedColumn(key)
+      setDirection('asc') // Или какое бы то ни было дефолтное направление
+    }
+
+    console.log('Updated orderBy:', newOrderBy)
+  }
 
   const { data, error, isLoading } = useGetDecksQuery({
     currentPage: Number(searchParams.get('currentPage')),
     itemsPerPage: Number(searchParams.get('itemsPerPage')),
     name: search,
-    orderBy,
+    orderBy: searchParams.get('orderBy') || undefined,
   })
   const [createDeck] = useCreateDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
@@ -62,11 +97,6 @@ export function DecksPage() {
     setSearch('')
     updateSearchParams({ currentPage, itemsPerPage, search, searchParams, setSearchParams })
   })
-
-  const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setCurrentPage(1)
-    setSearch(e.target.value)
-  }
 
   useEffect(() => {
     updateSearchParams({ currentPage, itemsPerPage, search, searchParams, setSearchParams })
@@ -95,11 +125,12 @@ export function DecksPage() {
       <div style={{ marginBottom: '24px' }}>
         <UniversalTableDeckMinin
           data={data}
+          direction={direction}
+          handleSort={handleSort}
           onDeleteClick={id => deleteDeck({ id })}
           onEditClick={(id, name) => updateDeck({ id, name })}
-          // searchParams={searchParams}
-          // setSearchParams={setSearchParams}
-          sortedColumn={headersNameDecks[0].key}
+          searchParamsOrderBy={searchParams.get('orderBy') || ''}
+          sortedColumn={sortedColumn}
         />
       </div>
       <PaginationWithSelect
@@ -119,60 +150,34 @@ export function DecksPage() {
 
 type UniversalTableDeckMininType = {
   data?: DecksListResponse
+  direction?: string
+  handleSort?: (key: string) => void
   onDeleteClick?: (id: string) => void
   onEditClick?: (id: string, name: string) => void
-  // searchParams?: URLSearchParams
-  // setSearchParams?: (searchParams: URLSearchParams) => void
+  searchParamsOrderBy?: string
   sortedColumn?: string
 }
 const UniversalTableDeckMinin = ({
   data,
+  direction,
+  handleSort,
   onDeleteClick,
   onEditClick,
-  // searchParams,
-  // setSearchParams,
-  sortedColumn,
+  searchParamsOrderBy, // sortedColumn,
 }: UniversalTableDeckMininType) => {
-  const [searchParams, setSearchParams] = useSearchParams()
-
-  const [direction, setDirection] = useState('desc')
-  const [activeSortColumn, setActiveSortColumn] = useState(sortedColumn)
-
-  useEffect(() => {
-    const orderBy = searchParams?.get('orderBy')
-
-    if (orderBy) {
-      const [column, dir] = orderBy.split('-')
-
-      setDirection(dir)
-      setActiveSortColumn(column)
-    }
-  }, [])
-
-  const handleSort = (key: string) => {
-    const currentOrderBy = searchParams?.get('orderBy')
-
-    const newOrderBy = currentOrderBy === `${key}-asc` ? `${key}-desc` : `${key}-asc`
-
-    const newDirection = newOrderBy.split('-')[1]
-
-    setActiveSortColumn(key)
-    setDirection(newDirection)
-
-    searchParams?.set('orderBy', newOrderBy)
-    searchParams && setSearchParams?.(searchParams)
-  }
-
   return (
     <Table.Root>
       <Table.Head>
         <Table.Row>
           {headersNameDecks.map(name => (
-            <Table.HeadCell key={name.key} onClick={() => handleSort(name.key)}>
+            <Table.HeadCell key={name.key} onClick={() => handleSort?.(name.key)}>
               <Typography as={'span'} variant={'subtitle2'}>
                 {name.title}
-                {name.key === activeSortColumn && (
-                  <ArrowIosUp className={`${s.arrow} ${direction === 'asc' ? s.rotate : ''}`} />
+                {/*{name.key === searchParams && (*/}
+                {searchParamsOrderBy?.includes(name.key) && (
+                  <ArrowIosDownOutline
+                    className={`${s.arrow} ${direction === 'asc' ? s.rotate : ''}`}
+                  />
                 )}
               </Typography>
             </Table.HeadCell>

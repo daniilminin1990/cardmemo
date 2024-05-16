@@ -22,8 +22,6 @@ export const SingleRowDeck = ({ deck, onDeleteClick, onEditClick }: Props) => {
   const [isDeleteModal, setIsDeleteModal] = useState(false)
   const updatedAr = new Date(deck.updated).toLocaleDateString('ru-RU')
 
-  console.log(deck)
-
   return (
     <Fragment key={deck.id}>
       <ModalUpdateDeck
