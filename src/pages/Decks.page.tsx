@@ -2,7 +2,6 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSearchParams } from 'react-router-dom'
 
-import { ArrowIosUp } from '@/assets/icons/svg'
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import Input from '@/components/ui/Input/Input'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
@@ -32,7 +31,6 @@ export function DecksPage() {
     Number(searchParams.get('itemsPerPage')) || 10
   )
   const [sortedColumn, setSortedColumn] = useState<string>(headersNameDecks[2].key)
-  const [direction, setDirection] = useState<string>('desc')
   const [search, setSearch] = useState<string>(searchParams.get('search') || '')
 
   const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,13 +62,9 @@ export function DecksPage() {
     // Обновляем состояние компонента
     setCurrentPage(1) // Обновляем текущую страницу, так как сортировка изменилась
     if (newOrderBy) {
-      const [sortedColumn, direction] = newOrderBy.split('-')
-
-      setSortedColumn(sortedColumn)
-      setDirection(direction)
+      setSortedColumn(newOrderBy.split('-')[0])
     } else {
       setSortedColumn(key)
-      setDirection('asc') // Или какое бы то ни было дефолтное направление
     }
 
     console.log('Updated orderBy:', newOrderBy)
@@ -125,7 +119,6 @@ export function DecksPage() {
       <div style={{ marginBottom: '24px' }}>
         <UniversalTableDeckMinin
           data={data}
-          direction={direction}
           handleSort={handleSort}
           onDeleteClick={id => deleteDeck({ id })}
           onEditClick={(id, name) => updateDeck({ id, name })}
@@ -150,7 +143,6 @@ export function DecksPage() {
 
 type UniversalTableDeckMininType = {
   data?: DecksListResponse
-  direction?: string
   handleSort?: (key: string) => void
   onDeleteClick?: (id: string) => void
   onEditClick?: (id: string, name: string) => void
@@ -159,7 +151,6 @@ type UniversalTableDeckMininType = {
 }
 const UniversalTableDeckMinin = ({
   data,
-  direction,
   handleSort,
   onDeleteClick,
   onEditClick,
@@ -176,7 +167,7 @@ const UniversalTableDeckMinin = ({
                 {/*{name.key === searchParams && (*/}
                 {searchParamsOrderBy?.includes(name.key) && (
                   <ArrowIosDownOutline
-                    className={`${s.arrow} ${direction === 'asc' ? s.rotate : ''}`}
+                    className={`${s.arrow} ${searchParamsOrderBy?.includes('asc') ? s.rotate : ''}`}
                   />
                 )}
               </Typography>
