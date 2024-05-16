@@ -8,17 +8,11 @@ import s from './select.module.scss'
 type Props = {
   className?: string
   disabled?: boolean
-  itemsPerPageHandler?: (items: string) => void
+  onValueChange?: (items: string) => void
   placeholder?: string
   selectOptions: selectOptionsType[]
 }
-const SelectUI = ({
-  className,
-  disabled,
-  itemsPerPageHandler,
-  placeholder,
-  selectOptions,
-}: Props) => {
+const SelectUI = ({ className, disabled, onValueChange, placeholder, selectOptions }: Props) => {
   const placeholderText = placeholder || selectOptions[0].text
   const selectClasses = {
     content: clsx(s.selectContent),
@@ -34,7 +28,7 @@ const SelectUI = ({
 
   return (
     <div className={selectClasses.root}>
-      <Select.Root disabled={disabled} onValueChange={itemsPerPageHandler}>
+      <Select.Root disabled={disabled} onValueChange={onValueChange}>
         <Select.Trigger aria-label={'select'} asChild className={selectClasses.trigger}>
           <button>
             <Select.Value placeholder={placeholderText} />
