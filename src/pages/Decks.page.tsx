@@ -1,5 +1,4 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { useSearchParams } from 'react-router-dom'
 
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
@@ -7,8 +6,8 @@ import Input from '@/components/ui/Input/Input'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
-import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Table } from '@/components/ui/table'
+import { ModalOnAddDeck } from '@/pages/ModalOnAddDeck'
 import { SingleRowDeck } from '@/pages/SingleRowDeck'
 import { headersNameDecks, selectOptionPagination, updateSearchParams } from '@/pages/variables'
 
@@ -31,6 +30,7 @@ export function DecksPage() {
     Number(searchParams.get('itemsPerPage')) || 10
   )
   const [search, setSearch] = useState<string>(searchParams.get('search') || '')
+  const [open, setOpen] = useState(false)
 
   const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentPage(1)
@@ -69,17 +69,13 @@ export function DecksPage() {
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
 
-  const { control, handleSubmit } = useForm<{ name: string }>({
-    defaultValues: { name: '' },
-  })
-
-  const onSubmit = handleSubmit(data => {
+  const onSubmit = (data: any) => {
     createDeck(data)
     setCurrentPage(1)
     setItemsPerPage(10)
     setSearch('')
     updateSearchParams({ currentPage, itemsPerPage, search, searchParams, setSearchParams })
-  })
+  }
 
   useEffect(() => {
     updateSearchParams({ currentPage, itemsPerPage, search, searchParams, setSearchParams })
@@ -100,10 +96,10 @@ export function DecksPage() {
         querySearch={searchParams.get('search')}
         value={search}
       ></Input>
-      <form onSubmit={onSubmit}>
-        <FormTextfield className={''} control={control} label={'some label'} name={'name'} />
-        <Button>Create deck</Button>
-      </form>
+      <Button onClick={() => setOpen(true)} variant={'primary'}>
+        Open Modal
+      </Button>
+      <ModalOnAddDeck onSubmit={onSubmit} open={open} setOpen={setOpen} />
       <div style={{ marginBottom: '24px' }}>
         <UniversalTableDeckMinin
           data={data}
@@ -163,7 +159,7 @@ const UniversalTableDeckMinin = ({
         </Table.Row>
       </Table.Head>
       <Table.Body>
-        {data && data.items.length !== 0 ? (
+        {data && data?.items.length !== 0 ? (
           data?.items.map(deck => {
             return (
               <SingleRowDeck
