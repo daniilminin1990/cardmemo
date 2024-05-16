@@ -30,7 +30,6 @@ export function DecksPage() {
   const [itemsPerPage, setItemsPerPage] = useState<number>(
     Number(searchParams.get('itemsPerPage')) || 10
   )
-  const [sortedColumn, setSortedColumn] = useState<string>(headersNameDecks[2].key)
   const [search, setSearch] = useState<string>(searchParams.get('search') || '')
 
   const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,14 +57,6 @@ export function DecksPage() {
       searchParams.delete('orderBy')
     }
     setSearchParams(searchParams)
-
-    // Обновляем состояние компонента
-    setCurrentPage(1) // Обновляем текущую страницу, так как сортировка изменилась
-    if (newOrderBy) {
-      setSortedColumn(newOrderBy.split('-')[0])
-    } else {
-      setSortedColumn(key)
-    }
   }
 
   const { data, error, isLoading } = useGetDecksQuery({
