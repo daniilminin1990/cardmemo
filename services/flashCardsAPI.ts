@@ -43,6 +43,7 @@ export const flashCardsAPI = createApi({
             currentPage: args?.currentPage || undefined,
             itemsPerPage: args?.itemsPerPage || undefined,
             name: args?.name || undefined,
+            orderBy: args?.orderBy || undefined,
           },
           url: 'v2/decks',
         }),

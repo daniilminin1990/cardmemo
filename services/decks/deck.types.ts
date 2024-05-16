@@ -43,11 +43,6 @@ export interface CreateDeckArgs {
   name: string
 }
 
-export interface Author {
-  id: string
-  name: string
-}
-
 export type UpdateDeckArgs = { id: string } & Partial<CreateDeckArgs>
 
 export type DeleteDeckArgs = { id: string }

@@ -17,8 +17,6 @@ export const ModalDeleteDeck = (props: Props) => {
     setIsDeleteModal(true)
   }
 
-  console.log('DELETE DECK', item)
-
   return (
     <Modal onOpenChange={() => setIsDeleteModal(false)} open={open} title={'Delete Deck'}>
       <div style={{ paddingBottom: '34px' }}>

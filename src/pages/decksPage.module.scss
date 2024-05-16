@@ -1,0 +1,9 @@
+.arrow {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.5s;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}

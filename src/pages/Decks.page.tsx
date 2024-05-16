@@ -1,20 +1,18 @@
-import { ChangeEvent, Fragment, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSearchParams } from 'react-router-dom'
 
-import ArrowIosUp from '@/assets/icons/svg/ArrowIosUp'
+import { ArrowIosUp } from '@/assets/icons/svg'
 import Input from '@/components/ui/Input/Input'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Table } from '@/components/ui/table'
-import { DeckBtns } from '@/components/ui/table/decks/btns/DeckBtns'
-import { ModalDeleteDeck } from '@/pages/ModalsForTable/ModalDeleteDeck'
-import { ModalUpdateDeck } from '@/pages/ModalsForTable/ModalUpdateDeck'
+import { SingleRowDeck } from '@/pages/SingleRowDeck'
 import { headersNameDecks, selectOptionPagination, updateSearchParams } from '@/pages/variables'
 
-import s from '@/components/ui/table/decks/decks.module.scss'
+import s from '@/pages/decksPage.module.scss'
 
 import { DecksListResponse } from '../../services/decks/deck.types'
 import {
@@ -34,10 +32,20 @@ export function DecksPage() {
   )
 
   const [search, setSearch] = useState<string>(searchParams.get('search') || '')
+
+  const sortBy = searchParams.get('sortBy') || ''
+  const sortDirection = searchParams.get('sortDirection') || ''
+  // Проверяем, что sortBy и sortDirection содержат допустимые значения
+  const isValidSortBy = ['author.name', 'cardsCount', 'created', 'name', 'updated'].includes(sortBy)
+  const isValidSortDirection = ['asc', 'desc'].includes(sortDirection)
+
+  const orderBy = isValidSortBy && isValidSortDirection ? `${sortBy}-${sortDirection}` : undefined // или установить другое допустимое значение по умолчанию
+
   const { data, error, isLoading } = useGetDecksQuery({
     currentPage: Number(searchParams.get('currentPage')),
     itemsPerPage: Number(searchParams.get('itemsPerPage')),
     name: search,
+    orderBy,
   })
   const [createDeck] = useCreateDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
@@ -55,6 +63,11 @@ export function DecksPage() {
     updateSearchParams({ currentPage, itemsPerPage, search, searchParams, setSearchParams })
   })
 
+  const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setCurrentPage(1)
+    setSearch(e.target.value)
+  }
+
   useEffect(() => {
     updateSearchParams({ currentPage, itemsPerPage, search, searchParams, setSearchParams })
   }, [currentPage, itemsPerPage, search])
@@ -70,9 +83,7 @@ export function DecksPage() {
   return (
     <div>
       <Input
-        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          setSearch(e.target.value)
-        }}
+        onChange={onSearchHandler}
         querySearch={searchParams.get('search')}
         value={search}
       ></Input>
@@ -82,74 +93,48 @@ export function DecksPage() {
       </form>
       {/*<TableTest data={data} />*/}
       <div style={{ marginBottom: '24px' }}>
-        <TableTestDecksBorts
+        <UniversalTableDeckMinin
           data={data}
           onDeleteClick={id => deleteDeck({ id })}
-          onEditClick={id => updateDeck({ id, name: 'NEW TITLE' })}
+          onEditClick={(id, name) => updateDeck({ id, name })}
+          // searchParams={searchParams}
+          // setSearchParams={setSearchParams}
           sortedColumn={headersNameDecks[0].key}
         />
       </div>
       <PaginationWithSelect
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
+        placeholder={itemsPerPage.toString()}
         selectOptions={selectOptionPagination}
         setCurrentPage={setCurrentPage}
         setItemsPerPage={setItemsPerPage}
         totalItems={data?.pagination.totalItems || 0}
       />
+      {/*<UniversalTableDeck data={data} sortedColumn={headersNameDecks[0].key} />*/}
     </div>
     // <Decks />
   )
 }
 
-// const TableTest = ({ data }: { data?: DecksListResponse }) => {
-//   return (
-//     <table>
-//       <thead>
-//         <tr>
-//           <th>Name</th>
-//           <th>Cards</th>
-//           <th>Last Updated</th>
-//           <th>Created By</th>
-//         </tr>
-//         <tbody>
-//           {data?.items.map(deck => {
-//             const updatedAr = new Date(deck.updated).toLocaleDateString('ru-RU')
-//
-//             return (
-//               <tr key={deck.id}>
-//                 <td>{deck.name}</td>
-//                 <td>{deck.cardsCount}</td>
-//                 <td>{updatedAr}</td>
-//                 <td>{deck.author.name}</td>
-//               </tr>
-//             )
-//           })}
-//         </tbody>
-//       </thead>
-//     </table>
-//   )
-// }
-
-type TableTestDecksBortsType = {
+type UniversalTableDeckMininType = {
   data?: DecksListResponse
   onDeleteClick?: (id: string) => void
-  onEditClick: (id: string) => void
-  searchParams?: URLSearchParams
-  setSearchParams?: (searchParams: URLSearchParams) => void
+  onEditClick?: (id: string, name: string) => void
+  // searchParams?: URLSearchParams
+  // setSearchParams?: (searchParams: URLSearchParams) => void
   sortedColumn?: string
 }
-const TableTestDecksBorts = ({
+const UniversalTableDeckMinin = ({
   data,
   onDeleteClick,
   onEditClick,
-  searchParams,
-  setSearchParams,
+  // searchParams,
+  // setSearchParams,
   sortedColumn,
-}: TableTestDecksBortsType) => {
-  // const [searchParams, setSearchParams] = useSearchParams()
-  const [isUpdateModal, setIsUpdateModal] = useState(false)
-  const [isDeleteModal, setIsDeleteModal] = useState(false)
+}: UniversalTableDeckMininType) => {
+  const [searchParams, setSearchParams] = useSearchParams()
+
   const [direction, setDirection] = useState('desc')
   const [activeSortColumn, setActiveSortColumn] = useState(sortedColumn)
 
@@ -178,13 +163,6 @@ const TableTestDecksBorts = ({
     searchParams && setSearchParams?.(searchParams)
   }
 
-  const showUpdateHandler = () => {
-    setIsUpdateModal(true)
-  }
-  const showDeleteHandler = () => {
-    setIsDeleteModal(true)
-  }
-
   return (
     <Table.Root>
       <Table.Head>
@@ -203,40 +181,26 @@ const TableTestDecksBorts = ({
         </Table.Row>
       </Table.Head>
       <Table.Body>
-        {data?.items.map(deck => {
-          const updatedAr = new Date(deck.updated).toLocaleDateString('ru-RU')
-
-          return (
-            <Fragment key={deck.id}>
-              <ModalUpdateDeck
-                item={deck}
-                onEditClick={onEditClick}
-                open={isUpdateModal}
-                setOpen={setIsUpdateModal}
+        {data && data.items.length !== 0 ? (
+          data?.items.map(deck => {
+            return (
+              <SingleRowDeck
+                deck={deck}
+                key={deck.id}
+                onDeleteClick={(id: string) => {
+                  onDeleteClick?.(id)
+                }}
+                onEditClick={(name: string) => {
+                  onEditClick?.(deck.id, name)
+                }}
               />
-              <ModalDeleteDeck
-                item={deck}
-                onDeleteClick={onDeleteClick}
-                open={isDeleteModal}
-                setIsDeleteModal={setIsDeleteModal}
-              />
-              <Table.Row key={deck.id}>
-                <Table.Cell>{deck.name}</Table.Cell>
-                <Table.Cell>{deck.cardsCount}</Table.Cell>
-                <Table.Cell>{updatedAr}</Table.Cell>
-                <Table.Cell>{deck.author.name}</Table.Cell>
-                <Table.Cell>
-                  <DeckBtns
-                    disabled={deck.cardsCount === 0}
-                    item={deck}
-                    showDeleteModal={showDeleteHandler}
-                    showUpdateModal={showUpdateHandler}
-                  />
-                </Table.Cell>
-              </Table.Row>
-            </Fragment>
-          )
-        })}
+            )
+          })
+        ) : (
+          <Typography as={'div'} className={s.empty} variant={'body1'}>
+            No content with these terms...
+          </Typography>
+        )}
       </Table.Body>
     </Table.Root>
   )
