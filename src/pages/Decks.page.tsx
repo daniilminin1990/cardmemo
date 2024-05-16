@@ -46,7 +46,7 @@ export function DecksPage() {
     if (currentOrderBy === `${key}-asc`) {
       newOrderBy = `${key}-desc`
     } else if (currentOrderBy === `${key}-desc`) {
-      newOrderBy = null // или '', если сервер принимает пустую строку вместо отсутствия параметра
+      newOrderBy = null
     } else {
       newOrderBy = `${key}-asc`
     }
@@ -66,8 +66,6 @@ export function DecksPage() {
     } else {
       setSortedColumn(key)
     }
-
-    console.log('Updated orderBy:', newOrderBy)
   }
 
   const { data, error, isLoading } = useGetDecksQuery({
@@ -115,7 +113,6 @@ export function DecksPage() {
         <FormTextfield className={''} control={control} label={'some label'} name={'name'} />
         <Button>Create deck</Button>
       </form>
-      {/*<TableTest data={data} />*/}
       <div style={{ marginBottom: '24px' }}>
         <UniversalTableDeckMinin
           data={data}
@@ -123,7 +120,6 @@ export function DecksPage() {
           onDeleteClick={id => deleteDeck({ id })}
           onEditClick={(id, name) => updateDeck({ id, name })}
           searchParamsOrderBy={searchParams.get('orderBy') || ''}
-          sortedColumn={sortedColumn}
         />
       </div>
       <PaginationWithSelect
@@ -147,14 +143,13 @@ type UniversalTableDeckMininType = {
   onDeleteClick?: (id: string) => void
   onEditClick?: (id: string, name: string) => void
   searchParamsOrderBy?: string
-  sortedColumn?: string
 }
 const UniversalTableDeckMinin = ({
   data,
   handleSort,
   onDeleteClick,
   onEditClick,
-  searchParamsOrderBy, // sortedColumn,
+  searchParamsOrderBy,
 }: UniversalTableDeckMininType) => {
   return (
     <Table.Root>
