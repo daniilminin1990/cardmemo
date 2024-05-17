@@ -1,6 +1,4 @@
-import {PaginationWithSelectDemo} from '@/components/ui/Pagination/PaginationWithSelectDemo'
-import {Button} from '@/components/ui/button'
-import LoginForm from "@/components/auth/sign-up/Sign-up";
+import PageDeckNextQuestion from '@/components/auth/PageDeckNextQuestion/PageDeckNextQuestion'
 
 export function App() {
   return (
@@ -11,9 +9,7 @@ export function App() {
         justifyContent: 'center',
       }}
     >
-      <Button>123 </Button>
-      <PaginationWithSelectDemo />
-        <LoginForm/>
+      <PageDeckNextQuestion status />
     </div>
   )
 }

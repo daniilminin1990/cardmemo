@@ -12,7 +12,7 @@ import style from '@/components/auth/sign-up/SignUp.module.scss'
 const signUpSchema = z
   .object({
     confirmPassword: z.string().min(3),
-    login: z.string().email(),
+    email: z.string().email(),
     password: z.string().min(3),
   })
   .superRefine((data, ctx) => {
@@ -33,7 +33,7 @@ export default function SignUp() {
   const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       confirmPassword: '',
-      login: '',
+      email: '',
       password: '',
     },
     resolver: zodResolver(signUpSchema),
@@ -54,8 +54,8 @@ export default function SignUp() {
           <FormTextfield
             className={style.inputStyle}
             control={control}
-            label={'Login'}
-            name={'login'}
+            label={'Email'}
+            name={'email'}
             placeholder={'Input'}
             type={'text'}
           />

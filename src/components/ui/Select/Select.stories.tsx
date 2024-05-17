@@ -20,7 +20,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    placeholder: 'Select-box',
+    // placeholder: 'Select-box',
     selectOptions: [
       { text: 'Apple', value: 'apple' },
       { text: 'Banana', value: 'banana' },

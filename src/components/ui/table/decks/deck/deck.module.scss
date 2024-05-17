@@ -4,6 +4,7 @@
   gap: 10px;
   justify-content: flex-start;
 
+  height: 62px;
   padding: 0;
 
   text-decoration: none;
@@ -18,10 +19,17 @@
   }
 
   .defaltDeckImg {
-    width: 118px;
+    width: 100%;
+    max-width: 70px;
+    height: 100%;
   }
 }
 
 .container:hover {
   background-color: var(--color-dark-700);
+}
+
+.authorCell {
+  width: 200px;
+  max-width: 200px;
 }
