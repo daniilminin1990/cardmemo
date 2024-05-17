@@ -49,19 +49,3 @@ export const Default: Story = {
     )
   },
 }
-
-export const TestPagin: Story = {
-  args: {
-    disabled: false,
-    initPage: 1,
-    lastPage: 10,
-    maxLength: 7,
-    placeholder: 'Select-box',
-    selectOptions: [
-      { text: 'Banana', value: 'Banana' },
-      { text: 'Smetana', value: 'Smetana' },
-      { text: 'Nirvana', value: 'Nirvana' },
-      { text: 'Obezyana', value: 'Obezyana' },
-    ] as selectOptionsType[],
-  },
-}

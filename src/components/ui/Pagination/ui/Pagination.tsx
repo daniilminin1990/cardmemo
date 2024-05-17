@@ -23,7 +23,6 @@ export const Pagination = ({ currentPage, setCurrentPage, totalPages }: Props) =
       <PageLink
         className={s.icon}
         disabled={currentPage === 1}
-        href={'#'}
         onClick={() => setCurrentPage(currentPage - 1)}
       >
         <SvgArrowIosBack />
@@ -33,7 +32,6 @@ export const Pagination = ({ currentPage, setCurrentPage, totalPages }: Props) =
           <PageLink
             active={pageNum === currentPage}
             disabled={isNaN(pageNum)}
-            href={'#'}
             key={index}
             onClick={() => setCurrentPage(pageNum)}
           >
@@ -44,7 +42,6 @@ export const Pagination = ({ currentPage, setCurrentPage, totalPages }: Props) =
       <PageLink
         className={s.icon}
         disabled={currentPage === totalPages}
-        href={'#'}
         onClick={() => setCurrentPage(currentPage + 1)}
       >
         <SvgArrowIosForward />
