@@ -1,37 +1,24 @@
+import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
 
 import Typography from '@/components/ui/Typography/Typography'
-import { Decks } from '@/components/ui/table/decks/Decks'
+import { store } from '@/services/Store'
 
-import s from '@/components/ui/table/decks/decks.module.scss'
+import s from './table.module.scss'
 
 import { Table } from './table'
-
+const withReduxProvider = (story: () => React.ReactNode) => (
+  <Provider store={store}>{story()}</Provider>
+)
 const meta = {
   component: Table,
+  decorators: [withReduxProvider],
   tags: ['autodocs'],
   title: 'Components/Table',
 }
 
 export default meta
-
-export const Default = () => {
-  return (
-    <Typography as={'div'} className={s.empty} variant={'body1'}>
-      No content with these terms...
-    </Typography>
-  )
-}
-export const WithContent = () => {
-  return (
-    <MemoryRouter>
-      <Decks />
-    </MemoryRouter>
-  )
-}
-
-export const VisibleWithoutContent = () => {
-
+export const DefaultTable = () => {
   const headersName = [
     { key: 'name', title: 'Name' },
     { key: 'cardsCount', title: 'Cards' },
@@ -39,19 +26,16 @@ export const VisibleWithoutContent = () => {
     { key: 'created', title: 'Created by' },
   ]
 
-
   return (
     <MemoryRouter initialEntries={['/']}>
       <Table.Root>
         <Table.Head>
           <Table.Row>
             {headersName.map(name => (
-
               <Table.HeadCell key={name.key}>
                 <Typography as={'span'} variant={'subtitle2'}>
                   {name.title}
                 </Typography>
-
               </Table.HeadCell>
             ))}
             <Table.HeadCell></Table.HeadCell>
@@ -59,12 +43,17 @@ export const VisibleWithoutContent = () => {
         </Table.Head>
         <Table.Body>
           <Table.Row>
-            <Table.Cell className={`empty`} colSpan={100}>
-              No content with these terms...
-            </Table.Cell>
+            <Table.Cell>The place for rows...</Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table.Root>
     </MemoryRouter>
+  )
+}
+export const WithoutContent = () => {
+  return (
+    <Typography as={'div'} className={s.empty} variant={'body1'}>
+      No content with these terms...
+    </Typography>
   )
 }

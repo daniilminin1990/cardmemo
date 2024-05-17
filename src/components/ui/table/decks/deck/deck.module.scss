@@ -19,7 +19,8 @@
   }
 
   .defaltDeckImg {
-    width: 118px;
+    width: 100%;
+    max-width: 70px;
     height: 100%;
   }
 }
@@ -31,4 +32,4 @@
 .authorCell {
   width: 200px;
   max-width: 200px;
-
+}

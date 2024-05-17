@@ -3,30 +3,21 @@ import { useSearchParams } from 'react-router-dom'
 
 import ArrowIosUp from '@/assets/icons/svg/ArrowIosUp'
 import Typography from '@/components/ui/Typography/Typography'
-import { Deck } from '@/components/ui/table/decks/deck/Deck'
-import { useGetDecksQuery } from '@/services/flashCardsApi'
+import { Table } from '@/components/ui/table'
 
 import s from './decks.module.scss'
 
-import { Table } from '../table'
+type Props = {
+  Component: any
+  data: any
+  headersName: { key: string; title: string }[]
+  sortedColumn: string
+}
 
-export const Decks = () => {
+export const Decks = ({ Component, data, headersName, sortedColumn }: Props) => {
   const [searchParams, setSearchParams] = useSearchParams()
   const [direction, setDirection] = useState('desc')
-  const [activeSortColumn, setActiveSortColumn] = useState('updated')
-
-  const { data, isLoading } = useGetDecksQuery({
-    authorId: searchParams.get('authorId') ?? '',
-    name: searchParams.get('name') || '',
-    orderBy: searchParams.get('orderBy') ?? undefined,
-  })
-
-  const headersName = [
-    { key: 'name', title: 'Name' },
-    { key: 'cardsCount', title: 'Cards' },
-    { key: 'updated', title: 'Last Updated' },
-    { key: 'created', title: 'Created by' },
-  ]
+  const [activeSortColumn, setActiveSortColumn] = useState(sortedColumn)
 
   useEffect(() => {
     const orderBy = searchParams.get('orderBy')
@@ -53,11 +44,7 @@ export const Decks = () => {
     setSearchParams(searchParams)
   }
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
-  return data?.items.length !== 0 ? (
+  return data?.length !== 0 ? (
     <Table.Root className={s.root}>
       <Table.Head>
         <Table.Row>
@@ -74,7 +61,7 @@ export const Decks = () => {
           <Table.HeadCell></Table.HeadCell>
         </Table.Row>
       </Table.Head>
-      <Table.Body>{data?.items.map(item => <Deck item={item} key={item.id} />)}</Table.Body>
+      <Table.Body>{data?.map(item => <Component item={item} key={item.id} />)}</Table.Body>
     </Table.Root>
   ) : (
     <Typography as={'div'} className={s.empty} variant={'body1'}>
