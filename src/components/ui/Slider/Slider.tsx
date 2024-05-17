@@ -14,9 +14,11 @@ const RadixSlider = forwardRef<ElementRef<typeof Slider.Root>, SliderProps>((pro
 
   return (
     <>
-      <Typography as={'label'} variant={'body2'}>
-        {label}
-      </Typography>
+      {label && (
+        <Typography as={'label'} variant={'body2'}>
+          {label}
+        </Typography>
+      )}
       <div className={'sliderContainer'}>
         <Typography as={'div'} className={'valueWrapper'} variant={'body1'}>
           {rest?.value?.[0]}
