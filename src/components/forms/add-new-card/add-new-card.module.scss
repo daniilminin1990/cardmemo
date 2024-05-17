@@ -1,0 +1,41 @@
+.form {
+  width: 95%;
+}
+
+.box {
+  &:nth-child(2) {
+    margin-bottom: 15px;
+  }
+
+  img {
+    width: 100%;
+    object-position: center;
+    object-fit: cover;
+    margin-bottom: 25px;
+  }
+}
+
+.inputStyle {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.typographyHead {
+  margin: 0 0 10px;
+}
+
+.uploadImg {
+  gap: 5px;
+  margin-bottom: 24px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
