@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
@@ -24,20 +24,13 @@ import {
 
 export function DecksPage() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [currentPage, setCurrentPage] = useState<number>(
-    Number(searchParams.get('currentPage')) || 1
-  )
-  const [itemsPerPage, setItemsPerPage] = useState<number>(
-    Number(searchParams.get('itemsPerPage')) || 10
-  )
-  const [search, setSearch] = useState<string>(searchParams.get('search') || '')
+
   const [open, setOpen] = useState(false)
   const [tabsValue, setTabsValue] = useState('All decks')
 
-  const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setCurrentPage(1)
-    setSearch(e.target.value)
-  }
+  const itemsPerPage = +(searchParams.get('itemsPerPage') ?? 10)
+  const currentPage = +(searchParams.get('currentPage') ?? 1)
+  const search = searchParams.get('search') ?? ''
 
   // Сортировка
   const handleSort = (key: string) => {
@@ -64,7 +57,6 @@ export function DecksPage() {
 
   // tabsSwitcher function to changeTabs
   const tabsSwitcherHandler = (value: string) => {
-    setCurrentPage(1)
     setTabsValue(value)
     //! Сюда нужно прикрутить ID пользователя, чтобы вытащить только его Decks (после урока авторизации)
     // if(value === authorId){
@@ -79,11 +71,8 @@ export function DecksPage() {
   // Clear filter func on Click
   const onClearFilter = () => {
     searchParams.delete('search')
-    setSearch('')
     searchParams.delete('itemsPerPage')
-    setItemsPerPage(10)
     searchParams.delete('currentPage')
-    setCurrentPage(1)
     searchParams.delete('orderBy')
     // searchParams.delete('authorId')
     setSearchParams(searchParams)
@@ -92,7 +81,7 @@ export function DecksPage() {
   const { data, error, isLoading } = useGetDecksQuery({
     currentPage: Number(searchParams.get('currentPage')),
     itemsPerPage: Number(searchParams.get('itemsPerPage')),
-    name: search,
+    name: searchParams.get('search') || undefined,
     orderBy: searchParams.get('orderBy') || undefined,
   })
   const [createDeck] = useCreateDeckMutation()
@@ -102,15 +91,55 @@ export function DecksPage() {
   const onSubmit = (data: any) => {
     // Тип пока any. С пониманием того, какие данные нужно передавать для добавления Deck, тогда и определим
     createDeck(data)
-    setCurrentPage(1)
-    setItemsPerPage(10)
-    setSearch('')
-    updateSearchParams({ currentPage, itemsPerPage, search, searchParams, setSearchParams })
+    updateSearchParams({
+      currentPage: 1,
+      itemsPerPage: 10,
+      search: '',
+      searchParams,
+      setSearchParams,
+    })
+  }
+  const handleItemsPerPageChange = (value: number) => {
+    updateSearchParams({
+      currentPage: 1,
+      itemsPerPage: value,
+      search,
+      searchParams,
+      setSearchParams,
+    })
+  }
+  const handleCurrentPageChange = (value: number) => {
+    updateSearchParams({
+      currentPage: value,
+      itemsPerPage,
+      search,
+      searchParams,
+      setSearchParams,
+    })
   }
 
-  useEffect(() => {
-    updateSearchParams({ currentPage, itemsPerPage, search, searchParams, setSearchParams })
-  }, [currentPage, itemsPerPage, search])
+  const onSearchHandler = (value: string) => {
+    // setSearch(e.target.value)
+    // const searchVal = e.currentTarget.value
+
+    updateSearchParams({
+      currentPage: 1,
+      itemsPerPage: 10,
+      search: value,
+      searchParams,
+      setSearchParams,
+    })
+  }
+
+  // const handleSearchChanges = (value: string) => {
+  //   updateSearchParams({
+  //     currentPage: 1,
+  //     itemsPerPage,
+  //     search: value,
+  //     searchParams,
+  //     setSearchParams,
+  //   })
+  // }
 
   if (isLoading) {
     return <h1>... Loading</h1>
@@ -148,9 +177,9 @@ export function DecksPage() {
           }}
         >
           <Input
-            callback={search => setSearch(search)}
+            callback={onSearchHandler}
             className={s.input}
-            onChange={onSearchHandler}
+            onChange={e => onSearchHandler(e.target.value)}
             querySearch={searchParams.get('search')}
             type={'search'}
             value={search}
@@ -185,8 +214,8 @@ export function DecksPage() {
         itemsPerPage={itemsPerPage}
         placeholder={itemsPerPage.toString()}
         selectOptions={selectOptionPagination}
-        setCurrentPage={setCurrentPage}
-        setItemsPerPage={setItemsPerPage}
+        setCurrentPage={handleCurrentPageChange}
+        setItemsPerPage={handleItemsPerPageChange}
         totalItems={data?.pagination.totalItems || 0}
       />
       {/*<UniversalTableDeck data={data} sortedColumn={headersNameDecks[0].key} />*/}
