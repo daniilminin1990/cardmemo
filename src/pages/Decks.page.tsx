@@ -28,8 +28,8 @@ export function DecksPage() {
   const [open, setOpen] = useState(false)
   const [tabsValue, setTabsValue] = useState('All decks')
 
-  const itemsPerPage = +(searchParams.get('itemsPerPage') ?? 10)
-  const currentPage = +(searchParams.get('currentPage') ?? 1)
+  const itemsPerPage = Number(searchParams.get('itemsPerPage') ?? 10)
+  const currentPage = Number(searchParams.get('currentPage') ?? 1)
   const search = searchParams.get('search') ?? ''
 
   // Сортировка
@@ -70,9 +70,16 @@ export function DecksPage() {
 
   // Clear filter func on Click
   const onClearFilter = () => {
-    searchParams.delete('search')
-    searchParams.delete('itemsPerPage')
+    // updateSearchParams({
+    //   currentPage: 1,
+    //   itemsPerPage: 10,
+    //   search: '',
+    //   searchParams,
+    //   setSearchParams,
+    // })
     searchParams.delete('currentPage')
+    searchParams.delete('itemsPerPage')
+    searchParams.delete('search')
     searchParams.delete('orderBy')
     // searchParams.delete('authorId')
     setSearchParams(searchParams)
@@ -117,29 +124,15 @@ export function DecksPage() {
       setSearchParams,
     })
   }
-
-  const onSearchHandler = (value: string) => {
-    // setSearch(e.target.value)
-    // const searchVal = e.currentTarget.value
-
+  const handleSearch = (value: string) => {
     updateSearchParams({
       currentPage: 1,
-      itemsPerPage: 10,
+      itemsPerPage,
       search: value,
       searchParams,
       setSearchParams,
     })
   }
-
-  // const handleSearchChanges = (value: string) => {
-  //   updateSearchParams({
-  //     currentPage: 1,
-  //     itemsPerPage,
-  //     search: value,
-  //     searchParams,
-  //     setSearchParams,
-  //   })
-  // }
 
   if (isLoading) {
     return <h1>... Loading</h1>
@@ -148,6 +141,8 @@ export function DecksPage() {
   if (error) {
     return <h1>Error: {JSON.stringify(error)}</h1>
   }
+
+  console.log(itemsPerPage.toString())
 
   return (
     <div>
@@ -177,9 +172,9 @@ export function DecksPage() {
           }}
         >
           <Input
-            callback={onSearchHandler}
+            callback={handleSearch}
             className={s.input}
-            onChange={e => onSearchHandler(e.target.value)}
+            onChange={e => handleSearch(e.target.value)}
             querySearch={searchParams.get('search')}
             type={'search'}
             value={search}
