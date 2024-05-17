@@ -6,13 +6,22 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import Header from '@/components/auth/Header/Header'
 import { DecksPage } from '@/pages/Decks.page'
 
 const privateRoutes: RouteObject[] = [
   {
-    // element: <div>HELLO</div>,
-    element: <DecksPage />,
-    path: '/',
+    children: [
+      {
+        element: <DecksPage />,
+        path: '/',
+      },
+      {
+        element: <div>Cards</div>,
+        path: '/cards',
+      },
+    ],
+    element: <Container />,
   },
 ]
 
@@ -33,6 +42,23 @@ const router = createBrowserRouter([
 
 export function Router() {
   return <RouterProvider router={router} />
+}
+
+function Container() {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gap: '36px',
+        gridTemplateRows: 'auto 1fr',
+      }}
+    >
+      <Header isAuth />
+      <div style={{ justifySelf: 'center' }}>
+        <Outlet />
+      </div>
+    </div>
+  )
 }
 
 function PrivateRoutes() {

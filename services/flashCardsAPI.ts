@@ -40,6 +40,7 @@ export const flashCardsAPI = createApi({
           method: 'GET',
           params: {
             ...(args ?? {}),
+            authorId: args?.authorId || undefined,
             currentPage: args?.currentPage || undefined,
             itemsPerPage: args?.itemsPerPage || undefined,
             name: args?.name || undefined,

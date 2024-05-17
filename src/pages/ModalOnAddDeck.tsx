@@ -46,7 +46,6 @@ export const ModalOnAddDeck = ({ onSubmit, open, setOpen }: Props) => {
           </Button>
           <Checkbox
             checked={checked}
-            className={s.checkbox}
             label={'Private pack'}
             onCheckedChange={() => setChecked(!checked)}
           />

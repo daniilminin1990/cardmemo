@@ -7,6 +7,7 @@ import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithS
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
+import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { ModalOnAddDeck } from '@/pages/ModalOnAddDeck'
 import { SingleRowDeck } from '@/pages/SingleRowDeck'
 import { headersNameDecks, selectOptionPagination, updateSearchParams } from '@/pages/variables'
@@ -31,12 +32,14 @@ export function DecksPage() {
   )
   const [search, setSearch] = useState<string>(searchParams.get('search') || '')
   const [open, setOpen] = useState(false)
+  const [tabsValue, setTabsValue] = useState('All decks')
 
   const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentPage(1)
     setSearch(e.target.value)
   }
 
+  // Сортировка
   const handleSort = (key: string) => {
     const currentOrderBy = searchParams.get('orderBy')
     let newOrderBy
@@ -59,6 +62,33 @@ export function DecksPage() {
     setSearchParams(searchParams)
   }
 
+  // tabsSwitcher function to changeTabs
+  const tabsSwitcherHandler = (value: string) => {
+    setCurrentPage(1)
+    setTabsValue(value)
+    //! Сюда нужно прикрутить ID пользователя, чтобы вытащить только его Decks (после урока авторизации)
+    // if(value === authorId){
+    //   searchParams.set('authorId', value)
+    //   setSearchParams(searchParams)
+    // } else {
+    //   searchParams.delete('authorId')
+    //   setSearchParams(searchParams)
+    // }
+  }
+
+  // Clear filter func on Click
+  const onClearFilter = () => {
+    searchParams.delete('search')
+    setSearch('')
+    searchParams.delete('itemsPerPage')
+    setItemsPerPage(10)
+    searchParams.delete('currentPage')
+    setCurrentPage(1)
+    searchParams.delete('orderBy')
+    // searchParams.delete('authorId')
+    setSearchParams(searchParams)
+  }
+
   const { data, error, isLoading } = useGetDecksQuery({
     currentPage: Number(searchParams.get('currentPage')),
     itemsPerPage: Number(searchParams.get('itemsPerPage')),
@@ -70,6 +100,7 @@ export function DecksPage() {
   const [deleteDeck] = useDeleteDeckMutation()
 
   const onSubmit = (data: any) => {
+    // Тип пока any. С пониманием того, какие данные нужно передавать для добавления Deck, тогда и определим
     createDeck(data)
     setCurrentPage(1)
     setItemsPerPage(10)
@@ -91,15 +122,55 @@ export function DecksPage() {
 
   return (
     <div>
-      <Input
-        onChange={onSearchHandler}
-        querySearch={searchParams.get('search')}
-        value={search}
-      ></Input>
-      <Button onClick={() => setOpen(true)} variant={'primary'}>
-        Open Modal
-      </Button>
       <ModalOnAddDeck onSubmit={onSubmit} open={open} setOpen={setOpen} />
+      <div
+        style={{
+          display: 'grid',
+          gap: '7px',
+          gridTemplateRows: 'auto 1fr',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography as={'h1'} variant={'h1'}>
+            Decks list
+          </Typography>
+          <Button onClick={() => setOpen(true)} variant={'primary'}>
+            Open Modal
+          </Button>
+        </div>
+        <div
+          style={{
+            alignItems: 'end',
+            columnGap: '25px',
+            display: 'grid',
+            gridTemplateColumns: '300px 231px 250px 1fr',
+            marginBottom: '36px',
+          }}
+        >
+          <Input
+            callback={search => setSearch(search)}
+            className={s.input}
+            onChange={onSearchHandler}
+            querySearch={searchParams.get('search')}
+            type={'search'}
+            value={search}
+          />
+          <TabSwitcher
+            className={s.tabsSwitcher}
+            label={'Show decks cards'}
+            onValueChange={tabsSwitcherHandler}
+            tabs={[
+              { text: 'My decks', value: 'authorId' }, // ! Тут value должен быть authorId. После авторизации определим
+              { text: 'All decks', value: 'allDecks' },
+            ]}
+            value={tabsValue}
+          />
+          <div>Slider</div>
+          <Button onClick={onClearFilter} variant={'secondary'}>
+            Clear Filter
+          </Button>
+        </div>
+      </div>
       <div style={{ marginBottom: '24px' }}>
         <UniversalTableDeckMinin
           data={data}
@@ -134,8 +205,8 @@ type UniversalTableDeckMininType = {
 const UniversalTableDeckMinin = ({
   data,
   handleSort,
-  onDeleteClick,
-  onEditClick,
+  onDeleteClick, // Для удаления Deck
+  onEditClick, // Для изменения Deck
   searchParamsOrderBy,
 }: UniversalTableDeckMininType) => {
   return (
