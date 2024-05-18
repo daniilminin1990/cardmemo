@@ -24,13 +24,12 @@ import {
 
 export function DecksPage() {
   const [searchParams, setSearchParams] = useSearchParams()
-
-  const [open, setOpen] = useState(false)
-  const [tabsValue, setTabsValue] = useState('All decks')
-
   const itemsPerPage = Number(searchParams.get('itemsPerPage') ?? 10)
   const currentPage = Number(searchParams.get('currentPage') ?? 1)
   const search = searchParams.get('search') ?? ''
+
+  const [open, setOpen] = useState(false)
+  const [tabsValue, setTabsValue] = useState('All decks')
 
   // Сортировка
   const handleSort = (key: string) => {

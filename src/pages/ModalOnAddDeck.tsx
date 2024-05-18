@@ -2,12 +2,13 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
+import Input from '@/components/ui/Input/Input'
 import { Button } from '@/components/ui/button'
 import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Modal } from '@/components/ui/modal/modal'
 
-import s from '@/components/ui/modal/stories.module.scss'
+import s from './modalOnAddDeck.module.scss'
 
 type Props = {
   onSubmit: (data: any) => void
@@ -41,9 +42,10 @@ export const ModalOnAddDeck = ({ onSubmit, open, setOpen }: Props) => {
             name={'name'}
           />
 
-          <Button className={s.uploadImg} fullWidth variant={'secondary'}>
-            <ImageOutline className={s.icon} /> Upload Image
-          </Button>
+          <label className={s.uploadImg} htmlFor={'upload-photo'} tabIndex={0}>
+            <ImageOutline className={s.icon} /> Upload IMG
+            <Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />
+          </label>
           <Checkbox
             checked={checked}
             label={'Private pack'}
@@ -54,7 +56,9 @@ export const ModalOnAddDeck = ({ onSubmit, open, setOpen }: Props) => {
           <Button onClick={() => setOpen(false)} variant={'secondary'}>
             Cancel
           </Button>
-          <Button onClick={onSubmitHandler}>Create deck</Button>
+          <Button onClick={onSubmitHandler} type={'submit'}>
+            Create deck
+          </Button>
         </div>
       </form>
     </Modal>
