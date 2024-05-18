@@ -9,11 +9,11 @@ type Props = {
   className?: string
   disabled?: boolean
   onValueChange?: (items: string) => void
-  placeholder?: string
   selectOptions: selectOptionsType[]
+  value?: string
 }
-const SelectUI = ({ className, disabled, onValueChange, placeholder, selectOptions }: Props) => {
-  const placeholderText = placeholder || selectOptions[0].text
+const SelectUI = ({ className, disabled, onValueChange, selectOptions, value }: Props) => {
+  // const placeholderText = placeholder || selectOptions[0].text
   const selectClasses = {
     content: clsx(s.selectContent),
     icon: clsx(s.selectIcon),
@@ -31,7 +31,9 @@ const SelectUI = ({ className, disabled, onValueChange, placeholder, selectOptio
       <Select.Root disabled={disabled} onValueChange={onValueChange}>
         <Select.Trigger aria-label={'select'} asChild className={selectClasses.trigger}>
           <button>
-            <Select.Value placeholder={placeholderText} />
+            <Select.Value aria-label={value}>
+              {selectOptions.find(el => el.value === value)?.text || selectOptions[0].text}
+            </Select.Value>
             <ArrowIosDownOutline className={selectClasses.icon} />
           </button>
         </Select.Trigger>

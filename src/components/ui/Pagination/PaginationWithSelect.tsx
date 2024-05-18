@@ -60,8 +60,8 @@ export const PaginationWithSelect = ({
         className={'select'}
         disabled={disabled}
         onValueChange={onValueChange}
-        placeholder={placeholderText}
         selectOptions={selectOptions}
+        value={placeholderText}
       />
       <Typography className={s.lastText}>on page</Typography>
     </div>
