@@ -31,9 +31,9 @@ const SelectUI = ({ className, disabled, onValueChange, selectOptions, value }: 
       <Select.Root disabled={disabled} onValueChange={onValueChange}>
         <Select.Trigger aria-label={'select'} asChild className={selectClasses.trigger}>
           <button>
-            <Select.Value aria-label={value}>
-              {selectOptions.find(el => el.value === value)?.text || selectOptions[0].text}
-            </Select.Value>
+            {/*<Select.Value aria-label={value}>*/}
+            {selectOptions.find(el => el.value === value)?.text || selectOptions[0].text}
+            {/*</Select.Value>*/}
             <ArrowIosDownOutline className={selectClasses.icon} />
           </button>
         </Select.Trigger>
