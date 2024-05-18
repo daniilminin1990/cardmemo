@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Control, FieldPath, FieldValues } from 'react-hook-form'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
+import Trash from '@/assets/icons/svg/Trash'
 import defImg from '@/assets/img/defaultCard.jpg'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -65,7 +66,7 @@ export const FormPreviewFileUploader = <T extends FieldValues>(props: Props<T>) 
             type={'button'}
             variant={'secondary'}
           >
-            <ImageOutline className={s.imgIcon} /> Change Image
+            <Trash className={s.imgIcon} /> Delete Cover
           </Button>
         )}
         <FormFileUploader

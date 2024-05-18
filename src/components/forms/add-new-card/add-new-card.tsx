@@ -1,12 +1,8 @@
-import { useState } from 'react'
-import { SubmitHandler } from 'react-hook-form'
-
-import ImageOutline from '@/assets/icons/svg/ImageOutline'
-import defImg from '@/assets/img/defaultCard.jpg'
 import {
   AddNewCardFormType,
   useAddNewCardForm,
 } from '@/components/forms/add-new-card/use-add-new-card'
+import { useUploadImg } from '@/components/forms/add-new-card/use-upload-img'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { FormPreviewFileUploader } from '@/components/ui/form/form-preview-file-uploader/form-preview-file-uploader'
@@ -25,10 +21,7 @@ type Props = {
   setOpenModal: (open: boolean) => void
 }
 
-export const AddNewCard = ({ defaultValues, setOpenModal }: Props) => {
-  const [downloaded, setDownloaded] = useState<null | string>(defaultValues?.cover || null)
-  const [coverError, setCoverError] = useState<null | string>(null)
-
+export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => {
   const values: AddNewCardFormType = {
     answerName: defaultValues?.answerName || '',
     questionName: defaultValues?.questionName || '',
@@ -37,44 +30,69 @@ export const AddNewCard = ({ defaultValues, setOpenModal }: Props) => {
   const { control, getFieldState, handleSubmit, resetField, setValue, trigger, watch } =
     useAddNewCardForm(values)
 
-  const deleteCoverHandler = (cover: 'coverAnswer' | 'coverQuestion') => {
-    if (coverError) {
-      setCoverError(null)
+  const {
+    coverError: answerCoverError,
+    deleteCoverHandler: answerDeleteCoverHandler,
+    downloaded: answerDownloaded,
+    extraActions: answerExtraActions,
+  } = useUploadImg({
+    getFieldState,
+    resetField,
+    setValue,
+    trigger,
+    watch,
+  })
+
+  const {
+    coverError: questionCoverError,
+    deleteCoverHandler: questionDeleteCoverHandler,
+    downloaded: questionDownloaded,
+    extraActions: questionExtraActions,
+  } = useUploadImg({
+    getFieldState,
+    resetField,
+    setValue,
+    trigger,
+    watch,
+  })
+
+  const fileAnswerIsDirty = getFieldState('coverAnswer').isDirty
+  const fileQuestionIsDirty = getFieldState('coverQuestion').isDirty
+  const fileAnswer = watch('coverAnswer')
+  const fileQuestion = watch('coverQuestion')
+
+  const sendHandler = (data: AddNewCardFormType) => {
+    const form = new FormData()
+
+    form.append('answerName', data.answerName)
+    form.append('questionName', data.questionName)
+
+    if (fileAnswer === null) {
+      form.append('coverAnswer', '')
+    } else if (fileAnswerIsDirty && data.coverAnswer) {
+      form.append('coverAnswer', data.coverAnswer)
     }
-    // toast.warning('You deleted cover', { containerId: 'modal' })
-    setValue(cover, null)
-    setDownloaded(null)
+
+    if (fileQuestion === null) {
+      form.append('coverQuestion', '')
+    } else if (fileQuestionIsDirty && data.coverQuestion) {
+      form.append('coverQuestion', data.coverQuestion)
+    }
+
+    onSubmit(form)
+
+    //for test
+    for (const pair of form.entries()) {
+      console.log(pair[0] + ': ' + pair[1])
+    }
+
+    setOpenModal(false)
   }
-
-  const extraActions = async (cover: 'coverAnswer' | 'coverQuestion') => {
-    const success = await trigger(cover)
-    const { error } = getFieldState(cover)
-    const file = watch(cover)
-
-    if (!success && error?.message) {
-      // toast.error(error.message, { containerId: 'modal' })
-      setCoverError(error.message)
-      resetField(cover)
-    }
-
-    if (file) {
-      const badCase = defaultValues?.cover ?? null
-      const img = success ? URL.createObjectURL(file) : badCase
-
-      setDownloaded(img)
-
-      if (coverError && !error?.message) {
-        setCoverError(null)
-      }
-    }
-  }
-
-  const onSubmit: SubmitHandler<AddNewCardFormType> = data => console.log(data)
 
   return (
     <>
       {import.meta.env.DEV && <DevTool control={control} />}
-      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={s.form} onSubmit={handleSubmit(sendHandler)}>
         <div className={s.box}>
           <Typography as={'h5'} className={s.typographyHead} variant={'subtitle2'}>
             Question:
@@ -87,10 +105,14 @@ export const AddNewCard = ({ defaultValues, setOpenModal }: Props) => {
             placeholder={'Name'}
             type={'text'}
           />
-          <img alt={defImg} src={defImg} />
-          <Button className={s.uploadImg} fullWidth variant={'secondary'}>
-            <ImageOutline className={s.icon} /> Change Image
-          </Button>
+          <FormPreviewFileUploader
+            control={control}
+            deleteCoverHandler={() => questionDeleteCoverHandler('coverQuestion')}
+            errorMessage={questionCoverError}
+            extraActions={() => questionExtraActions('coverQuestion')}
+            name={'coverQuestion'}
+            preview={questionDownloaded}
+          />
         </div>
         <div className={s.box}>
           <Typography as={'h5'} className={s.typographyHead} variant={'subtitle2'}>
@@ -106,18 +128,18 @@ export const AddNewCard = ({ defaultValues, setOpenModal }: Props) => {
           />
           <FormPreviewFileUploader
             control={control}
-            deleteCoverHandler={() => deleteCoverHandler('coverAnswer')}
-            errorMessage={coverError}
-            extraActions={() => extraActions('coverAnswer')}
+            deleteCoverHandler={() => answerDeleteCoverHandler('coverAnswer')}
+            errorMessage={answerCoverError}
+            extraActions={() => answerExtraActions('coverAnswer')}
             name={'coverAnswer'}
-            preview={downloaded}
+            preview={answerDownloaded}
           />
         </div>
         <div className={s.footer}>
           <Button onClick={() => setOpenModal(false)} variant={'secondary'}>
             Cancel
           </Button>
-          <Button onClick={() => setOpenModal(false)} variant={'primary'}>
+          <Button type={'submit'} variant={'primary'}>
             Add New Pack
           </Button>
         </div>

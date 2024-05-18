@@ -1,7 +1,9 @@
-//@import '@/styles/mixins';
-
 .root {
-  //@include flex(column, 24px, 0, stretch);
+  display: flex;
+  flex-direction: column;
+  column-gap: 0;
+  align-items: stretch;
+  justify-content: flex-start;
 
   .image {
     aspect-ratio: 3/1;
@@ -22,6 +24,8 @@
   }
 
   .imgIcon {
+    width: 18px;
+    height: 18px;
     fill: var(--color-light-100);
   }
 
@@ -30,9 +34,19 @@
   }
 
   .previewControls {
-    //@include flex(row, 0, 24px, center, space-between);
+    display: flex;
+    flex-direction: row;
+    row-gap: 0;
+    column-gap: 24px;
+    align-items: center;
+    justify-content: space-between;
 
     button {
+      width: max-content;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
       flex-grow: 1;
     }
   }
