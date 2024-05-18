@@ -25,7 +25,14 @@ export const SingleRowDeck = ({ deck }: Props) => {
       <ModalUpdateDeck item={deck} open={isUpdateModal} setOpen={setIsUpdateModal} />
       <ModalDeleteDeck item={deck} open={isDeleteModal} setIsDeleteModal={setIsDeleteModal} />
       <Table.Row key={deck.id}>
-        <Table.Cell>{deck.name}</Table.Cell>
+        <Table.Cell>
+          <div className={s.imgWrapper}>
+            {deck.cover ? (
+              <img alt={'default card img'} className={s.coverImg} src={deck.cover} />
+            ) : null}
+            {deck.name}
+          </div>
+        </Table.Cell>
         <Table.Cell>{deck.cardsCount}</Table.Cell>
         <Table.Cell>{updatedAr}</Table.Cell>
         <Table.Cell>{deck.author.name}</Table.Cell>

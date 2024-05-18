@@ -97,6 +97,20 @@
   opacity: 0.5;
 }
 
+.imgWrapper {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: center;
+}
+
+.coverImg {
+  width: 118px;
+  aspect-ratio: auto;
+  //height: 48px;
+  object-fit: cover;
+}
+
 // Region
 .nameBlock {
   display: flex;
