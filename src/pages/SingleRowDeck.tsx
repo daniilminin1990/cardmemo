@@ -14,28 +14,16 @@ import { Deck } from '../../services/decks/deck.types'
 
 type Props = {
   deck: Deck
-  onDeleteClick?: (id: string) => void
-  onEditClick?: (name: string) => void
 }
-export const SingleRowDeck = ({ deck, onDeleteClick, onEditClick }: Props) => {
+export const SingleRowDeck = ({ deck }: Props) => {
   const [isUpdateModal, setIsUpdateModal] = useState(false)
   const [isDeleteModal, setIsDeleteModal] = useState(false)
   const updatedAr = new Date(deck.updated).toLocaleDateString('ru-RU')
 
   return (
     <Fragment key={deck.id}>
-      <ModalUpdateDeck
-        item={deck}
-        onEditClick={(name: string) => onEditClick?.(name)}
-        open={isUpdateModal}
-        setOpen={setIsUpdateModal}
-      />
-      <ModalDeleteDeck
-        item={deck}
-        onDeleteClick={onDeleteClick}
-        open={isDeleteModal}
-        setIsDeleteModal={setIsDeleteModal}
-      />
+      <ModalUpdateDeck item={deck} open={isUpdateModal} setOpen={setIsUpdateModal} />
+      <ModalDeleteDeck item={deck} open={isDeleteModal} setIsDeleteModal={setIsDeleteModal} />
       <Table.Row key={deck.id}>
         <Table.Cell>{deck.name}</Table.Cell>
         <Table.Cell>{deck.cardsCount}</Table.Cell>

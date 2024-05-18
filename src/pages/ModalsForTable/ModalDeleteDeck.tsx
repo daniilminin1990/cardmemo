@@ -5,17 +5,18 @@ import { Modal } from '@/components/ui/modal/modal'
 import s from './modals.module.scss'
 
 import { Deck } from '../../../services/decks/deck.types'
+import { useDeleteDeckMutation } from '../../../services/flashCardsAPI'
 
 type Props = {
   item: Deck
-  onDeleteClick?: (id: string) => void
   open: boolean
   setIsDeleteModal: (value: boolean) => void
 }
 export const ModalDeleteDeck = (props: Props) => {
-  const { item, onDeleteClick, open, setIsDeleteModal } = props
+  const { item, open, setIsDeleteModal } = props
+  const [deleteDeck] = useDeleteDeckMutation()
   const onDeleteDeckHandler = () => {
-    onDeleteClick?.(item.id)
+    deleteDeck({ id: item.id })
     setIsDeleteModal(true)
   }
 

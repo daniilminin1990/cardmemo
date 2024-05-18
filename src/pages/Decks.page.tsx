@@ -15,12 +15,7 @@ import { headersNameDecks, selectOptionPagination, updateSearchParams } from '@/
 import s from '@/pages/decksPage.module.scss'
 
 import { DecksListResponse } from '../../services/decks/deck.types'
-import {
-  useCreateDeckMutation,
-  useDeleteDeckMutation,
-  useGetDecksQuery,
-  useUpdateDeckMutation,
-} from '../../services/flashCardsAPI'
+import { useGetDecksQuery } from '../../services/flashCardsAPI'
 
 export function DecksPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -90,21 +85,19 @@ export function DecksPage() {
     name: searchParams.get('search') || undefined,
     orderBy: searchParams.get('orderBy') || undefined,
   })
-  const [createDeck] = useCreateDeckMutation()
-  const [updateDeck] = useUpdateDeckMutation()
-  const [deleteDeck] = useDeleteDeckMutation()
+  // const [createDeck] = useCreateDeckMutation()
 
-  const onSubmit = (data: any) => {
-    // Тип пока any. С пониманием того, какие данные нужно передавать для добавления Deck, тогда и определим
-    createDeck(data)
-    updateSearchParams({
-      currentPage: 1,
-      itemsPerPage: 10,
-      search: '',
-      searchParams,
-      setSearchParams,
-    })
-  }
+  // const onSubmit = (data: any) => {
+  //   // Тип пока any. С пониманием того, какие данные нужно передавать для добавления Deck, тогда и определим
+  //   createDeck(data)
+  //   updateSearchParams({
+  //     currentPage: 1,
+  //     itemsPerPage: 10,
+  //     search: '',
+  //     searchParams,
+  //     setSearchParams,
+  //   })
+  // }
   const handleItemsPerPageChange = (value: number) => {
     updateSearchParams({
       currentPage: 1,
@@ -141,11 +134,9 @@ export function DecksPage() {
     return <h1>Error: {JSON.stringify(error)}</h1>
   }
 
-  console.log(itemsPerPage.toString())
-
   return (
     <div>
-      <ModalOnAddDeck onSubmit={onSubmit} open={open} setOpen={setOpen} />
+      <ModalOnAddDeck open={open} setOpen={setOpen} />
       <div
         style={{
           display: 'grid',
@@ -198,8 +189,6 @@ export function DecksPage() {
         <UniversalTableDeckMinin
           data={data}
           handleSort={handleSort}
-          onDeleteClick={id => deleteDeck({ id })}
-          onEditClick={(id, name) => updateDeck({ id, name })}
           searchParamsOrderBy={searchParams.get('orderBy') || ''}
         />
       </div>
@@ -212,24 +201,18 @@ export function DecksPage() {
         setItemsPerPage={handleItemsPerPageChange}
         totalItems={data?.pagination.totalItems || 0}
       />
-      {/*<UniversalTableDeck data={data} sortedColumn={headersNameDecks[0].key} />*/}
     </div>
-    // <Decks />
   )
 }
 
 type UniversalTableDeckMininType = {
   data?: DecksListResponse
   handleSort?: (key: string) => void
-  onDeleteClick?: (id: string) => void
-  onEditClick?: (id: string, name: string) => void
   searchParamsOrderBy?: string
 }
 const UniversalTableDeckMinin = ({
   data,
   handleSort,
-  onDeleteClick, // Для удаления Deck
-  onEditClick, // Для изменения Deck
   searchParamsOrderBy,
 }: UniversalTableDeckMininType) => {
   return (
@@ -240,7 +223,6 @@ const UniversalTableDeckMinin = ({
             <Table.HeadCell key={name.key} onClick={() => handleSort?.(name.key)}>
               <Typography as={'span'} variant={'subtitle2'}>
                 {name.title}
-                {/*{name.key === searchParams && (*/}
                 {searchParamsOrderBy?.includes(name.key) && (
                   <ArrowIosDownOutline
                     className={`${s.arrow} ${searchParamsOrderBy?.includes('asc') ? s.rotate : ''}`}
@@ -255,18 +237,7 @@ const UniversalTableDeckMinin = ({
       <Table.Body>
         {data && data?.items.length !== 0 ? (
           data?.items.map(deck => {
-            return (
-              <SingleRowDeck
-                deck={deck}
-                key={deck.id}
-                onDeleteClick={(id: string) => {
-                  onDeleteClick?.(id)
-                }}
-                onEditClick={(name: string) => {
-                  onEditClick?.(deck.id, name)
-                }}
-              />
-            )
+            return <SingleRowDeck deck={deck} key={deck.id} />
           })
         ) : (
           <Typography as={'div'} className={s.empty} variant={'body1'}>
