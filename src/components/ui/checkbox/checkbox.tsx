@@ -1,43 +1,47 @@
+import { ComponentPropsWithoutRef, ElementRef, forwardRef, useId } from 'react'
+
+import CheckIcon from '@/assets/icons/svg/CheckboxIcon'
 import * as Checkbox from '@radix-ui/react-checkbox'
-import { Label } from '@radix-ui/react-label'
 
 import './checkbox.scss'
 
 type Props = {
-  id: string
-  isChecked: boolean
-  isDisabled?: boolean
+  className?: string
   label?: string
-  onCheckedChange: (checked: boolean) => void
-}
+} & ComponentPropsWithoutRef<typeof Checkbox.Root>
 
-const StyledCheckbox = (props: Props) => {
-  const { id, isChecked, isDisabled, label, onCheckedChange } = props
-  const disabledClass = isDisabled ? 'disabled' : ''
-  const labelId = id // Уникальный ID для связи с Label
+const CheckboxDemo = forwardRef<ElementRef<typeof Checkbox.Root>, Props>((props: Props) => {
+  const { checked, disabled, id, label, onCheckedChange, ...rest } = props
+  const disabledClass = disabled ? 'disabled' : ''
+  const checkedClass = checked ? 'checked' : ''
+  const generatedId = useId()
 
   return (
-    <div className={`checkboxContainer ${disabledClass}`}>
-      <Checkbox.Root
-        checked={isChecked}
-        className={`CheckboxRoot ${disabledClass}`}
-        disabled={isDisabled}
-        id={labelId}
-        onCheckedChange={onCheckedChange}
-      >
-        <Checkbox.Indicator
-          className={`checkboxFrame ${disabledClass}`}
-          forceMount
-        ></Checkbox.Indicator>
-        <Label
-          className={`label ${disabledClass}`}
-          htmlFor={labelId} // Связывание с Checkbox через ID
+    <form>
+      <div className={'CheckboxContainer'}>
+        <Checkbox.Root
+          {...rest}
+          checked={checked}
+          className={`CheckboxRoot ${disabledClass} ${checkedClass}`}
+          defaultChecked
+          id={id ?? generatedId}
+          onCheckedChange={onCheckedChange}
         >
+          {checked && (
+            <Checkbox.Indicator
+              asChild
+              className={`CheckboxIndicator ${disabledClass} ${checkedClass}`}
+            >
+              {<CheckIcon />}
+            </Checkbox.Indicator>
+          )}
+        </Checkbox.Root>
+        <label className={`Label ${disabledClass}`} htmlFor={id ?? generatedId}>
           {label}
-        </Label>
-      </Checkbox.Root>
-    </div>
+        </label>
+      </div>
+    </form>
   )
-}
+})
 
-export default StyledCheckbox
+export default CheckboxDemo

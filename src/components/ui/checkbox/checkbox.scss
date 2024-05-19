@@ -1,117 +1,85 @@
-@import '../../../../node_modules/@radix-ui/colors/black-alpha.css';
-@import '../../../../node_modules/@radix-ui/colors/white-alpha.css';
-
-/* reset */
-
 button {
   all: unset;
 }
 
-.checkboxContainer {
-  display: flex;
+.CheckboxContainer,
+.CheckboxRoot {
   align-items: center;
+  display: flex;
+}
+
+.CheckboxContainer {
+  font-size: 16px;
 }
 
 .CheckboxRoot {
-  display: flex;
-  align-items: center;
   cursor: pointer;
-  /*width: 18px;*/
+  position: relative;
+  width: 18px;
   height: 18px;
-  position: relative; // Указываем, что позиционирование будет относительным
+  background-color: transparent;
+  box-shadow: inset 0 0 0 2px var(--color-light-900);
+  border-radius: 2px;
+  justify-content: center;
 }
 
 .CheckboxRoot::before {
-  content: ''; // Псевдоэлементы требуют свойства content
+  z-index: -1;
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 36px; // Полный размер круга
-  height: 36px; // Полный размер круга
-  background-color: transparent; // Цвет анимации
-  border-radius: 50%; // Делаем его круглым
-  transform: translate(-50%, -50%) scale(0); // Начинаем с центра и без масштаба
-  transition: transform 0.3s ease-out; // Анимация масштабирования и плавности
-}
-.CheckboxRoot[data-state='checked'] .checkboxFrame {
-  background-color: var(--color-light-100);
-  border-color: var(--color-light-100);
-}
-
-.CheckboxRoot.disabled[data-state='checked'] .checkboxFrame {
-  background-color: var(--color-dark-100);
-  border-color: var(--color-dark-100);
-}
-
-.CheckboxRoot[data-state='checked']::after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 6px;
-  width: 6px;
-  height: 12px;
-  border: solid var(--color-dark-900);
-  border-radius: 0;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-.CheckboxRoot.disabled[data-state='checked']::after {
-  border: solid var(--color-light-900);
-  border-width: 0 2px 2px 0;
-}
-
-.checkboxFrame {
-  border: 2px solid var(--color-light-900);
-  border-radius: 2px;
-  position: absolute;
-  inset: 0;
-  height: 18px;
-  width: 18px;
-  display: block;
-}
-
-.checkboxFrame.disabled {
-  border: 2px solid var(--color-dark-100);
-}
-
-/* Изменяем стили при наведении */
-.CheckboxRoot:hover::before,
-.CheckboxRoot:active::before {
-  //это кстати при active
-  transform: translate(-50%, -50%) scale(1); // Расширяем круг до полного размера
-  background: var(--color-dark-500);
-  left: 10px;
-}
-
-.CheckboxRoot.disabled:hover::before,
-.CheckboxRoot.disabled:active::before {
-  transform: translate(-50%, -50%) scale(0); /* Отменяем анимацию */
+  width: 36px;
+  height: 36px;
   background-color: transparent;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.3s ease-out;
 }
 
-.CheckboxRoot.disabled:active::before {
-  background: transparent; /* Для унификации с hover */
+.CheckboxRoot:hover:not(.disabled)::before,
+.Label:hover .CheckboxRoot::before {
+  transform: translate(-50%, -50%) scale(1);
+  background: var(--color-dark-500);
 }
 
-.CheckboxRoot:active::before {
-  background: var(--color-dark-100);
+.CheckboxRoot .checked {
+  background-color: var(--color-light-100);
+  box-shadow: inset 0 0 0 2px var(--color-light-100);
+  border-radius: 2px;
 }
 
-.CheckboxRoot:focus {
-  box-shadow: 0 0 0 2px var(--black-a12);
+.CheckboxRoot svg path {
+  fill: var(--color-dark-900);
 }
 
-.label {
-  padding-left: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-light-900);
-  /*padding-left: 11px;*/
+.CheckboxRoot.disabled svg path,
+.CheckboxRoot.disabled[data-state='checked'] {
+  background-color: var(--color-dark-100);
+  fill: var(--color-light-900);
+}
+
+.CheckboxRoot.disabled {
+  box-shadow: inset 0 0 0 2px var(--color-dark-100);
+  cursor: no-drop;
+}
+
+.CheckboxRoot.disabled .checked {
+  background-color: var(--color-dark-100);
+  box-shadow: inset 0 0 0 2px var(--color-dark-100);
+}
+
+.Label {
   cursor: pointer;
+  padding-left: 15px;
 }
 
-.label.disabled {
-  cursor: initial;
+.Label.disabled {
   color: var(--color-dark-100);
+  cursor: no-drop;
+}
+
+.CheckboxContainer:active .CheckboxRoot:not(.disabled)::before {
+  transform: translate(-50%, -50%) scale(1);
+  background: var(--color-dark-100);
 }
