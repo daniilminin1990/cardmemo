@@ -157,7 +157,7 @@ export function DecksPage() {
             alignItems: 'end',
             columnGap: '25px',
             display: 'grid',
-            gridTemplateColumns: '300px 231px 250px 1fr',
+            gridTemplateColumns: '300px 1fr 250px 144px',
             marginBottom: '36px',
           }}
         >

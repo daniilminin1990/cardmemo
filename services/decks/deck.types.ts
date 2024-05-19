@@ -38,7 +38,7 @@ export interface GetDecksArgs {
 }
 
 export interface CreateDeckArgs {
-  cover?: string // НО ТУТ ПО ИДЕЕ ДОЛЖЕН БЫТЬ FILE (пока для теста string)
+  cover?: File | string // НО ТУТ ПО ИДЕЕ ДОЛЖЕН БЫТЬ FILE (пока для теста string)
   isPrivate?: boolean
   name: string
 }
