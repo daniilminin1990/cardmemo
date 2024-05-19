@@ -1,13 +1,16 @@
+import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Modal } from '@/components/ui/modal/modal'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 import s from './modals.module.scss'
 
-import { Deck, UpdateDeckArgs } from '../../../services/decks/deck.types'
+import { Deck } from '../../../services/decks/deck.types'
 import { useUpdateDeckMutation } from '../../../services/flashCardsAPI'
 
 type Props = {
@@ -16,20 +19,50 @@ type Props = {
   setOpen: (value: boolean) => void
 }
 
-type IFormData = {
-  cover?: string
-  id: string
-  isPrivate?: boolean
-  name: string
-}
+// type FormValues = {
+//   cover?: string
+//   id: string
+//   isPrivate?: boolean
+//   name: string
+// }
 
+const updateDecksSchema = z.object({
+  isPrivate: z.boolean(),
+  name: z.string().min(3).max(1000),
+})
+
+type FormValues = z.infer<typeof updateDecksSchema>
 export const ModalUpdateDeck = (props: Props) => {
   const { item, open, setOpen } = props
   const [updateDeck] = useUpdateDeckMutation()
-  const { control, handleSubmit } = useForm<IFormData>({
-    defaultValues: { name: '' },
+  const [cover, setCover] = useState<File | null>(null)
+  const [preview, setPreview] = useState<null | string>('')
+  const { control, handleSubmit } = useForm<FormValues>({
+    defaultValues: { isPrivate: false, name: '' },
+    resolver: zodResolver(updateDecksSchema),
   })
-  const onSubmit: SubmitHandler<IFormData> = (data: UpdateDeckArgs) => {
+
+  useEffect(() => {
+    if (item?.cover) {
+      setPreview(item?.cover)
+    }
+  }, [item?.cover])
+
+  // Генерируем ссылку на загружаемый файл
+  useEffect(() => {
+    if (cover) {
+      const newPreview = URL.createObjectURL(cover)
+
+      if (preview) {
+        URL.revokeObjectURL(preview)
+      }
+
+      setPreview(newPreview)
+
+      return () => URL.revokeObjectURL(newPreview)
+    }
+  }, [cover])
+  const onSubmit: SubmitHandler<FormValues> = data => {
     updateDeck({ ...data, id: item.id })
     setOpen(false)
   }
@@ -40,6 +73,7 @@ export const ModalUpdateDeck = (props: Props) => {
         <div className={s.body}>
           <div>
             <Typography variant={'h1'}>{item.name}</Typography>
+            <div>{preview && <img alt={'cover'} src={preview.toString()} width={200} />}</div>
             <FormTextfield
               className={s.input}
               control={control}
@@ -47,7 +81,17 @@ export const ModalUpdateDeck = (props: Props) => {
               name={'name'}
             />
           </div>
-          <div>{item.cover}</div>
+          {/*{cover && (*/}
+          {/*  <Button*/}
+          {/*    onClick={() => {*/}
+          {/*      setPreview(null)*/}
+          {/*      setCover(null)*/}
+          {/*    }}*/}
+          {/*    type={'button'}*/}
+          {/*  >*/}
+          {/*    Remove cover*/}
+          {/*  </Button>*/}
+          {/*)}*/}
         </div>
         <div className={s.footer}>
           <Button onClick={() => setOpen(false)} variant={'secondary'}>

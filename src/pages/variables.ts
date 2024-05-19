@@ -38,8 +38,7 @@ export const updateSearchParams = ({
 
 export const selectOptionPagination = [
   { text: '10', value: '10' },
-  { text: '20', value: '20' },
+  { text: '15', value: '15' },
   { text: '30', value: '30' },
   { text: '50', value: '50' },
-  { text: '100', value: '100' },
 ]

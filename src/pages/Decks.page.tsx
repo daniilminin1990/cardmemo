@@ -22,13 +22,13 @@ export function DecksPage() {
   const itemsPerPage = Number(searchParams.get('itemsPerPage') ?? 10)
   const currentPage = Number(searchParams.get('currentPage') ?? 1)
   const search = searchParams.get('search') ?? ''
+  const currentOrderBy = searchParams.get('orderBy')
 
   const [open, setOpen] = useState(false)
   const [tabsValue, setTabsValue] = useState('All decks')
 
   // Сортировка
   const handleSort = (key: string) => {
-    const currentOrderBy = searchParams.get('orderBy')
     let newOrderBy
 
     // Проверяем текущее состояние и определяем новое состояние
@@ -51,6 +51,7 @@ export function DecksPage() {
 
   // tabsSwitcher function to changeTabs
   const tabsSwitcherHandler = (value: string) => {
+    // От этого, полагаю тоже можно избавиться через searchParams
     setTabsValue(value)
     //! Сюда нужно прикрутить ID пользователя, чтобы вытащить только его Decks (после урока авторизации)
     // if(value === authorId){
@@ -64,16 +65,16 @@ export function DecksPage() {
 
   // Clear filter func on Click
   const onClearFilter = () => {
-    // updateSearchParams({
-    //   currentPage: 1,
-    //   itemsPerPage: 10,
-    //   search: '',
-    //   searchParams,
-    //   setSearchParams,
-    // })
-    searchParams.delete('currentPage')
-    searchParams.delete('itemsPerPage')
-    searchParams.delete('search')
+    updateSearchParams({
+      currentPage: 1,
+      itemsPerPage: 10,
+      search: '',
+      searchParams,
+      setSearchParams,
+    })
+    // searchParams.delete('currentPage')
+    // searchParams.delete('itemsPerPage')
+    // searchParams.delete('search')
     searchParams.delete('orderBy')
     // searchParams.delete('authorId')
     setSearchParams(searchParams)

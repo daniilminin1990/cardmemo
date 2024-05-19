@@ -20,11 +20,27 @@ export const flashCardsAPI = createApi({
     return {
       createDeck: builder.mutation<Deck, CreateDeckArgs>({
         invalidatesTags: ['Deck'],
-        query: args => ({
-          body: args,
-          method: 'POST',
-          url: 'v1/decks',
-        }),
+        query: ({ cover, isPrivate, name }) => {
+          const formData = new FormData()
+
+          if (name) {
+            formData.append('name', name)
+          }
+          if (isPrivate) {
+            formData.append('isPrivate', isPrivate.toString())
+          }
+          if (cover) {
+            formData.append('cover', cover)
+          } else if (cover === null) {
+            formData.append('cover', '')
+          }
+
+          return {
+            body: formData,
+            method: 'POST',
+            url: 'v1/decks',
+          }
+        },
       }),
       deleteDeck: builder.mutation<void, DeleteDeckArgs>({
         invalidatesTags: ['Deck'],
@@ -51,11 +67,27 @@ export const flashCardsAPI = createApi({
       }),
       updateDeck: builder.mutation<Deck, UpdateDeckArgs>({
         invalidatesTags: ['Deck'],
-        query: ({ id, ...args }) => ({
-          body: args,
-          method: 'PATCH',
-          url: `v1/decks/${id}`,
-        }),
+        query: ({ cover, id, isPrivate, name }) => {
+          const formData = new FormData()
+
+          if (name) {
+            formData.append('name', name)
+          }
+          if (isPrivate) {
+            formData.append('isPrivate', isPrivate.toString())
+          }
+          if (cover) {
+            formData.append('cover', cover)
+          } else if (cover === null) {
+            formData.append('cover', '')
+          }
+
+          return {
+            body: formData,
+            method: 'PATCH',
+            url: `v1/decks/${id}`,
+          }
+        },
       }),
     }
   },
