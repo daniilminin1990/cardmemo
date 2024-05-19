@@ -195,7 +195,6 @@ export function DecksPage() {
       <PaginationWithSelect
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
-        placeholder={itemsPerPage.toString()}
         selectOptions={selectOptionPagination}
         setCurrentPage={handleCurrentPageChange}
         setItemsPerPage={handleItemsPerPageChange}
