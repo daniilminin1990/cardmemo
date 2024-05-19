@@ -7,13 +7,13 @@ import {
 } from 'react-router-dom'
 
 import Header from '@/components/auth/Header/Header'
-import { DecksPage } from '@/pages/Decks.page'
+import { DecksMininPage } from '@/pagesMinin/DecksMinin.page'
 
 const privateRoutes: RouteObject[] = [
   {
     children: [
       {
-        element: <DecksPage />,
+        element: <DecksMininPage />,
         path: '/',
       },
       {

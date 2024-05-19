@@ -8,7 +8,7 @@ import { Modal } from '@/components/ui/modal/modal'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import s from './modals.module.scss'
+import s from './modalsMinin.module.scss'
 
 import { Deck } from '../../../services/decks/deck.types'
 import { useUpdateDeckMutation } from '../../../services/flashCardsAPI'
@@ -18,13 +18,6 @@ type Props = {
   open: boolean
   setOpen: (value: boolean) => void
 }
-
-// type FormValues = {
-//   cover?: string
-//   id: string
-//   isPrivate?: boolean
-//   name: string
-// }
 
 const updateDecksSchema = z.object({
   isPrivate: z.boolean(),
@@ -37,7 +30,7 @@ export const ModalUpdateDeck = (props: Props) => {
   const [updateDeck] = useUpdateDeckMutation()
   const [cover, setCover] = useState<File | null>(null)
   const [preview, setPreview] = useState<null | string>('')
-  const { control, handleSubmit } = useForm<FormValues>({
+  const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: { isPrivate: false, name: '' },
     resolver: zodResolver(updateDecksSchema),
   })
@@ -48,7 +41,7 @@ export const ModalUpdateDeck = (props: Props) => {
     }
   }, [item?.cover])
 
-  // Генерируем ссылку на загружаемый файл
+  // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать
   useEffect(() => {
     if (cover) {
       const newPreview = URL.createObjectURL(cover)
@@ -64,6 +57,13 @@ export const ModalUpdateDeck = (props: Props) => {
   }, [cover])
   const onSubmit: SubmitHandler<FormValues> = data => {
     updateDeck({ ...data, id: item.id })
+    setOpen(false)
+    reset()
+  }
+
+  const handleOnClose = () => {
+    //! RESET хер знает зачем нужен
+    reset()
     setOpen(false)
   }
 
@@ -81,20 +81,20 @@ export const ModalUpdateDeck = (props: Props) => {
               name={'name'}
             />
           </div>
-          {/*{cover && (*/}
-          {/*  <Button*/}
-          {/*    onClick={() => {*/}
-          {/*      setPreview(null)*/}
-          {/*      setCover(null)*/}
-          {/*    }}*/}
-          {/*    type={'button'}*/}
-          {/*  >*/}
-          {/*    Remove cover*/}
-          {/*  </Button>*/}
-          {/*)}*/}
+          {preview && (
+            <Button
+              onClick={() => {
+                setPreview(null)
+                setCover(null)
+              }}
+              type={'button'}
+            >
+              Remove cover
+            </Button>
+          )}
         </div>
         <div className={s.footer}>
-          <Button onClick={() => setOpen(false)} variant={'secondary'}>
+          <Button onClick={handleOnClose} variant={'secondary'}>
             Cancel
           </Button>
           <Button

@@ -8,13 +8,13 @@ import { Button } from '@/components/ui/button'
 import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Modal } from '@/components/ui/modal/modal'
-import { updateSearchParams } from '@/pages/variables'
+import { updateSearchParams } from '@/pagesMinin/variablesMinin'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import s from './modalOnAddDeck.module.scss'
+import s from './modalOnAddDeckMinin.module.scss'
 
-import { useCreateDeckMutation } from '../../services/flashCardsAPI'
+import { useCreateDeckMutation } from '../../../services/flashCardsAPI'
 
 type Props = {
   open: boolean
@@ -29,7 +29,7 @@ const createDecksSchema = z.object({
 // type FormValues = { cover?: File | null } & z.infer<typeof createDecksSchema>
 type FormValues = z.infer<typeof createDecksSchema>
 
-export const ModalOnAddDeck = ({ open, setOpen }: Props) => {
+export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
   const [checked, setChecked] = useState(false)
   const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: { isPrivate: false, name: '' },
@@ -49,8 +49,6 @@ export const ModalOnAddDeck = ({ open, setOpen }: Props) => {
 
   const onSubmit: SubmitHandler<FormValues> = data => {
     createDeck({ ...data, cover })
-    console.log({ ...data, isPrivate: checked })
-    console.log(cover)
     setOpen(false)
     updateSearchParams({
       currentPage: 1,
@@ -126,7 +124,7 @@ export const ModalOnAddDeck = ({ open, setOpen }: Props) => {
 //
 // type FormValues = z.infer<typeof createDecksSchema>
 //
-// export const ModalOnAddDeck = ({ open, setOpen }: Props) => {
+// export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
 //   const [checked, setChecked] = useState(false)
 //   const { control, handleSubmit } = useForm<FormValues>({
 //     defaultValues: { isPrivate: false, name: '' },

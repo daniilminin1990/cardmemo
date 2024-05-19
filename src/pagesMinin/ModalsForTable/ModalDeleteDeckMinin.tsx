@@ -2,7 +2,7 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
 
-import s from './modals.module.scss'
+import s from './modalsMinin.module.scss'
 
 import { Deck } from '../../../services/decks/deck.types'
 import { useDeleteDeckMutation } from '../../../services/flashCardsAPI'
@@ -12,7 +12,7 @@ type Props = {
   open: boolean
   setIsDeleteModal: (value: boolean) => void
 }
-export const ModalDeleteDeck = (props: Props) => {
+export const ModalDeleteDeckMinin = (props: Props) => {
   const { item, open, setIsDeleteModal } = props
   const [deleteDeck] = useDeleteDeckMutation()
   const onDeleteDeckHandler = () => {

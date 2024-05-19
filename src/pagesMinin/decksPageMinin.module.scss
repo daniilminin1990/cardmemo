@@ -1,0 +1,38 @@
+.heading {
+  display: grid;
+  gap: 7px;
+  grid-template-rows: auto 1fr;
+}
+.headingFirstRow {
+  display: flex;
+  justify-content: space-between;
+}
+.headingGrid {
+  align-items: end;
+  column-gap: 25px;
+  display: grid;
+  grid-template-columns: 300px 1fr 250px 144px;
+  margin-bottom: 36px;
+}
+.clearFilter {
+  text-align: center;
+}
+
+.arrow {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.5s;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+.input {
+  width: 100%;
+}
+.tabsSwitcher {
+}
+
+.footer {
+  margin: 24px 0 24px 0;
+}

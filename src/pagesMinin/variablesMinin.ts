@@ -1,3 +1,5 @@
+import { useSearchParams } from 'react-router-dom'
+
 export const headersNameDecks = [
   { key: 'name', title: 'Name' },
   { key: 'cardsCount', title: 'Cards' },
@@ -42,3 +44,32 @@ export const selectOptionPagination = [
   { text: '30', value: '30' },
   { text: '50', value: '50' },
 ]
+
+type UseQueryParams = {
+  currentPage?: number
+  itemsPerPage?: number
+  search?: string
+  sort?: string
+}
+export const useQueryParams = ({ currentPage, itemsPerPage, search, sort }: UseQueryParams) => {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const setSearch = () => {
+    search === '' ? searchParams.delete('search') : searchParams.set('search', search ?? '')
+    setSearchParams(searchParams)
+  }
+  const setCurrentPage = () => {
+    currentPage === 1
+      ? searchParams.delete('currentPage')
+      : searchParams.set('currentPage', currentPage?.toString() ?? '1')
+    setSearchParams(searchParams)
+  }
+
+  const setItemsPerPage = () => {
+    itemsPerPage === 10
+      ? searchParams.delete('itemsPerPage')
+      : searchParams.set('itemsPerPage', itemsPerPage?.toString() ?? '10')
+    setSearchParams(searchParams)
+  }
+
+  return { setCurrentPage, setItemsPerPage, setSearch }
+}

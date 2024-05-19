@@ -5,10 +5,10 @@ import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
-import { ModalDeleteDeck } from '@/pages/ModalsForTable/ModalDeleteDeck'
-import { ModalUpdateDeck } from '@/pages/ModalsForTable/ModalUpdateDeck'
+import { ModalDeleteDeckMinin } from '@/pagesMinin/ModalsForTable/ModalDeleteDeckMinin'
+import { ModalUpdateDeck } from '@/pagesMinin/ModalsForTable/ModalUpdateDeck'
 
-import s from '@/pages/singleRowDeck.module.scss'
+import s from '@/pagesMinin/DecksTable/singleRowDeckMinin.module.scss'
 
 import { Deck } from '../../../../../services/decks/deck.types'
 
@@ -34,7 +34,7 @@ export const UniSingleRowDeck = ({ deck, onDeleteClick, onEditClick }: Props) =>
         open={isUpdateModal}
         setOpen={setIsUpdateModal}
       />
-      <ModalDeleteDeck // Модалка для удаления Deck
+      <ModalDeleteDeckMinin // Модалка для удаления Deck
         item={deck}
         onDeleteClick={onDeleteClick}
         open={isDeleteModal}
