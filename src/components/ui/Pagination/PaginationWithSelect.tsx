@@ -13,7 +13,7 @@ type Props = {
   currentPage: number
   disabled?: boolean
   itemsPerPage: number
-  placeholder?: string
+  // placeholder?: string
   selectOptions: selectOptionsType[]
   setCurrentPage: (value: number) => void
   setItemsPerPage: (value: number) => void
@@ -23,7 +23,7 @@ export const PaginationWithSelect = ({
   currentPage,
   disabled,
   itemsPerPage,
-  placeholder,
+  // placeholder,
   selectOptions,
   setCurrentPage,
   setItemsPerPage,
@@ -31,7 +31,7 @@ export const PaginationWithSelect = ({
 }: Props) => {
   // const [currentPage, setCurrentPage] = useState<number>(1)
   // const [itemsPerPage, setItemsPerPage] = useState<number>(10)
-  const placeholderText = placeholder || selectOptions[0].text
+  // const placeholderText = placeholder || selectOptions[0].text
   const totalPages: number = Math.ceil(totalItems / itemsPerPage) // Is this comes from, server???
   // const {} = useGetDecksQuery({
   //   currentPage,
@@ -61,7 +61,7 @@ export const PaginationWithSelect = ({
         disabled={disabled}
         onValueChange={onValueChange}
         selectOptions={selectOptions}
-        value={placeholderText}
+        value={itemsPerPage.toString()}
       />
       <Typography className={s.lastText}>on page</Typography>
     </div>

@@ -10,7 +10,7 @@ type Props = {
   disabled?: boolean
   onValueChange?: (items: string) => void
   selectOptions: selectOptionsType[]
-  value?: string
+  value?: string // РАНЬШЕ БЫЛ  placeholder
 }
 const SelectUI = ({ className, disabled, onValueChange, selectOptions, value }: Props) => {
   // const placeholderText = placeholder || selectOptions[0].text
@@ -32,6 +32,7 @@ const SelectUI = ({ className, disabled, onValueChange, selectOptions, value }: 
         <Select.Trigger aria-label={'select'} asChild className={selectClasses.trigger}>
           <button>
             {/*<Select.Value aria-label={value}>*/}
+            {/*Изменил эту строку ниже -- теперь тут определяет по selectOptions*/}
             {selectOptions.find(el => el.value === value)?.text || selectOptions[0].text}
             {/*</Select.Value>*/}
             <ArrowIosDownOutline className={selectClasses.icon} />
