@@ -1,0 +1,53 @@
+.root {
+  display: flex;
+  flex-flow: column wrap;
+  width: 100%;
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 28px;
+
+    .cardName {
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 15px;
+
+      .defaltCardImg {
+        width: 170px;
+        height: 106px;
+        object-fit: cover;
+      }
+    }
+
+    .addBtn {
+      width: 148px;
+      height: 36px;
+    }
+  }
+
+  .filter {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    margin-bottom: 25px;
+
+    .input {
+      width: 100%;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+
+    .text {
+      display: flex;
+      flex-flow: row nowrap;
+      gap: 9px;
+      align-items: center;
+    }
+  }
+}

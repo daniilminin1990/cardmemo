@@ -35,3 +35,13 @@ export interface GetDecksArgs {
   name?: string
   orderBy?: string
 }
+export interface AddDeckArgs {
+  cover?: File | string
+  isPrivate?: boolean
+  name: string
+}
+
+export type UpdateDeckArgs = {
+  formData: Partial<AddDeckArgs>
+  id: string
+}
