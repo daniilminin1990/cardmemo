@@ -16,8 +16,9 @@ type Props = {
 const SelectUI = ({ className, disabled, onValueChange, selectOptions, value }: Props) => {
   // const placeholderText = placeholder || selectOptions[0].text
   const selectClasses = {
+    button: clsx(className && s.button, s.className),
     content: clsx(s.selectContent),
-    icon: clsx(s.selectIcon),
+    icon: clsx(s.selectIcon, className && s.className),
     root: s.selectRoot,
     selectItem: clsx(s.selectItem, className && s.className),
     trigger: clsx(
@@ -35,7 +36,7 @@ const SelectUI = ({ className, disabled, onValueChange, selectOptions, value }: 
           <button>
             {/*<Select.Value aria-label={value}>*/}
             {/*Изменил эту строку ниже -- теперь тут определяет по selectOptions*/}
-            <Typography variant={'body2'}>
+            <Typography className={s.selectVariant} variant={'body2'}>
               {selectOptions.find(el => el.value === value)?.text || selectOptions[0].text}
             </Typography>
             {/*</Select.Value>*/}
