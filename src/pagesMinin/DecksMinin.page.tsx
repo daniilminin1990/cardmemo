@@ -96,7 +96,7 @@ export function DecksMininPage() {
             callback={setSearchQuery}
             className={s.input}
             onChange={handleSearch}
-            // querySearch={''}
+            // querySearch={search}
             type={'search'}
             value={search}
           />
