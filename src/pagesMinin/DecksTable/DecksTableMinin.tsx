@@ -37,17 +37,25 @@ export const UniversalTableDeckMinin = ({
           <Table.HeadCell></Table.HeadCell>
         </Table.Row>
       </Table.Head>
-      <Table.Body>
-        {data && data?.items.length !== 0 ? (
-          data?.items.map(deck => {
-            return <SingleRowDeckMinin deck={deck} key={deck.id} />
-          })
-        ) : (
-          <Typography as={'div'} className={s.empty} variant={'body1'}>
-            No content with these terms...
-          </Typography>
-        )}
-      </Table.Body>
+      {data && data?.items.length !== 0 ? (
+        data?.items.map(deck => {
+          return (
+            <Table.Body key={deck.id}>
+              <SingleRowDeckMinin deck={deck} key={deck.id} />
+            </Table.Body>
+          )
+        })
+      ) : (
+        <Table.Body>
+          <Table.Row>
+            <td className={s.empty} colSpan={headersNameDecks.length}>
+              <Typography as={'span'} variant={'body1'}>
+                No content with these terms...
+              </Typography>
+            </td>
+          </Table.Row>
+        </Table.Body>
+      )}
     </Table.Root>
   )
 }

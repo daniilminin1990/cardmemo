@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useSearchParams } from 'react-router-dom'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
 import Input from '@/components/ui/Input/Input'
@@ -8,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Modal } from '@/components/ui/modal/modal'
-import { updateSearchParams } from '@/pagesMinin/variablesMinin'
+import { useQueryParams } from '@/pagesMinin/useQueryParams'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -30,6 +29,7 @@ const createDecksSchema = z.object({
 type FormValues = z.infer<typeof createDecksSchema>
 
 export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
+  const { clearQuery } = useQueryParams()
   const [checked, setChecked] = useState(false)
   const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: { isPrivate: false, name: '' },
@@ -44,19 +44,12 @@ export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
 
   const refInputImg = useRef<HTMLInputElement>(null)
   const [cover, setCover] = useState<File | null>(null)
-  const [searchParams, setSearchParams] = useSearchParams()
   const [createDeck] = useCreateDeckMutation()
 
   const onSubmit: SubmitHandler<FormValues> = data => {
     createDeck({ ...data, cover })
     setOpen(false)
-    updateSearchParams({
-      currentPage: 1,
-      itemsPerPage: 10,
-      search: '',
-      searchParams,
-      setSearchParams,
-    })
+    clearQuery()
   }
 
   const hanldeSubmitImg = () => {

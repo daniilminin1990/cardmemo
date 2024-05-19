@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import Input from '@/components/ui/Input/Input'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
@@ -29,12 +29,14 @@ export function DecksMininPage() {
 
   const [open, setOpen] = useState(false)
   const [tabsValue, setTabsValue] = useState('All decks')
-
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setCurrentPageQuery(Number(initCurrentPage))
+    setSearchQuery(e.currentTarget.value)
+  }
   // Сортировка
   const handleSort = (key: string) => {
     setSortByQuery(key)
   }
-
   // tabsSwitcher function to changeTabs
   const tabsSwitcherHandler = (value: string) => {
     // От этого, полагаю тоже можно избавиться через searchParams
@@ -68,10 +70,6 @@ export function DecksMininPage() {
   const handleCurrentPageChange = (value: number) => {
     setCurrentPageQuery(value)
   }
-  const handleSearch = (value: string) => {
-    setCurrentPageQuery(Number(initCurrentPage))
-    setSearchQuery(value)
-  }
 
   if (isLoading) {
     return <h1>... Loading</h1>
@@ -95,10 +93,10 @@ export function DecksMininPage() {
         </div>
         <div className={s.headingGrid}>
           <Input
-            callback={handleSearch}
+            callback={setSearchQuery}
             className={s.input}
-            onChange={e => handleSearch(e.target.value)}
-            querySearch={search}
+            onChange={handleSearch}
+            // querySearch={''}
             type={'search'}
             value={search}
           />

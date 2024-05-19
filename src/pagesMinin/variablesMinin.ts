@@ -22,27 +22,27 @@ export const selectOptionPagination = [
 
 export const initCurrentPage = '1'
 
-type updateSearchParamsType = {
-  currentPage?: number
-  itemsPerPage?: number
-  search?: string
-  searchParams: URLSearchParams
-  setSearchParams: (searchParams: URLSearchParams) => void
-}
-export const updateSearchParams = ({
-  currentPage,
-  itemsPerPage,
-  search,
-  searchParams,
-  setSearchParams,
-}: updateSearchParamsType) => {
-  currentPage === 1
-    ? searchParams.delete('currentPage')
-    : searchParams.set('currentPage', currentPage?.toString() ?? initCurrentPage)
-  itemsPerPage === 10
-    ? searchParams.delete('itemsPerPage')
-    : searchParams.set('itemsPerPage', itemsPerPage?.toString() ?? selectOptionPagination[0].value)
-  search === '' ? searchParams.delete('search') : searchParams.set('search', search ?? '')
-
-  setSearchParams(searchParams)
-}
+// type updateSearchParamsType = {
+//   currentPage?: number
+//   itemsPerPage?: number
+//   search?: string
+//   searchParams: URLSearchParams
+//   setSearchParams: (searchParams: URLSearchParams) => void
+// }
+// export const updateSearchParams = ({
+//   currentPage,
+//   itemsPerPage,
+//   search,
+//   searchParams,
+//   setSearchParams,
+// }: updateSearchParamsType) => {
+//   currentPage === 1
+//     ? searchParams.delete('currentPage')
+//     : searchParams.set('currentPage', currentPage?.toString() ?? initCurrentPage)
+//   itemsPerPage === 10
+//     ? searchParams.delete('itemsPerPage')
+//     : searchParams.set('itemsPerPage', itemsPerPage?.toString() ?? selectOptionPagination[0].value)
+//   search === '' ? searchParams.delete('search') : searchParams.set('search', search ?? '')
+//
+//   setSearchParams(searchParams)
+// }
