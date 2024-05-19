@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
 
 import Input from '@/components/ui/Input/Input'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
@@ -8,42 +7,32 @@ import { Button } from '@/components/ui/button'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { UniversalTableDeckMinin } from '@/pagesMinin/DecksTable/DecksTableMinin'
 import { ModalOnAddDeckMinin } from '@/pagesMinin/ModalsForTable/ModalOnAddDeckMinin'
-import { selectOptionPagination, updateSearchParams } from '@/pagesMinin/variablesMinin'
+import { useQueryParams } from '@/pagesMinin/useQueryParams'
+import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/variablesMinin'
 
 import s from '@/pagesMinin/decksPageMinin.module.scss'
 
 import { useGetDecksQuery } from '../../services/flashCardsAPI'
 
 export function DecksMininPage() {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const itemsPerPage = Number(searchParams.get('itemsPerPage') ?? 10)
-  const currentPage = Number(searchParams.get('currentPage') ?? 1)
-  const search = searchParams.get('search') ?? ''
-  const currentOrderBy = searchParams.get('orderBy')
+  const {
+    clearQuery,
+    currentOrderBy,
+    currentPage,
+    itemsPerPage,
+    search,
+    setCurrentPageQuery,
+    setItemsPerPageQuery,
+    setSearchQuery,
+    setSortByQuery,
+  } = useQueryParams()
 
   const [open, setOpen] = useState(false)
   const [tabsValue, setTabsValue] = useState('All decks')
 
   // Сортировка
   const handleSort = (key: string) => {
-    let newOrderBy
-
-    // Проверяем текущее состояние и определяем новое состояние
-    if (currentOrderBy === `${key}-asc`) {
-      newOrderBy = `${key}-desc`
-    } else if (currentOrderBy === `${key}-desc`) {
-      newOrderBy = null
-    } else {
-      newOrderBy = `${key}-asc`
-    }
-
-    // Обновляем Query-параметр orderBy
-    if (newOrderBy) {
-      searchParams.set('orderBy', newOrderBy)
-    } else {
-      searchParams.delete('orderBy')
-    }
-    setSearchParams(searchParams)
+    setSortByQuery(key)
   }
 
   // tabsSwitcher function to changeTabs
@@ -62,51 +51,26 @@ export function DecksMininPage() {
 
   // Clear filter func on Click
   const onClearFilter = () => {
-    updateSearchParams({
-      currentPage: 1,
-      itemsPerPage: 10,
-      search: '',
-      searchParams,
-      setSearchParams,
-    })
-    searchParams.delete('orderBy')
-    // searchParams.delete('authorId')
-    setSearchParams(searchParams)
+    clearQuery()
   }
 
   const { data, error, isLoading } = useGetDecksQuery({
-    currentPage: Number(searchParams.get('currentPage')),
-    itemsPerPage: Number(searchParams.get('itemsPerPage')),
-    name: searchParams.get('search') || undefined,
-    orderBy: searchParams.get('orderBy') || undefined,
+    currentPage,
+    itemsPerPage,
+    name: search,
+    orderBy: currentOrderBy,
   })
 
   const handleItemsPerPageChange = (value: number) => {
-    updateSearchParams({
-      currentPage: 1,
-      itemsPerPage: value,
-      search,
-      searchParams,
-      setSearchParams,
-    })
+    setCurrentPageQuery(Number(initCurrentPage))
+    setItemsPerPageQuery(value)
   }
   const handleCurrentPageChange = (value: number) => {
-    updateSearchParams({
-      currentPage: value,
-      itemsPerPage,
-      search,
-      searchParams,
-      setSearchParams,
-    })
+    setCurrentPageQuery(value)
   }
   const handleSearch = (value: string) => {
-    updateSearchParams({
-      currentPage: 1,
-      itemsPerPage,
-      search: value,
-      searchParams,
-      setSearchParams,
-    })
+    setCurrentPageQuery(Number(initCurrentPage))
+    setSearchQuery(value)
   }
 
   if (isLoading) {
@@ -134,7 +98,7 @@ export function DecksMininPage() {
             callback={handleSearch}
             className={s.input}
             onChange={e => handleSearch(e.target.value)}
-            querySearch={searchParams.get('search')}
+            querySearch={search}
             type={'search'}
             value={search}
           />
@@ -157,7 +121,7 @@ export function DecksMininPage() {
       <UniversalTableDeckMinin
         data={data}
         handleSort={handleSort}
-        searchParamsOrderBy={searchParams.get('orderBy') || ''}
+        searchParamsOrderBy={currentOrderBy}
       />
       <div className={s.footer}>
         <PaginationWithSelect
