@@ -11,15 +11,18 @@ import Eye from '../../../assets/icons/svg/Eye'
 import Search from '../../../assets/icons/svg/Search'
 
 export type InputProps = {
+  callback?: (text: string) => void
   error?: string | undefined
   label?: string
+  querySearch?: null | string
 } & ComponentPropsWithoutRef<'input'>
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
-  const { className, error, id, label, placeholder, type, ...restProps } = props
+  const { callback, className, error, id, label, placeholder, querySearch, type, ...restProps } =
+    props
 
   const [isShow, setIsShow] = useState(false)
-  const [inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = useState(querySearch || '')
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     props.onChange?.(e)
@@ -27,6 +30,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
   }
   const clearInput = () => {
     setInputValue('')
+    if (callback) {
+      callback('')
+    }
   }
   const isShowChangeHandler = () => {
     setIsShow(!isShow)

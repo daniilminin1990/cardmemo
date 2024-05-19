@@ -1,6 +1,6 @@
-import { HTMLProps, ReactNode } from 'react'
+import { ComponentProps, ReactNode } from 'react'
 
-import Typography from '@/components/ui/Typography/Typography'
+import { Button } from '@/components/ui/button'
 import clsx from 'clsx'
 
 import s from '../pagination.module.scss'
@@ -10,7 +10,7 @@ type Props = {
   children?: ReactNode
   className?: string
   disabled?: boolean
-} & HTMLProps<HTMLAnchorElement>
+} & ComponentProps<typeof Button>
 
 export const PageLink = ({ active, children, className, disabled, ...props }: Props) => {
   const customClassName = clsx(s.pageLink, className, {
@@ -21,20 +21,11 @@ export const PageLink = ({ active, children, className, disabled, ...props }: Pr
   return (
     <div className={s.pageLinkWrapper}>
       {disabled ? (
-        <Typography as={'p'} className={clsx(customClassName, s.pageLink)} variant={'body1'}>
-          {children}
-        </Typography>
+        <Button className={clsx(customClassName, s.pageLink)}>{children}</Button>
       ) : (
-        <Typography
-          {...props}
-          aria-current={active ? 'page' : undefined}
-          as={'a'}
-          className={customClassName}
-          target={'_self'}
-          variant={'link1'}
-        >
+        <Button {...props} aria-current={active ? 'page' : undefined} className={customClassName}>
           {children}
-        </Typography>
+        </Button>
       )}
     </div>
   )

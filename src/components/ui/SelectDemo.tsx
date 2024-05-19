@@ -1,5 +1,9 @@
-import { selectOptionsType } from '@/components/ui/Pagination/PaginationWithSelect'
 import SelectUI from '@/components/ui/Select/Select'
+
+export type selectOptionsType = {
+  text: string
+  value: string
+}
 
 export const SelectDemo = () => {
   const placeholder = 'Select-box'
