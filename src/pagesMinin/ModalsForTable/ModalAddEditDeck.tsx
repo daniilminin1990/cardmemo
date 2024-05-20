@@ -23,7 +23,7 @@ type ModalAddEditProps = {
   setOpen: (value: boolean) => void
 }
 
-export const ModalAddEdit = (props: ModalAddEditProps) => {
+export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const schema = z.object({
     isPrivate: z.boolean(),
@@ -49,7 +49,7 @@ export const ModalAddEdit = (props: ModalAddEditProps) => {
   //   }
   // }, [item?.cover])
 
-  // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать
+  // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
   useEffect(() => {
     if (cover) {
       const newPreview = URL.createObjectURL(cover)
@@ -77,11 +77,9 @@ export const ModalAddEdit = (props: ModalAddEditProps) => {
   }
   const onSubmit: SubmitHandler<FormValues> = data => {
     item ? updateDeck({ ...data, cover, id: item.id }) : createDeck({ ...data, cover })
-    // console.log({ ...data, cover, id: item?.id })
     setOpen(false)
   }
   const hanldeSubmitImg = () => {
-    console.log('тут')
     refInputImg?.current?.click()
   }
 
@@ -103,7 +101,7 @@ export const ModalAddEdit = (props: ModalAddEditProps) => {
             label={item ? 'Edit title' : 'Type new Deck name'}
             name={'name'}
           />
-          {preview && (
+          {item && preview && (
             <Button
               className={clsx(s.uploadImg, preview && s.removeImg)}
               fullWidth

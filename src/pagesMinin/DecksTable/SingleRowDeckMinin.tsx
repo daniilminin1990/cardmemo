@@ -5,8 +5,8 @@ import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
+import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
 import { ModalDeleteDeckMinin } from '@/pagesMinin/ModalsForTable/ModalDeleteDeckMinin'
-import { ModalUpdateDeck } from '@/pagesMinin/ModalsForTable/ModalUpdateDeck'
 
 import s from '@/pagesMinin/DecksTable/singleRowDeckMinin.module.scss'
 
@@ -22,7 +22,8 @@ export const SingleRowDeckMinin = ({ deck }: Props) => {
 
   return (
     <Fragment key={deck.id}>
-      <ModalUpdateDeck item={deck} open={isUpdateModal} setOpen={setIsUpdateModal} />
+      {/*<ModalUpdateDeck item={deck} open={isUpdateModal} setOpen={setIsUpdateModal} />*/}
+      <ModalAddEditDeck item={deck} open={isUpdateModal} setOpen={setIsUpdateModal} />
       <ModalDeleteDeckMinin item={deck} open={isDeleteModal} setIsDeleteModal={setIsDeleteModal} />
       <Table.Row key={deck.id}>
         <Table.Cell>
