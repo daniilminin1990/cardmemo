@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react'
 
+import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import Input from '@/components/ui/Input/Input'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Typography from '@/components/ui/Typography/Typography'
@@ -112,7 +113,8 @@ export function DecksMininPage() {
           />
           <div>Slider</div>
           <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
-            Clear Filter
+            <TrashOutline />
+            <Typography variant={'subtitle2'}>Clear Filter</Typography>
           </Button>
         </div>
       </div>

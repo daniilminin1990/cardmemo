@@ -15,7 +15,11 @@
   margin-bottom: 36px;
 }
 .clearFilter {
-  text-align: center;
+  ////text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
 }
 
 .arrow {

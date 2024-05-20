@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
@@ -35,20 +35,35 @@ export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
     defaultValues: { isPrivate: false, name: '' },
     resolver: zodResolver(createDecksSchema),
   })
-
-  useEffect(() => {
-    if (cover) {
-      setCover(cover)
-    }
-  }, [])
-
   const refInputImg = useRef<HTMLInputElement>(null)
   const [cover, setCover] = useState<File | null>(null)
+  const [preview, setPreview] = useState<string>('')
   const [createDeck] = useCreateDeckMutation()
+
+  // useEffect(() => {
+  //   if (cover) {
+  //     setCover(cover)
+  //   }
+  // }, [])
+  const handleOnClose = () => {
+    setPreview('')
+    setOpen(false)
+  }
+
+  const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
+    // setCover(e.target.files?.[0] ?? null)
+    if (e.target.files !== null && e.target.files.length > 0) {
+      setPreview(URL.createObjectURL(e.target.files[0]))
+    }
+    setCover(e.target.files?.[0] ?? null)
+  }
 
   const onSubmit: SubmitHandler<FormValues> = data => {
     createDeck({ ...data, cover })
     setOpen(false)
+    if (cover) {
+      setCover(null)
+    }
     clearQuery()
   }
 
@@ -59,13 +74,13 @@ export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
   return (
     <Modal
       className={s.customClass}
-      onOpenChange={() => setOpen(false)}
+      onOpenChange={handleOnClose}
       open={open}
       title={'Add New Deck'}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={s.body}>
-          <div>{cover && <img alt={'cover'} src={URL.createObjectURL(cover)} />}</div>
+          {preview && <img alt={'cover'} src={preview} />}
           <FormTextfield
             className={s.input}
             control={control}
@@ -80,7 +95,7 @@ export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
               accept={'image/*'}
               className={s.inputImg}
               name={'cover'}
-              onChange={e => setCover(e.target.files?.[0] ?? null)}
+              onChange={handleInputImg}
               ref={refInputImg}
               type={'file'}
             />
@@ -92,12 +107,10 @@ export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
           />
         </div>
         <div className={s.footer}>
-          <Button onClick={() => setOpen(false)} variant={'secondary'}>
+          <Button onClick={handleOnClose} variant={'secondary'}>
             Cancel
           </Button>
-          <Button onClick={handleSubmit(onSubmit)} type={'submit'}>
-            Create deck
-          </Button>
+          <Button type={'submit'}>Create deck</Button>
         </div>
       </form>
     </Modal>

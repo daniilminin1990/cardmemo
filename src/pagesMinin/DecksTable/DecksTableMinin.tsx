@@ -48,13 +48,14 @@ export const UniversalTableDeckMinin = ({
       ) : (
         <Table.Body>
           <Table.Row>
-            <td className={s.empty} colSpan={headersNameDecks.length}>
+            <Table.Cell className={s.empty} colSpan={headersNameDecks.length}>
               <Typography as={'span'} variant={'body1'}>
                 No content with these terms...
               </Typography>
-            </td>
+            </Table.Cell>
           </Table.Row>
         </Table.Body>
+        // <Table.Body>No content with these terms...</Table.Body>
       )}
     </Table.Root>
   )
