@@ -31,27 +31,21 @@ type FormValues = z.infer<typeof createDecksSchema>
 export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
   const { clearQuery } = useQueryParams()
   const [checked, setChecked] = useState(false)
+  const [cover, setCover] = useState<File | null>(null)
+  const [preview, setPreview] = useState<string>('')
+  const refInputImg = useRef<HTMLInputElement>(null)
+  const [createDeck] = useCreateDeckMutation()
   const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: { isPrivate: false, name: '' },
     resolver: zodResolver(createDecksSchema),
   })
-  const refInputImg = useRef<HTMLInputElement>(null)
-  const [cover, setCover] = useState<File | null>(null)
-  const [preview, setPreview] = useState<string>('')
-  const [createDeck] = useCreateDeckMutation()
 
-  // useEffect(() => {
-  //   if (cover) {
-  //     setCover(cover)
-  //   }
-  // }, [])
   const handleOnClose = () => {
     setPreview('')
     setOpen(false)
   }
 
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
-    // setCover(e.target.files?.[0] ?? null)
     if (e.target.files !== null && e.target.files.length > 0) {
       setPreview(URL.createObjectURL(e.target.files[0]))
     }
