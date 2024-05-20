@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { UniversalTableDeckMinin } from '@/pagesMinin/DecksTable/DecksTableMinin'
 import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
+import { PageMinin } from '@/pagesMinin/componentsMinin/PageMinin/PageMinin'
 import { useQueryParams } from '@/pagesMinin/useQueryParams'
 import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/variablesMinin'
 
@@ -81,7 +82,7 @@ export function DecksMininPage() {
   }
 
   return (
-    <div>
+    <PageMinin>
       {/*<ModalOnAddDeckMinin open={open} setOpen={setOpen} />*/}
       <ModalAddEditDeck open={open} setOpen={setOpen} />
       <div className={s.heading}>
@@ -134,6 +135,6 @@ export function DecksMininPage() {
           totalItems={data?.pagination.totalItems || 0}
         />
       </div>
-    </div>
+    </PageMinin>
   )
 }

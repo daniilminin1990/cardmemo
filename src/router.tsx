@@ -6,8 +6,9 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import Header from '@/components/auth/Header/Header'
 import { DecksMininPage } from '@/pagesMinin/DecksMinin.page'
+import { TestDecks } from '@/pagesMinin/Test/TestDecks'
+import { AddNewCardForEmpty } from '@/pagesMinin/featuresMinin/AddNewCardForEmpty'
 
 const privateRoutes: RouteObject[] = [
   {
@@ -17,8 +18,12 @@ const privateRoutes: RouteObject[] = [
         path: '/',
       },
       {
-        element: <div>Cards</div>,
+        element: <TestDecks />,
         path: '/cards',
+      },
+      {
+        element: <AddNewCardForEmpty />,
+        path: '/addNewcards',
       },
     ],
     element: <Container />,
@@ -27,7 +32,7 @@ const privateRoutes: RouteObject[] = [
 
 const publicRoutes: RouteObject[] = [
   {
-    element: <div>Пройди логинизацию, чмо</div>,
+    element: <Login />,
     path: '/login',
   },
 ]
@@ -45,20 +50,11 @@ export function Router() {
 }
 
 function Container() {
-  return (
-    <div
-      style={{
-        display: 'grid',
-        gap: '36px',
-        gridTemplateRows: 'auto 1fr',
-      }}
-    >
-      <Header isAuth />
-      <div style={{ justifySelf: 'center' }}>
-        <Outlet />
-      </div>
-    </div>
-  )
+  return <Outlet />
+}
+
+function Login() {
+  return <h1>Залогинься, чмо</h1>
 }
 
 function PrivateRoutes() {

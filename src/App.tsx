@@ -1,11 +1,10 @@
+import { LayoutMinin } from '@/pagesMinin/componentsMinin/LayoutMinin/LayoutMinin'
 import { Router } from '@/router'
 
 export function App() {
   return (
-    <>
-      <div>
-        <Router />
-      </div>
-    </>
+    <LayoutMinin isAuth>
+      <Router />
+    </LayoutMinin>
   )
 }
