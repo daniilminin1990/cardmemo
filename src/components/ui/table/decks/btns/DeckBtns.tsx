@@ -1,8 +1,8 @@
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
-import { DeckProps } from '@/components/pages/decksList1/decks/decks.types'
 import { Button } from '@/components/ui/button'
+import { DeckProps } from '@/components/ui/table/decks/decks.types'
 
 import s from './deckBtns.module.scss'
 

@@ -2,7 +2,7 @@ import {
   AddNewCardFormType,
   useAddNewCardForm,
 } from '@/components/forms/add-new-card/use-add-new-card'
-import { useUploadImg } from '@/components/forms/add-new-card/use-upload-img'
+import { useUploadImg } from '@/components/forms/hooks/use-upload-img'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { FormPreviewFileUploader } from '@/components/ui/form/form-preview-file-uploader/form-preview-file-uploader'
@@ -21,6 +21,8 @@ type Props = {
   setOpenModal: (open: boolean) => void
 }
 
+export type name = 'answerName' | 'coverAnswer' | 'coverQuestion' | 'questionName'
+
 export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => {
   const values: AddNewCardFormType = {
     answerName: defaultValues?.answerName || '',
@@ -35,8 +37,9 @@ export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
     deleteCoverHandler: answerDeleteCoverHandler,
     downloaded: answerDownloaded,
     extraActions: answerExtraActions,
-  } = useUploadImg({
+  } = useUploadImg<name>({
     getFieldState,
+    name: 'coverAnswer',
     resetField,
     setValue,
     trigger,
@@ -48,8 +51,9 @@ export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
     deleteCoverHandler: questionDeleteCoverHandler,
     downloaded: questionDownloaded,
     extraActions: questionExtraActions,
-  } = useUploadImg({
+  } = useUploadImg<name>({
     getFieldState,
+    name: 'coverQuestion',
     resetField,
     setValue,
     trigger,
@@ -107,9 +111,9 @@ export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
           />
           <FormPreviewFileUploader
             control={control}
-            deleteCoverHandler={() => questionDeleteCoverHandler('coverQuestion')}
+            deleteCoverHandler={questionDeleteCoverHandler}
             errorMessage={questionCoverError}
-            extraActions={() => questionExtraActions('coverQuestion')}
+            extraActions={questionExtraActions}
             name={'coverQuestion'}
             preview={questionDownloaded}
           />
@@ -128,9 +132,9 @@ export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
           />
           <FormPreviewFileUploader
             control={control}
-            deleteCoverHandler={() => answerDeleteCoverHandler('coverAnswer')}
+            deleteCoverHandler={answerDeleteCoverHandler}
             errorMessage={answerCoverError}
-            extraActions={() => answerExtraActions('coverAnswer')}
+            extraActions={answerExtraActions}
             name={'coverAnswer'}
             preview={answerDownloaded}
           />

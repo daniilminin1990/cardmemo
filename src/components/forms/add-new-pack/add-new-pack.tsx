@@ -4,7 +4,7 @@ import {
   AddNewPackFormType,
   useAddNewPackForm,
 } from '@/components/forms/add-new-pack/use-add-new-pack'
-import { useUploadImg } from '@/components/forms/add-new-pack/use-upload-img'
+import { useUploadImg } from '@/components/forms/hooks/use-upload-img'
 import { Button } from '@/components/ui/button'
 import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormPreviewFileUploader } from '@/components/ui/form/form-preview-file-uploader/form-preview-file-uploader'
@@ -23,6 +23,8 @@ type Props = {
   setOpenModal: (open: boolean) => void
 }
 
+type name = 'coverPack' | 'isPrivatePack' | 'packName'
+
 export const AddNewPack = ({ defaultValues, onSubmit, setOpenModal }: Props) => {
   const values: AddNewPackFormType = {
     isPrivatePack: defaultValues?.isPrivatePack || false,
@@ -37,8 +39,9 @@ export const AddNewPack = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
     deleteCoverHandler: packDeleteCoverHandler,
     downloaded: packDownloaded,
     extraActions: packExtraActions,
-  } = useUploadImg({
+  } = useUploadImg<name>({
     getFieldState,
+    name: 'coverPack',
     resetField,
     setValue,
     trigger,
@@ -87,9 +90,9 @@ export const AddNewPack = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
           <FormPreviewFileUploader
             className={s.uploadImg}
             control={control}
-            deleteCoverHandler={() => packDeleteCoverHandler('coverPack')}
+            deleteCoverHandler={packDeleteCoverHandler}
             errorMessage={packCoverError}
-            extraActions={() => packExtraActions('coverPack')}
+            extraActions={packExtraActions}
             name={'coverPack'}
             preview={packDownloaded}
           />
