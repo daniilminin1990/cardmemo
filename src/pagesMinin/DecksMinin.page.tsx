@@ -82,7 +82,7 @@ export function DecksMininPage() {
   }
 
   return (
-    <PageMinin>
+    <PageMinin className={s.global}>
       {/*<ModalOnAddDeckMinin open={open} setOpen={setOpen} />*/}
       <ModalAddEditDeck open={open} setOpen={setOpen} />
       <div className={s.heading}>
