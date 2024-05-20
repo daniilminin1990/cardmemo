@@ -1,11 +1,18 @@
+* p {
+  margin: 0;
+}
 .body {
-  padding-bottom: 34px;
+  margin-bottom: 45px;
   position: relative;
   z-index: 1;
 }
+.preview {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
 .uploadImg {
-  //position: relative;
-  //z-index: 1;
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,14 +21,19 @@
   padding: 10px 0 10px 0;
   transition: background-color 0.2s ease-in-out;
   cursor: pointer;
-  margin-bottom: 1rem;
+  margin-bottom: 45px;
+  box-shadow: none;
+  &.removeImg {
+    margin-bottom: 1rem;
+  }
   &:hover {
     background-color: var(--color-dark-100);
   }
   &:active {
     background-color: var(--color-light-900);
   }
-  &:focus-visible {
+  &:focus,
+  &:first-child:focus {
     outline: unset;
     box-shadow: 0 0 0 2px inset var(--color-info-700);
   }
@@ -44,8 +56,8 @@
 }
 
 .icon {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   margin-right: 5px;
 }
 
@@ -55,7 +67,7 @@
 
 .input {
   width: 100%;
-  margin-bottom: 14px;
+  margin-bottom: 24px;
 }
 .footer {
   display: flex;

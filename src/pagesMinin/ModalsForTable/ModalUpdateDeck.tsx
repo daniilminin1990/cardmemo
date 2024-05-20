@@ -9,6 +9,7 @@ import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Modal } from '@/components/ui/modal/modal'
 import { zodResolver } from '@hookform/resolvers/zod'
+import clsx from 'clsx'
 import { z } from 'zod'
 
 import s from './modalsMinin.module.scss'
@@ -92,10 +93,25 @@ export const ModalUpdateDeck = (props: Props) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={s.body}>
           {item.name && <Typography variant={'h1'}>{item.name}</Typography>}
-          <div>{preview && <img alt={'cover'} src={preview} width={'100%'} />}</div>
+          {/*{preview && <img alt={'cover'} src={preview} width={'100%'} />}*/}
+          {preview && <img alt={'cover'} src={preview} width={'100%'} />}
           <FormTextfield className={s.input} control={control} label={'Edit title'} name={'name'} />
+          {preview && (
+            <Button
+              className={clsx(s.uploadImg, preview && s.removeImg)}
+              fullWidth
+              onClick={() => {
+                setPreview(null)
+                setCover(null)
+              }}
+              type={'button'}
+            >
+              <Typography variant={'subtitle2'}>Remove cover</Typography>
+            </Button>
+          )}
           <Button className={s.uploadImg} fullWidth onClick={hanldeSubmitImg} type={'button'}>
-            <ImageOutline className={s.icon} /> Upload IMG
+            <ImageOutline className={s.icon} />
+            <Typography variant={'subtitle2'}>Change cover</Typography>
             {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
             <Input
               accept={'image/*'}
@@ -111,27 +127,15 @@ export const ModalUpdateDeck = (props: Props) => {
             label={'Private pack'}
             onCheckedChange={() => setChecked(!checked)}
           />
-          {preview && (
-            <Button
-              fullWidth
-              onClick={() => {
-                setPreview(null)
-                setCover(null)
-              }}
-              type={'button'}
-            >
-              Remove cover
-            </Button>
-          )}
         </div>
         <div className={s.footer}>
           <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
-            Cancel
+            <Typography variant={'subtitle2'}>Cancel</Typography>
           </Button>
           <Button
           // onSubmit={handleSubmit(onSubmit)} Не обязательное говно, т.к. по умолчанию onSubmit
           >
-            Apply
+            <Typography variant={'subtitle2'}>Save changes</Typography>
           </Button>
         </div>
       </form>

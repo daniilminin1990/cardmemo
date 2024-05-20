@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
 import Input from '@/components/ui/Input/Input'
+import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
@@ -89,7 +90,8 @@ export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
           />
 
           <Button className={s.uploadImg} fullWidth onClick={hanldeSubmitImg} type={'button'}>
-            <ImageOutline className={s.icon} /> Upload IMG
+            <ImageOutline className={s.icon} />{' '}
+            <Typography variant={'subtitle2'}>Upload Image</Typography>
             {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
             <Input
               accept={'image/*'}
@@ -108,9 +110,11 @@ export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
         </div>
         <div className={s.footer}>
           <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
-            Cancel
+            <Typography variant={'subtitle2'}>Cancel</Typography>
           </Button>
-          <Button type={'submit'}>Create deck</Button>
+          <Button type={'submit'}>
+            <Typography variant={'subtitle2'}>Create deck</Typography>
+          </Button>
         </div>
       </form>
     </Modal>

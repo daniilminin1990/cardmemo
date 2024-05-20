@@ -30,10 +30,10 @@ export const ModalDeleteDeckMinin = (props: Props) => {
       </div>
       <div className={s.footer}>
         <Button onClick={() => setIsDeleteModal(false)} variant={'secondary'}>
-          Cancel
+          <Typography variant={'subtitle2'}>Cancel</Typography>
         </Button>
         <Button onClick={onDeleteDeckHandler} variant={'primary'}>
-          Delete deck
+          <Typography variant={'subtitle2'}>Delete deck</Typography>
         </Button>
       </div>
     </Modal>
