@@ -40,6 +40,12 @@ export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
     resolver: zodResolver(createDecksSchema),
   })
 
+  // useEffect(() => {
+  //   if (cover) {
+  //     setCover(cover)
+  //   }
+  // }, [])
+
   const handleOnClose = () => {
     setPreview('')
     setOpen(false)
@@ -74,7 +80,7 @@ export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={s.body}>
-          {preview && <img alt={'cover'} src={preview} />}
+          {preview && <img alt={'cover'} src={preview} width={'100%'} />}
           <FormTextfield
             className={s.input}
             control={control}
@@ -101,7 +107,7 @@ export const ModalOnAddDeckMinin = ({ open, setOpen }: Props) => {
           />
         </div>
         <div className={s.footer}>
-          <Button onClick={handleOnClose} variant={'secondary'}>
+          <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
             Cancel
           </Button>
           <Button type={'submit'}>Create deck</Button>
