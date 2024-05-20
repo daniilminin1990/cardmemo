@@ -7,7 +7,7 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { UniversalTableDeckMinin } from '@/pagesMinin/DecksTable/DecksTableMinin'
-import { ModalOnAddDeckMinin } from '@/pagesMinin/ModalsForTable/ModalOnAddDeckMinin'
+import { ModalAddEdit } from '@/pagesMinin/ModalsForTable/ModalAddEdit'
 import { useQueryParams } from '@/pagesMinin/useQueryParams'
 import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/variablesMinin'
 
@@ -82,7 +82,8 @@ export function DecksMininPage() {
 
   return (
     <div>
-      <ModalOnAddDeckMinin open={open} setOpen={setOpen} />
+      {/*<ModalOnAddDeckMinin open={open} setOpen={setOpen} />*/}
+      <ModalAddEdit open={open} setOpen={setOpen} />
       <div className={s.heading}>
         <div className={s.headingFirstRow}>
           <Typography as={'h1'} variant={'h1'}>

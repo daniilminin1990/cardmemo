@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
@@ -15,31 +15,32 @@ import { z } from 'zod'
 import s from './modalsMinin.module.scss'
 
 import { Deck } from '../../../services/decks/deck.types'
-import { useUpdateDeckMutation } from '../../../services/flashCardsAPI'
+import { useCreateDeckMutation, useUpdateDeckMutation } from '../../../services/flashCardsAPI'
 
-type Props = {
-  item: Deck
+type ModalAddEditProps = {
+  item?: Deck
   open: boolean
   setOpen: (value: boolean) => void
 }
 
-const updateDecksSchema = z.object({
-  isPrivate: z.boolean(),
-  name: z.string(),
-})
-
-type FormValues = z.infer<typeof updateDecksSchema>
-
-export const ModalUpdateDeck = (props: Props) => {
+export const ModalAddEdit = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
+  const schema = z.object({
+    isPrivate: z.boolean(),
+    name: item ? z.string() : z.string().min(3).max(1000),
+  })
+
+  type FormValues = z.infer<typeof schema>
   const [checked, setChecked] = useState(false)
   const [updateDeck] = useUpdateDeckMutation()
+  const [createDeck] = useCreateDeckMutation()
   const [cover, setCover] = useState<File | null>(null)
-  const [preview, setPreview] = useState<null | string>(item.cover ?? null)
+  const initPreview = item ? item.cover ?? null : ''
+  const [preview, setPreview] = useState<null | string>(initPreview)
   const refInputImg = useRef<HTMLInputElement>(null)
   const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: { isPrivate: false, name: '' },
-    resolver: zodResolver(updateDecksSchema),
+    resolver: zodResolver(schema),
   })
 
   // useEffect(() => {
@@ -47,53 +48,61 @@ export const ModalUpdateDeck = (props: Props) => {
   //     setPreview(item?.cover)
   //   }
   // }, [item?.cover])
-  //
-  // // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать
-  // useEffect(() => {
-  //   if (cover) {
-  //     const newPreview = URL.createObjectURL(cover)
-  //
-  //     if (preview) {
-  //       URL.revokeObjectURL(preview)
-  //     }
-  //
-  //     setPreview(newPreview)
-  //
-  //     return () => URL.revokeObjectURL(newPreview)
-  //   }
-  // }, [cover])
+
+  // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать
+  useEffect(() => {
+    if (cover) {
+      const newPreview = URL.createObjectURL(cover)
+
+      if (preview) {
+        URL.revokeObjectURL(preview)
+      }
+
+      setPreview(newPreview)
+
+      return () => URL.revokeObjectURL(newPreview)
+    }
+  }, [cover])
 
   const handleOnClose = () => {
-    //! RESET хер знает зачем нужен
-    setPreview(item.cover ?? null)
+    item ? setPreview(item.cover || null) : setPreview(null)
     setOpen(false)
   }
-
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files !== null && e.target.files.length > 0) {
-      setPreview(URL.createObjectURL(e.target.files[0]))
-    }
+    console.log('e.target.files', e.target.files)
+    // if (e.target.files !== null && e.target.files.length > 0) {
+    //   setPreview(URL.createObjectURL(e.target.files[0]))
+    // }
     setCover(e.target.files?.[0] ?? null)
   }
-
   const onSubmit: SubmitHandler<FormValues> = data => {
-    updateDeck({ ...data, cover, id: item.id })
-    // console.log({ ...data, cover, id: item.id })
+    item ? updateDeck({ ...data, cover, id: item.id }) : createDeck({ ...data, cover })
+    // console.log({ ...data, cover, id: item?.id })
     setOpen(false)
   }
-
   const hanldeSubmitImg = () => {
+    console.log('тут')
     refInputImg?.current?.click()
   }
 
   return (
-    <Modal className={s.customClass} onOpenChange={handleOnClose} open={open} title={'Update Deck'}>
+    <Modal
+      className={s.customClass}
+      onOpenChange={handleOnClose}
+      open={open}
+      title={item ? 'Update Deck' : 'Add New Deck'}
+    >
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={s.body}>
-          {item.name && <Typography variant={'h1'}>{item.name}</Typography>}
+          {item?.name && <Typography variant={'h1'}>{item.name}</Typography>}
           {/*{preview && <img alt={'cover'} src={preview} width={'100%'} />}*/}
           {preview && <img alt={'cover'} src={preview} width={'100%'} />}
-          <FormTextfield className={s.input} control={control} label={'Edit title'} name={'name'} />
+          <FormTextfield
+            className={s.input}
+            control={control}
+            label={item ? 'Edit title' : 'Type new Deck name'}
+            name={'name'}
+          />
           {preview && (
             <Button
               className={clsx(s.uploadImg, preview && s.removeImg)}
@@ -109,7 +118,9 @@ export const ModalUpdateDeck = (props: Props) => {
           )}
           <Button className={s.uploadImg} fullWidth onClick={hanldeSubmitImg} type={'button'}>
             <ImageOutline className={s.icon} />
-            <Typography variant={'subtitle2'}>Change cover</Typography>
+            <Typography variant={'subtitle2'}>
+              {preview ? 'Change cover' : 'Upload Image'}
+            </Typography>
             {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
             <Input
               accept={'image/*'}
@@ -133,52 +144,10 @@ export const ModalUpdateDeck = (props: Props) => {
           <Button
           // onSubmit={handleSubmit(onSubmit)} Не обязательное говно, т.к. по умолчанию onSubmit
           >
-            <Typography variant={'subtitle2'}>Save changes</Typography>
+            <Typography variant={'subtitle2'}>{item ? 'Save changes' : 'Create Pack'}</Typography>
           </Button>
         </div>
       </form>
     </Modal>
   )
 }
-
-// Region БЕЗ ФОРМЫ (работает только без передачи картинок)
-// type Props = {
-//   item: Deck
-//   open: boolean
-//   setOpen: (value: boolean) => void
-// }
-// export const ModalUpdateDeck = (props: Props) => {
-//   const { item, open, setOpen } = props
-//   const [updTitle, setUpdTitle] = useState<string>(item.name)
-//   const [updateDeck] = useUpdateDeckMutation()
-//   const onChangeDeckHandler = () => {
-//     updateDeck({ id: item.id, name: updTitle })
-//     setOpen(false)
-//   }
-//
-//   return (
-//     <Modal onOpenChange={() => setOpen(false)} open={open} title={'Update Deck'}>
-//       <div className={s.body}>
-//         <div>
-//           <Typography variant={'h1'}>{item.name}</Typography>
-//           <Input
-//             className={s.input}
-//             label={'Edit title'}
-//             onChange={(e: ChangeEvent<HTMLInputElement>) => setUpdTitle(e.target.value)}
-//             placeholder={'Type new title here'}
-//             value={item.name}
-//           />
-//         </div>
-//         <div>{item.cover}</div>
-//       </div>
-//       <div className={s.footer}>
-//         <Button onClick={() => setOpen(false)} variant={'secondary'}>
-//           Cancel
-//         </Button>
-//         <Button onClick={onChangeDeckHandler} variant={'primary'}>
-//           Apply
-//         </Button>
-//       </div>
-//     </Modal>
-//   )
-// }
