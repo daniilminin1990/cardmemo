@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { useState } from 'react'
+
 import SelectUI from '@/components/ui/Select/Select'
 
 const meta = {
@@ -20,12 +22,25 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    // placeholder: 'Select-box',
     selectOptions: [
       { text: 'Apple', value: 'apple' },
       { text: 'Banana', value: 'banana' },
       { text: 'Smetana', value: 'smetana' },
       { text: 'Nirvana', value: 'nirvana' },
     ],
+    value: 'apple',
+  },
+  render: args => {
+    const [value, setValue] = useState(args.value)
+
+    return (
+      <SelectUI
+        {...args}
+        onValueChange={(newValue: string) => {
+          setValue(newValue)
+        }}
+        value={value}
+      />
+    )
   },
 }

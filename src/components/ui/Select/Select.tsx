@@ -1,5 +1,6 @@
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import { selectOptionsType } from '@/components/ui/Pagination/PaginationWithSelect'
+import Typography from '@/components/ui/Typography/Typography'
 import * as Select from '@radix-ui/react-select'
 import clsx from 'clsx'
 
@@ -9,18 +10,20 @@ type Props = {
   className?: string
   disabled?: boolean
   onValueChange?: (items: string) => void
-  placeholder?: string
   selectOptions: selectOptionsType[]
+  value?: string // РАНЬШЕ БЫЛ  placeholder
 }
-const SelectUI = ({ className, disabled, onValueChange, placeholder, selectOptions }: Props) => {
-  const placeholderText = placeholder || selectOptions[0].text
+const SelectUI = ({ className, disabled, onValueChange, selectOptions, value }: Props) => {
+  // const placeholderText = placeholder || selectOptions[0].text
   const selectClasses = {
+    button: clsx(className && s.button, s.className),
     content: clsx(s.selectContent),
-    icon: clsx(s.selectIcon),
+    icon: clsx(s.selectIcon, className && s.className),
     root: s.selectRoot,
+    selectItem: clsx(s.selectItem, className && s.className),
     trigger: clsx(
       s.selectTrigger,
-      { [s.selectCustom]: className },
+      { [s.className]: className },
       disabled && s.selectTriggerDisabled
     ),
     viewport: clsx(s.selectViewport),
@@ -31,7 +34,12 @@ const SelectUI = ({ className, disabled, onValueChange, placeholder, selectOptio
       <Select.Root disabled={disabled} onValueChange={onValueChange}>
         <Select.Trigger aria-label={'select'} asChild className={selectClasses.trigger}>
           <button>
-            <Select.Value placeholder={placeholderText} />
+            {/*<Select.Value aria-label={value}>*/}
+            {/*Изменил эту строку ниже -- теперь тут определяет по selectOptions*/}
+            <Typography className={s.selectVariant} variant={'body2'}>
+              {selectOptions.find(el => el.value === value)?.text || selectOptions[0].text}
+            </Typography>
+            {/*</Select.Value>*/}
             <ArrowIosDownOutline className={selectClasses.icon} />
           </button>
         </Select.Trigger>
@@ -40,8 +48,14 @@ const SelectUI = ({ className, disabled, onValueChange, placeholder, selectOptio
             <Select.Viewport className={selectClasses.viewport}>
               {selectOptions.map(option => {
                 return (
-                  <Select.Item className={s.selectItem} key={option.value} value={option.value}>
-                    <Select.ItemText className={s.selectText}>{option.text}</Select.ItemText>
+                  <Select.Item
+                    className={selectClasses.selectItem}
+                    key={option.value}
+                    value={option.value}
+                  >
+                    <Select.ItemText className={s.selectText}>
+                      <Typography variant={'body2'}>{option.text}</Typography>
+                    </Select.ItemText>
                   </Select.Item>
                 )
               })}
