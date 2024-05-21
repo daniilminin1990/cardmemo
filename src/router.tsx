@@ -1,10 +1,4 @@
-import {
-  Navigate,
-  Outlet,
-  RouteObject,
-  RouterProvider,
-  createBrowserRouter,
-} from 'react-router-dom'
+import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
 import { DecksMininPage } from '@/pagesMinin/DecksMinin.page'
 import { TestDecks } from '@/pagesMinin/Test/TestDecks'
@@ -46,10 +40,6 @@ export const router = createBrowserRouter([
     path: '/login',
   },
 ])
-
-export function Router() {
-  return <RouterProvider router={router} />
-}
 
 // export function Router() {
 //   return <RouterProvider router={router} />
