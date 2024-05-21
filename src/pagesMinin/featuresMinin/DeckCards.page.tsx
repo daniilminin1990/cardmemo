@@ -13,7 +13,7 @@ import { useQueryParams } from '@/pagesMinin/useQueryParams'
 import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/variablesMinin'
 import { clsx } from 'clsx'
 
-import s from './addNewCardForEmpty.module.scss'
+import s from './deckCardsPage.module.scss'
 
 import { useGetCardsQuery, useGetDeckByIdQuery } from '../../../services/flashCardsAPI'
 
@@ -82,7 +82,7 @@ export const DeckCardsPage = () => {
               ОНА ЧУЖАЯ, БРО {deck?.name}
               {/*  Тут нужно будет добавить проверку на МОИ cards или не мои  И МОИ -- ДОБАВИТЬ DropDown*/}
             </Typography>
-            {deck?.cover && <img alt={'img'} src={deck?.cover} width={'200px'} />}
+            {deck?.cardsCount !== 0 && <img alt={'img'} src={deck?.cover} width={'200px'} />}
           </div>
           {deck?.cardsCount !== 0 && (
             <div className={s.switchButton}>

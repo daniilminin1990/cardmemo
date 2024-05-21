@@ -6,7 +6,6 @@ import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
-import clsx from 'clsx'
 
 import s from './dataFiller.module.scss'
 
@@ -25,8 +24,8 @@ export const DataFiller = (props: DataFillerProps) => {
   // const [updateDeck] = useUpdateDeckMutation()
   const [cover, setCover] = useState<File | null>(null)
   const refInputImg = useRef<HTMLInputElement>(null)
-  // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
 
+  // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
   useEffect(() => {
     if (cover) {
       const newPreviewQuestion = URL.createObjectURL(cover)
@@ -42,7 +41,6 @@ export const DataFiller = (props: DataFillerProps) => {
   }, [cover])
 
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('e.target.files', e.target.files)
     // if (e.target.files !== null && e.target.files.length > 0) {
     //   setPreview(URL.createObjectURL(e.target.files[0]))
     // }

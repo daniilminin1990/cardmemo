@@ -15,12 +15,9 @@ type Props = {
   card: Card
 }
 export const SingleRowCardMinin = ({ card }: Props) => {
-  // const [isUpdateModal, setIsUpdateModal] = useState(false)
-  // const [isDeleteModal, setIsDeleteModal] = useState(false)
   const updatedAr = new Date(card.updated).toLocaleDateString('ru-RU')
 
-  // const authorId
-  console.log(card.shots) // Это видимо количество попыток или количество правильных ответов для рейтинга
+  // console.log(card.shots) // Это видимо количество попыток или количество правильных ответов для рейтинга
 
   return (
     <Fragment key={card.id}>

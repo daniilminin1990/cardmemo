@@ -39,6 +39,8 @@ export const ModalEditCard = (props: ModalAddEditProps) => {
     // item && updateCard({ ...data, coverQuestion, id: item.id })
     console.log({ answerImg: previewAnswer, data: { ...data }, questionImg: previewQuestion })
     setOpen(false)
+    setPreviewQuestion(null)
+    setPreviewAnswer(null)
   }
 
   const handleOnClose = () => {
