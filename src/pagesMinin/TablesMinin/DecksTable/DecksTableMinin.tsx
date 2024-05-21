@@ -1,21 +1,19 @@
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import Typography from '@/components/ui/Typography/Typography'
 import { Table } from '@/components/ui/table'
-import { SingleRowCardMinin } from '@/pagesMinin/DeckCardsTableMinin/SingleRowCardMinin'
-import { headersNameCards } from '@/pagesMinin/variablesMinin'
+import { SingleRowDeckMinin } from '@/pagesMinin/TablesMinin/DecksTable/SingleRowDeckMinin'
+import { headersNameDecks } from '@/pagesMinin/variablesMinin'
 
 import s from '@/pagesMinin/decksPageMinin.module.scss'
 
-import { CardsListResponse } from '../../../services/decks/deck.types'
-
-// Region ПЕРЕХЕРАЧИТЬ ЭТУ КОМПОНЕНТУ ПРАВИЛЬНО!
+import { DecksListResponse } from '../../../../services/decks/deck.types'
 
 type UniversalTableDeckMininType = {
-  data?: CardsListResponse
+  data?: DecksListResponse
   handleSort?: (key: string) => void
   searchParamsOrderBy?: string
 }
-export const DeckCardsTableMinin = ({
+export const DecksTableMinin = ({
   data,
   handleSort,
   searchParamsOrderBy,
@@ -24,7 +22,7 @@ export const DeckCardsTableMinin = ({
     <Table.Root>
       <Table.Head>
         <Table.Row>
-          {headersNameCards.map(name => (
+          {headersNameDecks.map(name => (
             <Table.HeadCell key={name.key} onClick={() => handleSort?.(name.key)}>
               <Typography as={'span'} variant={'subtitle2'}>
                 {name.title}
@@ -40,17 +38,17 @@ export const DeckCardsTableMinin = ({
         </Table.Row>
       </Table.Head>
       {data && data?.items.length !== 0 ? (
-        data?.items.map(card => {
+        data?.items.map(deck => {
           return (
-            <Table.Body key={card.id}>
-              <SingleRowCardMinin card={card} key={card.id} />
+            <Table.Body key={deck.id}>
+              <SingleRowDeckMinin deck={deck} key={deck.id} />
             </Table.Body>
           )
         })
       ) : (
         <Table.Body>
           <Table.Row>
-            <Table.Cell className={s.empty} colSpan={headersNameCards.length + 1}>
+            <Table.Cell className={s.empty} colSpan={headersNameDecks.length + 1}>
               <Typography as={'span'} variant={'body1'}>
                 No content with these terms...
               </Typography>

@@ -6,9 +6,9 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
 
-import s from '@/pagesMinin/DecksTable/singleRowDeckMinin.module.scss'
+import s from '@/pagesMinin/TablesMinin/singleRowDeckMinin.module.scss'
 
-import { Card } from '../../../services/decks/deck.types'
+import { Card } from '../../../../services/decks/deck.types'
 
 // Region ПЕРЕХЕРАЧИТЬ ЭТУ КОМПОНЕНТУ ПРАВИЛЬНО!
 type Props = {
