@@ -1,11 +1,6 @@
 * p {
   margin: 0;
 }
-.body {
-  margin-bottom: 45px;
-  position: relative;
-  z-index: 1;
-}
 .preview {
   margin-top: 8px;
   margin-bottom: 16px;
@@ -50,18 +45,10 @@
   margin: 0;
 }
 
-.checkbox {
-  margin-left: 5px;
-}
-
 .icon {
   width: 20px;
   height: 20px;
   margin-right: 5px;
-}
-
-.customClass {
-  width: 542px;
 }
 
 .questionTxt {
@@ -75,10 +62,12 @@
   margin-bottom: 14px;
 }
 
+.imgWrapper {
+  display: flex;
+  justify-content: center;
+}
 .img {
   margin-bottom: 24px;
-}
-.footer {
-  display: flex;
-  justify-content: space-between;
+  max-height: 225px;
+  object-fit: cover;
 }

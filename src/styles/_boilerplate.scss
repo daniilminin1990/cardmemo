@@ -39,3 +39,16 @@ body {
 
   background-color: var(--color-dark-900);
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent-700);
+  border-radius: 10px;
+}
