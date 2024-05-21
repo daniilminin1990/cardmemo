@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import ArrowBackOutline from '@/assets/icons/svg/ArrowBackOutline'
@@ -6,6 +6,7 @@ import Input from '@/components/ui/Input/Input'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
+import { ModalEditCard } from '@/pagesMinin/ModalsForTable/ModalEditCard'
 import { DeckCardsTableMinin } from '@/pagesMinin/TablesMinin/DeckCardsTableMinin/DeckCardsTableMinin'
 import { PageMinin } from '@/pagesMinin/componentsMinin/PageMinin/PageMinin'
 import { useQueryParams } from '@/pagesMinin/useQueryParams'
@@ -27,6 +28,8 @@ export const DeckCardsPage = () => {
     setSearchQuery,
     setSortByQuery,
   } = useQueryParams()
+
+  const [open, setOpen] = useState(false)
 
   // Когда переходим на эту страницу, то переходим по Deck ID,
   // то есть ID можем взять из URL, значит можно использовать хук useParams
@@ -65,7 +68,7 @@ export const DeckCardsPage = () => {
   return (
     <PageMinin className={s.common} mt={'24px'}>
       {/*<ModalOnAddDeckMinin open={open} setOpen={setOpen} />*/}
-      {/*<ModalAddEditDeck open={open} setOpen={setOpen} />*/}
+      <ModalEditCard open={open} setOpen={setOpen} />
       <div className={s.heading}>
         <div className={s.headingFirstRow}>
           <Typography as={Link} style={{ textDecoration: 'none' }} to={'/'} variant={'body2'}>
@@ -83,7 +86,7 @@ export const DeckCardsPage = () => {
           </div>
           {deck?.cardsCount !== 0 && (
             <div className={s.switchButton}>
-              <Button className={s.addCard} onClick={() => {}} type={'button'}>
+              <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
                 <Typography variant={'subtitle2'}>Add New Card</Typography>
               </Button>
             </div>
@@ -105,7 +108,7 @@ export const DeckCardsPage = () => {
           <Typography variant={'body1'}>
             This deck is empty. Click add new card to fill this pack
           </Typography>
-          <Button className={s.addCard} type={'button'}>
+          <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
             <Typography variant={'subtitle2'}>Add New Card</Typography>
           </Button>
         </div>
