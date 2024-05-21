@@ -23,7 +23,7 @@ const privateRoutes: RouteObject[] = [
       },
       {
         element: <AddNewCardForEmpty />,
-        path: '/addNewcards',
+        path: '/decks/:deckId',
       },
     ],
     element: <Container />,

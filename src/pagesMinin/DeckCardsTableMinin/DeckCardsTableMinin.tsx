@@ -8,6 +8,8 @@ import s from '@/pagesMinin/decksPageMinin.module.scss'
 
 import { DecksListResponse } from '../../../services/decks/deck.types'
 
+// Region ПЕРЕХЕРАЧИТЬ ЭТУ КОМПОНЕНТУ ПРАВИЛЬНО!
+
 type UniversalTableDeckMininType = {
   data?: DecksListResponse
   handleSort?: (key: string) => void

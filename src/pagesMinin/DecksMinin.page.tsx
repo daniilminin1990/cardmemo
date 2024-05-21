@@ -6,7 +6,7 @@ import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithS
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
-import { UniversalTableDeckMinin } from '@/pagesMinin/DecksTable/DecksTableMinin'
+import { DecksTableMinin } from '@/pagesMinin/DecksTable/DecksTableMinin'
 import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
 import { PageMinin } from '@/pagesMinin/componentsMinin/PageMinin/PageMinin'
 import { useQueryParams } from '@/pagesMinin/useQueryParams'
@@ -82,7 +82,7 @@ export function DecksMininPage() {
   }
 
   return (
-    <PageMinin className={s.global}>
+    <PageMinin className={s.common}>
       {/*<ModalOnAddDeckMinin open={open} setOpen={setOpen} />*/}
       <ModalAddEditDeck open={open} setOpen={setOpen} />
       <div className={s.heading}>
@@ -94,7 +94,7 @@ export function DecksMininPage() {
             Add New Deck
           </Button>
         </div>
-        <div className={s.headingGrid}>
+        <div className={s.searchParams}>
           <Input
             callback={setSearchQuery}
             className={s.input}
@@ -120,11 +120,7 @@ export function DecksMininPage() {
           </Button>
         </div>
       </div>
-      <UniversalTableDeckMinin
-        data={data}
-        handleSort={handleSort}
-        searchParamsOrderBy={currentOrderBy}
-      />
+      <DecksTableMinin data={data} handleSort={handleSort} searchParamsOrderBy={currentOrderBy} />
       <div className={s.footer}>
         <PaginationWithSelect
           currentPage={currentPage}

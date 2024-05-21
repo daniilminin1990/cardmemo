@@ -1,10 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import {
+  CardsListResponse,
   CreateDeckArgs,
   Deck,
   DecksListResponse,
   DeleteDeckArgs,
+  GetCardsArgs,
   GetDecksArgs,
   UpdateDeckArgs,
 } from './decks/deck.types'
@@ -50,6 +52,21 @@ export const flashCardsAPI = createApi({
           url: `v1/decks/${id}`,
         }),
       }),
+      getCards: builder.query<CardsListResponse, { args: GetCardsArgs; id: string }>({
+        providesTags: ['Card'],
+        query: ({ args, id }) => ({
+          method: 'GET',
+          params: {
+            ...(args ?? {}),
+            answer: args.answer,
+            currentPage: args?.currentPage || undefined,
+            itemsPerPage: args?.itemsPerPage || undefined,
+            orderBy: args?.orderBy || undefined,
+            question: args?.question || undefined,
+          },
+          url: `v1/decks/${id}/cards`,
+        }),
+      }),
       getDecks: builder.query<DecksListResponse, GetDecksArgs | void>({
         providesTags: ['Deck'],
         query: args => ({
@@ -91,12 +108,13 @@ export const flashCardsAPI = createApi({
       }),
     }
   },
-  tagTypes: ['Deck'],
+  tagTypes: ['Deck', 'Card'],
 })
 
 export const {
   useCreateDeckMutation,
   useDeleteDeckMutation,
+  useGetCardsQuery,
   useGetDecksQuery,
   useUpdateDeckMutation,
 } = flashCardsAPI
