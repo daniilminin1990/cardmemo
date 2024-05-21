@@ -1,7 +1,6 @@
 import { Fragment } from 'react'
 
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
-import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -20,9 +19,8 @@ export const SingleRowCardMinin = ({ card }: Props) => {
   // const [isDeleteModal, setIsDeleteModal] = useState(false)
   const updatedAr = new Date(card.updated).toLocaleDateString('ru-RU')
 
-  // Id пользователя нужно брать с сервера, видимо. И если соответствует card.userId к authorId, то появляется кнопка на редирект к LearnCard
   // const authorId
-  console.log(card.shots)
+  console.log(card.shots) // Это видимо количество попыток или количество правильных ответов для рейтинга
 
   return (
     <Fragment key={card.id}>
@@ -45,9 +43,10 @@ export const SingleRowCardMinin = ({ card }: Props) => {
           </Typography>
         </Table.Cell>
         <Table.Cell>{updatedAr}</Table.Cell>
+        {/* Тут показать звездочки с заполнением*/}
         <Table.Cell>{card.grade}</Table.Cell>
         <Table.Cell>
-          {/*  Тут нужно будет добавить проверку на МОИ cards или не мои */}
+          {/*  Тут нужно будет добавить проверку на МОИ cards или не мои. Если мои то показать кнопки, если не мои то нихера */}
           {/*{card.userId === authorId ? (*/}
           <div className={s.iconBtns}>
             {/*<Button className={s.btn} onClick={() => setIsUpdateModal(true)}>*/}
@@ -58,15 +57,6 @@ export const SingleRowCardMinin = ({ card }: Props) => {
               <TrashOutline className={s.TrashOutline} />
             </Button>
           </div>
-          {/*) : (*/}
-          <div className={s.iconBtns}>
-            <Button className={s.btn} disabled={card.shots === 0}>
-              <PlayCircleOutline
-                className={`${s.playCircleOutline} ${card.shots === 0 && s.disabled}`}
-              />
-            </Button>
-          </div>
-          {/*)}*/}
         </Table.Cell>
       </Table.Row>
     </Fragment>

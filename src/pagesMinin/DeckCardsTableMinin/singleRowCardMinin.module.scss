@@ -109,8 +109,9 @@
 .coverImg {
   width: 118px;
   //aspect-ratio: initial;
-  //height: 48px;
+  height: 48px;
   object-fit: cover;
+  object-position: 0 0;
 }
 
 // Region
