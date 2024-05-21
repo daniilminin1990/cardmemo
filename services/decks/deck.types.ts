@@ -72,7 +72,7 @@ export interface CreateDeckArgs {
   name: string
 }
 
-export interface GetDeckId {
+export interface GetDeckById {
   id: string
 }
 

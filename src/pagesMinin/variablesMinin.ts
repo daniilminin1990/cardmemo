@@ -8,7 +8,7 @@ export const headersNameDecks = [
 export const headersNameCards = [
   { key: 'question', title: 'Question' },
   { key: 'answer', title: 'Answer' },
-  { key: 'lastUpdated', title: 'Last Updated' },
+  { key: 'updated', title: 'Last Updated' },
   { key: 'grade', title: 'Grade' },
 ]
 

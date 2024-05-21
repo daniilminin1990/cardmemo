@@ -67,6 +67,13 @@ export const flashCardsAPI = createApi({
           url: `v1/decks/${id}/cards`,
         }),
       }),
+      getDeckById: builder.query<Deck, { id: string }>({
+        providesTags: ['Deck'],
+        query: ({ id }) => ({
+          method: 'GET',
+          url: `v1/decks/${id}`,
+        }),
+      }),
       getDecks: builder.query<DecksListResponse, GetDecksArgs | void>({
         providesTags: ['Deck'],
         query: args => ({
@@ -115,6 +122,7 @@ export const {
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetCardsQuery,
+  useGetDeckByIdQuery,
   useGetDecksQuery,
   useUpdateDeckMutation,
 } = flashCardsAPI

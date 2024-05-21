@@ -22,13 +22,13 @@ export const SingleRowCardMinin = ({ card }: Props) => {
 
   // Id пользователя нужно брать с сервера, видимо. И если соответствует card.userId к authorId, то появляется кнопка на редирект к LearnCard
   // const authorId
+  console.log(card.shots)
 
   return (
     <Fragment key={card.id}>
       {/*<ModalAddEditDeck item={card} open={isUpdateModal} setOpen={setIsUpdateModal} />*/}
       <Table.Row key={card.id}>
         <Table.Cell>
-          {/* Переходим по роутингу as={Link} to={`/decks/${deck.id}`}*/}
           <Typography className={s.imgWrapper}>
             {card.questionImg && (
               <img alt={'default card img'} className={s.coverImg} src={card.questionImg} />
@@ -37,7 +37,6 @@ export const SingleRowCardMinin = ({ card }: Props) => {
           </Typography>
         </Table.Cell>
         <Table.Cell>
-          {/* Переходим по роутингу as={Link} to={`/decks/${deck.id}`}*/}
           <Typography className={s.imgWrapper}>
             {card.answerImg && (
               <img alt={'default card img'} className={s.coverImg} src={card.answerImg} />
@@ -48,16 +47,12 @@ export const SingleRowCardMinin = ({ card }: Props) => {
         <Table.Cell>{updatedAr}</Table.Cell>
         <Table.Cell>{card.grade}</Table.Cell>
         <Table.Cell>
+          {/*  Тут нужно будет добавить проверку на МОИ cards или не мои */}
           {/*{card.userId === authorId ? (*/}
           <div className={s.iconBtns}>
             {/*<Button className={s.btn} onClick={() => setIsUpdateModal(true)}>*/}
             <Button className={s.btn}>
               <Edit2Outline className={s.Edit2Outline} />
-            </Button>
-            <Button className={s.btn} disabled={!card.shots}>
-              <PlayCircleOutline
-                className={`${s.playCircleOutline} ${card.shots === 0 && s.disabled}`}
-              />
             </Button>
             <Button className={s.btn}>
               <TrashOutline className={s.TrashOutline} />
