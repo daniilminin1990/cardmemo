@@ -6,7 +6,7 @@ import Input from '@/components/ui/Input/Input'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
-import { DecksTableMinin } from '@/pagesMinin/DecksTable/DecksTableMinin'
+import { DeckCardsTableMinin } from '@/pagesMinin/DeckCardsTableMinin/DeckCardsTableMinin'
 import { PageMinin } from '@/pagesMinin/componentsMinin/PageMinin/PageMinin'
 import { useQueryParams } from '@/pagesMinin/useQueryParams'
 import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/variablesMinin'
@@ -14,13 +14,13 @@ import { clsx } from 'clsx'
 
 import s from './addNewCardForEmpty.module.scss'
 
-import { useGetDecksQuery } from '../../../services/flashCardsAPI'
+import { useGetCardsQuery } from '../../../services/flashCardsAPI'
 
 type TripleState = {
   test: '' | 'friend' | 'mine'
 }
 
-export const AddNewCardForEmpty = () => {
+export const DeckCardsPage = () => {
   const {
     currentOrderBy,
     currentPage,
@@ -39,11 +39,11 @@ export const AddNewCardForEmpty = () => {
   const deckId = useParams()
 
   console.log(deckId)
-  // const { data } = useGetCardsQuery({
-  //   args: { answer: search, currentPage, itemsPerPage, orderBy: currentOrderBy, question: search },
-  //   id: deckId.toString(),
-  // })
-  const { data } = useGetDecksQuery()
+  const { data } = useGetCardsQuery({
+    args: { answer: search, currentPage, itemsPerPage, orderBy: currentOrderBy, question: search },
+    id: deckId.toString(),
+  })
+  // const { data } = useGetDecksQuery()
   const [test, setTest] = useState<TripleState['test']>('')
   const [isImg, setIsImg] = useState(false)
 
@@ -133,7 +133,7 @@ export const AddNewCardForEmpty = () => {
       )}
       {test !== '' && (
         <>
-          <DecksTableMinin
+          <DeckCardsTableMinin
             data={data}
             handleSort={handleSort}
             searchParamsOrderBy={currentOrderBy}

@@ -8,7 +8,7 @@ import {
 
 import { DecksMininPage } from '@/pagesMinin/DecksMinin.page'
 import { TestDecks } from '@/pagesMinin/Test/TestDecks'
-import { AddNewCardForEmpty } from '@/pagesMinin/featuresMinin/AddNewCardForEmpty'
+import { DeckCardsPage } from '@/pagesMinin/featuresMinin/DeckCards.page'
 
 const privateRoutes: RouteObject[] = [
   {
@@ -22,7 +22,7 @@ const privateRoutes: RouteObject[] = [
         path: '/cards',
       },
       {
-        element: <AddNewCardForEmpty />,
+        element: <DeckCardsPage />,
         path: '/decks/:deckId',
       },
     ],
