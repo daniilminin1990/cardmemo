@@ -24,10 +24,21 @@ const privateRoutes: RouteObject[] = [
   },
 ]
 
+const publicRoutes: RouteObject[] = [
+  {
+    element: <Login />,
+    path: '/login',
+  },
+]
+
 function PrivateRoutes() {
   const isAuthenticated = true
 
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
+}
+
+function Login() {
+  return <h1>Залогинься, чмо</h1>
 }
 
 export const router = createBrowserRouter([
@@ -35,10 +46,7 @@ export const router = createBrowserRouter([
     children: privateRoutes,
     element: <PrivateRoutes />, // <Outlet /> : <Navigate to={'/login'} />
   },
-  {
-    element: <h1>Залогинься, чмо</h1>,
-    path: '/login',
-  },
+  ...publicRoutes,
 ])
 
 // export function Router() {
