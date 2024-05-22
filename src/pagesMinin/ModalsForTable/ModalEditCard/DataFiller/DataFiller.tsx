@@ -13,14 +13,17 @@ import { Card } from '../../../../../services/cards/cards.types'
 
 type DataFillerProps = {
   control: Control<any, any>
+  getImageHandler: (img: File | null) => void
+  img: null | string | undefined
   item?: Card
   name: string
-  preview: null | string
-  setPreview: (value: null | string) => void
+  questionOrAnswer: string | undefined
   title: string
 }
 export const DataFiller = (props: DataFillerProps) => {
-  const { control, item, name, preview, setPreview, title } = props
+  const { control, getImageHandler, img, item, name, questionOrAnswer, title } = props
+  const initPreview = item ? img ?? null : ''
+  const [preview, setPreview] = useState<null | string>(initPreview)
   // const [updateDeck] = useUpdateDeckMutation()
   const [cover, setCover] = useState<File | null>(null)
   const refInputImg = useRef<HTMLInputElement>(null)
@@ -45,6 +48,7 @@ export const DataFiller = (props: DataFillerProps) => {
     //   setPreview(URL.createObjectURL(e.target.files[0]))
     // }
     setCover(e.target.files?.[0] ?? null)
+    getImageHandler(e.target.files?.[0] ?? null)
   }
   const hanldeSubmitImg = () => {
     refInputImg?.current?.click()
@@ -56,7 +60,7 @@ export const DataFiller = (props: DataFillerProps) => {
       <FormTextfield
         className={s.input}
         control={control}
-        label={item ? 'Edit question' : title}
+        label={item ? `Edit ${name}` : title}
         name={name}
       />
       {preview && (
@@ -64,9 +68,9 @@ export const DataFiller = (props: DataFillerProps) => {
           <img alt={'cover'} className={s.img} src={preview} />
         </div>
       )}
-      {item?.question && (
+      {questionOrAnswer && (
         <Typography className={s.questionTxt} variant={'h1'}>
-          {item.question}
+          {questionOrAnswer}
         </Typography>
       )}
       <div className={s.buttonsWrapper}>

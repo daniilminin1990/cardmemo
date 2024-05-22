@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
 
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -21,14 +22,13 @@ type ModalAddEditProps = {
 
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
-  const initPreviewQuestion = item ? item.questionImg ?? null : ''
-  const initPreviewAnswer = item ? item.answerImg ?? null : ''
-  const [previewQuestion, setPreviewQuestion] = useState<null | string>(initPreviewQuestion)
-  const [previewAnswer, setPreviewAnswer] = useState<null | string>(initPreviewAnswer)
+  const [answerImg, setAnswerImg] = useState<File | null>(null)
+  const [questionImg, setQuestionImg] = useState<File | null>(null)
   const schema = z.object({
     answer: item ? z.string() : z.string().min(3).max(1000),
     question: item ? z.string() : z.string().min(3).max(1000),
   })
+  const deckId = useParams().deckId
 
   const [createCard] = useCreateCardMutation()
 
@@ -40,20 +40,24 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
 
   const onSubmit: SubmitHandler<FormValues> = data => {
     // item && updateCard({ ...data, coverQuestion, id: item.id })
-    console.log({ answerImg: previewAnswer, data: { ...data }, questionImg: previewQuestion })
+    console.log({ answerImg, data: { ...data }, questionImg })
+    createCard({
+      args: { answer: data.answer, answerImg, question: data.question, questionImg },
+      id: deckId ?? '',
+    })
     setOpen(false)
-    setPreviewQuestion(null)
-    setPreviewAnswer(null)
+    setQuestionImg(null)
+    setAnswerImg(null)
+  }
+
+  const getQuestionImgHandler = (img: File | null) => {
+    setQuestionImg(img)
+  }
+  const getAnswerImgHandler = (img: File | null) => {
+    setAnswerImg(img)
   }
 
   const handleOnClose = () => {
-    if (item) {
-      setPreviewQuestion(item.questionImg || null)
-      setPreviewAnswer(item.answerImg || null)
-    } else {
-      setPreviewQuestion(null)
-      setPreviewAnswer(null)
-    }
     setOpen(false)
   }
 
@@ -68,18 +72,20 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
         <div className={s.body}>
           <DataFiller
             control={control}
+            getImageHandler={getQuestionImgHandler}
+            img={item?.questionImg}
             item={item}
             name={'question'}
-            preview={previewQuestion}
-            setPreview={setPreviewQuestion}
+            questionOrAnswer={item?.question}
             title={'Question'}
           />
           <DataFiller
             control={control}
+            getImageHandler={getAnswerImgHandler}
+            img={item?.answerImg}
             item={item}
             name={'answer'}
-            preview={previewAnswer}
-            setPreview={setPreviewAnswer}
+            questionOrAnswer={item?.answer}
             title={'Answer'}
           />
         </div>
@@ -88,7 +94,9 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
             <Typography variant={'subtitle2'}>Cancel</Typography>
           </Button>
           <Button
-          // Не обязательное говно, т.к. по умолчанию onSubmit
+            onClick={handleSubmit(onSubmit)}
+            type={'submit'}
+            // Не обязательное говно, т.к. по умолчанию onSubmit
           >
             <Typography variant={'subtitle2'}>{item ? 'Save changes' : 'Create Card'}</Typography>
           </Button>
