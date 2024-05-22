@@ -1,5 +1,4 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
 
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -68,22 +67,19 @@ export const SignIn = () => {
                 <Checkbox checked={value} label={'RememberMe'} onCheckedChange={onChange} />
               )}
             />
-            <Typography as={'label'} className={s.typographyForgotTitle} variant={'body2'}>
+            <Typography as={'button'} className={s.typographyForgotTitle} variant={'body2'}>
               Forgot Password?
             </Typography>
           </div>
-          <Button fullWidth>Sign In</Button>
+          <Button fullWidth type={'submit'}>
+            Sign In
+          </Button>
           <div className={s.footer}>
-            <Typography as={'label'} className={s.typographyFooterTitle} variant={'body2'}>
+            <Typography as={'button'} className={s.typographyFooterTitle} variant={'body2'}>
               {/* eslint-disable-next-line react/no-unescaped-entities */}
               Don't have an account?
             </Typography>
-            <Typography
-              as={Link}
-              className={s.typographyFooterSubtitle}
-              to={'/sign-up'}
-              variant={'link1'}
-            >
+            <Typography as={'button'} className={s.typographyFooterSubtitle} variant={'link1'}>
               Sign Up
             </Typography>
           </div>

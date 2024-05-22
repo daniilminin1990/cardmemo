@@ -1,52 +1,53 @@
 import { useState } from 'react'
 
+import defImg from '@/assets/img/defaultCard.jpg'
+
 type FieldError = {
   message?: string
 }
 
-type name = 'answerName' | 'coverAnswer' | 'coverQuestion' | 'questionName'
-
-type UploadImgType = {
-  getFieldState: (name: name) => { error?: FieldError }
-  resetField: (name: name) => void
-  setValue: (name: name, value: any) => void
-  trigger: (name: name) => Promise<boolean>
-  watch: (name: name) => any
+type UploadImgType<TFieldValues extends any> = {
+  getFieldState: (name: TFieldValues) => { error?: FieldError }
+  name: TFieldValues
+  resetField: (name: TFieldValues) => void
+  setValue: (name: TFieldValues, value: any) => void
+  trigger: (name: TFieldValues) => Promise<boolean>
+  watch: (name: TFieldValues) => any
 }
 
-export const useUploadImg = ({
+export const useUploadImg = <TFieldValues extends any>({
   getFieldState,
+  name,
   resetField,
   setValue,
   trigger,
   watch,
-}: UploadImgType) => {
+}: UploadImgType<TFieldValues>) => {
   const [downloaded, setDownloaded] = useState<null | string>(null)
   const [coverError, setCoverError] = useState<null | string>(null)
 
-  const deleteCoverHandler = (cover: name) => {
+  const deleteCoverHandler = () => {
     if (coverError) {
       setCoverError(null)
     }
     // toast.warning('You deleted cover', { containerId: 'modal' })
-    setValue(cover, null)
+    setValue(name, null)
     setDownloaded(null)
   }
 
-  const extraActions = async (cover: name) => {
-    const success = await trigger(cover)
-    const { error } = getFieldState(cover)
-    const file = watch(cover)
+  const extraActions = async () => {
+    const success = await trigger(name)
+    const { error } = getFieldState(name)
+    const file = watch(name)
 
     if (!success && error?.message) {
       // toast.error(error.message, { containerId: 'modal' })
       setCoverError(error.message)
-      resetField(cover)
+      resetField(name)
     }
 
     if (file) {
-      const badCase = null
-      const img = success ? URL.createObjectURL(file) : badCase
+      const img = success ? URL.createObjectURL(file) : defImg
 
       setDownloaded(img)
 

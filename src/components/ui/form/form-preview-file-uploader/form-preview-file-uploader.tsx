@@ -12,6 +12,7 @@ import { clsx } from 'clsx'
 import s from './form-preview-file-uploader.module.scss'
 
 type Props<T extends FieldValues> = {
+  className?: string
   control: Control<T>
   deleteCoverHandler: () => void
   displayInlineError?: boolean
@@ -50,7 +51,7 @@ export const FormPreviewFileUploader = <T extends FieldValues>(props: Props<T>) 
   }
 
   return (
-    <div className={s.root}>
+    <div className={clsx(s.root, props.className)}>
       <img alt={'img'} className={imgClasses} onClick={onClickHandler} src={preview ?? defImg} />
       {displayInlineError && errorMessage && (
         <Typography className={s.error} variant={'caption'}>

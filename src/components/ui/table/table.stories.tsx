@@ -2,7 +2,7 @@ import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
 
 import Typography from '@/components/ui/Typography/Typography'
-import { store } from '@/services/Store'
+import { store } from '@/services/store'
 
 import s from './table.module.scss'
 
