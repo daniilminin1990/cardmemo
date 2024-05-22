@@ -96,16 +96,20 @@ export const AddNewPack = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
             name={'coverPack'}
             preview={packDownloaded}
           />
-          <Controller
-            control={control}
-            defaultValue={false}
-            name={'isPrivatePack'}
-            render={({ field: { onChange, value } }) => (
-              <div className={s.checkbox}>
-                <Checkbox checked={value} label={'Private Pack'} onCheckedChange={onChange} />
-              </div>
-            )}
-          />
+          <div className={s.checkbox}>
+            <Controller
+              control={control}
+              defaultValue={false}
+              name={'isPrivatePack'}
+              render={({ field: { onChange, value } }) => (
+                <Checkbox
+                  checked={value}
+                  label={'Private Pack'}
+                  onCheckedChange={onChange}
+                />
+              )}
+            />
+          </div>
         </div>
         <div className={s.footer}>
           <Button onClick={() => setOpenModal(false)} variant={'secondary'}>
