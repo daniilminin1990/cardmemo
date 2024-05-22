@@ -19,11 +19,15 @@ export const DecksTableMinin = ({
   searchParamsOrderBy,
 }: UniversalTableDeckMininType) => {
   return (
-    <Table.Root>
+    <Table.Root className={s.tableRoot}>
       <Table.Head>
         <Table.Row>
           {headersNameDecks.map(name => (
-            <Table.HeadCell key={name.key} onClick={() => handleSort?.(name.key)}>
+            <Table.HeadCell
+              className={s.tableHeadCellDecks}
+              key={name.key}
+              onClick={() => handleSort?.(name.key)}
+            >
               <Typography as={'span'} variant={'subtitle2'}>
                 {name.title}
                 {searchParamsOrderBy?.includes(name.key) && (
@@ -34,7 +38,7 @@ export const DecksTableMinin = ({
               </Typography>
             </Table.HeadCell>
           ))}
-          <Table.HeadCell></Table.HeadCell>
+          <Table.HeadCell className={s.emptyTableHeadCell}></Table.HeadCell>
         </Table.Row>
       </Table.Head>
       {data && data?.items.length !== 0 ? (

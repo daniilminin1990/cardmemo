@@ -38,9 +38,7 @@ export const SingleRowDeckMinin = ({ deck }: Props) => {
         <Table.Cell>
           {/* Переходим по роутингу*/}
           <Typography as={Link} className={s.imgWrapper} to={`/decks/${deck.id}`}>
-            {deck.cover ? (
-              <img alt={'default card img'} className={s.coverImg} src={deck.cover} />
-            ) : null}
+            {deck.cover && <img alt={'default card img'} className={s.coverImg} src={deck.cover} />}
             {deck.name}
           </Typography>
         </Table.Cell>

@@ -106,10 +106,10 @@
 }
 
 .coverImg {
-  //width: 118px;
-  //aspect-ratio: initial;
+  width: 118px;
   height: 48px;
   object-fit: cover;
+  //object-fit: contain;
   object-position: 0 0;
 }
 
