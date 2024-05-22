@@ -1,16 +1,16 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import Typography from '@/components/ui/Typography/Typography'
-import * as Slider from '@radix-ui/react-slider'
+import * as RadixSlider from '@radix-ui/react-slider'
 import { clsx } from 'clsx'
 
 import s from './Slider.module.scss'
 
 type SliderProps = {
   label: string
-} & ComponentPropsWithoutRef<typeof Slider.Root>
+} & ComponentPropsWithoutRef<typeof RadixSlider.Root>
 
-const RadixSlider = forwardRef<ElementRef<typeof Slider.Root>, SliderProps>((props, ref) => {
+const Slider = forwardRef<ElementRef<typeof RadixSlider.Root>, SliderProps>((props, ref) => {
   const { className, label, ...rest } = props
   const classNames = {
     range: clsx(s.range),
@@ -32,13 +32,13 @@ const RadixSlider = forwardRef<ElementRef<typeof Slider.Root>, SliderProps>((pro
         <Typography as={'div'} className={classNames.valueWrapper} variant={'body1'}>
           {rest?.value?.[0]}
         </Typography>
-        <Slider.Root className={classNames.root} ref={ref} {...rest}>
-          <Slider.Track className={classNames.track}>
-            <Slider.Range className={classNames.range} />
-          </Slider.Track>
-          <Slider.Thumb aria-label={'valueMin'} className={classNames.thumb} />
-          <Slider.Thumb aria-label={'valueMax'} className={classNames.thumb} />
-        </Slider.Root>
+        <RadixSlider.Root className={classNames.root} ref={ref} {...rest}>
+          <RadixSlider.Track className={classNames.track}>
+            <RadixSlider.Range className={classNames.range} />
+          </RadixSlider.Track>
+          <RadixSlider.Thumb aria-label={'valueMin'} className={classNames.thumb} />
+          <RadixSlider.Thumb aria-label={'valueMax'} className={classNames.thumb} />
+        </RadixSlider.Root>
         <Typography as={'div'} className={classNames.valueWrapper} variant={'body1'}>
           {rest?.value?.[1]}
         </Typography>
@@ -47,4 +47,4 @@ const RadixSlider = forwardRef<ElementRef<typeof Slider.Root>, SliderProps>((pro
   )
 })
 
-export default RadixSlider
+export default Slider
