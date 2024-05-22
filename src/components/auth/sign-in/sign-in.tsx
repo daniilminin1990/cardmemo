@@ -12,8 +12,8 @@ import { z } from 'zod'
 import s from './sign-in.module.scss'
 
 const signInSchema = z.object({
-  email: z.string().email('Invalid email address').nonempty('Enter email'),
-  password: z.string().nonempty('Enter password'),
+  email: z.string().email('Invalid email address').nonempty('Enter email').trim(),
+  password: z.string().nonempty('Enter password').trim(),
   rememberMe: z.boolean().optional(),
 })
 
