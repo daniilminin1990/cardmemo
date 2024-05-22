@@ -91,7 +91,7 @@ export function DecksMininPage() {
             Decks list
           </Typography>
           <Button onClick={() => setOpen(true)} variant={'primary'}>
-            Add New Deck
+            <Typography variant={'subtitle2'}>Add New Deck</Typography>
           </Button>
         </div>
         <div className={s.searchParams}>

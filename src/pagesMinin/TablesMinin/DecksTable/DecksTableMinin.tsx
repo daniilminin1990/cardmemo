@@ -4,7 +4,7 @@ import { Table } from '@/components/ui/table'
 import { SingleRowDeckMinin } from '@/pagesMinin/TablesMinin/DecksTable/SingleRowDeckMinin'
 import { headersNameDecks } from '@/pagesMinin/utls/variablesMinin'
 
-import s from '@/pagesMinin/decksPageMinin.module.scss'
+import s from './decksTableMinin.module.scss'
 
 import { DecksListResponse } from '../../../../services/decks/deck.types'
 

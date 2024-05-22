@@ -9,7 +9,6 @@ import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Modal } from '@/components/ui/modal/modal'
 import { zodResolver } from '@hookform/resolvers/zod'
-import clsx from 'clsx'
 import { z } from 'zod'
 
 import s from './modalsMinin.module.scss'
@@ -103,7 +102,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
           />
           {item && preview && (
             <Button
-              className={clsx(s.uploadImg, preview && s.removeImg)}
+              className={s.uploadImg}
               fullWidth
               onClick={() => {
                 setPreview(null)
