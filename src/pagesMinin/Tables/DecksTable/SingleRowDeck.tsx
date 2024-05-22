@@ -10,14 +10,14 @@ import { Table } from '@/components/ui/table'
 import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
 import { ModalDeleteDeckMinin } from '@/pagesMinin/ModalsForTable/ModalDeleteDeckMinin'
 
-import s from '@/pagesMinin/TablesMinin/tableSingleRowMinin.module.scss'
+import s from '@/pagesMinin/Tables/tableSingleRow.module.scss'
 
 import { Deck } from '../../../../services/decks/deck.types'
 
 type Props = {
   deck: Deck
 }
-export const SingleRowDeckMinin = ({ deck }: Props) => {
+export const SingleRowDeck = ({ deck }: Props) => {
   const [isUpdateModal, setIsUpdateModal] = useState(false)
   const [isDeleteModal, setIsDeleteModal] = useState(false)
   const updatedAr = new Date(deck.updated).toLocaleDateString('ru-RU')

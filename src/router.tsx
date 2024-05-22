@@ -1,14 +1,14 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
-import { DeckCardsPage } from '@/pagesMinin/DeckCards.page'
-import { DecksMininPage } from '@/pagesMinin/DecksMinin.page'
+import { CardsPage } from '@/pagesMinin/Cards.page'
+import { DecksPage } from '@/pagesMinin/Decks.page'
 import { TestDecks } from '@/pagesMinin/Test/TestDecks'
 
 const privateRoutes: RouteObject[] = [
   {
     children: [
       {
-        element: <DecksMininPage />,
+        element: <DecksPage />,
         path: '/',
       },
       {
@@ -16,7 +16,7 @@ const privateRoutes: RouteObject[] = [
         path: '/cards',
       },
       {
-        element: <DeckCardsPage />,
+        element: <CardsPage />,
         path: '/decks/:deckId',
       },
     ],
@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
 //   {
 //     children: [
 //       {
-//         element: <DecksMininPage />,
+//         element: <DecksPage />,
 //         path: '/',
 //       },
 //       {
@@ -65,7 +65,7 @@ export const router = createBrowserRouter([
 //         path: '/cards',
 //       },
 //       {
-//         element: <DeckCardsPage />,
+//         element: <CardsPage />,
 //         path: '/decks/:deckId',
 //       },
 //     ],

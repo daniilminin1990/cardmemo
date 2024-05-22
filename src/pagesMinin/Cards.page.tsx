@@ -7,18 +7,18 @@ import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithS
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { ModalEditCard } from '@/pagesMinin/ModalsForTable/ModalEditCard/ModalEditCard'
-import { DeckCardsTableMinin } from '@/pagesMinin/TablesMinin/DeckCardsTableMinin/DeckCardsTableMinin'
-import { PageMinin } from '@/pagesMinin/componentsMinin/PageMinin/PageMinin'
+import { CardsTable } from '@/pagesMinin/Tables/CardsTable/CardsTable'
+import { Page } from '@/pagesMinin/componentsMinin/Page/Page'
 import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
 import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/utls/variablesMinin'
 import { clsx } from 'clsx'
 
-import s from './deckCardsPage.module.scss'
+import s from './cardsPage.module.scss'
 
 import { useGetCardsQuery } from '../../services/cards/cards.service'
 import { useGetDeckByIdQuery } from '../../services/decks/decks.service'
 
-export const DeckCardsPage = () => {
+export const CardsPage = () => {
   const {
     currentOrderBy,
     currentPage,
@@ -69,7 +69,7 @@ export const DeckCardsPage = () => {
   }
 
   return (
-    <PageMinin className={s.common} mt={'24px'}>
+    <Page className={s.common} mt={'24px'}>
       {/*<ModalOnAddDeckMinin open={open} setOpen={setOpen} />*/}
       <ModalEditCard open={open} setOpen={setOpen} />
       <div className={s.heading}>
@@ -117,11 +117,7 @@ export const DeckCardsPage = () => {
         </div>
       ) : (
         <>
-          <DeckCardsTableMinin
-            data={data}
-            handleSort={handleSort}
-            searchParamsOrderBy={currentOrderBy}
-          />
+          <CardsTable data={data} handleSort={handleSort} searchParamsOrderBy={currentOrderBy} />
           <div className={s.footer}>
             <PaginationWithSelect
               currentPage={currentPage}
@@ -134,6 +130,6 @@ export const DeckCardsPage = () => {
           </div>
         </>
       )}
-    </PageMinin>
+    </Page>
   )
 }

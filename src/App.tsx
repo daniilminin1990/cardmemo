@@ -1,12 +1,12 @@
 import { RouterProvider } from 'react-router-dom'
 
-import { LayoutMinin } from '@/pagesMinin/componentsMinin/LayoutMinin/LayoutMinin'
+import { Layout } from '@/pagesMinin/componentsMinin/Layout/Layout'
 import { router } from '@/router'
 
 export function App() {
   return (
-    <LayoutMinin isAuth>
+    <Layout isAuth>
       <RouterProvider router={router} />
-    </LayoutMinin>
+    </Layout>
   )
 }

@@ -7,16 +7,16 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
-import { DecksTableMinin } from '@/pagesMinin/TablesMinin/DecksTable/DecksTableMinin'
-import { PageMinin } from '@/pagesMinin/componentsMinin/PageMinin/PageMinin'
+import { DecksTable } from '@/pagesMinin/Tables/DecksTable/DecksTable'
+import { Page } from '@/pagesMinin/componentsMinin/Page/Page'
 import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
 import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/utls/variablesMinin'
 
-import s from '@/pagesMinin/decksPageMinin.module.scss'
+import s from '@/pagesMinin/decksPage.module.scss'
 
 import { useGetDecksQuery } from '../../services/decks/decks.service'
 
-export function DecksMininPage() {
+export function DecksPage() {
   const {
     clearQuery,
     currentOrderBy,
@@ -82,7 +82,7 @@ export function DecksMininPage() {
   }
 
   return (
-    <PageMinin className={s.common}>
+    <Page className={s.common}>
       {/*<ModalOnAddDeckMinin open={open} setOpen={setOpen} />*/}
       <ModalAddEditDeck open={open} setOpen={setOpen} />
       <div className={s.heading}>
@@ -120,7 +120,7 @@ export function DecksMininPage() {
           </Button>
         </div>
       </div>
-      <DecksTableMinin data={data} handleSort={handleSort} searchParamsOrderBy={currentOrderBy} />
+      <DecksTable data={data} handleSort={handleSort} searchParamsOrderBy={currentOrderBy} />
       <div className={s.footer}>
         <PaginationWithSelect
           currentPage={currentPage}
@@ -131,6 +131,6 @@ export function DecksMininPage() {
           totalItems={data?.pagination.totalItems || 0}
         />
       </div>
-    </PageMinin>
+    </Page>
   )
 }

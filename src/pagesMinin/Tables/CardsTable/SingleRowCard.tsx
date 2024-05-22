@@ -6,7 +6,7 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
 
-import s from '@/pagesMinin/TablesMinin/tableSingleRowMinin.module.scss'
+import s from '@/pagesMinin/Tables/tableSingleRow.module.scss'
 
 import { Card } from '../../../../services/decks/deck.types'
 
@@ -14,7 +14,7 @@ import { Card } from '../../../../services/decks/deck.types'
 type Props = {
   card: Card
 }
-export const SingleRowCardMinin = ({ card }: Props) => {
+export const SingleRowCard = ({ card }: Props) => {
   const updatedAr = new Date(card.updated).toLocaleDateString('ru-RU')
 
   // console.log(card.shots) // Это видимо количество попыток или количество правильных ответов для рейтинга

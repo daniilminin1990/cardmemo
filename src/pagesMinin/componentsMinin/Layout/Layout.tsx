@@ -3,7 +3,7 @@ import { CSSProperties, ComponentPropsWithoutRef, ElementRef, forwardRef } from 
 import Header from '@/components/auth/Header/Header'
 import { clsx } from 'clsx'
 
-import s from './layoutMinin.module.scss'
+import s from './layout.module.scss'
 
 type Props = {
   isAuth: boolean
@@ -11,7 +11,7 @@ type Props = {
 } & ComponentPropsWithoutRef<'div'>
 
 // Я хер его знает зачем в forwardRef
-export const LayoutMinin = forwardRef<ElementRef<'div'>, Props>((props, ref) => {
+export const Layout = forwardRef<ElementRef<'div'>, Props>((props, ref) => {
   const { children, className, isAuth, ...rest } = props
   const classes = clsx()
 
