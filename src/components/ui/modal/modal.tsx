@@ -21,7 +21,7 @@ export const Modal = ({ children, className, style, title, ...props }: Props) =>
     <Dialog.Portal>
       <Dialog.Overlay className={s.DialogOverlay} />
       <Dialog.Content className={clsx(s.DialogContent)}>
-        <Card className={className} style={style}>
+        <Card className={clsx(className, s.card)} style={style}>
           <div className={s.header}>
             <Typography as={'h2'} variant={'h2'}>
               {title}
