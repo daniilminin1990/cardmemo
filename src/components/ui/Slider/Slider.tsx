@@ -2,8 +2,9 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import Typography from '@/components/ui/Typography/Typography'
 import * as Slider from '@radix-ui/react-slider'
+import { clsx } from 'clsx'
 
-import './Slider.scss'
+import s from './Slider.module.scss'
 
 type SliderProps = {
   label: string
@@ -11,6 +12,14 @@ type SliderProps = {
 
 const RadixSlider = forwardRef<ElementRef<typeof Slider.Root>, SliderProps>((props, ref) => {
   const { className, label, ...rest } = props
+  const classNames = {
+    range: clsx(s.range),
+    root: clsx(s.root, className),
+    sliderContainer: clsx(s.sliderContainer),
+    thumb: clsx(s.thumb),
+    track: clsx(s.track),
+    valueWrapper: clsx(s.valueWrapper),
+  }
 
   return (
     <>
@@ -19,18 +28,18 @@ const RadixSlider = forwardRef<ElementRef<typeof Slider.Root>, SliderProps>((pro
           {label}
         </Typography>
       )}
-      <div className={'sliderContainer'}>
-        <Typography as={'div'} className={'valueWrapper'} variant={'body1'}>
+      <div className={classNames.sliderContainer}>
+        <Typography as={'div'} className={classNames.valueWrapper} variant={'body1'}>
           {rest?.value?.[0]}
         </Typography>
-        <Slider.Root className={`root ${className}`} ref={ref} {...rest}>
-          <Slider.Track className={'track'}>
-            <Slider.Range className={'range'} />
+        <Slider.Root className={classNames.root} ref={ref} {...rest}>
+          <Slider.Track className={classNames.track}>
+            <Slider.Range className={classNames.range} />
           </Slider.Track>
-          <Slider.Thumb aria-label={'Value min'} className={'thumb'} />
-          <Slider.Thumb aria-label={'Value max'} className={'thumb'} />
+          <Slider.Thumb aria-label={'valueMin'} className={classNames.thumb} />
+          <Slider.Thumb aria-label={'valueMax'} className={classNames.thumb} />
         </Slider.Root>
-        <Typography as={'div'} className={'valueWrapper'} variant={'body1'}>
+        <Typography as={'div'} className={classNames.valueWrapper} variant={'body1'}>
           {rest?.value?.[1]}
         </Typography>
       </div>
