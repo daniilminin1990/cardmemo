@@ -15,7 +15,7 @@ import { z } from 'zod'
 import s from './modalsMinin.module.scss'
 
 import { Deck } from '../../../services/decks/deck.types'
-import { useCreateDeckMutation, useUpdateDeckMutation } from '../../../services/flashCardsAPI'
+import { useCreateDeckMutation, useUpdateDeckMutation } from '../../../services/decks/decks.service'
 
 type ModalAddEditProps = {
   item?: Deck
