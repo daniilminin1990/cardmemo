@@ -1,47 +1,50 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, useId } from 'react'
 
 import CheckIcon from '@/assets/icons/svg/CheckboxIcon'
-import * as Checkbox from '@radix-ui/react-checkbox'
+import Typography from '@/components/ui/Typography/Typography'
+import * as CheckboxRadix from '@radix-ui/react-checkbox'
+import { clsx } from 'clsx'
 
-import './checkbox.scss'
+import s from './checkbox.module.scss'
 
 type Props = {
-  className?: string
   label?: string
-} & ComponentPropsWithoutRef<typeof Checkbox.Root>
+} & ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
 
-const CheckboxDemo = forwardRef<ElementRef<typeof Checkbox.Root>, Props>((props: Props) => {
-  const { checked, disabled, id, label, onCheckedChange, ...rest } = props
-  const disabledClass = disabled ? 'disabled' : ''
-  const checkedClass = checked ? 'checked' : ''
+const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, Props>((props: Props, ref) => {
+  const { checked, className, disabled, id, label, onCheckedChange, ...rest } = props
   const generatedId = useId()
+  const classNames = {
+    CheckboxContainer: clsx(s.CheckboxContainer),
+    CheckboxIndicator: clsx(s.CheckboxIndicator, disabled && s.disabled, checked && s.checked),
+    CheckboxRoot: clsx(s.CheckboxRoot, disabled && s.disabled, checked && s.checked, className),
+    Label: clsx(s.Label, disabled && s.disabled, className),
+  }
 
   return (
-    <form>
-      <div className={'CheckboxContainer'}>
-        <Checkbox.Root
+    <Typography as={'label'} className={classNames.Label} variant={'body2'}>
+      <div className={classNames.CheckboxContainer}>
+        <CheckboxRadix.Root
           {...rest}
           checked={checked}
-          className={`CheckboxRoot ${disabledClass} ${checkedClass}`}
+          className={classNames.CheckboxRoot}
           defaultChecked
           id={id ?? generatedId}
           onCheckedChange={onCheckedChange}
+          ref={ref}
         >
           {checked && (
-            <Checkbox.Indicator
-              asChild
-              className={`CheckboxIndicator ${disabledClass} ${checkedClass}`}
-            >
+            <CheckboxRadix.Indicator asChild className={classNames.CheckboxIndicator}>
               {<CheckIcon />}
-            </Checkbox.Indicator>
+            </CheckboxRadix.Indicator>
           )}
-        </Checkbox.Root>
-        <label className={`Label ${disabledClass}`} htmlFor={id ?? generatedId}>
+        </CheckboxRadix.Root>
+        <label className={classNames.Label} htmlFor={id ?? generatedId}>
           {label}
         </label>
       </div>
-    </form>
+    </Typography>
   )
 })
 
-export default CheckboxDemo
+export default Checkbox
