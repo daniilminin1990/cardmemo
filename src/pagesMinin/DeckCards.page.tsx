@@ -15,8 +15,8 @@ import { clsx } from 'clsx'
 
 import s from './deckCardsPage.module.scss'
 
+import { useGetCardsQuery } from '../../services/cards/cards.service'
 import { useGetDeckByIdQuery } from '../../services/decks/decks.service'
-import { useGetCardsQuery } from '../../services/flashCardsAPI'
 
 export const DeckCardsPage = () => {
   const {
