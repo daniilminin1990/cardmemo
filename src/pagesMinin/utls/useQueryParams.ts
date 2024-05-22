@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
 
-import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/variablesMinin'
+import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/utls/variablesMinin'
 
 export const useQueryParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()

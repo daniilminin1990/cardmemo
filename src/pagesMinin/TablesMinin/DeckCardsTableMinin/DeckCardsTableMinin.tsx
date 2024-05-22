@@ -2,7 +2,7 @@ import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import Typography from '@/components/ui/Typography/Typography'
 import { Table } from '@/components/ui/table'
 import { SingleRowCardMinin } from '@/pagesMinin/TablesMinin/DeckCardsTableMinin/SingleRowCardMinin'
-import { headersNameCards } from '@/pagesMinin/variablesMinin'
+import { headersNameCards } from '@/pagesMinin/utls/variablesMinin'
 
 import s from '@/pagesMinin/decksPageMinin.module.scss'
 

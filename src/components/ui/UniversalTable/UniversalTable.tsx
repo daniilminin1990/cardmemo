@@ -6,7 +6,7 @@ import { ArrowIosUp } from '@/assets/icons/svg'
 import Typography from '@/components/ui/Typography/Typography'
 import { UniSingleRowDeck } from '@/components/ui/UniversalTable/SingleRow/UniSingleRowDeck'
 import { Table } from '@/components/ui/table'
-import { headersNameDecks } from '@/pagesMinin/variablesMinin'
+import { headersNameDecks } from '@/pagesMinin/utls/variablesMinin'
 
 import s from './universalTable.module.scss'
 

@@ -1,8 +1,8 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
+import { DeckCardsPage } from '@/pagesMinin/DeckCards.page'
 import { DecksMininPage } from '@/pagesMinin/DecksMinin.page'
 import { TestDecks } from '@/pagesMinin/Test/TestDecks'
-import { DeckCardsPage } from '@/pagesMinin/featuresMinin/DeckCards.page'
 
 const privateRoutes: RouteObject[] = [
   {

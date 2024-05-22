@@ -8,13 +8,13 @@ import { Button } from '@/components/ui/button'
 import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Modal } from '@/components/ui/modal/modal'
-import { useQueryParams } from '@/pagesMinin/useQueryParams'
+import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './modalOnAddDeckMinin.module.scss'
 
-import { useCreateDeckMutation } from '../../../services/flashCardsAPI'
+import { useCreateDeckMutation } from '../../../services/decks/decks.service'
 
 type Props = {
   open: boolean

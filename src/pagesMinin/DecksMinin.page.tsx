@@ -9,12 +9,12 @@ import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
 import { DecksTableMinin } from '@/pagesMinin/TablesMinin/DecksTable/DecksTableMinin'
 import { PageMinin } from '@/pagesMinin/componentsMinin/PageMinin/PageMinin'
-import { useQueryParams } from '@/pagesMinin/useQueryParams'
-import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/variablesMinin'
+import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
+import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/utls/variablesMinin'
 
 import s from '@/pagesMinin/decksPageMinin.module.scss'
 
-import { useGetDecksQuery } from '../../services/flashCardsAPI'
+import { useGetDecksQuery } from '../../services/decks/decks.service'
 
 export function DecksMininPage() {
   const {

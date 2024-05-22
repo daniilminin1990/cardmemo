@@ -9,13 +9,14 @@ import { Button } from '@/components/ui/button'
 import { ModalEditCard } from '@/pagesMinin/ModalsForTable/ModalEditCard/ModalEditCard'
 import { DeckCardsTableMinin } from '@/pagesMinin/TablesMinin/DeckCardsTableMinin/DeckCardsTableMinin'
 import { PageMinin } from '@/pagesMinin/componentsMinin/PageMinin/PageMinin'
-import { useQueryParams } from '@/pagesMinin/useQueryParams'
-import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/variablesMinin'
+import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
+import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/utls/variablesMinin'
 import { clsx } from 'clsx'
 
 import s from './deckCardsPage.module.scss'
 
-import { useGetCardsQuery, useGetDeckByIdQuery } from '../../../services/flashCardsAPI'
+import { useGetDeckByIdQuery } from '../../services/decks/decks.service'
+import { useGetCardsQuery } from '../../services/flashCardsAPI'
 
 export const DeckCardsPage = () => {
   const {

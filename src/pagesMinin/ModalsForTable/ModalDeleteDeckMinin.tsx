@@ -5,7 +5,7 @@ import { Modal } from '@/components/ui/modal/modal'
 import s from './modalsMinin.module.scss'
 
 import { Deck } from '../../../services/decks/deck.types'
-import { useDeleteDeckMutation } from '../../../services/flashCardsAPI'
+import { useDeleteDeckMutation } from '../../../services/decks/decks.service'
 
 type Props = {
   item: Deck

@@ -15,7 +15,7 @@ import { z } from 'zod'
 import s from './modalsMinin.module.scss'
 
 import { Deck } from '../../../services/decks/deck.types'
-import { useUpdateDeckMutation } from '../../../services/flashCardsAPI'
+import { useUpdateDeckMutation } from '../../../services/decks/decks.service'
 
 type Props = {
   item: Deck
@@ -64,7 +64,6 @@ export const ModalUpdateDeck = (props: Props) => {
   // }, [cover])
 
   const handleOnClose = () => {
-    //! RESET хер знает зачем нужен
     setPreview(item.cover ?? null)
     setOpen(false)
   }
@@ -140,45 +139,3 @@ export const ModalUpdateDeck = (props: Props) => {
     </Modal>
   )
 }
-
-// Region БЕЗ ФОРМЫ (работает только без передачи картинок)
-// type Props = {
-//   item: Deck
-//   open: boolean
-//   setOpen: (value: boolean) => void
-// }
-// export const ModalUpdateDeck = (props: Props) => {
-//   const { item, open, setOpen } = props
-//   const [updTitle, setUpdTitle] = useState<string>(item.name)
-//   const [updateDeck] = useUpdateDeckMutation()
-//   const onChangeDeckHandler = () => {
-//     updateDeck({ id: item.id, name: updTitle })
-//     setOpen(false)
-//   }
-//
-//   return (
-//     <Modal onOpenChange={() => setOpen(false)} open={open} title={'Update Deck'}>
-//       <div className={s.body}>
-//         <div>
-//           <Typography variant={'h1'}>{item.name}</Typography>
-//           <Input
-//             className={s.input}
-//             label={'Edit title'}
-//             onChange={(e: ChangeEvent<HTMLInputElement>) => setUpdTitle(e.target.value)}
-//             placeholder={'Type new title here'}
-//             value={item.name}
-//           />
-//         </div>
-//         <div>{item.cover}</div>
-//       </div>
-//       <div className={s.footer}>
-//         <Button onClick={() => setOpen(false)} variant={'secondary'}>
-//           Cancel
-//         </Button>
-//         <Button onClick={onChangeDeckHandler} variant={'primary'}>
-//           Apply
-//         </Button>
-//       </div>
-//     </Modal>
-//   )
-// }
