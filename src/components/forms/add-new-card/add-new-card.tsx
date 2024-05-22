@@ -38,6 +38,7 @@ export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
     downloaded: answerDownloaded,
     extraActions: answerExtraActions,
   } = useUploadImg<name>({
+    defaultValues,
     getFieldState,
     name: 'coverAnswer',
     resetField,
@@ -52,6 +53,7 @@ export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
     downloaded: questionDownloaded,
     extraActions: questionExtraActions,
   } = useUploadImg<name>({
+    defaultValues,
     getFieldState,
     name: 'coverQuestion',
     resetField,

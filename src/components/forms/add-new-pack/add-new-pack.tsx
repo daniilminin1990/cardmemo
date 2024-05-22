@@ -40,6 +40,7 @@ export const AddNewPack = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
     downloaded: packDownloaded,
     extraActions: packExtraActions,
   } = useUploadImg<name>({
+    defaultValues,
     getFieldState,
     name: 'coverPack',
     resetField,
@@ -102,11 +103,7 @@ export const AddNewPack = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
               defaultValue={false}
               name={'isPrivatePack'}
               render={({ field: { onChange, value } }) => (
-                <Checkbox
-                  checked={value}
-                  label={'Private Pack'}
-                  onCheckedChange={onChange}
-                />
+                <Checkbox checked={value} label={'Private Pack'} onCheckedChange={onChange} />
               )}
             />
           </div>

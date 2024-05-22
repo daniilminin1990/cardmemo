@@ -7,6 +7,7 @@ type FieldError = {
 }
 
 type UploadImgType<TFieldValues extends any> = {
+  defaultValues: any
   getFieldState: (name: TFieldValues) => { error?: FieldError }
   name: TFieldValues
   resetField: (name: TFieldValues) => void
@@ -16,6 +17,7 @@ type UploadImgType<TFieldValues extends any> = {
 }
 
 export const useUploadImg = <TFieldValues extends any>({
+  defaultValues,
   getFieldState,
   name,
   resetField,
@@ -23,7 +25,7 @@ export const useUploadImg = <TFieldValues extends any>({
   trigger,
   watch,
 }: UploadImgType<TFieldValues>) => {
-  const [downloaded, setDownloaded] = useState<null | string>(null)
+  const [downloaded, setDownloaded] = useState<null | string>(defaultValues?.cover || null)
   const [coverError, setCoverError] = useState<null | string>(null)
 
   const deleteCoverHandler = () => {
