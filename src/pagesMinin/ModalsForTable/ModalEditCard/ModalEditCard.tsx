@@ -61,7 +61,7 @@ export const ModalEditCard = (props: ModalAddEditProps) => {
       open={open}
       title={item ? 'Update Card' : 'Add New Card'}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.body}>
           <DataFiller
             control={control}
