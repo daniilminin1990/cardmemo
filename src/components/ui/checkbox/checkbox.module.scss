@@ -83,3 +83,8 @@ button {
   transform: translate(-50%, -50%) scale(1);
   background: var(--color-dark-100);
 }
+
+.CheckboxRoot:focus-visible::before {
+  transform: translate(-50%, -50%) scale(1);
+  background: var(--color-dark-500);
+}
