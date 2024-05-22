@@ -1,18 +1,32 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import defaultDeckImg from '@/assets/img/defaultDeckImg.jpg'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
+import { useNavigation } from '@/components/utils/hooks/useNavigate'
+import { useRecoverPasswordMutation } from '@/services/auth/auth.services'
 
 import s from './forgotPassword.module.scss'
 type Props = {}
 
 export const ForgotPassword = ({}: Props) => {
-  const { control, handleSubmit } = useForm()
-
+  const { control, handleSubmit, reset } = useForm()
+  const { goTo } = useNavigation()
+  const [recoverPassword] = useRecoverPasswordMutation()
   const onSubmit = async (data: any) => {
     console.log(data)
+    recoverPassword(data)
+      .unwrap()
+      .then(() => {
+        reset()
+        goTo('/checkEmail')
+      })
+      .catch(error => {
+        console.error('Error', error)
+      })
   }
 
   const onInvalidSubmit = async (data: any) => {
@@ -45,7 +59,7 @@ export const ForgotPassword = ({}: Props) => {
           <Typography as={'h2'} className={s.passQuest} variant={'body2'}>
             Did you remember your password?
           </Typography>
-          <Button as={'a'} className={s.loginLink} href={'/'}>
+          <Button as={'a'} className={s.loginLink} href={'/'} onClick={() => goTo(`/signIn`)}>
             <Typography as={'span'}>Try logging in</Typography>
           </Button>
         </div>

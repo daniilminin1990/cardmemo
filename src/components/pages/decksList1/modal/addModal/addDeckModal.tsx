@@ -2,6 +2,7 @@ import { ChangeEvent, useRef, useState } from 'react'
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 
 import { UploadImgBtn } from '@/components/pages/common/uploadImgBtn/uploadImgBtn'
+import { addUpdateDeckSchema } from '@/components/pages/decksList1/modal/addUpdateModalSchema'
 import Input from '@/components/ui/Input/Input'
 import { Button } from '@/components/ui/button'
 import Checkbox from '@/components/ui/checkbox/checkbox'
@@ -10,7 +11,6 @@ import { imageChangeHandler } from '@/components/utils/imageChange'
 import { useAddDeckMutation } from '@/services/decks/decks.services'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
-import z from 'zod'
 
 import s from './addDeckModal.module.scss'
 
@@ -20,14 +20,6 @@ type Props = {
   open: boolean
   setOpen: (open: boolean) => void
 }
-
-const addDeckSchema = z.object({
-  avatar: z.instanceof(File).optional(),
-  nameDeck: z.string().min(3, { message: 'Name must be 3 or more word' }),
-  privatePack: z.boolean().optional(),
-})
-
-type FormValues = z.infer<typeof addDeckSchema>
 
 export const ModalAddDeck = ({ open, setOpen }: Props) => {
   const [addDeck, {}] = useAddDeckMutation()
@@ -40,17 +32,12 @@ export const ModalAddDeck = ({ open, setOpen }: Props) => {
     handleSubmit,
     reset,
     setValue,
-  } = useForm({ resolver: zodResolver(addDeckSchema) })
+  } = useForm({ resolver: zodResolver(addUpdateDeckSchema) })
 
   const onSubmit: SubmitHandler<FieldValues> = data => {
-    const formData = new FormData()
+    const { cover, isPrivate, name } = data
 
-    console.log(data)
-    formData.append('cover', data.avatar)
-    formData.append('name', data.nameDeck)
-    formData.append('isPrivate', data.privatePack.toString())
-
-    addDeck(formData)
+    addDeck({ cover, isPrivate, name })
       .unwrap()
       .then(() => {
         setOpen(false)
@@ -65,7 +52,7 @@ export const ModalAddDeck = ({ open, setOpen }: Props) => {
   const changeImgHandler = (e: ChangeEvent<HTMLInputElement>) => {
     imageChangeHandler({
       e,
-      fieldName: 'avatar',
+      fieldName: 'cover',
       setImagePreview: setImagePreview,
       setValue,
     })
@@ -74,53 +61,70 @@ export const ModalAddDeck = ({ open, setOpen }: Props) => {
   const hideModal = () => {
     setOpen(false)
     setImagePreview(defaultDeckImg)
-    setValue('nameDeck', '')
+    setValue('name', '')
   }
   const uploadImgBtn = () => {
     fileInputRef.current?.click()
   }
+  const deleteImgBtnhandler = () => {
+    setImagePreview(defaultDeckImg)
+  }
 
   return (
     <>
-      {/*<DevTool control={control} />*/}
-      <Modal className={s.modal} onOpenChange={hideModal} open={open} title={'Add New Deck'}>
+      <DevTool control={control} />
+      <Modal className={s.modal} onOpenChange={hideModal} open={open} title={'Edit Deck'}>
         <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Input
               className={s.input}
               label={'Name Deck'}
               placeholder={'Name'}
-              {...control.register('nameDeck')}
+              {...control.register('name')}
             />
-            {errors.nameDeck && <p>{errors.nameDeck.message}</p>}
+            {errors.name && <p>{errors.name.message}</p>}
           </div>
 
           <div className={s.previewImg}>
-            <img alt={'Image preview'} src={imagePreview} />
+            <img alt={'deck img'} src={imagePreview} />
           </div>
-          <div>
+
+          <div className={s.coverBtns}>
+            {defaultDeckImg !== imagePreview && (
+              <Button fullWidth onClick={deleteImgBtnhandler} type={'button'} variant={'secondary'}>
+                Delete Cover
+              </Button>
+            )}
             <UploadImgBtn
               changeImgHandler={changeImgHandler}
               control={control}
               fileInputRef={fileInputRef}
-              name={'avatar'}
+              name={'cover'}
+              title={`${defaultDeckImg !== imagePreview ? 'Change' : 'Upload'}` + ' Cover'}
               uploadImgBtn={uploadImgBtn}
             />
           </div>
+
           <Controller
             control={control}
-            defaultValue={false}
-            name={'privatePack'}
+            name={'isPrivate'}
             render={({ field: { onChange, value } }) => (
-              <Checkbox checked={value} label={'privatePack'} onCheckedChange={onChange} />
+              <Checkbox
+                checked={value}
+                label={'Private Pack'}
+                onCheckedChange={checked => {
+                  onChange(checked)
+                }}
+              />
             )}
           />
-          <div className={s.btns}>
+
+          <div className={s.confirmBtns}>
             <Button onClick={hideModal} variant={'secondary'}>
               Cancel
             </Button>
             <Button type={'submit'} variant={'primary'}>
-              Add New Pack
+              Add Deck
             </Button>
           </div>
         </form>

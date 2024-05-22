@@ -31,19 +31,16 @@ export const useAddOrUpdateModal = ({
   } = useForm({ resolver: zodResolver(addOrUpdateCardSchema) })
 
   const onSubmit: SubmitHandler<FieldValues> = data => {
-    const formData = new FormData()
-
-    data.questionImg && formData.append('questionImg', data.questionImg)
-    data.answerImg && formData.append('answerImg', data.answerImg)
-    data.questionVideo && formData.append('questionVideo', data.questionVideo)
-    data.answerVideo && formData.append('answerVideo', data.answerVideo)
-
-    formData.append('question', data.question)
-    formData.append('answer', data.answer)
+    const { answer, answerImg, answerVideo, question, questionImg, questionVideo } = data
 
     mutationCallBack({
-      formData,
-      id: id,
+      answer,
+      answerImg: answerImg,
+      answerVideo: answerVideo,
+      id,
+      question,
+      questionImg: questionImg,
+      questionVideo: questionVideo,
     })
       .unwrap()
       .then(() => {
@@ -81,16 +78,26 @@ export const useAddOrUpdateModal = ({
     })
   }
   const setFormat = (variant: 'Picture' | 'Text') => {
-    setValue('questionFormat', variant)
     setSelectedFormat(variant)
   }
   const questionFileInputRef = useRef<HTMLInputElement>(null)
-  const uploadQuestionImgBtn = () => {
-    questionFileInputRef.current?.click()
-  }
   const answerFileInputRef = useRef<HTMLInputElement>(null)
-  const uploadAnswerImgBtn = () => {
-    answerFileInputRef.current?.click()
+  const uploadImgBtn = (field: 'answer' | 'question') => {
+    if (field === 'question') {
+      questionFileInputRef.current?.click()
+    }
+    if (field === 'answer') {
+      answerFileInputRef.current?.click()
+    }
+  }
+
+  const deleteImgBtnhandler = (field: 'answer' | 'question') => {
+    if (field === 'question') {
+      setQuestionImgPreview(defaultDeckImg)
+    }
+    if (field === 'answer') {
+      setAnswerImgPreview(defaultDeckImg)
+    }
   }
 
   return {
@@ -98,13 +105,13 @@ export const useAddOrUpdateModal = ({
     changeAnswerImgHandler,
     changeQuestionImgHandler,
     control,
+    deleteImgBtnhandler,
     errors,
     handleSubmit,
     hideModal,
     onSubmit,
     questionFileInputRef,
     setFormat,
-    uploadAnswerImgBtn,
-    uploadQuestionImgBtn,
+    uploadImgBtn,
   }
 }

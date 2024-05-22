@@ -60,19 +60,9 @@ export const UpdateCardModal = ({
   } = useForm({ resolver: zodResolver(updateCardSchema) })
 
   const onSubmit: SubmitHandler<FieldValues> = data => {
-    const formData = new FormData()
+    const { answer, answerImg, answerVideo, question, questionImg, questionVideo } = data
 
-    data.questionImg && formData.append('questionImg', data.questionImg)
-    data.answerImg && formData.append('answerImg', data.answerImg)
-    data.questionVideo && formData.append('questionVideo', data.questionVideo)
-    data.answerVideo && formData.append('answerVideo', data.answerVideo)
-    data.question && formData.append('question', data.question)
-    data.answer && formData.append('answer', data.answer)
-
-    updateCard({
-      formData,
-      id: id,
-    })
+    updateCard({ answer, answerImg, answerVideo, id, question, questionImg, questionVideo })
       .unwrap()
       .then(() => {
         setOpen(false)

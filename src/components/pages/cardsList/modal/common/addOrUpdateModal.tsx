@@ -1,15 +1,30 @@
+import defaultDeckImg from '@/assets/img/defaultDeckImg.jpg'
+import { WithPicture } from '@/components/pages/cardsList/modal/common/withPicture/withPicture'
 import { UploadImgBtn } from '@/components/pages/common/uploadImgBtn/uploadImgBtn'
 import Input from '@/components/ui/Input/Input'
 import Select from '@/components/ui/Select/Select'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
+import { DevTool } from '@hookform/devtools'
 
 import s from './addOrUpdateModal.module.scss'
 
-import { addOrUpdateCardProps } from './addOrUpdateModal.types'
 import { useAddOrUpdateModal } from './useAddOrUpdateModal'
-
+type Props = {
+  answerImgPreview: string
+  confirmBtnName: string
+  id: string | undefined
+  mutationCallBack: any
+  open: boolean
+  questionImgPreview: string
+  selectedFormat: 'Picture' | 'Text'
+  setAnswerImgPreview: (answerImg: string) => void
+  setOpen: (open: boolean) => void
+  setQuestionImgPreview: (questionImg: string) => void
+  setSelectedFormat: (variant: 'Picture' | 'Text') => void
+  title: string
+}
 export const AddOrUpdateModal = ({
   answerImgPreview,
   confirmBtnName,
@@ -23,20 +38,20 @@ export const AddOrUpdateModal = ({
   setQuestionImgPreview,
   setSelectedFormat,
   title,
-}: addOrUpdateCardProps) => {
+}: Props) => {
   const {
     answerFileInputRef,
     changeAnswerImgHandler,
     changeQuestionImgHandler,
     control,
+    deleteImgBtnhandler,
     errors,
     handleSubmit,
     hideModal,
     onSubmit,
     questionFileInputRef,
     setFormat,
-    uploadAnswerImgBtn,
-    uploadQuestionImgBtn,
+    uploadImgBtn,
   } = useAddOrUpdateModal({
     id,
     mutationCallBack,
@@ -48,17 +63,18 @@ export const AddOrUpdateModal = ({
 
   return (
     <>
+      <DevTool control={control} />
       <Modal className={s.modal} onOpenChange={hideModal} open={open} title={title}>
         <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
           <Typography>
             Choose a question format
             <Select
-              itemsPerPageHandler={setFormat}
-              placeholder={selectedFormat}
+              onValueChange={setFormat}
               selectOptions={[
                 { text: 'Text', value: 'Text' },
                 { text: 'Picture', value: 'Picture' },
               ]}
+              value={selectedFormat}
             />
           </Typography>
           <div>
@@ -67,18 +83,15 @@ export const AddOrUpdateModal = ({
           </div>
 
           {selectedFormat === 'Picture' && (
-            <>
-              <div className={s.previewImg}>
-                <img alt={'Question Image preview'} src={questionImgPreview} />
-              </div>
-              <UploadImgBtn
-                changeImgHandler={changeQuestionImgHandler}
-                control={control}
-                fileInputRef={questionFileInputRef}
-                name={'questionImg'}
-                uploadImgBtn={uploadQuestionImgBtn}
-              />
-            </>
+            <WithPicture
+              changeImgHandler={changeQuestionImgHandler}
+              control={control}
+              deleteImgBtnhandler={() => deleteImgBtnhandler('question')}
+              fileInputRef={questionFileInputRef}
+              imgPreview={questionImgPreview}
+              name={'questionImg'}
+              uploadImgBtn={() => uploadImgBtn('question')}
+            />
           )}
           <div>
             <Input className={s.input} label={'Answer'} {...control.register('answer')} />
@@ -86,18 +99,15 @@ export const AddOrUpdateModal = ({
           </div>
 
           {selectedFormat === 'Picture' && (
-            <>
-              <div className={s.previewImg}>
-                <img alt={'Answer Image preview'} src={answerImgPreview} />
-              </div>
-              <UploadImgBtn
-                changeImgHandler={changeAnswerImgHandler}
-                control={control}
-                fileInputRef={answerFileInputRef}
-                name={'answerImg'}
-                uploadImgBtn={uploadAnswerImgBtn}
-              />
-            </>
+            <WithPicture
+              changeImgHandler={changeAnswerImgHandler}
+              control={control}
+              deleteImgBtnhandler={() => deleteImgBtnhandler('answer')}
+              fileInputRef={answerFileInputRef}
+              imgPreview={answerImgPreview}
+              name={'answerImg'}
+              uploadImgBtn={() => uploadImgBtn('answer')}
+            />
           )}
           <div className={s.btns}>
             <Button onClick={hideModal} variant={'secondary'}>

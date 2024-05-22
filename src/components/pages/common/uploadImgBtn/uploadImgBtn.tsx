@@ -1,13 +1,17 @@
 import { ChangeEvent } from 'react'
 import { Control, Controller } from 'react-hook-form'
 
+import ImageOutline from '@/assets/icons/svg/ImageOutline'
 import { Button } from '@/components/ui/button'
+
+import s from './uploadImgBtn.module.scss'
 
 type Props = {
   changeImgHandler: (e: ChangeEvent<HTMLInputElement>) => void
   control: Control
   fileInputRef: any
   name: string
+  title: string
   uploadImgBtn: () => void
 }
 
@@ -16,6 +20,7 @@ export const UploadImgBtn = ({
   control,
   fileInputRef,
   name,
+  title,
   uploadImgBtn,
 }: Props) => {
   return (
@@ -38,7 +43,7 @@ export const UploadImgBtn = ({
       />
 
       <Button fullWidth onClick={uploadImgBtn} type={'button'} variant={'secondary'}>
-        Upload Image
+        <ImageOutline className={s.imageOutline} /> {title}
       </Button>
     </>
   )

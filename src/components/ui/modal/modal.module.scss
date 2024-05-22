@@ -52,7 +52,23 @@ input {
 }
 
 .content {
+  overflow-y: auto;
+  max-height: 590px;
   padding: 24px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-dark-300);
+    border-radius: 3px;
+
+    &:hover {
+      background-color: var(--color-dark-100);
+    }
+  }
 }
 
 .closeBtn {

@@ -45,20 +45,9 @@ export const ModalAddCard = ({ id, open, setOpen }: Props) => {
   } = useForm({ resolver: zodResolver(addCardSchema) })
 
   const onSubmit: SubmitHandler<FieldValues> = data => {
-    const formData = new FormData()
+    const { answer, answerImg, answerVideo, question, questionImg, questionVideo } = data
 
-    data.questionImg && formData.append('questionImg', data.questionImg)
-    data.answerImg && formData.append('answerImg', data.answerImg)
-    data.questionVideo && formData.append('questionVideo', data.questionVideo)
-    data.answerVideo && formData.append('answerVideo', data.answerVideo)
-
-    formData.append('question', data.question)
-    formData.append('answer', data.answer)
-
-    addCard({
-      formData,
-      id: id,
-    })
+    addCard({ answer, answerImg, answerVideo, id, question, questionImg, questionVideo })
       .unwrap()
       .then(() => {
         setOpen(false)

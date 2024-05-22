@@ -3,6 +3,7 @@ import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { DeckProps } from '@/components/pages/decksList1/decks/decks.types'
 import { Button } from '@/components/ui/button'
+import { useMeQuery } from '@/services/auth/auth.services'
 
 import s from './deckBtns.module.scss'
 
@@ -15,6 +16,7 @@ type Props = {
 }
 
 export const DeckBtns = ({ disabled, goTo, item, showDeleteModal, showUpdateModal }: Props) => {
+  const { data } = useMeQuery()
   const showUpdateModalHandler = () => {
     showUpdateModal && showUpdateModal()
   }
@@ -25,7 +27,7 @@ export const DeckBtns = ({ disabled, goTo, item, showDeleteModal, showUpdateModa
     goTo(`/cards/${item.id}/learn`)
   }
 
-  return item.userId === item.author.id ? (
+  return data?.id === item.userId ? (
     <div className={s.iconBtns}>
       <Button className={s.btn} onClick={showUpdateModalHandler}>
         <Edit2Outline className={s.Edit2Outline} />
@@ -41,7 +43,7 @@ export const DeckBtns = ({ disabled, goTo, item, showDeleteModal, showUpdateModa
     </div>
   ) : (
     <div className={s.iconBtns}>
-      <Button className={s.btn} disabled={disabled}>
+      <Button className={s.btn} disabled={disabled} onClick={goToLearnHandler}>
         <PlayCircleOutline className={`${s.playCircleOutline} ${disabled && s.disabled}`} />
       </Button>
     </div>

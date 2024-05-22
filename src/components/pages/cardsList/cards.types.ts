@@ -18,20 +18,22 @@ export type CardWithGrade = {
 } & Card
 
 export interface CreateCardRequest {
-  formData: {
-    answer: string
-    answerImg?: string
-    answerVideo?: string
-    question: string
-    questionImg?: string
-    questionVideo?: string
-  }
+  answer: string
+  answerImg?: string
+  answerVideo?: string
   id: string
+  question: string
+  questionImg?: string
+  questionVideo?: string
 }
 
 export interface SaveGradeRequest {
   cardId: string
   grade: number
+}
+export type GetRandomCard = {
+  id: string
+  previousCardId?: string
 }
 
 export interface Pagination {

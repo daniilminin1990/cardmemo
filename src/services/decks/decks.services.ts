@@ -1,4 +1,9 @@
 import {
+  CardWithGrade,
+  GetRandomCard,
+  SaveGradeRequest,
+} from '@/components/pages/cardsList/cards.types'
+import {
   AddDeckArgs,
   DeckProps,
   Decks,
@@ -12,11 +17,20 @@ export const decksServices = flashcardsApi.injectEndpoints({
     return {
       addDeck: builder.mutation<DeckProps, AddDeckArgs>({
         invalidatesTags: ['Decks'],
-        query: formData => ({
-          body: formData,
-          method: 'POST',
-          url: `v1/decks`,
-        }),
+
+        query: ({ cover, isPrivate, name }) => {
+          const formData = new FormData()
+
+          formData.append('cover', cover)
+          formData.append('name', name)
+          formData.append('isPrivate', isPrivate.toString())
+
+          return {
+            body: formData,
+            method: 'POST',
+            url: 'v1/decks',
+          }
+        },
       }),
 
       deleteDeck: builder.mutation<void, { id: string }>({
@@ -36,13 +50,35 @@ export const decksServices = flashcardsApi.injectEndpoints({
           url: `v2/decks`,
         }),
       }),
+      getRandomCardById: builder.query<CardWithGrade, GetRandomCard>({
+        query: ({ id }) => `v1/decks/${id}/learn`,
+      }),
+      updateCardGrade: builder.mutation<CardWithGrade, SaveGradeRequest>({
+        invalidatesTags: ['Cards'],
+
+        query: args => {
+          return {
+            body: args,
+            method: 'POST',
+            url: `v1/decks/${args.cardId}/learn`,
+          }
+        },
+      }),
       updateDeck: builder.mutation<void, UpdateDeckArgs>({
         invalidatesTags: ['Decks'],
-        query: ({ formData, id }) => ({
-          body: formData,
-          method: 'PATCH',
-          url: `v1/decks/${id}`,
-        }),
+        query: ({ cover, id, isPrivate, name }) => {
+          const formData = new FormData()
+
+          formData.append('cover', cover ? cover : '')
+          formData.append('name', name ? name : '')
+          formData.append('isPrivate', isPrivate ? isPrivate.toString() : '')
+
+          return {
+            body: formData,
+            method: 'PATCH',
+            url: `v1/decks/${id}`,
+          }
+        },
       }),
     }
   },
@@ -53,5 +89,7 @@ export const {
   useDeleteDeckMutation,
   useGetDeckByIdQuery,
   useGetDecksQuery,
+  useGetRandomCardByIdQuery,
+  useUpdateCardGradeMutation,
   useUpdateDeckMutation,
 } = decksServices

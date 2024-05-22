@@ -12,11 +12,23 @@ const cardsServices = flashcardsApi.injectEndpoints({
     return {
       addCard: builder.mutation<Card, CreateCardRequest>({
         invalidatesTags: ['Cards'],
-        query: ({ formData, id }) => ({
-          body: formData,
-          method: 'POST',
-          url: `v1/decks/${id}/cards`,
-        }),
+        query: ({ answer, answerImg, answerVideo, id, question, questionImg, questionVideo }) => {
+          const formData = new FormData()
+
+          questionImg && formData.append('questionImg', questionImg)
+          answerImg && formData.append('answerImg', answerImg)
+          questionVideo && formData.append('questionVideo', questionVideo)
+          answerVideo && formData.append('answerVideo', answerVideo)
+
+          formData.append('question', question)
+          formData.append('answer', answer)
+
+          return {
+            body: formData,
+            method: 'POST',
+            url: `v1/decks/${id}/cards`,
+          }
+        },
       }),
       deleteCard: builder.mutation<void, { id: string }>({
         invalidatesTags: ['Cards'],
@@ -34,11 +46,22 @@ const cardsServices = flashcardsApi.injectEndpoints({
       }),
       updateCard: builder.mutation<Card, UpdateCardRequest>({
         invalidatesTags: ['Cards'],
-        query: ({ formData, id }) => ({
-          body: formData,
-          method: 'PATCH',
-          url: `v1/cards/${id}`,
-        }),
+        query: ({ answer, answerImg, answerVideo, id, question, questionImg, questionVideo }) => {
+          const formData = new FormData()
+
+          questionImg && formData.append('questionImg', questionImg)
+          answerImg && formData.append('answerImg', answerImg)
+          questionVideo && formData.append('questionVideo', questionVideo)
+          answerVideo && formData.append('answerVideo', answerVideo)
+          question && formData.append('question', question)
+          answer && formData.append('answer', answer)
+
+          return {
+            body: formData,
+            method: 'PATCH',
+            url: `v1/cards/${id}`,
+          }
+        },
       }),
     }
   },

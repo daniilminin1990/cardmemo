@@ -9,7 +9,7 @@
     width: 100%;
     margin-bottom: 28px;
 
-    .cardName {
+    .cardInfo {
       display: flex;
       flex-flow: column nowrap;
       gap: 15px;
@@ -21,9 +21,11 @@
       }
     }
 
-    .addBtn {
+    .addBtn,
+    .learnBtn {
       width: 148px;
       height: 36px;
+      text-align: center;
     }
   }
 

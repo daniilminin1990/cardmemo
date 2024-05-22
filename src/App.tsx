@@ -1,9 +1,5 @@
-import { Decks } from '@/components/ui/table/decks/Decks'
+import { Router } from '@/routing/router'
 
 export function App() {
-  return (
-    <div>
-      <Decks />
-    </div>
-  )
+  return <Router />
 }

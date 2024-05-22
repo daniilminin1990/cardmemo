@@ -42,6 +42,5 @@ export interface AddDeckArgs {
 }
 
 export type UpdateDeckArgs = {
-  formData: Partial<AddDeckArgs>
   id: string
-}
+} & Partial<AddDeckArgs>

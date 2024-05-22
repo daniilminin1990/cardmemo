@@ -1,18 +1,17 @@
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent, useRef } from 'react'
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 
-import ImageOutline from '@/assets/icons/svg/ImageOutline'
+import { UploadImgBtn } from '@/components/pages/common/uploadImgBtn/uploadImgBtn'
 import { DeckProps } from '@/components/pages/decksList1/decks/decks.types'
+import { addUpdateDeckSchema } from '@/components/pages/decksList1/modal/addUpdateModalSchema'
 import Input from '@/components/ui/Input/Input'
 import { Button } from '@/components/ui/button'
 import Checkbox from '@/components/ui/checkbox/checkbox'
-import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Modal } from '@/components/ui/modal/modal'
 import { imageChangeHandler } from '@/components/utils/imageChange'
 import { useUpdateDeckMutation } from '@/services/decks/decks.services'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
-import z from 'zod'
 
 import s from './updateDeckModal.module.scss'
 
@@ -26,14 +25,6 @@ type Props = {
   setOpen: (open: boolean) => void
 }
 
-const UpdateDeckSchema = z.object({
-  cover: z.instanceof(File).nullable().optional(),
-  nameDeck: z.string().min(3, { message: 'Name must be 3 or more word' }),
-  privatePack: z.boolean().optional(),
-})
-
-type FormValues = z.infer<typeof UpdateDeckSchema>
-
 export const ModalUpdateDeck = ({ imagePreview, item, open, setImagePreview, setOpen }: Props) => {
   const [updateDeck, {}] = useUpdateDeckMutation()
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -44,21 +35,13 @@ export const ModalUpdateDeck = ({ imagePreview, item, open, setImagePreview, set
     reset,
     setValue,
   } = useForm({
-    resolver: zodResolver(UpdateDeckSchema),
+    resolver: zodResolver(addUpdateDeckSchema),
   })
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
-    const formData = new FormData()
+    const { cover, isPrivate, name } = data
 
-    console.log(data)
-    formData.append('cover', data.cover ? data.cover : '')
-    formData.append('name', data.nameDeck)
-    formData.append('isPrivate', data.privatePack.toString())
-
-    await updateDeck({
-      formData,
-      id: item.id,
-    })
+    await updateDeck({ cover, id: item.id, isPrivate, name })
       .unwrap()
       .then(() => {
         setOpen(false)
@@ -80,7 +63,7 @@ export const ModalUpdateDeck = ({ imagePreview, item, open, setImagePreview, set
   }
   const hideModal = () => {
     setOpen(false)
-    setValue('nameDeck', '')
+    setValue('name', '')
   }
 
   const uploadImgBtn = () => {
@@ -95,37 +78,39 @@ export const ModalUpdateDeck = ({ imagePreview, item, open, setImagePreview, set
       <DevTool control={control} />
       <Modal className={s.modal} onOpenChange={hideModal} open={open} title={'Edit Deck'}>
         <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
-          <div className={s.previewImg}>
-            <img alt={'deck img'} src={imagePreview} {...control.register('cover')} />
-          </div>
-          <div className={s.coverBtns}>
-            <Button fullWidth onClick={deleteImgBtnhandler} type={'button'} variant={'secondary'}>
-              Delete Cover
-            </Button>
-
-            <input
-              accept={'image/*'}
-              onChangeCapture={changeImgHandler}
-              ref={fileInputRef}
-              style={{ display: 'none' }}
-              type={'file'}
-            />
-            <Button fullWidth onClick={uploadImgBtn} type={'button'} variant={'secondary'}>
-              <ImageOutline className={s.imageOutline} /> Change Cover
-            </Button>
-          </div>
           <div>
             <Input
               className={s.input}
               label={'Name Deck'}
               placeholder={'Name'}
-              {...control.register('nameDeck')}
+              {...control.register('name')}
             />
-            {errors.nameDeck && <p>{errors.nameDeck.message}</p>}
+            {errors.name && <p>{errors.name.message}</p>}
           </div>
+
+          <div className={s.previewImg}>
+            <img alt={'deck img'} src={imagePreview} />
+          </div>
+
+          <div className={s.coverBtns}>
+            {defaultDeckImg !== imagePreview && (
+              <Button fullWidth onClick={deleteImgBtnhandler} type={'button'} variant={'secondary'}>
+                Delete Cover
+              </Button>
+            )}
+            <UploadImgBtn
+              changeImgHandler={changeImgHandler}
+              control={control}
+              fileInputRef={fileInputRef}
+              name={'cover'}
+              title={`${defaultDeckImg !== imagePreview ? 'Change' : 'Upload'}` + ' Cover'}
+              uploadImgBtn={uploadImgBtn}
+            />
+          </div>
+
           <Controller
             control={control}
-            name={'privatePack'}
+            name={'isPrivate'}
             render={({ field: { onChange, value } }) => (
               <Checkbox
                 checked={value}

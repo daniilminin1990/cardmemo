@@ -1,10 +1,11 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
+import { useLoginMutation } from '@/services/auth/auth.services'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -20,7 +21,7 @@ const signInSchema = z.object({
 type FormValues = z.infer<typeof signInSchema>
 
 export const SignIn = () => {
-  const { control, handleSubmit, register } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       email: '',
       password: '',
@@ -29,12 +30,15 @@ export const SignIn = () => {
     mode: 'onSubmit',
     resolver: zodResolver(signInSchema),
   })
-
-  const onSubmit: SubmitHandler<FormValues> = data => console.log(data)
+  const [login] = useLoginMutation()
+  const onSubmit: SubmitHandler<FormValues> = data => {
+    console.log(data)
+    login(data)
+  }
 
   return (
     <>
-      <DevTool control={control} />
+      {import.meta.env.DEV && <DevTool control={control} />}
       <Card className={s.card}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={s.header}>
@@ -59,17 +63,27 @@ export const SignIn = () => {
               placeholder={'Password'}
               type={'password'}
             />
-            <Checkbox className={s.checkbox} {...register('rememberMe')} label={'RememberMe'} />
-            <Typography as={'label'} className={s.typographyForgotTitle} variant={'body2'}>
+            <Controller
+              control={control}
+              defaultValue={false}
+              name={'rememberMe'}
+              render={({ field: { onChange, value } }) => (
+                <Checkbox checked={value} label={'RememberMe'} onCheckedChange={onChange} />
+              )}
+            />
+            <Typography as={'button'} className={s.typographyForgotTitle} variant={'body2'}>
               Forgot Password?
             </Typography>
           </div>
-          <Button fullWidth>Sign In</Button>
+          <Button fullWidth type={'submit'}>
+            Sign In
+          </Button>
           <div className={s.footer}>
-            <Typography as={'label'} className={s.typographyFooterTitle} variant={'body2'}>
+            <Typography as={'button'} className={s.typographyFooterTitle} variant={'body2'}>
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
               Don't have an account?
             </Typography>
-            <Typography className={s.typographyFooterSubtitle} variant={'link1'}>
+            <Typography as={'button'} className={s.typographyFooterSubtitle} variant={'link1'}>
               Sign Up
             </Typography>
           </div>

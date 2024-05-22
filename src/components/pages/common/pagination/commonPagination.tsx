@@ -21,13 +21,13 @@ export const CommonPagination = ({
     { text: '15', value: '15' },
     { text: '20', value: '20' },
     { text: '25', value: '25' },
+    { text: '50', value: '50' },
   ]
 
   return (
     <PaginationWithSelect
       currentPage={currentPage}
       itemsPerPage={itemsPerPage}
-      placeholder={itemsPerPage.toString()}
       selectOptions={selectOptions}
       setCurrentPage={currentPageHandler}
       setItemsPerPage={itemsPerPageHandler}

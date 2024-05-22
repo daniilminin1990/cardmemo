@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
 
 import Star from '@/assets/icons/svg/Star'
 import StarOutline from '@/assets/icons/svg/StarOutline'
@@ -10,6 +9,7 @@ import { AddOrUpdateModal } from '@/components/pages/cardsList/modal/common/addO
 import { DeleteModal } from '@/components/pages/common/deleteModal/deleteModal'
 import Typography from '@/components/ui/Typography/Typography'
 import { Table } from '@/components/ui/table'
+import { useMeQuery } from '@/services/auth/auth.services'
 import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/cards.services'
 
 import s from './card.module.scss'
@@ -22,15 +22,14 @@ type Props = {
 
 export const Card = ({ item }: Props) => {
   const [isDeleteModal, setIsDeleteModal] = useState(false)
-  const [searchParams, setSearchParams] = useSearchParams()
   const [isUpdateModal, setIsUpdateModal] = useState(false)
   const [answerImgPreview, setAnswerImgPreview] = useState(defaultDeckImg)
   const [questionImgPreview, setQuestionImgPreview] = useState(defaultDeckImg)
-  const [deleteCard] = useDeleteCardMutation()
-  const [selectedFormat, setSelectedFormat] = useState<string>('Text')
-  const [updateCard] = useUpdateCardMutation()
+  const [selectedFormat, setSelectedFormat] = useState<'Picture' | 'Text'>('Text')
 
-  const authorId = searchParams.get('authorId')
+  const [deleteCard] = useDeleteCardMutation()
+  const [updateCard] = useUpdateCardMutation()
+  const { data } = useMeQuery()
 
   const showUpdateHandler = () => {
     ;(item.answerImg || item.questionImg) && setSelectedFormat('Picture')
@@ -113,7 +112,7 @@ export const Card = ({ item }: Props) => {
             )
           )}
         </Table.Cell>
-        {authorId !== item.userId && (
+        {data?.id === item.userId && (
           <Table.Cell>
             <CardBtns showDeleteModal={showDeleteHandler} showUpdateHandler={showUpdateHandler} />
           </Table.Cell>

@@ -14,45 +14,6 @@
     }
   }
 
-  .filter {
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 24px;
-    align-items: flex-end;
-
-    width: 100%;
-    margin-bottom: 36px;
-
-    .input {
-      width: 100%;
-      max-width: 300px;
-    }
-
-    .clearBtn {
-      display: flex;
-      flex-flow: row nowrap;
-      flex-shrink: 0;
-      gap: 10px;
-      align-items: center;
-
-      height: 36px;
-
-      .trashOutlineIcon {
-        width: 16px;
-        height: 16px;
-      }
-    }
-
-    .tabSwitch {
-      width: 230px;
-
-      button {
-        box-sizing: border-box;
-        white-space: nowrap;
-      }
-    }
-  }
-
   .pagination {
     display: flex;
     flex-flow: row wrap;

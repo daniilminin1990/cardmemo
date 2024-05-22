@@ -2,7 +2,7 @@ import Typography from '@/components/ui/Typography/Typography'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 type DropDownItemProps = {
-  icon: string
+  icon?: string
   text: string
 }
 
@@ -12,7 +12,7 @@ const DropDownItem = (props: DropDownItemProps) => {
   return (
     <div className={'DropdownMenuItemBox'}>
       <DropdownMenu.Item className={'DropdownMenuItem'}>
-        <img alt={''} src={icon} />
+        <img alt={''} src={icon} style={{ height: '35px', width: '35px' }} />
         <Typography className={'dropdownText'} variant={'caption'}>
           {text}
         </Typography>

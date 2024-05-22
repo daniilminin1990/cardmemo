@@ -1,26 +1,20 @@
-import TrashOutline from '@/assets/icons/svg/TrashOutline'
+import { Loading } from '@/components/pages/common/loading/loading'
 import { CommonPagination } from '@/components/pages/common/pagination/commonPagination'
 import { Deck } from '@/components/pages/decksList1/decks/deck/deck'
 import { Decks } from '@/components/pages/decksList1/decks/decks'
+import { DecksFilters } from '@/components/pages/decksList1/filters/decksFilters'
 import { useDecksList } from '@/components/pages/decksList1/hooks/useDecksList'
 import { ModalAddDeck } from '@/components/pages/decksList1/modal/addModal/addDeckModal'
-import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
-import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 
 import s from './decksList.module.scss'
 
 export const DecksList = () => {
   const {
-    activeTab,
-    changeTabHandler,
-    clearFilterHandler,
-    clearSearchFieldHandler,
     currentPage,
     currentPageHandler,
     data,
-    handleSearch,
     isAddModal,
     isLoading,
     itemsPerPage,
@@ -44,45 +38,11 @@ export const DecksList = () => {
             </Typography>
           </Button>
         </div>
-        <div className={s.filter}>
-          <Input
-            callback={clearSearchFieldHandler}
-            className={s.input}
-            onChange={handleSearch}
-            type={'search'}
-          />
 
-          <TabSwitcher
-            className={s.tabSwitch}
-            label={'Show decks cards'}
-            onValueChange={changeTabHandler}
-            tabs={[
-              { text: 'MyCards', value: 'MyCards' },
-              { text: 'All Cards', value: 'All Cards' },
-            ]}
-            value={activeTab}
-          />
-
-          <Typography
-            as={'label'}
-            className={s.label}
-            style={{ border: '1px solid red', width: '250px' }}
-            variant={'body2'}
-          >
-            Number of cards
-            <div>Slider</div>
-          </Typography>
-
-          <Button className={s.clearBtn} onClick={clearFilterHandler} variant={'secondary'}>
-            <TrashOutline className={s.trashOutlineIcon} />
-            <Typography className={s.text} variant={'subtitle2'}>
-              Clear Filter
-            </Typography>
-          </Button>
-        </div>
+        <DecksFilters />
 
         {isLoading ? (
-          <div>Loading...</div>
+          <Loading />
         ) : (
           <Decks
             Component={Deck}

@@ -7,19 +7,26 @@ import './DropDown.scss'
 
 type DropdownMenuDemoProps = {
   children: ReactNode
-  icon: string
+  email: string
+  icon?: string
+  name: string
   type: 'head' | 'menu'
 }
 
 const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
-  const { children, icon, type } = props
+  const { children, email, icon, name, type } = props
 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button aria-label={'Customise options'} className={'IconButton'}>
           <div className={'imgBox'}>
-            <img alt={''} className={'dropdownHeaderImg'} src={icon} />
+            <img
+              alt={''}
+              className={'dropdownHeaderImg'}
+              src={icon}
+              style={{ height: '35px', stroke: 'white', width: '35px' }}
+            />
           </div>
         </button>
       </DropdownMenu.Trigger>
@@ -31,13 +38,13 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
         >
           {type === 'head' && (
             <div className={'header'}>
-              <img alt={''} src={icon} />
+              <img alt={''} src={icon} style={{ height: '35px', width: '35px' }} />
               <div>
                 <Typography className={'dropdownTextHeader'} variant={'subtitle1'}>
-                  Ivan
+                  {name}
                 </Typography>
                 <Typography className={'dropdownTextHeader'} variant={'caption'}>
-                  j&johnson@gmail.com
+                  {email}
                 </Typography>
               </div>
             </div>

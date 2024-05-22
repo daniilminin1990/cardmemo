@@ -3,7 +3,7 @@ import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 import Input, { InputProps } from '@/components/ui/Input/Input'
 
 export type ControlledInputProps<TFieldValues extends FieldValues> = {
-  className: string
+  className?: string
 } & Omit<InputProps, 'onChange' | 'value'> &
   Omit<UseControllerProps<TFieldValues>, 'defaultValue' | 'disabled' | 'rules'>
 

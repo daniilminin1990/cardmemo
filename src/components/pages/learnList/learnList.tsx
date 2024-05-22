@@ -8,78 +8,101 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Radio } from '@/components/ui/radio/radio'
 import { useNavigation } from '@/components/utils/hooks/useNavigate'
-import { useGetCardsQuery } from '@/services/cards/cards.services'
-import { useGetDeckByIdQuery } from '@/services/decks/decks.services'
+import {
+  useGetDeckByIdQuery,
+  useGetRandomCardByIdQuery,
+  useUpdateCardGradeMutation,
+} from '@/services/decks/decks.services'
+import { DevTool } from '@hookform/devtools'
 
 import s from './learnList.module.scss'
 
 type Props = {}
 
 export const LearnList = ({}: Props) => {
+  const { control, handleSubmit, reset } = useForm({
+    defaultValues: { grade: '' },
+  })
+
   const [isShowAnswer, setIsShowAnswer] = useState(false)
-  const { control, handleSubmit } = useForm()
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [previousCardId, setPreviousCardId] = useState('')
+
   const { goBack } = useNavigation()
   const { id } = useParams()
-  const { data } = useGetCardsQuery({ id: id || '' })
-  const { data: deckData } = useGetDeckByIdQuery({ id: id || '' })
 
-  console.log(deckData)
+  const { data: deckData } = useGetDeckByIdQuery({ id: id || '' })
+  const { data: randomCard, isLoading } = useGetRandomCardByIdQuery({
+    id: id || '',
+    previousCardId: previousCardId,
+  })
+
+  console.log(randomCard?.grade)
+  const [updateCardGrade] = useUpdateCardGradeMutation()
+
   const onSubmit = async (data: any) => {
     console.log(data)
-  }
-
-  const showNextQuestionHandler = () => {
-    data?.items && setCurrentQuestionIndex(prevIndex => (prevIndex + 1) % data?.items.length)
-    setIsShowAnswer(false)
+    await updateCardGrade({ cardId: randomCard?.id, grade: data.grade })
+      .unwrap()
+      .then(() => {
+        setPreviousCardId(randomCard?.id)
+        setIsShowAnswer(false)
+        reset()
+      })
+      .catch(error => {
+        console.error('Try again or later', error)
+      })
   }
   const showAnswwerHandler = () => {
     setIsShowAnswer(true)
   }
 
   const gradeNames = [
-    { name: 'Did not know' },
-    { name: 'Forgot' },
-    { name: 'A lot of thought' },
-    { name: 'Confused' },
-    { name: 'Knew the answer' },
+    { grade: 1, name: 'Did not know' },
+    { grade: 2, name: 'Forgot' },
+    { grade: 3, name: 'A lot of thought' },
+    { grade: 4, name: 'Confused' },
+    { grade: 5, name: 'Knew the answer' },
   ]
-  const question = data?.items[currentQuestionIndex]
+
+  if (isLoading) {
+    return <div>Loading</div>
+  }
 
   return (
     <section>
+      <DevTool control={control} />
       <BackBtn goTo={goBack} name={'Back to Previous Page'} />
-      {question ? (
+      {randomCard && (
         <Card className={s.card}>
           <div className={s.container}>
             <Typography as={'h1'} className={s.title} variant={'h1'}>
-              Learn место для Имени карточки
+              Learn {deckData?.name}
             </Typography>
             <Typography as={'span'} className={s.question} variant={'subtitle1'}>
               Question:
               <Typography as={'span'} className={s.text} variant={'body1'}>
-                {question.question}
+                {randomCard.question}
               </Typography>
             </Typography>
-            {question.questionImg && (
+            {randomCard.questionImg && (
               <div className={s.questionCardImg}>
-                <img alt={'question card img'} src={question.questionImg} />
+                <img alt={'question card img'} src={randomCard.questionImg} />
               </div>
             )}
             <Typography as={'h2'} className={s.passQuest} variant={'body2'}>
-              Count of attempts: {question.shots}
+              Count of attempts: {randomCard.shots}
             </Typography>
             {isShowAnswer ? (
               <>
                 <Typography as={'span'} className={s.question} variant={'subtitle1'}>
                   Answer:
                   <Typography as={'span'} className={s.text} variant={'body1'}>
-                    {question.answer}
+                    {randomCard.answer}
                   </Typography>
                 </Typography>
-                {question.answerImg && (
+                {randomCard.answerImg && (
                   <div className={s.answerCardImg}>
-                    <img alt={'answer card img'} src={question.answerImg} />
+                    <img alt={'answer card img'} src={randomCard.answerImg} />
                   </div>
                 )}
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -94,19 +117,14 @@ export const LearnList = ({}: Props) => {
                         value={field.value}
                       >
                         {gradeNames.map(grade => (
-                          <Radio.Item key={grade.name} value={grade.name}>
+                          <Radio.Item key={grade.name} value={grade.grade}>
                             <Typography variant={'body2'}>{grade.name}</Typography>
                           </Radio.Item>
                         ))}
                       </Radio.Root>
                     )}
                   />
-                  <Button
-                    as={'a'}
-                    className={s.nextQuestionBtn}
-                    fullWidth
-                    onClick={showNextQuestionHandler}
-                  >
+                  <Button as={'button'} className={s.nextQuestionBtn} fullWidth type={'submit'}>
                     <Typography as={'span'}>Next Question</Typography>
                   </Button>
                 </form>
@@ -118,8 +136,6 @@ export const LearnList = ({}: Props) => {
             )}
           </div>
         </Card>
-      ) : (
-        <div>Loading</div>
       )}
     </section>
   )
