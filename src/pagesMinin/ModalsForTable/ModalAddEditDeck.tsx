@@ -100,34 +100,36 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
             label={item ? 'Edit title' : 'Type new Deck name'}
             name={'name'}
           />
-          {item && preview && (
-            <Button
-              className={s.uploadImg}
-              fullWidth
-              onClick={() => {
-                setPreview(null)
-                setCover(null)
-              }}
-              type={'button'}
-            >
-              <Typography variant={'subtitle2'}>Remove cover</Typography>
+          <div className={s.buttonsWrapper}>
+            {preview && (
+              <Button
+                className={s.uploadImg}
+                fullWidth
+                onClick={() => {
+                  setPreview(null)
+                  setCover(null)
+                }}
+                type={'button'}
+              >
+                <Typography variant={'subtitle2'}>Remove cover</Typography>
+              </Button>
+            )}
+            <Button className={s.uploadImg} fullWidth onClick={hanldeSubmitImg} type={'button'}>
+              <ImageOutline className={s.icon} />
+              <Typography variant={'subtitle2'}>
+                {preview ? 'Change cover' : 'Upload Image'}
+              </Typography>
+              {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
+              <Input
+                accept={'image/*'}
+                className={s.inputImg}
+                name={'cover'}
+                onChange={handleInputImg}
+                ref={refInputImg}
+                type={'file'}
+              />
             </Button>
-          )}
-          <Button className={s.uploadImg} fullWidth onClick={hanldeSubmitImg} type={'button'}>
-            <ImageOutline className={s.icon} />
-            <Typography variant={'subtitle2'}>
-              {preview ? 'Change cover' : 'Upload Image'}
-            </Typography>
-            {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
-            <Input
-              accept={'image/*'}
-              className={s.inputImg}
-              name={'cover'}
-              onChange={handleInputImg}
-              ref={refInputImg}
-              type={'file'}
-            />
-          </Button>
+          </div>
           <Checkbox
             checked={checked}
             label={'Private pack'}
