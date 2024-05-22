@@ -10,7 +10,8 @@ import { z } from 'zod'
 
 import s from './modalEditCardMinin.module.scss'
 
-import { Card } from '../../../../services/decks/deck.types'
+import { useCreateCardMutation } from '../../../../services/cards/cards.service'
+import { Card } from '../../../../services/cards/cards.types'
 
 type ModalAddEditProps = {
   item?: Card
@@ -18,7 +19,7 @@ type ModalAddEditProps = {
   setOpen: (value: boolean) => void
 }
 
-export const ModalEditCard = (props: ModalAddEditProps) => {
+export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const initPreviewQuestion = item ? item.questionImg ?? null : ''
   const initPreviewAnswer = item ? item.answerImg ?? null : ''
@@ -28,6 +29,8 @@ export const ModalEditCard = (props: ModalAddEditProps) => {
     answer: item ? z.string() : z.string().min(3).max(1000),
     question: item ? z.string() : z.string().min(3).max(1000),
   })
+
+  const [createCard] = useCreateCardMutation()
 
   type FormValues = z.infer<typeof schema>
   const { control, handleSubmit } = useForm<FormValues>({

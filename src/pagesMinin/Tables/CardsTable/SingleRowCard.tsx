@@ -8,7 +8,7 @@ import { Table } from '@/components/ui/table'
 
 import s from '@/pagesMinin/Tables/tableSingleRow.module.scss'
 
-import { Card } from '../../../../services/decks/deck.types'
+import { Card } from '../../../../services/cards/cards.types'
 
 // Region ПЕРЕХЕРАЧИТЬ ЭТУ КОМПОНЕНТУ ПРАВИЛЬНО!
 type Props = {

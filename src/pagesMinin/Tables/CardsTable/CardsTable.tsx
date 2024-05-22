@@ -6,7 +6,7 @@ import { headersNameCards } from '@/pagesMinin/utls/variablesMinin'
 
 import s from './CardsTable.module.scss'
 
-import { CardsListResponse } from '../../../../services/decks/deck.types'
+import { CardsListResponse } from '../../../../services/cards/cards.types'
 
 type UniversalTableDeckMininType = {
   data?: CardsListResponse

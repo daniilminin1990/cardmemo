@@ -6,7 +6,7 @@ import Input from '@/components/ui/Input/Input'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
-import { ModalEditCard } from '@/pagesMinin/ModalsForTable/ModalEditCard/ModalEditCard'
+import { ModalAddEditCard } from '@/pagesMinin/ModalsForTable/ModalEditCard/ModalAddEditCard'
 import { CardsTable } from '@/pagesMinin/Tables/CardsTable/CardsTable'
 import { Page } from '@/pagesMinin/componentsMinin/Page/Page'
 import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
@@ -70,8 +70,7 @@ export const CardsPage = () => {
 
   return (
     <Page className={s.common} mt={'24px'}>
-      {/*<ModalOnAddDeckMinin open={open} setOpen={setOpen} />*/}
-      <ModalEditCard open={open} setOpen={setOpen} />
+      <ModalAddEditCard open={open} setOpen={setOpen} />
       <div className={s.heading}>
         <div className={s.headingFirstRow}>
           <Typography as={Link} style={{ textDecoration: 'none' }} to={'/'} variant={'body2'}>

@@ -9,7 +9,7 @@ import { FormTextfield } from '@/components/ui/form/form-textfield'
 
 import s from './dataFiller.module.scss'
 
-import { Card } from '../../../../../services/decks/deck.types'
+import { Card } from '../../../../../services/cards/cards.types'
 
 type DataFillerProps = {
   control: Control<any, any>
