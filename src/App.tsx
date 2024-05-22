@@ -1,12 +1,15 @@
-import { Provider } from 'react-redux'
-
-import { Router } from '@/router'
-import { store } from '@/services/store'
+import PageDeckNextQuestion from '@/components/auth/PageDeckNextQuestion/PageDeckNextQuestion'
 
 export function App() {
   return (
-    <Provider store={store}>
-      <Router />
-    </Provider>
+    <div
+      style={{
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
+      <PageDeckNextQuestion status />
+    </div>
   )
 }
