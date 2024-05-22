@@ -1,0 +1,38 @@
+.form {
+  width: 95%;
+}
+
+.box {
+  margin-bottom: 30px;
+  img {
+    width: 100%;
+    object-position: center;
+    object-fit: cover;
+    margin-bottom: 25px;
+  }
+}
+
+.inputStyle {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.uploadImg {
+  gap: 5px;
+  margin-bottom: 24px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.checkbox {
+  margin-left: 10px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
