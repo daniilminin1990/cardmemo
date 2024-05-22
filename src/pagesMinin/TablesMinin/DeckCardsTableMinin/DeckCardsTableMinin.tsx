@@ -4,7 +4,7 @@ import { Table } from '@/components/ui/table'
 import { SingleRowCardMinin } from '@/pagesMinin/TablesMinin/DeckCardsTableMinin/SingleRowCardMinin'
 import { headersNameCards } from '@/pagesMinin/utls/variablesMinin'
 
-import s from '@/pagesMinin/deckCardsPage.module.scss'
+import s from './deckCardsTableMinin.module.scss'
 
 import { CardsListResponse } from '../../../../services/decks/deck.types'
 

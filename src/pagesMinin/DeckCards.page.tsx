@@ -62,6 +62,8 @@ export const DeckCardsPage = () => {
     setSearchQuery(e.currentTarget.value)
   }
 
+  const isCardsCountFilled = deck?.cardsCount !== 0
+
   if (isLoading) {
     return <h1>...Loading</h1>
   }
@@ -83,9 +85,9 @@ export const DeckCardsPage = () => {
               ОНА ЧУЖАЯ, БРО {deck?.name}
               {/*  Тут нужно будет добавить проверку на МОИ cards или не мои  И МОИ -- ДОБАВИТЬ DropDown*/}
             </Typography>
-            {deck?.cardsCount !== 0 && <img alt={'img'} src={deck?.cover} width={'200px'} />}
+            {isCardsCountFilled && <img alt={'img'} src={deck?.cover} width={'200px'} />}
           </div>
-          {deck?.cardsCount !== 0 && (
+          {isCardsCountFilled && (
             <div className={s.switchButton}>
               <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
                 <Typography variant={'subtitle2'}>Add New Card</Typography>
@@ -93,7 +95,7 @@ export const DeckCardsPage = () => {
             </div>
           )}
         </div>
-        {deck?.cardsCount !== 0 && (
+        {isCardsCountFilled && (
           <Input
             callback={setSearchQuery}
             className={s.input}

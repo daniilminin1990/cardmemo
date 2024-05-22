@@ -1,14 +1,6 @@
 .common {
   max-width: 1008px;
 }
-// Общее
-.tableRoot {
-  table-layout: fixed;
-}
-.emptyTableHeadCell {
-  width: 15%;
-}
-
 .heading {
   display: grid;
   gap: 7px;
