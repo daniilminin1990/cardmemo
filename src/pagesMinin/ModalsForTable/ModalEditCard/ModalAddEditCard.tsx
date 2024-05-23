@@ -23,21 +23,26 @@ type ModalAddEditProps = {
   setOpen: (value: boolean) => void
 }
 
+function getSchema(item?: Card) {
+  return z.object({
+    answer: item ? z.string() : z.string().min(3).max(500),
+    question: item ? z.string() : z.string().min(3).max(500),
+  })
+}
+
+export type FormValues = z.infer<ReturnType<typeof getSchema>>
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const [answerImg, setAnswerImg] = useState<File | null | undefined>(undefined)
   const [questionImg, setQuestionImg] = useState<File | null | undefined>(undefined)
 
-  const schema = z.object({
-    answer: item ? z.string() : z.string().min(3).max(500),
-    question: item ? z.string() : z.string().min(3).max(500),
-  })
   const deckId = useParams().deckId
 
   const [createCard] = useCreateCardMutation()
   const [updateCard] = useUpdateCardMutation()
 
-  type FormValues = z.infer<typeof schema>
+  const schema = getSchema(item)
+
   const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: { answer: '', question: '' },
     resolver: zodResolver(schema),

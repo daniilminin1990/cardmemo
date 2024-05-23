@@ -6,17 +6,18 @@ import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
+import { FormValues } from '@/pagesMinin/ModalsForTable/ModalEditCard/ModalAddEditCard'
 
 import s from './dataFiller.module.scss'
 
 import { Card } from '../../../../../services/cards/cards.types'
 
 type DataFillerProps = {
-  control: Control<any, any>
+  control: Control<FormValues, any>
   getImageHandler: (img: File | null | undefined) => void
   img: null | string | undefined
   item?: Card
-  label: string
+  label: keyof FormValues
   questionOrAnswer: string | undefined
 }
 export const DataFiller = (props: DataFillerProps) => {
