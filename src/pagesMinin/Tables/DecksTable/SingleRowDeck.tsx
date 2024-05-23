@@ -15,12 +15,12 @@ import s from '@/pagesMinin/Tables/tableSingleRow.module.scss'
 import { Deck } from '../../../../services/decks/deck.types'
 
 type Props = {
-  deck: Deck
+  item: Deck
 }
-export const SingleRowDeck = ({ deck }: Props) => {
+export const SingleRowDeck = ({ item }: Props) => {
   const [isUpdateModal, setIsUpdateModal] = useState(false)
   const [isDeleteModal, setIsDeleteModal] = useState(false)
-  const updatedAr = new Date(deck.updated).toLocaleDateString('ru-RU')
+  const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
 
   // ДЛЯ ИЗУЧЕНИЯ (Learn) Перенаправляем пользователя на другую страницу (На круглую кнопку)
   // через хук навигации и используем deckId
@@ -30,30 +30,30 @@ export const SingleRowDeck = ({ deck }: Props) => {
   // }
 
   return (
-    <Fragment key={deck.id}>
+    <Fragment key={item.id}>
       {/*<ModalUpdateDeck item={deck} open={isUpdateModal} setOpen={setIsUpdateModal} />*/}
-      <ModalAddEditDeck item={deck} open={isUpdateModal} setOpen={setIsUpdateModal} />
-      <ModalDeleteDeckMinin item={deck} open={isDeleteModal} setIsDeleteModal={setIsDeleteModal} />
-      <Table.Row key={deck.id}>
+      <ModalAddEditDeck item={item} open={isUpdateModal} setOpen={setIsUpdateModal} />
+      <ModalDeleteDeckMinin item={item} open={isDeleteModal} setIsDeleteModal={setIsDeleteModal} />
+      <Table.Row key={item.id}>
         <Table.Cell>
           {/* Переходим по роутингу*/}
-          <Typography as={Link} className={s.imgWrapper} to={`/decks/${deck.id}`}>
-            {deck.cover && <img alt={'default card img'} className={s.coverImg} src={deck.cover} />}
-            {deck.name}
+          <Typography as={Link} className={s.imgWrapper} to={`/decks/${item.id}`}>
+            {item.cover && <img alt={'default card img'} className={s.coverImg} src={item.cover} />}
+            {item.name}
           </Typography>
         </Table.Cell>
-        <Table.Cell>{deck.cardsCount}</Table.Cell>
+        <Table.Cell>{item.cardsCount}</Table.Cell>
         <Table.Cell>{updatedAr}</Table.Cell>
-        <Table.Cell>{deck.author.name}</Table.Cell>
+        <Table.Cell>{item.author.name}</Table.Cell>
         <Table.Cell>
-          {deck.userId === deck.author.id ? (
+          {item.userId === item.author.id ? (
             <div className={s.iconBtns}>
               <Button className={s.btn} onClick={() => setIsUpdateModal(true)}>
                 <Edit2Outline className={s.Edit2Outline} />
               </Button>
-              <Button className={s.btn} disabled={!deck.cardsCount}>
+              <Button className={s.btn} disabled={!item.cardsCount}>
                 <PlayCircleOutline
-                  className={`${s.playCircleOutline} ${deck.cardsCount === 0 && s.disabled}`}
+                  className={`${s.playCircleOutline} ${item.cardsCount === 0 && s.disabled}`}
                 />
               </Button>
               <Button className={s.btn} onClick={() => setIsDeleteModal(true)}>
@@ -62,9 +62,9 @@ export const SingleRowDeck = ({ deck }: Props) => {
             </div>
           ) : (
             <div className={s.iconBtns}>
-              <Button className={s.btn} disabled={deck.cardsCount === 0}>
+              <Button className={s.btn} disabled={item.cardsCount === 0}>
                 <PlayCircleOutline
-                  className={`${s.playCircleOutline} ${deck.cardsCount === 0 && s.disabled}`}
+                  className={`${s.playCircleOutline} ${item.cardsCount === 0 && s.disabled}`}
                 />
               </Button>
             </div>

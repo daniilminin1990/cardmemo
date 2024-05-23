@@ -2,37 +2,36 @@ import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import Typography from '@/components/ui/Typography/Typography'
 import { Table } from '@/components/ui/table'
 import { SingleRowCard } from '@/pagesMinin/Tables/CardsTable/SingleRowCard'
-import { headersNameCards } from '@/pagesMinin/utls/variablesMinin'
+import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
+import { headersNameCards, headersNameDecks } from '@/pagesMinin/utls/variablesMinin'
 
 import s from './CardsTable.module.scss'
 
 import { CardsListResponse } from '../../../../services/cards/cards.types'
 
-type UniversalTableDeckMininType = {
+type Props = {
   data?: CardsListResponse
-  handleSort?: (key: string) => void
-  searchParamsOrderBy?: string
+  tableHeader: { key: string; title: string }[]
 }
-export const CardsTable = ({
-  data,
-  handleSort,
-  searchParamsOrderBy,
-}: UniversalTableDeckMininType) => {
+export const CardsTable = ({ data, tableHeader }: Props) => {
+  const { currentOrderBy, setSortByQuery } = useQueryParams()
+  const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
+
   return (
     <Table.Root className={s.tableRoot}>
       <Table.Head>
         <Table.Row>
-          {headersNameCards.map(name => (
+          {header.map(name => (
             <Table.HeadCell
               className={s.tableHeadCellCards}
               key={name.key}
-              onClick={() => handleSort?.(name.key)}
+              onClick={() => setSortByQuery(name.key)}
             >
               <Typography as={'span'} variant={'subtitle2'}>
                 {name.title}
-                {searchParamsOrderBy?.includes(name.key) && (
+                {currentOrderBy.includes(name.key) && (
                   <ArrowIosDownOutline
-                    className={`${s.arrow} ${searchParamsOrderBy?.includes('asc') ? s.rotate : ''}`}
+                    className={`${s.arrow} ${currentOrderBy.includes('asc') ? s.rotate : ''}`}
                   />
                 )}
               </Typography>
@@ -42,17 +41,17 @@ export const CardsTable = ({
         </Table.Row>
       </Table.Head>
       {data && data?.items.length !== 0 ? (
-        data?.items.map(card => {
+        data?.items.map(item => {
           return (
-            <Table.Body key={card.id}>
-              <SingleRowCard card={card} key={card.id} />
+            <Table.Body key={item.id}>
+              <SingleRowCard item={item} key={item.id} />
             </Table.Body>
           )
         })
       ) : (
         <Table.Body>
           <Table.Row>
-            <Table.Cell className={s.empty} colSpan={headersNameCards.length + 1}>
+            <Table.Cell className={s.empty} colSpan={header.length + 1}>
               <Typography as={'span'} variant={'body1'}>
                 No content with these terms...
               </Typography>

@@ -10,7 +10,11 @@ import { ModalAddEditCard } from '@/pagesMinin/ModalsForTable/ModalEditCard/Moda
 import { CardsTable } from '@/pagesMinin/Tables/CardsTable/CardsTable'
 import { Page } from '@/pagesMinin/componentsMinin/Page/Page'
 import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
-import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/utls/variablesMinin'
+import {
+  headersNameCards,
+  initCurrentPage,
+  selectOptionPagination,
+} from '@/pagesMinin/utls/variablesMinin'
 import { clsx } from 'clsx'
 
 import s from './cardsPage.module.scss'
@@ -27,7 +31,6 @@ export const CardsPage = () => {
     setCurrentPageQuery,
     setItemsPerPageQuery,
     setSearchQuery,
-    setSortByQuery,
   } = useQueryParams()
 
   const [open, setOpen] = useState(false)
@@ -51,10 +54,6 @@ export const CardsPage = () => {
   }
   const handleCurrentPageChange = (value: number) => {
     setCurrentPageQuery(value)
-  }
-
-  const handleSort = (key: string) => {
-    setSortByQuery(key)
   }
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -116,7 +115,7 @@ export const CardsPage = () => {
         </div>
       ) : (
         <>
-          <CardsTable data={data} handleSort={handleSort} searchParamsOrderBy={currentOrderBy} />
+          <CardsTable data={data} tableHeader={headersNameCards} />
           <div className={s.footer}>
             <PaginationWithSelect
               currentPage={currentPage}

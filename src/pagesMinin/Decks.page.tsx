@@ -10,7 +10,11 @@ import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
 import { DecksTable } from '@/pagesMinin/Tables/DecksTable/DecksTable'
 import { Page } from '@/pagesMinin/componentsMinin/Page/Page'
 import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
-import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/utls/variablesMinin'
+import {
+  headersNameDecks,
+  initCurrentPage,
+  selectOptionPagination,
+} from '@/pagesMinin/utls/variablesMinin'
 
 import s from '@/pagesMinin/decksPage.module.scss'
 
@@ -26,7 +30,6 @@ export function DecksPage() {
     setCurrentPageQuery,
     setItemsPerPageQuery,
     setSearchQuery,
-    setSortByQuery,
   } = useQueryParams()
 
   const [open, setOpen] = useState(false)
@@ -35,11 +38,6 @@ export function DecksPage() {
     setCurrentPageQuery(Number(initCurrentPage))
     setSearchQuery(e.currentTarget.value)
   }
-  // Сортировка
-  const handleSort = (key: string) => {
-    setSortByQuery(key)
-  }
-  // tabsSwitcher function to changeTabs
   const tabsSwitcherHandler = (value: string) => {
     // От этого, полагаю тоже можно избавиться через searchParams
     setTabsValue(value)
@@ -120,7 +118,7 @@ export function DecksPage() {
           </Button>
         </div>
       </div>
-      <DecksTable data={data} handleSort={handleSort} searchParamsOrderBy={currentOrderBy} />
+      <DecksTable data={data} tableHeader={headersNameDecks} />
       <div className={s.footer}>
         <PaginationWithSelect
           currentPage={currentPage}
