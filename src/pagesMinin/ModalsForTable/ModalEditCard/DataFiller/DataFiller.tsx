@@ -16,12 +16,12 @@ type DataFillerProps = {
   getImageHandler: (img: File | null | undefined) => void
   img: null | string | undefined
   item?: Card
-  name: string
+  label: string
   questionOrAnswer: string | undefined
-  title: string
 }
 export const DataFiller = (props: DataFillerProps) => {
-  const { control, getImageHandler, img, item, name, questionOrAnswer, title } = props
+  const { control, getImageHandler, img, item, label, questionOrAnswer } = props
+  const title = label.charAt(0).toUpperCase() + label.slice(1)
   const initPreview = item ? img ?? null : ''
   const [preview, setPreview] = useState<null | string>(initPreview)
   // const [updateDeck] = useUpdateDeckMutation()
@@ -69,8 +69,8 @@ export const DataFiller = (props: DataFillerProps) => {
       <FormTextfield
         className={s.input}
         control={control}
-        label={item ? `Edit ${name}` : title}
-        name={name}
+        label={item ? `Edit ${label}` : title}
+        name={label}
       />
       {preview && (
         <div className={s.imgWrapper}>

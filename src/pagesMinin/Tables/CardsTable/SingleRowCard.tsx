@@ -20,12 +20,9 @@ export const SingleRowCard = ({ item }: Props) => {
   const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
   const [deleteCard] = useDeleteCardByIdMutation()
 
-  // console.log(card.shots) // Это видимо количество попыток или количество правильных ответов для рейтинга
-
   return (
     <Fragment key={item.id}>
       <ModalAddEditCard item={item} open={open} setOpen={setOpen} />
-      {/*<ModalAddEditDeck item={item} open={isUpdateModal} setOpen={setIsUpdateModal} />*/}
       <Table.Row key={item.id}>
         <Table.Cell>
           <Typography className={s.imgWrapper}>

@@ -33,7 +33,6 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
     question: item ? z.string() : z.string().min(3).max(1000),
   })
   const deckId = useParams().deckId
-  // const [card] = useGetCardByIdQuery({ id: deckId ?? '' })
 
   const [createCard] = useCreateCardMutation()
   const [updateCard] = useUpdateCardMutation()
@@ -45,31 +44,23 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   })
 
   const onSubmit: SubmitHandler<FormValues> = data => {
-    // console.log({ answerImg, data: { ...data }, questionImg })
     if (item) {
-      console.log('update')
-      console.log('answerImg -- ', answerImg)
       updateCard({
         args: {
           answer: data.answer,
-          // answerImg: answerImg || undefined,
           answerImg,
           question: data.question,
-          // questionImg: questionImg || undefined,
           questionImg,
         },
         cardId: item.id,
       })
     } else {
-      console.log('create')
       createCard({
         args: { answer: data.answer, answerImg, question: data.question, questionImg },
         deckId: deckId ?? '',
       })
     }
     setOpen(false)
-    // setQuestionImg(null)
-    // setAnswerImg(null)
     setQuestionImg(undefined)
     setAnswerImg(undefined)
   }
@@ -100,18 +91,16 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
             getImageHandler={getQuestionImgHandler}
             img={item?.questionImg}
             item={item}
-            name={'question'}
+            label={'question'}
             questionOrAnswer={item?.question}
-            title={'Question'}
           />
           <DataFiller
             control={control}
             getImageHandler={getAnswerImgHandler}
             img={item?.answerImg}
             item={item}
-            name={'answer'}
+            label={'answer'}
             questionOrAnswer={item?.answer}
-            title={'Answer'}
           />
         </div>
         <div className={s.footer}>
