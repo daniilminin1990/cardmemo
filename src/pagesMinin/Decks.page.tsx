@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import Input from '@/components/ui/Input/Input'
@@ -27,11 +27,21 @@ export function DecksPage() {
     currentOrderBy,
     currentPage,
     itemsPerPage,
+    minMaxData,
     search,
     setCurrentPageQuery,
     setItemsPerPageQuery,
     setSearchQuery,
+    setSliderValuesQuery,
+    sliderMax,
+    sliderMin,
   } = useQueryParams()
+
+  useEffect(() => {
+    if (minMaxData) {
+      setSliderValues([minMaxData.min, minMaxData.max])
+    }
+  }, [minMaxData])
 
   const [open, setOpen] = useState(false)
   const [tabsValue, setTabsValue] = useState('All decks')
@@ -39,14 +49,16 @@ export function DecksPage() {
   const { data, error, isLoading } = useGetDecksQuery({
     currentPage,
     itemsPerPage,
+    maxCardsCount: sliderMax,
+    minCardsCount: sliderMin,
     name: search,
     orderBy: currentOrderBy,
   })
 
-  const [sliderValue, setSliderValue] = useState([0, 10]) // min 0, max взять с сервера
-
-  const onChangeSliderValue = (value: number[]) => {
-    setSliderValue(value)
+  const sliderValueHandler = (value: number[]) => {
+    setCurrentPageQuery(Number(initCurrentPage))
+    setSliderValues(value)
+    setSliderValuesQuery(value)
   }
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -78,6 +90,8 @@ export function DecksPage() {
   const handleCurrentPageChange = (value: number) => {
     setCurrentPageQuery(value)
   }
+
+  const [sliderValues, setSliderValues] = useState<number[]>()
 
   if (isLoading) {
     return <h1>... Loading</h1>
@@ -122,11 +136,11 @@ export function DecksPage() {
           <div>
             <Slider
               className={s.slider}
-              label={'Пися'}
-              max={40} // С СЕРВЕРА
-              min={0} // Хардкод
-              onValueChange={onChangeSliderValue}
-              value={sliderValue}
+              label={'Number of cards'}
+              max={minMaxData?.max}
+              min={minMaxData?.min}
+              onValueChange={sliderValueHandler}
+              value={sliderValues}
             />
           </div>
           <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>

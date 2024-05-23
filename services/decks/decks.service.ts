@@ -60,6 +60,8 @@ export const decksService = flashCardsAPI.injectEndpoints({
             authorId: args?.authorId || undefined,
             currentPage: args?.currentPage || undefined,
             itemsPerPage: args?.itemsPerPage || undefined,
+            maxCardsCount: args?.maxCardsCount || undefined,
+            minCardsCount: args?.minCardsCount || undefined,
             name: args?.name || undefined,
             orderBy: args?.orderBy || undefined,
           },

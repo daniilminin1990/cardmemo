@@ -2,14 +2,30 @@ import { useSearchParams } from 'react-router-dom'
 
 import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/utls/variablesMinin'
 
+import { useGetMinMaxCardsCountQuery } from '../../../services/decks/decks.service'
+
 export const useQueryParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const itemsPerPage = Number(
     searchParams.get('itemsPerPage') ?? Number(selectOptionPagination[0].value)
   )
+  const { data: minMaxData } = useGetMinMaxCardsCountQuery()
   const currentPage = Number(searchParams.get('currentPage') ?? Number(initCurrentPage))
   const search = searchParams.get('search') ?? ''
   const currentOrderBy = searchParams.get('orderBy') ?? ''
+  const sliderMin = Number(searchParams.get('min') ?? '')
+  const sliderMax = Number(searchParams.get('max') ?? '')
+
+  const setSliderValuesQuery = ([min, max]: number[]) => {
+    min === minMaxData?.min
+      ? searchParams.delete('min')
+      : searchParams.set('min', min?.toString() ?? '')
+    max === minMaxData?.max
+      ? searchParams.delete('max')
+      : searchParams.set('max', max?.toString() ?? '')
+    setSearchParams(searchParams)
+  }
+
   const setSearchQuery = (searchQuery: string) => {
     searchQuery === ''
       ? searchParams.delete('search')
@@ -68,10 +84,37 @@ export const useQueryParams = () => {
     currentOrderBy,
     currentPage,
     itemsPerPage,
+    minMaxData,
     search,
     setCurrentPageQuery,
     setItemsPerPageQuery,
     setSearchQuery,
+    setSliderValuesQuery,
     setSortByQuery,
+    sliderMax,
+    sliderMin,
   }
 }
+
+// export const useSliderQueryParams = (minMaxData: MinMaxArgs | undefined) => {
+//   const [searchParams, setSearchParams] = useSearchParams()
+//
+//   const sliderMin = Number(searchParams.get('min') ?? '')
+//   const sliderMax = Number(searchParams.get('max') ?? '')
+//
+//   const setSliderValuesQuery = ([min, max]: number[]) => {
+//     min === minMaxData?.min
+//       ? searchParams.delete('min')
+//       : searchParams.set('min', min?.toString() ?? '')
+//     max === minMaxData?.max
+//       ? searchParams.delete('max')
+//       : searchParams.set('max', max?.toString() ?? '')
+//     setSearchParams(searchParams)
+//   }
+//
+//   return {
+//     setSliderValuesQuery,
+//     sliderMax,
+//     sliderMin,
+//   }
+// }
