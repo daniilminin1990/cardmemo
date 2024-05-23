@@ -40,3 +40,7 @@ export interface CardsListResponse {
   items: Card[]
   pagination: Pagination
 }
+
+export type UpdateCard = CreateCard
+
+export type DeleteCardArgs = { id: string }
