@@ -33,7 +33,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const [checked, setChecked] = useState(false)
   const [updateDeck] = useUpdateDeckMutation()
   const [createDeck] = useCreateDeckMutation()
-  const [cover, setCover] = useState<File | null>(null)
+  const [cover, setCover] = useState<File | null | undefined>(undefined)
   const initPreview = item ? item.cover ?? null : ''
   const [preview, setPreview] = useState<null | string>(initPreview)
   const refInputImg = useRef<HTMLInputElement>(null)
@@ -42,11 +42,11 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
     resolver: zodResolver(schema),
   })
 
-  // useEffect(() => {
-  //   if (item?.cover) {
-  //     setPreview(item?.cover)
-  //   }
-  // }, [item?.cover])
+  useEffect(() => {
+    if (item?.cover) {
+      setPreview(item?.cover)
+    }
+  }, [item?.cover])
 
   // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
   useEffect(() => {
@@ -68,15 +68,18 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
     setOpen(false)
   }
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('e.target.files', e.target.files)
+    // console.log('e.target.files', e.target.files)
     // if (e.target.files !== null && e.target.files.length > 0) {
     //   setPreview(URL.createObjectURL(e.target.files[0]))
     // }
-    setCover(e.target.files?.[0] ?? null)
+    setCover(e.target.files?.[0] ?? undefined)
+    e.target.value = ''
   }
   const onSubmit: SubmitHandler<FormValues> = data => {
     item ? updateDeck({ ...data, cover, id: item.id }) : createDeck({ ...data, cover })
     setOpen(false)
+    setCover(undefined)
+    // setPreview(null)
   }
   const hanldeSubmitImg = () => {
     refInputImg?.current?.click()

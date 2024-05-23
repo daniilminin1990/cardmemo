@@ -25,8 +25,9 @@ type ModalAddEditProps = {
 
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
-  const [answerImg, setAnswerImg] = useState<File | null>(null)
-  const [questionImg, setQuestionImg] = useState<File | null>(null)
+  const [answerImg, setAnswerImg] = useState<File | null | undefined>(undefined)
+  const [questionImg, setQuestionImg] = useState<File | null | undefined>(undefined)
+
   const schema = z.object({
     answer: item ? z.string() : z.string().min(3).max(1000),
     question: item ? z.string() : z.string().min(3).max(1000),
@@ -47,11 +48,14 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
     // console.log({ answerImg, data: { ...data }, questionImg })
     if (item) {
       console.log('update')
+      console.log('answerImg -- ', answerImg)
       updateCard({
         args: {
           answer: data.answer,
+          // answerImg: answerImg || undefined,
           answerImg,
           question: data.question,
+          // questionImg: questionImg || undefined,
           questionImg,
         },
         cardId: item.id,
@@ -64,11 +68,14 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
       })
     }
     setOpen(false)
-    setQuestionImg(null)
-    setAnswerImg(null)
+    // setQuestionImg(null)
+    // setAnswerImg(null)
+    setQuestionImg(undefined)
+    setAnswerImg(undefined)
   }
 
   const getQuestionImgHandler = (img: File | null) => {
+    console.log(img)
     setQuestionImg(img)
   }
   const getAnswerImgHandler = (img: File | null) => {

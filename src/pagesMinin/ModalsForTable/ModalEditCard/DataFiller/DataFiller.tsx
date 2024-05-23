@@ -13,7 +13,7 @@ import { Card } from '../../../../../services/cards/cards.types'
 
 type DataFillerProps = {
   control: Control<any, any>
-  getImageHandler: (img: File | null) => void
+  getImageHandler: (img: File | null | undefined) => void
   img: null | string | undefined
   item?: Card
   name: string
@@ -25,9 +25,14 @@ export const DataFiller = (props: DataFillerProps) => {
   const initPreview = item ? img ?? null : ''
   const [preview, setPreview] = useState<null | string>(initPreview)
   // const [updateDeck] = useUpdateDeckMutation()
-  const [cover, setCover] = useState<File | null>(null)
+  const [cover, setCover] = useState<File | null | undefined>(undefined)
   const refInputImg = useRef<HTMLInputElement>(null)
 
+  useEffect(() => {
+    if (img) {
+      setPreview(img)
+    }
+  }, [img])
   // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
   useEffect(() => {
     if (cover) {
@@ -43,12 +48,15 @@ export const DataFiller = (props: DataFillerProps) => {
     }
   }, [cover])
 
+  console.log(cover)
+
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
-    // if (e.target.files !== null && e.target.files.length > 0) {
-    //   setPreview(URL.createObjectURL(e.target.files[0]))
-    // }
-    setCover(e.target.files?.[0] ?? null)
-    getImageHandler(e.target.files?.[0] ?? null)
+    if (e.target.files !== null && e.target.files.length > 0) {
+      setPreview(URL.createObjectURL(e.target.files[0]))
+    }
+    setCover(e.target.files?.[0] ?? undefined)
+    // getImageHandler(e.target.files?.[0] ?? null)
+    getImageHandler(e.target.files?.[0] ?? undefined)
     e.target.value = ''
   }
   const hanldeSubmitImg = () => {
