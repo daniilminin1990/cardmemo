@@ -13,7 +13,7 @@ export const decksService = flashCardsAPI.injectEndpoints({
   endpoints: builder => {
     return {
       createDeck: builder.mutation<Deck, CreateDeckArgs>({
-        invalidatesTags: ['Deck'],
+        invalidatesTags: ['Decks'],
         query: ({ cover, isPrivate, name }) => {
           const formData = new FormData()
 
@@ -37,7 +37,7 @@ export const decksService = flashCardsAPI.injectEndpoints({
         },
       }),
       deleteDeck: builder.mutation<void, DeleteDeckArgs>({
-        invalidatesTags: ['Deck'],
+        invalidatesTags: ['Decks'],
         query: ({ id, ...args }) => ({
           body: args,
           method: 'DELETE',
@@ -52,7 +52,7 @@ export const decksService = flashCardsAPI.injectEndpoints({
         }),
       }),
       getDecks: builder.query<DecksListResponse, GetDecksArgs | void>({
-        providesTags: ['Deck'],
+        providesTags: ['Decks'],
         query: args => ({
           method: 'GET',
           params: {
@@ -75,7 +75,7 @@ export const decksService = flashCardsAPI.injectEndpoints({
         }),
       }),
       updateDeck: builder.mutation<Deck, UpdateDeckArgs>({
-        invalidatesTags: ['Deck'],
+        invalidatesTags: ['Decks'],
         query: ({ cover, id, isPrivate, name }) => {
           const formData = new FormData()
 

@@ -13,7 +13,7 @@ export const cardsService = flashCardsAPI.injectEndpoints({
     return {
       createCard: builder.mutation<Card, { args: CreateCardArgs; deckId: string }>({
         // this is deckId
-        invalidatesTags: ['Card'],
+        invalidatesTags: ['Deck', 'Cards'],
         query: ({ args, deckId }) => {
           const formData = new FormData()
           const { answer, answerImg, question, questionImg } = args
@@ -43,7 +43,7 @@ export const cardsService = flashCardsAPI.injectEndpoints({
         },
       }),
       deleteCardById: builder.mutation<void, DeleteCardArgs>({
-        invalidatesTags: ['Card'],
+        invalidatesTags: ['Deck', 'Cards'],
         query: ({ id }) => ({
           body: { id },
           method: 'DELETE',
@@ -51,14 +51,14 @@ export const cardsService = flashCardsAPI.injectEndpoints({
         }),
       }),
       getCardById: builder.query<Card, { id: string }>({
-        providesTags: ['Card'],
+        providesTags: ['Cards'],
         query: ({ id }) => ({
           method: 'GET',
           url: `v1/cards/${id}`,
         }),
       }),
       getCards: builder.query<CardsListResponse, { args: GetCardsArgs; id: string }>({
-        providesTags: ['Card'],
+        providesTags: ['Cards'],
         query: ({ args, id }) => ({
           method: 'GET',
           params: {
@@ -74,7 +74,7 @@ export const cardsService = flashCardsAPI.injectEndpoints({
       }),
       updateCard: builder.mutation<Card, { args: UpdateCardArgs; cardId: string }>({
         // this is cardId
-        invalidatesTags: ['Card'],
+        invalidatesTags: ['Cards'],
         query: ({ args, cardId }) => {
           const formData = new FormData()
           const { answer, answerImg, question, questionImg } = args

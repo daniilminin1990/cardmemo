@@ -9,5 +9,5 @@ export const flashCardsAPI = createApi({
     },
   }),
   endpoints: () => ({}),
-  tagTypes: ['Deck', 'Card'],
+  tagTypes: ['Decks', 'Deck', 'Cards'],
 })
