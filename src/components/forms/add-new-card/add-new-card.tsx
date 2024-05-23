@@ -85,11 +85,6 @@ export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
 
     onSubmit(form)
 
-    //for test
-    for (const pair of form.entries()) {
-      console.log(pair[0] + ': ' + pair[1])
-    }
-
     setOpenModal(false)
   }
 
