@@ -23,8 +23,6 @@ type Props = {
   setOpenModal: (open: boolean) => void
 }
 
-type name = 'coverPack' | 'isPrivatePack' | 'packName'
-
 export const AddNewPack = ({ defaultValues, onSubmit, setOpenModal }: Props) => {
   const values: AddNewPackFormType = {
     isPrivatePack: defaultValues?.isPrivatePack || false,
@@ -39,8 +37,8 @@ export const AddNewPack = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
     deleteCoverHandler: packDeleteCoverHandler,
     downloaded: packDownloaded,
     extraActions: packExtraActions,
-  } = useUploadImg<name>({
-    defaultValues,
+  } = useUploadImg<AddNewPackFormType>({
+    defaultCover: defaultValues?.cover,
     getFieldState,
     name: 'coverPack',
     resetField,
