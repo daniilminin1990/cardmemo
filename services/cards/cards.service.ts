@@ -5,15 +5,16 @@ import {
   CreateCardArgs,
   DeleteCardArgs,
   GetCardsArgs,
-  UpdateCard,
+  UpdateCardArgs,
 } from './cards.types'
 
 export const cardsService = flashCardsAPI.injectEndpoints({
   endpoints: builder => {
     return {
-      createCard: builder.mutation<Card, { args: CreateCardArgs; id: string }>({
+      createCard: builder.mutation<Card, { args: CreateCardArgs; deckId: string }>({
+        // this is deckId
         invalidatesTags: ['Card'],
-        query: ({ args, id }) => {
+        query: ({ args, deckId }) => {
           const formData = new FormData()
           const { answer, answerImg, question, questionImg } = args
 
@@ -37,14 +38,14 @@ export const cardsService = flashCardsAPI.injectEndpoints({
           return {
             body: formData,
             method: 'POST',
-            url: `v1/decks/${id}/cards`,
+            url: `v1/decks/${deckId}/cards`,
           }
         },
       }),
       deleteCardById: builder.mutation<void, DeleteCardArgs>({
-        invalidatesTags: ['Deck'],
-        query: ({ id, ...args }) => ({
-          body: args,
+        invalidatesTags: ['Card'],
+        query: ({ id }) => ({
+          body: { id },
           method: 'DELETE',
           url: `v1/cards/${id}`,
         }),
@@ -71,9 +72,10 @@ export const cardsService = flashCardsAPI.injectEndpoints({
           url: `v1/decks/${id}/cards`,
         }),
       }),
-      updateCard: builder.mutation<Card, { args: UpdateCard; id: string }>({
+      updateCard: builder.mutation<Card, { args: UpdateCardArgs; cardId: string }>({
+        // this is cardId
         invalidatesTags: ['Card'],
-        query: ({ args, id }) => {
+        query: ({ args, cardId }) => {
           const formData = new FormData()
           const { answer, answerImg, question, questionImg } = args
 
@@ -96,8 +98,8 @@ export const cardsService = flashCardsAPI.injectEndpoints({
 
           return {
             body: formData,
-            method: 'POST',
-            url: `v1/cards/${id}`,
+            method: 'PATCH',
+            url: `v1/cards/${cardId}`,
           }
         },
       }),

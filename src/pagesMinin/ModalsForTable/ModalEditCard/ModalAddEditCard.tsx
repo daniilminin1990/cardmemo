@@ -11,7 +11,10 @@ import { z } from 'zod'
 
 import s from './modalEditCardMinin.module.scss'
 
-import { useCreateCardMutation } from '../../../../services/cards/cards.service'
+import {
+  useCreateCardMutation,
+  useUpdateCardMutation,
+} from '../../../../services/cards/cards.service'
 import { Card } from '../../../../services/cards/cards.types'
 
 type ModalAddEditProps = {
@@ -29,8 +32,10 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
     question: item ? z.string() : z.string().min(3).max(1000),
   })
   const deckId = useParams().deckId
+  // const [card] = useGetCardByIdQuery({ id: deckId ?? '' })
 
   const [createCard] = useCreateCardMutation()
+  const [updateCard] = useUpdateCardMutation()
 
   type FormValues = z.infer<typeof schema>
   const { control, handleSubmit } = useForm<FormValues>({
@@ -39,12 +44,25 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   })
 
   const onSubmit: SubmitHandler<FormValues> = data => {
-    // item && updateCard({ ...data, coverQuestion, id: item.id })
-    console.log({ answerImg, data: { ...data }, questionImg })
-    createCard({
-      args: { answer: data.answer, answerImg, question: data.question, questionImg },
-      id: deckId ?? '',
-    })
+    // console.log({ answerImg, data: { ...data }, questionImg })
+    if (item) {
+      console.log('update')
+      updateCard({
+        args: {
+          answer: data.answer,
+          answerImg,
+          question: data.question,
+          questionImg,
+        },
+        cardId: item.id,
+      })
+    } else {
+      console.log('create')
+      createCard({
+        args: { answer: data.answer, answerImg, question: data.question, questionImg },
+        deckId: deckId ?? '',
+      })
+    }
     setOpen(false)
     setQuestionImg(null)
     setAnswerImg(null)

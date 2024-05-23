@@ -41,6 +41,6 @@ export interface CardsListResponse {
   pagination: Pagination
 }
 
-export type UpdateCard = CreateCard
+export type UpdateCardArgs = Partial<CreateCardArgs>
 
 export type DeleteCardArgs = { id: string }
