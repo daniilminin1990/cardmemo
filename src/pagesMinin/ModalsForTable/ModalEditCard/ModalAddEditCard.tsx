@@ -74,11 +74,11 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
     setAnswerImg(undefined)
   }
 
-  const getQuestionImgHandler = (img: File | null) => {
+  const getQuestionImgHandler = (img: File | null | undefined) => {
     console.log(img)
     setQuestionImg(img)
   }
-  const getAnswerImgHandler = (img: File | null) => {
+  const getAnswerImgHandler = (img: File | null | undefined) => {
     setAnswerImg(img)
   }
 
