@@ -43,7 +43,7 @@ export const cardsService = flashCardsAPI.injectEndpoints({
         },
       }),
       deleteCardById: builder.mutation<void, DeleteCardArgs>({
-        invalidatesTags: ['Deck', 'Cards'],
+        invalidatesTags: ['Cards'],
         query: ({ id }) => ({
           body: { id },
           method: 'DELETE',

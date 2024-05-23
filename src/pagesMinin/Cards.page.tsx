@@ -83,7 +83,9 @@ export const CardsPage = () => {
               ОНА ЧУЖАЯ, БРО {deck?.name}
               {/*  Тут нужно будет добавить проверку на МОИ cards или не мои  И МОИ -- ДОБАВИТЬ DropDown*/}
             </Typography>
-            {isCardsCountFilled && <img alt={'img'} src={deck?.cover} width={'200px'} />}
+            {isCardsCountFilled && deck?.cover && (
+              <img alt={'img'} src={deck?.cover} width={'200px'} />
+            )}
           </div>
           {isCardsCountFilled && (
             <div className={s.switchButton}>
