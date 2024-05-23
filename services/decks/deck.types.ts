@@ -50,3 +50,5 @@ export interface GetDeckById {
 export type UpdateDeckArgs = { id: string } & Partial<CreateDeckArgs>
 
 export type DeleteDeckArgs = { id: string }
+
+export type MinMaxArgs = { max: number; min: number }

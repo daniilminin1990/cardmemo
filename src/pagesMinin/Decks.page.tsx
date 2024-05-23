@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from 'react'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import Input from '@/components/ui/Input/Input'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
+import Slider from '@/components/ui/Slider/Slider'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
@@ -34,6 +35,20 @@ export function DecksPage() {
 
   const [open, setOpen] = useState(false)
   const [tabsValue, setTabsValue] = useState('All decks')
+
+  const { data, error, isLoading } = useGetDecksQuery({
+    currentPage,
+    itemsPerPage,
+    name: search,
+    orderBy: currentOrderBy,
+  })
+
+  const [sliderValue, setSliderValue] = useState([0, 10]) // min 0, max взять с сервера
+
+  const onChangeSliderValue = (value: number[]) => {
+    setSliderValue(value)
+  }
+
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setSearchQuery(e.currentTarget.value)
@@ -55,13 +70,6 @@ export function DecksPage() {
   const onClearFilter = () => {
     clearQuery()
   }
-
-  const { data, error, isLoading } = useGetDecksQuery({
-    currentPage,
-    itemsPerPage,
-    name: search,
-    orderBy: currentOrderBy,
-  })
 
   const handleItemsPerPageChange = (value: number) => {
     setCurrentPageQuery(Number(initCurrentPage))
@@ -111,7 +119,16 @@ export function DecksPage() {
             ]}
             value={tabsValue}
           />
-          <div>Slider</div>
+          <div>
+            <Slider
+              className={s.slider}
+              label={'Пися'}
+              max={40} // С СЕРВЕРА
+              min={0} // Хардкод
+              onValueChange={onChangeSliderValue}
+              value={sliderValue}
+            />
+          </div>
           <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
             <TrashOutline />
             <Typography variant={'subtitle2'}>Clear Filter</Typography>

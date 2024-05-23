@@ -5,6 +5,7 @@ import {
   DecksListResponse,
   DeleteDeckArgs,
   GetDecksArgs,
+  MinMaxArgs,
   UpdateDeckArgs,
 } from './deck.types'
 
@@ -65,6 +66,12 @@ export const decksService = flashCardsAPI.injectEndpoints({
           url: 'v2/decks',
         }),
       }),
+      getMinMaxCardsCount: builder.query<MinMaxArgs, void>({
+        query: () => ({
+          method: 'GET',
+          url: '/v2/decks/min-max-cards',
+        }),
+      }),
       updateDeck: builder.mutation<Deck, UpdateDeckArgs>({
         invalidatesTags: ['Deck'],
         query: ({ cover, id, isPrivate, name }) => {
@@ -98,5 +105,6 @@ export const {
   useDeleteDeckMutation,
   useGetDeckByIdQuery,
   useGetDecksQuery,
+  useGetMinMaxCardsCountQuery,
   useUpdateDeckMutation,
 } = decksService
