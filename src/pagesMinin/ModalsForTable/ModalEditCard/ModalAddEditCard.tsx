@@ -29,8 +29,8 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const [questionImg, setQuestionImg] = useState<File | null | undefined>(undefined)
 
   const schema = z.object({
-    answer: item ? z.string() : z.string().min(3).max(1000),
-    question: item ? z.string() : z.string().min(3).max(1000),
+    answer: item ? z.string() : z.string().min(3).max(500),
+    question: item ? z.string() : z.string().min(3).max(500),
   })
   const deckId = useParams().deckId
 
