@@ -7,7 +7,8 @@ import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithS
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { ModalAddEditCard } from '@/pagesMinin/ModalsForTable/ModalEditCard/ModalAddEditCard'
-import { CardsTable } from '@/pagesMinin/Tables/CardsTable/CardsTable'
+import { SingleRowCard } from '@/pagesMinin/Tables/CardsTable/SingleRowCard'
+import { TableComponent } from '@/pagesMinin/Tables/TableComponent'
 import { Page } from '@/pagesMinin/componentsMinin/Page/Page'
 import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
 import {
@@ -117,7 +118,10 @@ export const CardsPage = () => {
         </div>
       ) : (
         <>
-          <CardsTable data={data} tableHeader={headersNameCards} />
+          {/*<CardsTable data={data} tableHeader={headersNameCards} />*/}
+          <TableComponent data={data} tableHeader={headersNameCards}>
+            {item => <SingleRowCard item={item} />}
+          </TableComponent>
           <div className={s.footer}>
             <PaginationWithSelect
               currentPage={currentPage}

@@ -8,7 +8,8 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
-import { DecksTable } from '@/pagesMinin/Tables/DecksTable/DecksTable'
+import { SingleRowDeck } from '@/pagesMinin/Tables/DecksTable/SingleRowDeck'
+import { TableComponent } from '@/pagesMinin/Tables/TableComponent'
 import { Page } from '@/pagesMinin/componentsMinin/Page/Page'
 import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
 import {
@@ -149,7 +150,11 @@ export function DecksPage() {
           </Button>
         </div>
       </div>
-      <DecksTable data={data} tableHeader={headersNameDecks} />
+      {/*<DecksTable data={data} tableHeader={headersNameDecks} />*/}
+      <TableComponent data={data} tableHeader={headersNameDecks}>
+        {/*// передаем функцию, которая принимает item и возвращает SingleRowDeck или SingleRowCard*/}
+        {item => <SingleRowDeck item={item} />}
+      </TableComponent>
       <div className={s.footer}>
         <PaginationWithSelect
           currentPage={currentPage}
