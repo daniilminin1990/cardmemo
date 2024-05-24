@@ -7,6 +7,7 @@ export function App() {
   return (
     <Layout isAuth>
       <RouterProvider router={router} />
+      {/*<Router />*/}
     </Layout>
   )
 }

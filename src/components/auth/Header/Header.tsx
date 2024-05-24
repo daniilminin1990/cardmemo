@@ -11,13 +11,13 @@ import style from './Header.module.scss'
 import logo from '../../../assets/img/Logo.png'
 
 type HeaderProps = {
-  isAuth: boolean
+  isAuth?: boolean
 }
 const Header = ({ isAuth }: HeaderProps) => {
   return (
     <div className={style.box}>
       <div className={style.boxImg}>
-        <Typography as={'a'} href={'/'}>
+        <Typography as={'a'} href={'/'} variant={'body2'}>
           <img alt={'logo'} className={style.img} src={logo} />
         </Typography>
       </div>

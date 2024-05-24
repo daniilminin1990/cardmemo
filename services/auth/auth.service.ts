@@ -5,6 +5,17 @@ export const authService = flashCardsAPI.injectEndpoints({
   endpoints: builder => {
     return {
       login: builder.mutation<LoginResponse, LoginArgs>({
+        // invalidatesTags: ['Me'],
+        async onQueryStarted(_, { queryFulfilled }) {
+          const { data } = await queryFulfilled
+
+          if (!data) {
+            return
+          }
+
+          localStorage.setItem('accessToken', data.accessToken)
+          localStorage.setItem('refreshToken', data.refreshToken)
+        },
         query: data => ({
           body: data,
           method: 'POST',
@@ -12,6 +23,7 @@ export const authService = flashCardsAPI.injectEndpoints({
         }),
       }),
       me: builder.query<MeResponse, void>({
+        providesTags: ['Me'],
         query: () => ({
           method: 'GET',
           url: `v1/auth/me`,

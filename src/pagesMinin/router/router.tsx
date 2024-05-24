@@ -4,18 +4,19 @@ import { CardsPage } from '@/pagesMinin/Cards.page'
 import { DecksPage } from '@/pagesMinin/Decks.page'
 import { LearnPage } from '@/pagesMinin/Learn.page'
 import { SignInPage } from '@/pagesMinin/SignIn.page'
-import { TestDecks } from '@/pagesMinin/Test/TestDecks'
+
+import { useMeQuery } from '../../../services/auth/auth.service'
 
 const privateRoutes: RouteObject[] = [
   {
     children: [
       {
-        element: <DecksPage />,
+        element: <Navigate to={'/decks'} />,
         path: '/',
       },
       {
-        element: <TestDecks />,
-        path: '/cards',
+        element: <DecksPage />,
+        path: '/decks',
       },
       {
         element: <CardsPage />,
@@ -38,9 +39,10 @@ const publicRoutes: RouteObject[] = [
 ]
 
 function PrivateRoutes() {
-  const isAuthenticated = true
+  const { data } = useMeQuery()
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
+  // return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
+  return data ? <Outlet /> : <Navigate to={'/login'} />
 }
 
 // function Login() {
@@ -58,7 +60,7 @@ export const router = createBrowserRouter([
 // export function Router() {
 //   return <RouterProvider router={router} />
 // }
-
+//
 // const privateRoutes: RouteObject[] = [
 //   {
 //     children: [
