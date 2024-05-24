@@ -1,11 +1,11 @@
 import { StrictMode } from 'react'
 import { Provider } from 'react-redux'
 
-import { App } from '@/App'
-import { store } from '@/services/store'
+import { store } from '@/app/model/store'
+import { App } from '@/app/ui/app'
 import { createRoot } from 'react-dom/client'
 
-import './styles/index.scss'
+import './common/styles/index.scss'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'
 
