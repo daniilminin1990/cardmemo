@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import Input from '@/components/ui/Input/Input'
@@ -11,7 +11,7 @@ import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
 import { SingleRowDeck } from '@/pagesMinin/TableComponent/SingleRowDeck/SingleRowDeck'
 import { TableComponentWithTypes } from '@/pagesMinin/TableComponent/TableComponentWithTypes'
 import { Page } from '@/pagesMinin/componentsMinin/Page/Page'
-import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
+import { useQueryParams, useSliderQueryParams } from '@/pagesMinin/utls/useQueryParams'
 import {
   headersNameDecks,
   initCurrentPage,
@@ -27,16 +27,32 @@ export function DecksPage() {
     clearQuery,
     currentOrderBy,
     currentPage,
+    // isMinMaxLoading,
     itemsPerPage,
-    minMaxData,
+    // minMaxData,
     search,
     setCurrentPageQuery,
     setItemsPerPageQuery,
     setSearchQuery,
+    // setSliderValues,
+    // setSliderValuesQuery,
+    // sliderMax,
+    // sliderMin,
+    // sliderValues,
+  } = useQueryParams()
+
+  const {
+    isMinMaxLoading,
+    minMaxData,
+    setSliderValues,
     setSliderValuesQuery,
     sliderMax,
     sliderMin,
-  } = useQueryParams()
+    sliderValues,
+  } = useSliderQueryParams()
+
+  // const { data: minMaxData, isLoading: isMinMaxLoading } = useGetMinMaxCardsCountQuery()
+  // const { setSliderValuesQuery, sliderMax, sliderMin } = useSliderQueryParams(minMaxData)
 
   const [open, setOpen] = useState(false)
   const [tabsValue, setTabsValue] = useState('All decks')
@@ -89,15 +105,7 @@ export function DecksPage() {
     setCurrentPageQuery(value)
   }
 
-  const [sliderValues, setSliderValues] = useState<number[]>()
-
-  useEffect(() => {
-    if (minMaxData) {
-      setSliderValues([minMaxData.min, minMaxData.max])
-    }
-  }, [minMaxData])
-
-  if (isLoading) {
+  if (isLoading || isMinMaxLoading) {
     return <h1>... Loading</h1>
   }
 

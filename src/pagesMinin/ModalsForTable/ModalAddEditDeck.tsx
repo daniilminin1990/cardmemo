@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
 import Input from '@/components/ui/Input/Input'
@@ -27,10 +27,11 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const schema = z.object({
     isPrivate: z.boolean(),
     name: item ? z.string() : z.string().min(3).max(1000),
+    rememberMe: z.boolean().optional(),
   })
 
   type FormValues = z.infer<typeof schema>
-  const [checked, setChecked] = useState(false)
+  // const [checked, setChecked] = useState(false)
   const [updateDeck] = useUpdateDeckMutation()
   const [createDeck] = useCreateDeckMutation()
   const [cover, setCover] = useState<File | null | undefined>(undefined)
@@ -38,7 +39,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const [preview, setPreview] = useState<null | string>(initPreview)
   const refInputImg = useRef<HTMLInputElement>(null)
   const { control, handleSubmit } = useForm<FormValues>({
-    defaultValues: { isPrivate: false, name: '' },
+    defaultValues: { isPrivate: false, name: '', rememberMe: true },
     resolver: zodResolver(schema),
   })
 
@@ -133,10 +134,18 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
               />
             </Button>
           </div>
-          <Checkbox
-            checked={checked}
-            label={'Private pack'}
-            onCheckedChange={() => setChecked(!checked)}
+          {/*<Checkbox*/}
+          {/*  checked={checked}*/}
+          {/*  label={'Private pack'}*/}
+          {/*  onCheckedChange={() => setChecked(!checked)}*/}
+          {/*/>*/}
+          <Controller
+            control={control}
+            defaultValue={false}
+            name={'rememberMe'}
+            render={({ field: { onChange, value } }) => (
+              <Checkbox checked={value} label={'RememberMe'} onCheckedChange={onChange} />
+            )}
           />
         </div>
         <div className={s.footer}>
