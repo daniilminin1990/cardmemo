@@ -22,9 +22,9 @@ type Props<T extends CardsListResponse | DecksListResponse> = {
   data?: T
   tableHeader: { key: string; title: string }[]
 }
-// Получается что TableComponent похож немного на полиморфную компоненту, только с 2 типами
+// Получается что TableComponentWithTypes похож немного на полиморфную компоненту, только с 2 типами
 // для CardsListResponse или для DecksListResponse
-export const TableComponent = <T extends CardsListResponse | DecksListResponse>({
+export const TableComponentWithTypes = <T extends CardsListResponse | DecksListResponse>({
   children,
   data,
   tableHeader,

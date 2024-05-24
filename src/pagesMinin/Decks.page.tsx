@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
 import { SingleRowDeck } from '@/pagesMinin/TableComponent/SingleRowDeck/SingleRowDeck'
-import { TableComponent } from '@/pagesMinin/TableComponent/TableComponent'
+import { TableComponentWithTypes } from '@/pagesMinin/TableComponent/TableComponentWithTypes'
 import { Page } from '@/pagesMinin/componentsMinin/Page/Page'
 import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
 import {
@@ -38,23 +38,20 @@ export function DecksPage() {
     sliderMin,
   } = useQueryParams()
 
-  useEffect(() => {
-    if (minMaxData) {
-      setSliderValues([minMaxData.min, minMaxData.max])
-    }
-  }, [minMaxData])
-
   const [open, setOpen] = useState(false)
   const [tabsValue, setTabsValue] = useState('All decks')
 
-  const { data, error, isLoading } = useGetDecksQuery({
-    currentPage,
-    itemsPerPage,
-    maxCardsCount: sliderMax,
-    minCardsCount: sliderMin,
-    name: search,
-    orderBy: currentOrderBy,
-  })
+  const { data, error, isLoading } = useGetDecksQuery(
+    {
+      currentPage,
+      itemsPerPage,
+      maxCardsCount: sliderMax,
+      minCardsCount: sliderMin,
+      name: search,
+      orderBy: currentOrderBy,
+    },
+    { skip: !minMaxData }
+  )
 
   const sliderValueHandler = (value: number[]) => {
     setCurrentPageQuery(Number(initCurrentPage))
@@ -93,6 +90,12 @@ export function DecksPage() {
   }
 
   const [sliderValues, setSliderValues] = useState<number[]>()
+
+  useEffect(() => {
+    if (minMaxData) {
+      setSliderValues([minMaxData.min, minMaxData.max])
+    }
+  }, [minMaxData])
 
   if (isLoading) {
     return <h1>... Loading</h1>
@@ -151,10 +154,10 @@ export function DecksPage() {
         </div>
       </div>
       {/*<SingleRowDeck data={data} tableHeader={headersNameDecks} />*/}
-      <TableComponent data={data} tableHeader={headersNameDecks}>
+      <TableComponentWithTypes data={data} tableHeader={headersNameDecks}>
         {/*// передаем функцию, которая принимает item и возвращает SingleRowDeck или SingleRowCard*/}
         {item => <SingleRowDeck item={item} />}
-      </TableComponent>
+      </TableComponentWithTypes>
       <div className={s.footer}>
         <PaginationWithSelect
           currentPage={currentPage}
