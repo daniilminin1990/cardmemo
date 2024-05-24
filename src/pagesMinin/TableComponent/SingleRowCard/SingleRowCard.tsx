@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
 import { ModalAddEditCard } from '@/pagesMinin/ModalsForTable/ModalEditCard/ModalAddEditCard'
 
-import s from '@/pagesMinin/Tables/tableSingleRow.module.scss'
+import s from '@/pagesMinin/TableComponent/tableSingleRow.module.scss'
 
 import { useDeleteCardByIdMutation } from '../../../../services/cards/cards.service'
 import { Card } from '../../../../services/cards/cards.types'

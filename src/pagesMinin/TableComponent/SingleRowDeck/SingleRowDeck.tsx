@@ -10,7 +10,7 @@ import { Table } from '@/components/ui/table'
 import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
 import { ModalDeleteDeckMinin } from '@/pagesMinin/ModalsForTable/ModalDeleteDeckMinin'
 
-import s from '@/pagesMinin/Tables/tableSingleRow.module.scss'
+import s from '@/pagesMinin/TableComponent/tableSingleRow.module.scss'
 
 import { Deck } from '../../../../services/decks/deck.types'
 

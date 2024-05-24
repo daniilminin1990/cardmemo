@@ -1,7 +1,7 @@
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import Typography from '@/components/ui/Typography/Typography'
 import { Table } from '@/components/ui/table'
-import { SingleRowDeck } from '@/pagesMinin/Tables/DecksTable/SingleRowDeck'
+import { SingleRowDeck } from '@/pagesMinin/TableComponent/SingleRowDeck/SingleRowDeck'
 import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
 import { headersNameCards, headersNameDecks } from '@/pagesMinin/utls/variablesMinin'
 
