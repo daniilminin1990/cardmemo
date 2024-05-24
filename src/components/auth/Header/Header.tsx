@@ -3,6 +3,7 @@ import headerIcon1 from '@/assets/icons/WhiteSVG/Layer 2.svg'
 import headerIcon from '@/assets/icons/WhiteSVG/person-outline.svg'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
+import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 
 import style from './Header.module.scss'
@@ -16,7 +17,9 @@ const Header = ({ isAuth }: HeaderProps) => {
   return (
     <div className={style.box}>
       <div className={style.boxImg}>
-        <img alt={'logo'} className={style.img} src={logo} />
+        <Typography as={'a'} href={'/'}>
+          <img alt={'logo'} className={style.img} src={logo} />
+        </Typography>
       </div>
       {isAuth ? (
         <div className={style.dropDown}>

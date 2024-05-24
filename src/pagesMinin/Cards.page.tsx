@@ -90,8 +90,19 @@ export const CardsPage = () => {
           </div>
           {isCardsCountFilled && (
             <div className={s.switchButton}>
+              {/*  Кнопка для добавления должна появляться если это мои Cards*/}
               <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
                 <Typography variant={'subtitle2'}>Add New Card</Typography>
+              </Button>
+              {/*  Кнопка для изучения должна появляться если это чужие Cards*/}
+              <Button
+                as={Link}
+                className={s.learnCards}
+                onClick={() => setOpen(true)}
+                to={`/decks/${deckId}/card`}
+                type={'button'}
+              >
+                <Typography variant={'subtitle2'}>Learn Cards</Typography>
               </Button>
             </div>
           )}

@@ -2,6 +2,7 @@ import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router
 
 import { CardsPage } from '@/pagesMinin/Cards.page'
 import { DecksPage } from '@/pagesMinin/Decks.page'
+import { LearnPage } from '@/pagesMinin/Learn.page'
 import { TestDecks } from '@/pagesMinin/Test/TestDecks'
 
 const privateRoutes: RouteObject[] = [
@@ -18,6 +19,10 @@ const privateRoutes: RouteObject[] = [
       {
         element: <CardsPage />,
         path: '/decks/:deckId',
+      },
+      {
+        element: <LearnPage />,
+        path: '/decks/:deckId/card',
       },
     ],
     element: <Outlet />,
