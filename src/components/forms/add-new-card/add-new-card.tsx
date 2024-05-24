@@ -21,8 +21,6 @@ type Props = {
   setOpenModal: (open: boolean) => void
 }
 
-export type name = 'answerName' | 'coverAnswer' | 'coverQuestion' | 'questionName'
-
 export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => {
   const values: AddNewCardFormType = {
     answerName: defaultValues?.answerName || '',
@@ -37,7 +35,8 @@ export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
     deleteCoverHandler: answerDeleteCoverHandler,
     downloaded: answerDownloaded,
     extraActions: answerExtraActions,
-  } = useUploadImg<name>({
+  } = useUploadImg<AddNewCardFormType>({
+    defaultCover: defaultValues?.cover,
     getFieldState,
     name: 'coverAnswer',
     resetField,
@@ -51,7 +50,8 @@ export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
     deleteCoverHandler: questionDeleteCoverHandler,
     downloaded: questionDownloaded,
     extraActions: questionExtraActions,
-  } = useUploadImg<name>({
+  } = useUploadImg<AddNewCardFormType>({
+    defaultCover: defaultValues?.cover,
     getFieldState,
     name: 'coverQuestion',
     resetField,
@@ -84,11 +84,6 @@ export const AddNewCard = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
     }
 
     onSubmit(form)
-
-    //for test
-    for (const pair of form.entries()) {
-      console.log(pair[0] + ': ' + pair[1])
-    }
 
     setOpenModal(false)
   }
