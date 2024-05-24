@@ -2,8 +2,18 @@
   padding: 33px 36px 48px;
   max-width: 420px;
   width: 100%;
-  margin: 84px auto 0;
+  margin: 36px auto 0;
 }
-.heading {
+.centerText {
   text-align: center;
+}
+
+.headingFirstRow {
+  max-width: 1008px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .backIcon {
+    margin-right: 6px;
+  }
 }

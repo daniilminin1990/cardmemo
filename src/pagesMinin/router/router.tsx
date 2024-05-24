@@ -3,6 +3,7 @@ import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router
 import { CardsPage } from '@/pagesMinin/Cards.page'
 import { DecksPage } from '@/pagesMinin/Decks.page'
 import { LearnPage } from '@/pagesMinin/Learn.page'
+import { SignInPage } from '@/pagesMinin/SignIn.page'
 import { TestDecks } from '@/pagesMinin/Test/TestDecks'
 
 const privateRoutes: RouteObject[] = [
@@ -31,7 +32,7 @@ const privateRoutes: RouteObject[] = [
 
 const publicRoutes: RouteObject[] = [
   {
-    element: <Login />,
+    element: <SignInPage />,
     path: '/login',
   },
 ]
@@ -42,9 +43,9 @@ function PrivateRoutes() {
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
 }
 
-function Login() {
-  return <h1>Залогинься, чмо</h1>
-}
+// function Login() {
+//   return <h1>Залогинься, чмо</h1>
+// }
 
 export const router = createBrowserRouter([
   {

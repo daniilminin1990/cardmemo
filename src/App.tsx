@@ -1,7 +1,7 @@
 import { RouterProvider } from 'react-router-dom'
 
 import { Layout } from '@/pagesMinin/componentsMinin/Layout/Layout'
-import { router } from '@/router'
+import { router } from '@/pagesMinin/router/router'
 
 export function App() {
   return (

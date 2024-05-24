@@ -74,7 +74,7 @@ export const CardsPage = () => {
       <div className={s.heading}>
         <div className={s.headingFirstRow}>
           <Typography as={Link} style={{ textDecoration: 'none' }} to={'/'} variant={'body2'}>
-            <ArrowBackOutline />
+            <ArrowBackOutline className={s.backIcon} />
             Back to Deck List
           </Typography>
         </div>
