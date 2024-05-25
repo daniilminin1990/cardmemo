@@ -40,10 +40,12 @@ const publicRoutes: RouteObject[] = [
 ]
 
 function PrivateRoutes() {
-  const { data } = useMeQuery()
+  const { data, isSuccess } = useMeQuery()
+
+  console.log(data)
 
   // return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
-  return data ? <Outlet /> : <Navigate to={'/login'} />
+  return isSuccess ? <Outlet /> : <Navigate to={'/login'} />
 }
 
 // function Login() {

@@ -5,7 +5,7 @@ export const authService = flashCardsAPI.injectEndpoints({
   endpoints: builder => {
     return {
       login: builder.mutation<LoginResponse, LoginArgs>({
-        // invalidatesTags: ['Me'],
+        invalidatesTags: ['Me'],
         async onQueryStarted(_, { queryFulfilled }) {
           const { data } = await queryFulfilled
 

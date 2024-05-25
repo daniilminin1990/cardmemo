@@ -55,6 +55,7 @@ export const baseQueryWithReauth: BaseQueryFn<
           extraOptions
         )
 
+        console.log(refreshResult.data)
         if (refreshResult.data) {
           const refreshResultParsed = refreshTokenResponseSchema.parse(refreshResult.data)
 
