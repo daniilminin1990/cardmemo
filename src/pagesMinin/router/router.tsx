@@ -4,6 +4,7 @@ import { CardsPage } from '@/pagesMinin/Cards.page'
 import { DecksPage } from '@/pagesMinin/Decks.page'
 import { LearnPage } from '@/pagesMinin/Learn.page'
 import { SignInPage } from '@/pagesMinin/SignIn.page'
+import { Layout } from '@/pagesMinin/componentsMinin/Layout/Layout'
 
 import { useMeQuery } from '../../../services/auth/auth.service'
 
@@ -51,10 +52,16 @@ function PrivateRoutes() {
 
 export const router = createBrowserRouter([
   {
-    children: privateRoutes,
-    element: <PrivateRoutes />, // <Outlet /> : <Navigate to={'/login'} />
+    children: [
+      {
+        children: privateRoutes,
+        element: <PrivateRoutes />, // <Outlet /> : <Navigate to={'/login'} />
+      },
+      ...publicRoutes,
+    ],
+    element: <Layout />,
+    path: '/',
   },
-  ...publicRoutes,
 ])
 
 // export function Router() {
