@@ -27,18 +27,11 @@ export function DecksPage() {
     clearQuery,
     currentOrderBy,
     currentPage,
-    // isMinMaxLoading,
     itemsPerPage,
-    // minMaxData,
     search,
     setCurrentPageQuery,
     setItemsPerPageQuery,
     setSearchQuery,
-    // setSliderValues,
-    // setSliderValuesQuery,
-    // sliderMax,
-    // sliderMin,
-    // sliderValues,
   } = useQueryParams()
 
   const {
@@ -51,13 +44,10 @@ export function DecksPage() {
     sliderValues,
   } = useSliderQueryParams()
 
-  // const { data: minMaxData, isLoading: isMinMaxLoading } = useGetMinMaxCardsCountQuery()
-  // const { setSliderValuesQuery, sliderMax, sliderMin } = useSliderQueryParams(minMaxData)
-
   const [open, setOpen] = useState(false)
   const [tabsValue, setTabsValue] = useState('All decks')
 
-  const { data, error, isLoading } = useGetDecksQuery(
+  const { currentData, data, error, isLoading } = useGetDecksQuery(
     {
       currentPage,
       itemsPerPage,
@@ -68,7 +58,7 @@ export function DecksPage() {
     },
     { skip: !minMaxData }
   )
-
+  const decksData = currentData ?? data
   const sliderValueHandler = (value: number[]) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setSliderValues(value)
@@ -162,7 +152,7 @@ export function DecksPage() {
         </div>
       </div>
       {/*<SingleRowDeck data={data} tableHeader={headersNameDecks} />*/}
-      <TableComponentWithTypes data={data} tableHeader={headersNameDecks}>
+      <TableComponentWithTypes data={decksData} tableHeader={headersNameDecks}>
         {/*// передаем функцию, которая принимает item и возвращает SingleRowDeck или SingleRowCard*/}
         {item => <SingleRowDeck item={item} />}
       </TableComponentWithTypes>

@@ -19,15 +19,19 @@ export const decksService = flashCardsAPI.injectEndpoints({
             { type: 'Decks' },
           ])
 
+          console.log(invalidateBy)
+
           try {
             const { data } = await queryFulfilled // тут будет deckData
 
+            console.log(11111111111111, data)
             invalidateBy.forEach(({ originalArgs }) => {
               dispatch(
                 decksService.util.updateQueryData('getDecks', originalArgs, draft => {
                   if (originalArgs.currentPage !== 1) {
                     return
                   } // Вот так делать в реальном проекте нельзя
+                  console.log('маГипуляция', data)
                   draft.items.unshift(data) // Добавляем первый элемент
                   draft.items.pop() // Удаляем последний элемент
                 })

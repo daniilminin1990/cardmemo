@@ -80,7 +80,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
     item ? updateDeck({ ...data, cover, id: item.id }) : createDeck({ ...data, cover })
     setOpen(false)
     setCover(undefined)
-    // setPreview(null)
+    setPreview(null)
   }
   const hanldeSubmitImg = () => {
     refInputImg?.current?.click()

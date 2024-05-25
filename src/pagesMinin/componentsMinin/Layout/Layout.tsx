@@ -16,17 +16,17 @@ export const Layout = forwardRef<ElementRef<'div'>, Props>((props, ref) => {
   const { children, className, ...rest } = props
 
   // ? Тут в Header и в main нужно передать данные от me запроса.
-  const { data: meData, error, isError, isLoading } = useMeQuery()
+  const { data: meData, isLoading } = useMeQuery()
 
-  console.log(error)
-  console.log(isError)
+  console.log(meData)
+
   if (isLoading) {
-    return <div>ПОЕШЬ ГОВНА...</div>
+    return <div>Loading...</div>
   }
 
   return (
     <div ref={ref} {...rest}>
-      <Header isAuth={!!meData} />
+      <Header data={meData} />
       {/*<main className={s.main}>{children}</main>*/}
       <main className={s.main}>
         {/*<Outlet context={!isError} />*/}
