@@ -1,60 +1,69 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useState } from 'react'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
 
+import { ResetPasswordFormValues, ResetPasswordSchema } from '@/common/zodSchemas/auth/auth.schemas'
+import { SuccessModal } from '@/components/auth/CreateNewPassword/SuccessModal'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
-import { DevTool } from '@hookform/devtools'
+import { useResetPasswordMutation } from '@/services/auth/auth.service'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 
 import s from './createNewPassword.module.scss'
 
-const createNewPassScheme = z.object({
-  password: z.string().min(1, 'Type new password'),
-})
-
-type FormValue = z.infer<typeof createNewPassScheme>
-
 export const CreateNewPassword = () => {
-  const { control, handleSubmit } = useForm<FormValue>({
-    defaultValues: {
-      password: '',
-    },
-    mode: 'onSubmit',
-    resolver: zodResolver(createNewPassScheme),
+  const { control, handleSubmit } = useForm<ResetPasswordFormValues>({
+    resolver: zodResolver(ResetPasswordSchema),
   })
 
-  const onSubmit: SubmitHandler<FormValue> = data => console.log(data)
+  const { token = '' } = useParams()
+
+  const [resetPassword] = useResetPasswordMutation()
+
+  const [open, setOpen] = useState(false)
+
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
+    await resetPassword({ password: data.newPassword, token })
+      .then(() => {
+        setOpen(true)
+      })
+      .catch(() => {
+        alert('Password reset failed')
+      })
+  }
 
   return (
     <>
-      <DevTool control={control} />
-      <Card className={s.card}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <SuccessModal open={open} />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Card className={s.card}>
           <div className={s.header}>
             <Typography as={'h1'} className={s.typographyHead} variant={'h1'}>
-              Create new password
+              Create New Password
             </Typography>
           </div>
           <div className={s.box}>
             <FormTextfield
               className={s.inputStyle}
               control={control}
-              label={'Password'}
-              name={'password'}
-              placeholder={'Type new password'}
+              label={'New Password'}
+              name={'newPassword'}
               type={'password'}
             />
-            <Typography as={'label'} className={s.typographyForgotTitle} variant={'body2'}>
-              Create new password and we will send you further instructions to email
-            </Typography>
+            <FormTextfield
+              className={s.inputStyle}
+              control={control}
+              label={'Confirm New Password'}
+              name={'confirmNewPassword'}
+              type={'password'}
+            />
           </div>
-          <Button fullWidth>
-            <Typography variant={'body2'}>Create New Password</Typography>
-          </Button>
-        </form>
-      </Card>
+
+          <Button fullWidth>Confirm</Button>
+        </Card>
+      </form>
     </>
   )
 }
