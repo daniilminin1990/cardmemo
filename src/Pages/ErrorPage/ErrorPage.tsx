@@ -3,7 +3,7 @@ import { path } from '@/router/path'
 
 import style from './ErrorPage.module.scss'
 
-import Error from '../../../assets/img/404.png'
+import Error from '../../assets/img/404.png'
 const ErrorPage = () => {
   return (
     <div className={style.box}>
