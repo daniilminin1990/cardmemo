@@ -12,6 +12,7 @@ import style from './Header.module.scss'
 
 import logo from '../../../assets/img/Logo.png'
 
+//! Прокинул data
 type HeaderProps = {
   data?: MeResponse
 }
@@ -24,6 +25,7 @@ const Header = ({ data }: HeaderProps) => {
   return (
     <div className={style.box}>
       <div className={style.boxImg}>
+        {/*! Сделал ссылку на главную страницу*/}
         <Typography as={'a'} href={'/'} variant={'body2'}>
           <img alt={'logo'} className={style.img} src={logo} />
         </Typography>
@@ -33,9 +35,12 @@ const Header = ({ data }: HeaderProps) => {
           <div className={style.text}>{data.name}</div>
           <DropdownMenuDemo data={data} icon={ellipseIcon} type={'head'}>
             <DropDownItem icon={headerIcon} text={'My Profile'} />
-            <Button onClick={logoutHandler} style={{ all: 'unset' }}>
-              <DropDownItem icon={headerIcon1} text={'Sign Out'} />
-            </Button>
+            <DropDownItem
+              as={'a'}
+              handleOnClick={logoutHandler}
+              icon={headerIcon1}
+              text={'Sign Out'}
+            />
           </DropdownMenuDemo>
         </div>
       ) : (

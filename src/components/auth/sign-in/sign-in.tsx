@@ -67,9 +67,12 @@ export const SignIn = () => {
                 <Checkbox checked={value} label={'RememberMe'} onCheckedChange={onChange} />
               )}
             />
-            <Typography as={'button'} className={s.typographyForgotTitle} variant={'body2'}>
+            <Button as={'a'} style={{ all: 'unset' }} type={'button'}>
               Forgot Password?
-            </Typography>
+              <Typography className={s.typographyForgotTitle} variant={'body2'}>
+                Forgot Password?
+              </Typography>
+            </Button>
           </div>
           <Button fullWidth type={'submit'}>
             Sign In
