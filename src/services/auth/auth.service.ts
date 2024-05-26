@@ -1,5 +1,5 @@
 import { flashCardsAPI } from '../flashCardsAPI'
-import { LoginArgs, LoginResponse, MeResponse } from './auth.types'
+import { LoginArgs, LoginResponse, MeResponse, UpdateUserDataRequest } from './auth.types'
 
 export const authService = flashCardsAPI.injectEndpoints({
   endpoints: builder => {
@@ -42,8 +42,24 @@ export const authService = flashCardsAPI.injectEndpoints({
           url: `v1/auth/me`,
         }),
       }),
+      updateUserData: builder.mutation<MeResponse, UpdateUserDataRequest>({
+        invalidatesTags: ['Me'],
+        query: ({ avatar, name }) => {
+          const formData = new FormData()
+
+          avatar && formData.append('avatar', avatar)
+          name && formData.append('name', name)
+
+          return {
+            body: formData,
+            method: 'PATCH',
+            url: `v1/auth/me`,
+          }
+        },
+      }),
     }
   },
 })
 
-export const { useLoginMutation, useLogoutMutation, useMeQuery } = authService
+export const { useLoginMutation, useLogoutMutation, useMeQuery, useUpdateUserDataMutation } =
+  authService
