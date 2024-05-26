@@ -139,8 +139,8 @@ export const useTabsValuesParams = () => {
   const setTabsValueQuery = (value: string) => {
     console.log(value)
     value === tabsValuesData[0].value
-      ? searchParams.delete('authorId')
-      : searchParams.set('authorId', value ?? tabsValuesData[1].value)
+      ? searchParams.set('authorId', value ?? tabsValuesData[1].value)
+      : searchParams.delete('authorId')
     setSearchParams(searchParams)
   }
   const [tabsValue, setTabsValue] = useState(tabsValuesData[1].value)

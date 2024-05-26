@@ -9,25 +9,21 @@ import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
 import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
 import { ModalDeleteDeckMinin } from '@/pagesMinin/ModalsForTable/ModalDeleteDeckMinin'
+import clsx from 'clsx'
 
 import s from '@/pagesMinin/TableComponent/tableSingleRow.module.scss'
 
+import { useMeQuery } from '../../../../services/auth/auth.service'
 import { Deck } from '../../../../services/decks/deck.types'
 
 type Props = {
   item: Deck
 }
 export const SingleRowDeck = ({ item }: Props) => {
+  const { data: meData } = useMeQuery()
   const [isUpdateModal, setIsUpdateModal] = useState(false)
   const [isDeleteModal, setIsDeleteModal] = useState(false)
   const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
-
-  // ДЛЯ ИЗУЧЕНИЯ (Learn) Перенаправляем пользователя на другую страницу (На круглую кнопку)
-  // через хук навигации и используем deckId
-  // const navigate = useNavigate()
-  // const handleClickNavToCards = () => {
-  //   navigate(`/decks/${deck.id} ЧТО ТО ДОПИСАТЬ`)
-  // }
 
   return (
     <Fragment key={item.id}>
@@ -35,18 +31,28 @@ export const SingleRowDeck = ({ item }: Props) => {
       <ModalAddEditDeck item={item} open={isUpdateModal} setOpen={setIsUpdateModal} />
       <ModalDeleteDeckMinin item={item} open={isDeleteModal} setIsDeleteModal={setIsDeleteModal} />
       <Table.Row key={item.id}>
-        <Table.Cell>
-          {/* Переходим по роутингу*/}
-          <Typography as={Link} className={s.imgWrapper} to={`/decks/${item.id}`}>
-            {item.cover && <img alt={'default card img'} className={s.coverImg} src={item.cover} />}
-            {item.name}
-          </Typography>
+        <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
+          {item?.cardsCount !== 0 ? (
+            <Typography as={Link} className={s.imgWrapper} to={`/decks/${item.id}`}>
+              {item.cover && (
+                <img alt={'default card img'} className={s.coverImg} src={item.cover} />
+              )}
+              {item.name}
+            </Typography>
+          ) : (
+            <Typography className={s.imgWrapper}>
+              {item.cover && (
+                <img alt={'default card img'} className={s.coverImg} src={item.cover} />
+              )}
+              {item.name}
+            </Typography>
+          )}
         </Table.Cell>
         <Table.Cell>{item.cardsCount}</Table.Cell>
         <Table.Cell>{updatedAr}</Table.Cell>
         <Table.Cell>{item.author.name}</Table.Cell>
         <Table.Cell>
-          {item.userId === item.author.id ? (
+          {item.userId === meData?.id ? (
             <div className={s.iconBtns}>
               <Button className={s.btn} onClick={() => setIsUpdateModal(true)}>
                 <Edit2Outline className={s.Edit2Outline} />

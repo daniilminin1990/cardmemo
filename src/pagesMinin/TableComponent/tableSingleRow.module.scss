@@ -104,6 +104,9 @@
   align-items: center;
   text-decoration: none;
 }
+.disabledCell {
+  cursor: not-allowed;
+}
 
 .coverImg {
   width: 118px;

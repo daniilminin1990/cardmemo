@@ -9,6 +9,7 @@ import { ModalAddEditCard } from '@/pagesMinin/ModalsForTable/ModalEditCard/Moda
 
 import s from '@/pagesMinin/TableComponent/tableSingleRow.module.scss'
 
+import { useMeQuery } from '../../../../services/auth/auth.service'
 import { useDeleteCardByIdMutation } from '../../../../services/cards/cards.service'
 import { Card } from '../../../../services/cards/cards.types'
 
@@ -16,6 +17,7 @@ type Props = {
   item: Card
 }
 export const SingleRowCard = ({ item }: Props) => {
+  const { data: meData } = useMeQuery()
   const [open, setOpen] = useState(false)
   const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
   const [deleteCard] = useDeleteCardByIdMutation()
@@ -46,15 +48,19 @@ export const SingleRowCard = ({ item }: Props) => {
         <Table.Cell>
           {/*  Тут нужно будет добавить проверку на МОИ cards или не мои. Если мои то показать кнопки, если не мои то нихера */}
           {/*{card.userId === authorId ? (*/}
-          <div className={s.iconBtns}>
-            {/*<Button className={s.btn} onClick={() => setIsUpdateModal(true)}>*/}
-            <Button className={s.btn} onClick={() => setOpen(true)}>
-              <Edit2Outline className={s.Edit2Outline} />
-            </Button>
-            <Button className={s.btn} onClick={() => deleteCard({ id: item.id })}>
-              <TrashOutline className={s.TrashOutline} />
-            </Button>
-          </div>
+          {item.userId === meData?.id ? (
+            <div className={s.iconBtns}>
+              {/*<Button className={s.btn} onClick={() => setIsUpdateModal(true)}>*/}
+              <Button className={s.btn} onClick={() => setOpen(true)}>
+                <Edit2Outline className={s.Edit2Outline} />
+              </Button>
+              <Button className={s.btn} onClick={() => deleteCard({ id: item.id })}>
+                <TrashOutline className={s.TrashOutline} />
+              </Button>
+            </div>
+          ) : (
+            <></>
+          )}
         </Table.Cell>
       </Table.Row>
     </Fragment>
