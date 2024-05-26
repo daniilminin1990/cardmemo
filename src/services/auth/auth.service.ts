@@ -1,9 +1,13 @@
+import { path } from '@/router/path'
+import { router } from '@/router/router'
+
 import { flashCardsAPI } from '../flashCardsAPI'
 import {
   LoginArgs,
   LoginResponse,
   MeResponse,
   ResetPasswordRequest,
+  SignUpRequest,
   UpdateUserDataRequest,
 } from './auth.types'
 
@@ -48,12 +52,22 @@ export const authService = flashCardsAPI.injectEndpoints({
           url: `v1/auth/me`,
         }),
       }),
-
       resetPassword: builder.mutation<void, ResetPasswordRequest>({
         query: ({ password, token }) => ({
           body: { password },
           method: 'POST',
           url: `v1/auth/reset-password/${token}`,
+        }),
+      }),
+      signUp: builder.mutation<MeResponse, SignUpRequest>({
+        async onQueryStarted(_, { queryFulfilled }) {
+          await queryFulfilled
+          await router.navigate(`${path.login}`)
+        },
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: `v1/auth/sign-up`,
         }),
       }),
 
@@ -81,5 +95,6 @@ export const {
   useLogoutMutation,
   useMeQuery,
   useResetPasswordMutation,
+  useSignUpMutation,
   useUpdateUserDataMutation,
 } = authService
