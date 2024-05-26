@@ -1,15 +1,14 @@
-import PageDeckNextQuestion from '@/components/auth/PageDeckNextQuestion/PageDeckNextQuestion'
+import { RouterProvider } from 'react-router-dom'
+
+import { router } from '@/pagesMinin/router/router'
 
 export function App() {
   return (
-    <div
-      style={{
-        alignItems: 'center',
-        display: 'flex',
-        justifyContent: 'center',
-      }}
-    >
-      <PageDeckNextQuestion status />
-    </div>
+    <>
+      {/*<Layout isAuth>*/}
+      <RouterProvider router={router} />
+      {/*<Router />*/}
+      {/*</Layout>*/}
+    </>
   )
 }

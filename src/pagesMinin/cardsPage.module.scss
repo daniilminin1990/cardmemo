@@ -1,0 +1,79 @@
+.common {
+  max-width: 1008px;
+}
+.heading {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  width: 100%;
+  margin-bottom: 24px;
+}
+.headingFirstRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 36px;
+}
+.headingSecondRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 24px;
+  & .isWithImage > h1 {
+    margin-bottom: 15px;
+  }
+}
+.emptyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //justify-content: center;
+  margin-top: 70px;
+  & > p:first-child {
+    color: var(--color-dark-100);
+    margin-bottom: 30px;
+    font-size: 16px;
+  }
+  & button > p {
+    margin: 0;
+  }
+}
+.clearFilter {
+  ////text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+}
+
+.input {
+  width: 100%;
+}
+.tabsSwitcher {
+}
+
+.footer {
+  margin: 24px 0;
+  width: 100%;
+}
+
+.switchButton {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  & > button:first-child > p {
+    margin: 0;
+  }
+}
+
+.learnCards {
+  text-decoration: none;
+}
+
+.backIcon {
+  margin-right: 6px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

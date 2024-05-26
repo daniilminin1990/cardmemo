@@ -41,15 +41,17 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  background-color: transparent;
+  width: 4px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-dark-300);
-  border-radius: 3px;
-
+  background-color: var(--color-accent-300);
+  border-radius: 10px;
   &:hover {
-    background-color: var(--color-dark-100);
+    background-color: var(--color-accent-100);
   }
 }
