@@ -29,9 +29,7 @@ export const CreateNewPassword = () => {
       .then(() => {
         setOpen(true)
       })
-      .catch(() => {
-        alert('Password reset failed')
-      })
+      .catch(() => {})
   }
 
   return (
