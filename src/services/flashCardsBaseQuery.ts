@@ -11,7 +11,7 @@ const refreshTokenResponseSchema = z.object({
 // create a new mutex
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://api.flashcards.andrii.es',
+  baseUrl: 'https://api.flashcards.andrii.es/',
   prepareHeaders: headers => {
     const token = localStorage.getItem('accessToken')
 

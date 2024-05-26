@@ -1,6 +1,6 @@
 import { Pagination } from '../decks/deck.types'
 
-export interface Card {
+export interface CardResponse {
   answer: string
   answerImg?: null | string
   answerVideo?: null | string
@@ -16,6 +16,19 @@ export interface Card {
   userId: string
 }
 
+export type GradeProps = number
+export type CardWithGradeResponse = {
+  grade: GradeProps
+} & CardResponse
+
+export type GetRandomRequest = {
+  id: string
+  previousCardId?: string
+}
+export interface SaveGradeRequest {
+  cardId: string
+  grade: GradeProps
+}
 export interface GetCardsArgs {
   answer?: string
   currentPage?: number
@@ -24,7 +37,7 @@ export interface GetCardsArgs {
   question?: string
 }
 
-export type CreateCard = Omit<Card, 'grade'>
+export type CreateCard = Omit<CardResponse, 'grade'>
 
 export type CreateCardArgs = {
   answer: string
@@ -37,7 +50,7 @@ export type CreateCardArgs = {
 }
 
 export interface CardsListResponse {
-  items: Card[]
+  items: CardResponse[]
   pagination: Pagination
 }
 
