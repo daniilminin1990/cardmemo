@@ -130,9 +130,19 @@ export const cardsService = flashCardsAPI.injectEndpoints({
         // this is cardId
         invalidatesTags: ['Cards'],
         // async onQueryStarted({ cardId, ...args }, { dispatch, getState, queryFulfilled }) {
-        //   const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), [
-        //     { type: 'Cards' },
-        //   ])
+        //   //! 11111111111
+        //   // const patchResults: any[] = dispatch(
+        //   //   cardsService.util.updateQueryData('getCards', { id: cardId, ...args }, draft => {
+        //   //     const itemToUpdateIndex = draft.items.findIndex(card => card.id === cardId)
+        //   //
+        //   //     if (itemToUpdateIndex === -1) {
+        //   //       return
+        //   //     }
+        //   //     Object.assign(draft.items[itemToUpdateIndex], args)
+        //   //   })
+        //   // )
+        //   //! 222222222222222
+        //   const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), ['Cards'])
         //   const patchResults: any[] = []
         //
         //   invalidateBy.forEach(({ originalArgs }) => {
