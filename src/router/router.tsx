@@ -1,123 +1,65 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
+import { CardsPage } from '@/Pages/CardsPage/Cards.page'
+import { DecksPage } from '@/Pages/DecksPage/Decks.page'
 import { LearnPage } from '@/Pages/LearnPage/learnPage'
+import { SignInPage } from '@/Pages/SignInPage/SignIn.page'
+import { Layout } from '@/components/Layout/Layout'
+import ErrorPage from '@/components/auth/ErrorPage/ErrorPage'
 import { path } from '@/router/path'
 import { useMeQuery } from '@/services/auth/auth.service'
 
-import { CardsPage } from '../Pages/CardsPage/Cards.page'
-import { DecksPage } from '../Pages/DecksPage/Decks.page'
-import { SignInPage } from '../Pages/SignInPage/SignIn.page'
-import { Layout } from '../components/Layout/Layout'
+const publicRoutes: RouteObject[] = [
+  {
+    element: <SignInPage />,
+    path: `${path.login}`,
+  },
+  {
+    element: <ErrorPage />,
+    path: `${path['*']}`,
+  },
+]
 
 const privateRoutes: RouteObject[] = [
   {
     children: [
       {
-        element: <Navigate to={'/decks'} />,
-        path: '/',
+        element: <Navigate to={`${path.decks}`} />,
+        path: path.base,
       },
       {
         element: <DecksPage />,
-        path: '/decks',
+        path: `${path.decks}`,
       },
       {
         element: <CardsPage />,
-        path: '/decks/:deckId',
+        path: `${path.decks}/:deckId`,
       },
       {
         element: <LearnPage />,
-        path: `${path.decks}/:id${path.learn}`,
+        path: `${path.decks}/:deckId${path.learn}`,
       },
     ],
     element: <Outlet />,
   },
 ]
 
-const publicRoutes: RouteObject[] = [
-  {
-    element: <SignInPage />,
-    path: '/login',
-  },
-]
-
 function PrivateRoutes() {
-  const { isSuccess } = useMeQuery()
+  const { data: me, isSuccess } = useMeQuery()
 
-  // return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
-  return isSuccess ? <Outlet /> : <Navigate to={'/login'} />
+  return isSuccess && me?.id ? <Outlet /> : <Navigate to={`${path.login}`} />
 }
-
-// function Login() {
-//   return <h1>Залогинься, чмо</h1>
-// }
 
 export const router = createBrowserRouter([
   {
     children: [
       {
         children: privateRoutes,
-        element: <PrivateRoutes />, // <Outlet /> : <Navigate to={'/login'} />
+        element: <PrivateRoutes />,
       },
       ...publicRoutes,
     ],
     element: <Layout />,
-    path: '/',
+    path: `${path.base}`,
   },
 ])
-
-// export function Router() {
-//   return <RouterProvider router={router} />
-// }
-//
-// const privateRoutes: RouteObject[] = [
-//   {
-//     children: [
-//       {
-//         element: <DecksPage />,
-//         path: '/',
-//       },
-//       {
-//         element: <TestDecks />,
-//         path: '/cards',
-//       },
-//       {
-//         element: <CardsPage />,
-//         path: '/decks/:deckId',
-//       },
-//     ],
-//     element: <Container />,
-//   },
-// ]
-//
-// const publicRoutes: RouteObject[] = [
-//   {
-//     element: <Login />,
-//     path: '/login',
-//   },
-// ]
-//
-// const router = createBrowserRouter([
-//   {
-//     children: privateRoutes,
-//     element: <PrivateRoutes />,
-//   },
-//   ...publicRoutes,
-// ])
-//
-// export function Router() {
-//   return <RouterProvider router={router} />
-// }
-//
-// function Container() {
-//   return <Outlet />
-// }
-//
-// function Login() {
-//   return <h1>Залогинься, чмо</h1>
-// }
-//
-// function PrivateRoutes() {
-//   const isAuthenticated = true
-//
-//   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
-// }

@@ -9,6 +9,7 @@ import { ModalDeleteDeck } from '@/components/ModalsForTable/ModalDeleteDeck'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
+import { path } from '@/router/path'
 import { useMeQuery } from '@/services/auth/auth.service'
 import { Deck } from '@/services/decks/deck.types'
 import clsx from 'clsx'
@@ -32,7 +33,7 @@ export const SingleRowDeck = ({ item }: Props) => {
       <Table.Row key={item.id}>
         <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
           {/*{item?.cardsCount !== 0 ? (*/}
-          <Typography as={Link} className={s.imgWrapper} to={`/decks/${item.id}`}>
+          <Typography as={Link} className={s.imgWrapper} to={`${path.decks}/${item.id}`}>
             {item.cover && <img alt={'default card img'} className={s.coverImg} src={item.cover} />}
             {item.name}
           </Typography>
@@ -56,9 +57,11 @@ export const SingleRowDeck = ({ item }: Props) => {
                 <Edit2Outline className={s.Edit2Outline} />
               </Button>
               <Button className={s.btn} disabled={!item.cardsCount}>
-                <PlayCircleOutline
-                  className={`${s.playCircleOutline} ${item.cardsCount === 0 && s.disabled}`}
-                />
+                <Link to={`${path.decks}/${item.id}${path.learn}`}>
+                  <PlayCircleOutline
+                    className={`${s.playCircleOutline} ${item.cardsCount === 0 && s.disabled}`}
+                  />
+                </Link>
               </Button>
               <Button className={s.btn} onClick={() => setIsDeleteModal(true)}>
                 <TrashOutline className={s.TrashOutline} />
