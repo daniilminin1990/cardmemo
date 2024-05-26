@@ -3,6 +3,7 @@ import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router
 import { CardsPage } from '@/Pages/CardsPage/Cards.page'
 import { DecksPage } from '@/Pages/DecksPage/Decks.page'
 import { LearnPage } from '@/Pages/LearnPage/learnPage'
+import { ProfilePage } from '@/Pages/ProfilePage/ProfilePage'
 import { SignInPage } from '@/Pages/SignInPage/SignIn.page'
 import { Layout } from '@/components/Layout/Layout'
 import ErrorPage from '@/components/auth/ErrorPage/ErrorPage'
@@ -39,8 +40,11 @@ const privateRoutes: RouteObject[] = [
         element: <LearnPage />,
         path: `${path.decks}/:deckId${path.learn}`,
       },
+      {
+        element: <ProfilePage />,
+        path: `${path.profile}`,
+      },
     ],
-    element: <Outlet />,
   },
 ]
 

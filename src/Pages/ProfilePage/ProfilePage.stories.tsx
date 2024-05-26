@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
-import { PersonalInfo } from '@/components/auth/PersonalInfo/PersonalInfo'
+import { ProfilePage } from '@/Pages/ProfilePage/ProfilePage'
 import { Meta } from '@storybook/react'
 
 const meta = {
-  component: PersonalInfo,
+  component: ProfilePage,
   tags: ['autodocs'],
   title: 'Components/Auth/PersonalInfo/PersonalInfo',
-} satisfies Meta<typeof PersonalInfo>
+} satisfies Meta<typeof ProfilePage>
 
 export default meta
 
@@ -19,7 +19,7 @@ export const PersonalInfoEdit = () => {
   // Need state to interact with avatar, also modal to change
 
   return (
-    <PersonalInfo
+    <ProfilePage
       email={email}
       isEditNickname={isEditNickname}
       nickName={nickName}
