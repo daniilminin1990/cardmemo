@@ -3,6 +3,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { path } from '@/app/routing/path'
 import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
+import { TextField } from '@/common/components/textfield/textfield'
 import Typography from '@/common/components/typography/typography'
 import { useNavigation } from '@/common/hooks/useNavigation'
 import { useSignUpMutation } from '@/features/auth/api/authApi'
@@ -44,7 +45,7 @@ export default function SignUp() {
           </Typography>
         </div>
         <div className={style.box}>
-          <FormTextfield
+          <TextField
             className={style.inputStyle}
             control={control}
             label={'Email'}
@@ -52,7 +53,7 @@ export default function SignUp() {
             placeholder={'Input'}
             type={'text'}
           />
-          <FormTextfield
+          <TextField
             className={style.inputStyle}
             control={control}
             label={'Password'}
@@ -60,7 +61,7 @@ export default function SignUp() {
             placeholder={'Input'}
             type={'password'}
           />
-          <FormTextfield
+          <TextField
             className={style.inputStyle}
             control={control}
             label={'Confirm Password'}

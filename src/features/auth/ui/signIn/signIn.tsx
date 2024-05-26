@@ -1,9 +1,11 @@
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import { path } from '@/app/routing/path'
 import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
 import Checkbox from '@/common/components/checkbox/checkbox'
+import { TextField } from '@/common/components/textfield/textfield'
 import Typography from '@/common/components/typography/typography'
 import { useNavigation } from '@/common/hooks/useNavigation'
 import { useLoginMutation } from '@/features/auth/api/authApi'
@@ -28,13 +30,17 @@ export const SignIn = () => {
 
   const { goTo } = useNavigation()
 
-  const onSubmit: SubmitHandler<FieldValues> = data => {
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
     const { email, password, rememberMe } = data
 
-    login({ email, password, rememberMe })
+    await login({ email, password, rememberMe })
       .unwrap()
       .then(() => {
-        goTo(path.decks)
+        goTo(`${path.decks}`)
+        toast.success('Login successfully')
+      })
+      .catch(() => {
+        toast.error('Login failed')
       })
   }
 
@@ -49,7 +55,7 @@ export const SignIn = () => {
             </Typography>
           </div>
           <div className={s.box}>
-            <FormTextfield
+            <TextField
               className={s.inputStyle}
               control={control}
               label={'Email'}
@@ -57,7 +63,7 @@ export const SignIn = () => {
               placeholder={'Email'}
               type={'text'}
             />
-            <FormTextfield
+            <TextField
               className={s.inputStyle}
               control={control}
               label={'Password'}
@@ -83,7 +89,7 @@ export const SignIn = () => {
             <Typography
               as={'a'}
               className={s.typographyFooterSubtitle}
-              href={path.signUp}
+              href={`${path.signUp}`}
               variant={'link1'}
             >
               Sign Up

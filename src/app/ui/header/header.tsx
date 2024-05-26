@@ -1,13 +1,20 @@
+import { NavLink } from 'react-router-dom'
+import { toast } from 'react-toastify'
+
 import { path } from '@/app/routing/path'
 import { Button } from '@/common/components/button'
 import DropdownMenuDemo from '@/common/components/dropDown/dropDown'
 import DropDownItem from '@/common/components/dropDown/dropDownItem'
+import Typography from '@/common/components/typography/typography'
 import { useNavigation } from '@/common/hooks/useNavigation'
 import { useLogoutMutation, useMeQuery } from '@/features/auth/api/authApi'
 
 import style from './header.module.scss'
 
+import logoutIcon from '../../../assets/icons/log-out-outline.svg'
+import personIcon from '../../../assets/icons/person.svg'
 import logo from '../../../assets/img/Logo.png'
+
 type HeaderProps = {
   isAuth: boolean
 }
@@ -17,15 +24,11 @@ const Header = ({ isAuth }: HeaderProps) => {
   const { data: me } = useMeQuery()
   const [logout] = useLogoutMutation()
 
-  const logoutHandler = () => {
-    logout()
-      .then(() => {
-        localStorage.removeItem('accessToken')
-        localStorage.removeItem('refreshToken')
-        goTo(path.login)
-      })
+  const logoutHandler = async () => {
+    await logout()
+      .unwrap()
       .catch(() => {
-        console.log('Logout failed')
+        toast.error(`Error, try again or later`)
       })
   }
 
@@ -36,20 +39,27 @@ const Header = ({ isAuth }: HeaderProps) => {
       </div>
       {isAuth && me ? (
         <div className={style.dropDown}>
-          <div className={style.text}>{me.name}</div>
-          <DropdownMenuDemo email={me.email} icon={me?.avatar} name={me.name} type={'head'}>
+          <NavLink style={{ textDecoration: 'none' }} to={`${path.profile}`}>
+            <Typography className={style.name} variant={'h1'}>
+              {me.name}
+            </Typography>
+          </NavLink>
+
+          <DropdownMenuDemo email={me.email} icon={me.avatar} name={me.name} type={'head'}>
             <div onClick={() => goTo(path.profile)}>
-              <DropDownItem icon={me?.avatar} text={'My Profile'} />
+              <DropDownItem icon={personIcon} text={'My Profile'} />
             </div>
 
             <div onClick={logoutHandler}>
-              <DropDownItem icon={headerIcon1} text={'Logout'} />
+              <DropDownItem icon={logoutIcon} text={'Logout'} />
             </div>
           </DropdownMenuDemo>
         </div>
       ) : (
         <div className={style.buttonBox}>
-          <Button className={style.button}>Sign In</Button>
+          <NavLink className={style.link} to={`${path.login}`}>
+            <Button variant={'secondary'}>Sign In</Button>
+          </NavLink>
         </div>
       )}
     </div>

@@ -1,3 +1,7 @@
+import { toast } from 'react-toastify'
+
+import { path } from '@/app/routing/path'
+import { router } from '@/app/routing/router'
 import { flashcardsApi } from '@/common/instance/flashCardsApi'
 import {
   ForgotPasswordRequest,
@@ -17,6 +21,7 @@ const authServices = flashcardsApi.injectEndpoints({
         async onQueryStarted(_, { queryFulfilled }) {
           const { data } = await queryFulfilled
 
+          console.log(data)
           if (!data) {
             return
           }
@@ -30,10 +35,16 @@ const authServices = flashcardsApi.injectEndpoints({
         }),
       }),
       logout: builder.mutation<void, void>({
-        invalidatesTags: ['Auth'],
+        // invalidatesTags: ['Auth'],
+        async onQueryStarted() {
+          localStorage.removeItem('accessToken')
+          localStorage.removeItem('refreshToken')
+          toast.success(`logout successful`)
+          await router.navigate(`${path.login}`)
+        },
         query: () => ({
           method: 'POST',
-          url: `v1/auth/logout`,
+          url: `v2/auth/logout`,
         }),
       }),
       me: builder.query<MeResponse, void>({

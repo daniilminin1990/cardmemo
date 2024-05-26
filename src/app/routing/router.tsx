@@ -8,9 +8,8 @@ import {
 
 import { path } from '@/app/routing/path'
 import ErrorPage from '@/app/ui/errorPage/errorPage'
-import Header from '@/app/ui/header/header'
+import { Layout } from '@/app/ui/layout/layout'
 import { PersonalInfo } from '@/app/ui/personalInfo/personalInfo'
-import { Loading } from '@/common/components/loading/loading'
 import { useMeQuery } from '@/features/auth/api/authApi'
 import { CheckEmail } from '@/features/auth/ui/checkEmail/checkEmail'
 import { CreateNewPassword } from '@/features/auth/ui/createNewPassword/createNewPassword'
@@ -21,16 +20,14 @@ import { CardsList } from '@/features/cardsList/ui/cardsList'
 import { DecksList } from '@/features/decksList/ui/decksList'
 import { LearnList } from '@/features/learnList/learnList'
 
-import s from './router.module.scss'
-
 const publicRoutes: RouteObject[] = [
   {
     element: <SignIn />,
     path: path.login,
   },
   {
-    element: <Navigate replace to={path.notFound} />,
-    path: '/*',
+    element: <ErrorPage />,
+    path: path['*'],
   },
   {
     element: <RecoverPassword />,
@@ -52,8 +49,8 @@ const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    element: <Navigate to={path.decks} />,
-    path: '/',
+    element: <Navigate to={`${path.decks}`} />,
+    path: path.base,
   },
   {
     element: <DecksList />,
@@ -73,39 +70,24 @@ const privateRoutes: RouteObject[] = [
   },
 ]
 
-const errorRoute: RouteObject = {
-  element: <ErrorPage />,
-  path: path.notFound,
-}
-
 export const router = createBrowserRouter([
   {
-    children: privateRoutes,
-    element: <PrivateRoutes />,
+    children: [
+      {
+        children: privateRoutes,
+        element: <PrivateRoutes />,
+      },
+      ...publicRoutes,
+    ],
+    element: <Layout />,
+    path: path.base,
   },
-  ...publicRoutes,
-  errorRoute,
 ])
 
 function PrivateRoutes() {
-  const { data, isLoading, isSuccess } = useMeQuery()
+  const { data, isSuccess } = useMeQuery()
 
-  if (isLoading) {
-    return (
-      <div className={s.loading}>
-        <Loading />
-      </div>
-    )
-  }
-
-  return (
-    <>
-      <Header isAuth />
-      <main className={s.main}>
-        {isSuccess && data.id ? <Outlet /> : <Navigate to={path.login} />}
-      </main>
-    </>
-  )
+  return isSuccess && data.id ? <Outlet /> : <Navigate to={`${path.login}`} />
 }
 export function Router() {
   return <RouterProvider router={router} />

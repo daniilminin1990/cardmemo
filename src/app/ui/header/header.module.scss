@@ -11,11 +11,9 @@
 
 .dropDown {
   display: flex;
+  flex-flow: row nowrap;
+  gap: 14px;
   align-items: center;
-}
-
-.text {
-  padding-right: 14px;
 }
 
 .boxImg {
@@ -29,7 +27,16 @@
   align-items: center;
 }
 
-.button {
-  background-color: var(--color-dark-300);
-  box-shadow: none;
+.link {
+  color: white;
+  text-decoration-line: none;
+}
+
+.name {
+  text-decoration: white dashed;
+  transition: 0.3s;
+
+  &:hover {
+    color: var(--color-accent-100);
+  }
 }

@@ -20,14 +20,7 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button aria-label={'Customise options'} className={'IconButton'}>
-          <div className={'imgBox'}>
-            <img
-              alt={''}
-              className={'dropdownHeaderImg'}
-              src={icon}
-              style={{ height: '35px', stroke: 'white', width: '35px' }}
-            />
-          </div>
+          <img alt={''} className={'dropdownHeaderImg'} src={icon} />
         </button>
       </DropdownMenu.Trigger>
 

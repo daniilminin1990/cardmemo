@@ -1,3 +1,4 @@
+import { Button } from '@/common/components/button'
 import Typography from '@/common/components/typography/typography'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
@@ -12,10 +13,12 @@ const DropDownItem = (props: DropDownItemProps) => {
   return (
     <div className={'DropdownMenuItemBox'}>
       <DropdownMenu.Item className={'DropdownMenuItem'}>
-        <img alt={''} src={icon} style={{ height: '35px', width: '35px' }} />
-        <Typography className={'dropdownText'} variant={'caption'}>
-          {text}
-        </Typography>
+        <Button as={'a'} className={'btn'}>
+          <img alt={''} src={icon} />
+          <Typography className={'dropdownText'} variant={'caption'}>
+            {text}
+          </Typography>
+        </Button>
       </DropdownMenu.Item>
     </div>
   )

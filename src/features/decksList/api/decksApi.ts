@@ -42,6 +42,7 @@ export const decksServices = flashcardsApi.injectEndpoints({
         }),
       }),
       getDeckById: builder.query<DeckResponse, { id: string }>({
+        providesTags: ['Cards'],
         query: ({ id }) => `v1/decks/${id}`,
       }),
       getDecks: builder.query<DecksResponse, GetDecksRequest | void>({
@@ -70,12 +71,12 @@ export const decksServices = flashcardsApi.injectEndpoints({
         },
       }),
       updateDeck: builder.mutation<UpdateDeckResponse, UpdateDeckRequest>({
-        invalidatesTags: ['Decks'],
+        invalidatesTags: ['Decks', 'Cards'],
         query: ({ cover, id, isPrivate, name }) => {
           const formData = new FormData()
 
-          formData.append('cover', cover ? cover : '')
-          formData.append('name', name ? name : '')
+          formData.append('cover', cover === '' ? '' : cover)
+          name && formData.append('name', name)
           formData.append('isPrivate', isPrivate ? isPrivate.toString() : '')
 
           return {

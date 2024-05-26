@@ -1,5 +1,6 @@
 import { ChangeEvent, useRef } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import defaultDeckImg from '@/assets/img/defaultDeckImg.jpg'
 import { FormatItemProps } from '@/common/types/common.types'
@@ -52,9 +53,10 @@ export const useAddOrUpdateModal = ({
         setQuestionImgPreview(defaultDeckImg)
         setAnswerImgPreview(defaultDeckImg)
         reset()
+        toast.success(`Successfully`)
       })
       .catch(() => {
-        console.error('Error - deck not added!')
+        toast.error(`Error, try again or later`)
       })
   }
   const hideModal = () => {

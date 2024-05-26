@@ -1,14 +1,15 @@
 export const path = {
+  '*': '*',
   '/*': '/*',
   base: '/',
   cards: '/cards',
   checkEmail: '/checkEmail',
-  createNewPassword: '/createNewPassword',
+  createNewPassword: '/recover-password',
   decks: '/decks',
   learn: '/learn',
   login: '/login',
   notFound: '/404',
   profile: '/profile',
-  recoverPassword: '/recover-password',
+  recoverPassword: '/resetPassword',
   signUp: '/signUp',
 } as const

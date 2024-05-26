@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { Button } from '@/common/components/button'
@@ -42,6 +43,7 @@ export const DecksFilters = () => {
   const clearFilterHandler = () => {
     setSearchParams(new URLSearchParams())
     setActiveTab('AllCards')
+    toast.info('Filters clear')
   }
 
   const clearSearchFieldHandler = () => {

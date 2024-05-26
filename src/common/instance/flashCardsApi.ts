@@ -1,7 +1,5 @@
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
-import { path } from '@/app/routing/path'
-import { router } from '@/app/routing/router'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
 
@@ -20,6 +18,12 @@ const baseQuery = fetchBaseQuery({
   },
 })
 
+interface RefreshResult {
+  data: {
+    accessToken: string
+    refreshToken: string
+  }
+}
 const baseQueryWithReauth: BaseQueryFn<FetchArgs | string, unknown, FetchBaseQueryError> = async (
   args,
   api,
@@ -36,6 +40,7 @@ const baseQueryWithReauth: BaseQueryFn<FetchArgs | string, unknown, FetchBaseQue
 
       try {
         const refreshToken = localStorage.getItem('refreshToken')
+
         const refreshResult = (await baseQuery(
           {
             headers: {
@@ -46,15 +51,16 @@ const baseQueryWithReauth: BaseQueryFn<FetchArgs | string, unknown, FetchBaseQue
           },
           api,
           extraOptions
-        )) as any
+        )) as RefreshResult
 
+        console.log(refreshResult)
         if (refreshResult.data) {
           localStorage.setItem('accessToken', refreshResult.data.accessToken)
           localStorage.setItem('refreshToken', refreshResult.data.refreshToken)
           // retry the initial query
           result = await baseQuery(args, api, extraOptions)
         } else {
-          router.navigate(path.login)
+          // router.navigate('/login')
         }
       } finally {
         // release must be called once the mutex should be released again.

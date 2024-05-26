@@ -3,6 +3,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { path } from '@/app/routing/path'
 import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
+import { TextField } from '@/common/components/textfield/textfield'
 import Typography from '@/common/components/typography/typography'
 import { useNavigation } from '@/common/hooks/useNavigation'
 import { useRecoverPasswordMutation } from '@/features/auth/api/authApi'
@@ -39,7 +40,7 @@ export const RecoverPassword = () => {
           <Typography as={'h1'} className={s.title} variant={'h1'}>
             Forgot your password?
           </Typography>
-          <FormTextfield
+          <TextField
             className={s.input}
             control={control}
             label={'Email'}

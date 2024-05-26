@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import Star from '@/assets/icons/svg/Star'
 import StarOutline from '@/assets/icons/svg/StarOutline'
@@ -74,7 +75,7 @@ export const Card = ({ item }: Props) => {
         title={'Edit Card'}
       />
       <Table.Row className={s.container} key={item.id}>
-        <Table.Cell>
+        <Table.Cell className={s.headQuest}>
           <div className={s.question}>
             <img
               alt={'default card img'}
@@ -87,7 +88,7 @@ export const Card = ({ item }: Props) => {
           </div>
         </Table.Cell>
 
-        <Table.Cell>
+        <Table.Cell className={s.headAns}>
           <div className={s.answer}>
             <img
               alt={'default answer img'}

@@ -1,5 +1,6 @@
 import { ChangeEvent, useRef } from 'react'
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import { Button } from '@/common/components/button'
 import Checkbox from '@/common/components/checkbox/checkbox'
@@ -47,13 +48,14 @@ export const ModalUpdateDeck = ({ imagePreview, item, open, setImagePreview, set
 
     await updateDeck({ cover, id: item.id, isPrivate, name })
       .unwrap()
-      .then(() => {
+      .then(res => {
         setOpen(false)
         setImagePreview(defaultDeckImg)
         reset()
+        toast.success(`Deck ${res.name} updated`)
       })
       .catch(() => {
-        console.error('Error - deck not updated!')
+        toast.error(`Error, updating failed`)
       })
   }
 
@@ -75,6 +77,7 @@ export const ModalUpdateDeck = ({ imagePreview, item, open, setImagePreview, set
   }
   const deleteImgBtnHandler = () => {
     setImagePreview(defaultDeckImg)
+    setValue('cover', '')
   }
 
   return (

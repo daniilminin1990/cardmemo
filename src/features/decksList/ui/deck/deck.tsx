@@ -54,7 +54,7 @@ export const Deck = ({ item }: Props) => {
         <Typography variant={'subtitle1'}>All cards will be deleted.</Typography>
       </DeleteModal>
       <Table.Row className={s.container} key={item.id}>
-        <Table.Cell>
+        <Table.Cell className={s.name}>
           <Button as={'a'} className={s.nameBlock} fullWidth href={`${path.cards}/${item.id}`}>
             <img
               alt={'default card img'}
@@ -66,8 +66,8 @@ export const Deck = ({ item }: Props) => {
             </Typography>
           </Button>
         </Table.Cell>
-        <Table.Cell>{item.cardsCount}</Table.Cell>
-        <Table.Cell>{new Date(item.updated).toLocaleDateString()}</Table.Cell>
+        <Table.Cell className={s.cardsCount}>{item.cardsCount}</Table.Cell>
+        <Table.Cell className={s.date}>{new Date(item.updated).toLocaleDateString()}</Table.Cell>
         <Table.Cell className={s.authorCell}>{item.author.name}</Table.Cell>
         <Table.Cell>
           <DeckBtns

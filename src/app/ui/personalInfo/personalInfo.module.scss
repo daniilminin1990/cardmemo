@@ -24,11 +24,18 @@
   display: flex;
   justify-content: center;
   margin-bottom: 27px;
+
+  img {
+    width: 35px;
+    height: 35px;
+  }
 }
 
 .img {
   width: 96px;
   height: 96px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .imgGroup {
@@ -37,12 +44,11 @@
 
 .inputStyle {
   width: 348px;
-
-  //color: black;
 }
 
 .buttonWrapper {
   display: flex;
+  align-items: center;
   justify-content: center;
   margin: 36px 0 84px;
 }
@@ -56,6 +62,10 @@
   grid-auto-rows: 1fr;
   justify-items: center;
   margin-top: 6px;
+}
+
+.name {
+  margin-left: 3px;
 }
 
 .editIconButton {
@@ -83,6 +93,7 @@
   position: relative;
   bottom: -2px;
 
+  margin-left: 3px;
   padding: 0;
 
   background-color: transparent;
@@ -101,10 +112,6 @@
 
 .email {
   color: var(--color-dark-100);
-}
-
-.logoutIcon {
-  margin-right: 10px;
 }
 
 .typographyForgotTitle {
@@ -128,4 +135,14 @@
 
 .typographyHead {
   font-size: var(--font-size-xxl);
+}
+
+.logoutBtn {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration-line: none;
 }

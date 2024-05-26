@@ -37,7 +37,7 @@ export interface GetDecksRequest {
   orderBy?: string
 }
 export interface AddDeckRequest {
-  cover?: File | string
+  cover?: string
   isPrivate?: boolean
   name: string
 }

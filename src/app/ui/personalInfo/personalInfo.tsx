@@ -1,13 +1,13 @@
 import { ChangeEvent, useRef, useState } from 'react'
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
-import { path } from '@/app/routing/path'
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import LogOut from '@/assets/icons/svg/LogOut'
 import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
+import { TextField } from '@/common/components/textfield/textfield'
 import Typography from '@/common/components/typography/typography'
-import { useNavigation } from '@/common/hooks/useNavigation'
 import {
   useLogoutMutation,
   useMeQuery,
@@ -26,20 +26,18 @@ export const PersonalInfo = () => {
     resolver: zodResolver(PersonalInfoScheme),
   })
 
+  const { data: me } = useMeQuery()
   const [logout] = useLogoutMutation()
   const [updateUserData] = useUpdateUserDataMutation()
-  const { data: me } = useMeQuery()
 
   const [isEditNickName, setEditNickName] = useState(false)
 
-  const { goTo } = useNavigation()
-
-  const logoutHandler = () => {
-    logout().then(() => {
-      localStorage.removeItem('accessToken')
-      localStorage.removeItem('refreshToken')
-      goTo(path.login)
-    })
+  const logoutHandler = async () => {
+    await logout()
+      .unwrap()
+      .catch(() => {
+        toast.error(`Error, try again or later`)
+      })
   }
   const onSubmit: SubmitHandler<FieldValues> = data => {
     updateUserData({ name: data.nickName })
@@ -98,7 +96,7 @@ export const PersonalInfo = () => {
             </div>
             {!isEditNickName ? (
               <div className={s.profileEdit}>
-                <Typography variant={'h1'}>
+                <Typography className={s.name} variant={'h1'}>
                   {me?.name}
                   <Button
                     className={clsx(s.editIconButton, s.editIconButtonTxt)}
@@ -113,24 +111,27 @@ export const PersonalInfo = () => {
               </div>
             ) : (
               <>
-                {/*<FormTextfield*/}
-                {/*  className={s.inputStyle}*/}
-                {/*  control={control}*/}
-                {/*  label={'Nickname'}*/}
-                {/*  name={'nickName'}*/}
-                {/*  placeholder={'Type new nickname'}*/}
-                {/*  type={'text'}*/}
-                {/*/>*/}
+                <TextField
+                  className={s.inputStyle}
+                  control={control}
+                  label={'Nickname'}
+                  name={'nickName'}
+                  placeholder={'Type new nickname'}
+                  type={'text'}
+                />
               </>
             )}
           </div>
           <div className={clsx(s.buttonWrapper, isEditNickName && s.buttonWrapperEdit)}>
             {!isEditNickName ? (
-              <Button fullWidth={false} onClick={logoutHandler} variant={'secondary'}>
-                <Typography variant={'body2'}>
-                  <LogOut className={s.logoutIcon} />
-                  Logout
-                </Typography>
+              <Button
+                className={s.logoutBtn}
+                fullWidth={false}
+                onClick={logoutHandler}
+                variant={'secondary'}
+              >
+                <LogOut className={s.logoutIcon} />
+                <Typography variant={'body2'}>Logout</Typography>
               </Button>
             ) : (
               <>

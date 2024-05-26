@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
+import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
+import { TextField } from '@/common/components/textfield/textfield'
 import Typography from '@/common/components/typography/typography'
 import { useResetPasswordMutation } from '@/features/auth/api/authApi'
 import { ResetPasswordFormValues, ResetPasswordSchema } from '@/features/auth/model/authZod.schemes'
@@ -43,14 +45,14 @@ export const CreateNewPassword = () => {
             </Typography>
           </div>
           <div className={s.box}>
-            <FormTextfield
+            <TextField
               className={s.inputStyle}
               control={control}
               label={'New Password'}
               name={'newPassword'}
               type={'password'}
             />
-            <FormTextfield
+            <TextField
               className={s.inputStyle}
               control={control}
               label={'Confirm New Password'}

@@ -9,7 +9,7 @@ import s from './withPicture.module.scss'
 
 type Props = {
   changeImgHandler: (e: ChangeEvent<HTMLInputElement>) => void
-  control: Control
+  control: Control<any>
   deleteImgBtnHandler: () => void
   fileInputRef: LegacyRef<HTMLInputElement> | undefined
   imgPreview: string

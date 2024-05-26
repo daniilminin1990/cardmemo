@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { toast } from 'react-toastify'
 
 import { Button } from '@/common/components/button'
 import { Modal } from '@/common/components/modal/modal'
@@ -29,7 +30,7 @@ export const DeleteModal = ({ children, deleteFn, open, setOpen, title }: Props)
           Cancel
         </Button>
         <Button onClick={deleteDeckHandler} type={'submit'} variant={'primary'}>
-          Delete Deck
+          {title}
         </Button>
       </div>
     </Modal>

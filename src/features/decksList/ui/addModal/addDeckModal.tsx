@@ -1,5 +1,6 @@
 import { ChangeEvent, useRef, useState } from 'react'
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import { Button } from '@/common/components/button'
 import Checkbox from '@/common/components/checkbox/checkbox'
@@ -38,17 +39,19 @@ export const ModalAddDeck = ({ open, setOpen }: Props) => {
   } = useForm<AddUpdateDeckFormValues>({ resolver: zodResolver(AddUpdateDeckSchema) })
 
   const onSubmit: SubmitHandler<FieldValues> = data => {
+    console.log(data)
     const { cover, isPrivate, name } = data
 
     addDeck({ cover, isPrivate, name })
       .unwrap()
       .then(() => {
         setOpen(false)
+        toast.success('Deck added')
         setImagePreview(defaultDeckImg)
         reset()
       })
       .catch(() => {
-        console.error('Error - deck not added!')
+        toast.error(`Error, adding failed`)
       })
   }
 

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { path } from '@/app/routing/path'
 import { BackBtn } from '@/common/components/backBtn/backBtn'
@@ -52,7 +53,7 @@ export const LearnList = () => {
           reset()
         })
         .catch(() => {
-          console.error('Try again or later')
+          data.grade === undefined && toast.warn(`Set grade!`)
         }))
   }
   const showAnswwerHandler = () => {

@@ -1,47 +1,51 @@
 .card {
   display: grid;
   width: 420px;
-  padding: 33px 36px 25px 36px;
+  margin: 0 auto;
+  padding: 33px 36px 25px;
 }
 
-.box{
+.box {
   display: grid;
+  grid-gap: 24px;
   grid-template-columns: 1fr;
-  grid-gap: 24px ;
   justify-items: center;
+
   margin-bottom: 60px;
 }
 
-
-.footer{
+.footer {
   display: grid;
+  grid-gap: 10px;
   grid-template-rows: 1fr 1fr;
   justify-items: center;
-  grid-gap: 10px;
-  margin: 20px 0 0 0;
 
+  margin: 20px 0 0;
 }
-.header{
+
+.header {
   display: flex;
   justify-content: center;
-  padding: 0 0 33px 0;
+  padding: 0 0 33px;
 }
 
-.inputStyle{
+.inputStyle {
   width: 348px;
 }
 
-.typographyFooterSubtitle{
+.typographyFooterSubtitle {
   display: flex;
   justify-content: center;
+
   font-size: var(--font-size-m);
   font-weight: var(--font-weight-bold);
   color: var(--color-accent-500);
 }
 
-.typographyFooterTitle{
-  color: var( --color-light-900);
+.typographyFooterTitle {
+  color: var(--color-light-900);
 }
-.typographyHead{
+
+.typographyHead {
   font-size: var(--font-size-xxl);
 }

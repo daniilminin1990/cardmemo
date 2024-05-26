@@ -21,11 +21,21 @@
       }
     }
 
+    .cardName {
+      display: flex;
+      flex-flow: row nowrap;
+    }
+
     .addBtn,
     .learnBtn {
       width: 148px;
       height: 36px;
       text-align: center;
+      text-decoration-line: none;
+
+      &:disabled {
+        cursor: default;
+      }
     }
   }
 
