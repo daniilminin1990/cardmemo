@@ -8,7 +8,7 @@ export type LoginResponse = {
 export type LoginArgs = {
   email: string
   password: string
-  rememberMe: boolean
+  rememberMe?: boolean
 }
 
 export type MeResponse = {
@@ -32,7 +32,8 @@ export type MeResponse = {
 }
 
 export type UpdateMeResponse = MeResponse
-export type UpdateMeArgs = {
-  avatar?: string
+
+export type UpdateUserDataRequest = {
+  avatar?: File | string
   name?: string
 }
