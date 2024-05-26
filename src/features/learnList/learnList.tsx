@@ -33,6 +33,7 @@ export const LearnList = () => {
     id,
     previousCardId,
   })
+
   const [updateCardGrade] = useUpdateCardGradeMutation()
 
   const gradeNames = [
