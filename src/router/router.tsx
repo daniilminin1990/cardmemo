@@ -29,10 +29,10 @@ const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   {
     children: [
-      {
-        element: <Navigate to={`${path.decks}`} />,
-        path: path.base,
-      },
+      // {
+      //   element: <Navigate to={`${path.decks}`} />,
+      //   path: path.base,
+      // },
       {
         element: <DecksPage />,
         path: `${path.decks}`,
