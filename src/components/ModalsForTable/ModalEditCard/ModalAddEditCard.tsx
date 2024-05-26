@@ -39,6 +39,12 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const [createCard] = useCreateCardMutation()
   const [updateCard] = useUpdateCardMutation()
 
+  // const { currentData: currentCardData } = useGetCardByIdQuery(
+  //   { id: item?.id ?? '' },
+  //   { skip: !item }
+  // )
+  // const currendCard = currentCardData ?? item
+
   const schema = getSchema(item)
 
   const { control, handleSubmit } = useForm<FormValues>({
