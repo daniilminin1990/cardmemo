@@ -1,0 +1,15 @@
+export const path = {
+  '*': '*',
+  '/*': '/*',
+  base: '/',
+  cards: '/cards',
+  checkEmail: '/checkEmail',
+  createNewPassword: '/recover-password',
+  decks: '/decks',
+  learn: '/learn',
+  login: '/login',
+  notFound: '/404',
+  profile: '/profile',
+  recoverPassword: '/resetPassword',
+  signUp: '/signUp',
+} as const

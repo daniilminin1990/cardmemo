@@ -1,17 +1,20 @@
 import { flashCardsAPI } from '../flashCardsAPI'
 import {
-  Card,
+  CardResponse,
+  CardWithGradeResponse,
   CardsListResponse,
   CreateCardArgs,
   DeleteCardArgs,
   GetCardsArgs,
+  GetRandomRequest,
+  SaveGradeRequest,
   UpdateCardArgs,
 } from './cards.types'
 
 export const cardsService = flashCardsAPI.injectEndpoints({
   endpoints: builder => {
     return {
-      createCard: builder.mutation<Card, { args: CreateCardArgs; deckId: string }>({
+      createCard: builder.mutation<CardResponse, { args: CreateCardArgs; deckId: string }>({
         // this is deckId
         invalidatesTags: ['Deck', 'Cards'],
         query: ({ args, deckId }) => {
@@ -50,7 +53,7 @@ export const cardsService = flashCardsAPI.injectEndpoints({
           url: `v1/cards/${id}`,
         }),
       }),
-      getCardById: builder.query<Card, { id: string }>({
+      getCardById: builder.query<CardResponse, { id: string }>({
         providesTags: ['Cards'],
         query: ({ id }) => ({
           method: 'GET',
@@ -72,7 +75,10 @@ export const cardsService = flashCardsAPI.injectEndpoints({
           url: `v1/decks/${id}/cards`,
         }),
       }),
-      updateCard: builder.mutation<Card, { args: UpdateCardArgs; cardId: string }>({
+      getRandomCardById: builder.query<CardWithGradeResponse, GetRandomRequest>({
+        query: ({ id }) => `v1/decks/${id}/learn`,
+      }),
+      updateCard: builder.mutation<CardResponse, { args: UpdateCardArgs; cardId: string }>({
         // this is cardId
         invalidatesTags: ['Cards'],
         query: ({ args, cardId }) => {
@@ -103,6 +109,17 @@ export const cardsService = flashCardsAPI.injectEndpoints({
           }
         },
       }),
+      updateCardGrade: builder.mutation<CardWithGradeResponse, SaveGradeRequest>({
+        invalidatesTags: ['Cards'],
+
+        query: args => {
+          return {
+            body: args,
+            method: 'POST',
+            url: `v1/decks/${args.cardId}/learn`,
+          }
+        },
+      }),
     }
   },
 })
@@ -112,5 +129,7 @@ export const {
   useDeleteCardByIdMutation,
   useGetCardByIdQuery,
   useGetCardsQuery,
+  useGetRandomCardByIdQuery,
+  useUpdateCardGradeMutation,
   useUpdateCardMutation,
 } = cardsService
