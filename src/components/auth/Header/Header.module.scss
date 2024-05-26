@@ -1,4 +1,4 @@
-.box{
+.box {
   display: flex;
   justify-content: space-between;
   padding: 0 136px 0 136px;
@@ -7,22 +7,26 @@
   background-color: var(--color-dark-700);
 }
 
-.dropDown{
+.dropDown {
   display: flex;
   align-items: center;
 }
-.text{
+.text {
   padding-right: 14px;
 }
-.boxImg{
+.boxImg {
   display: flex;
   align-items: center;
 }
-.buttonBox{
+.buttonBox {
   display: flex;
   align-items: center;
 }
-.button{
+.button {
   background-color: var(--color-dark-300);
   box-shadow: none;
+}
+
+.Link {
+  text-decoration: none;
 }
