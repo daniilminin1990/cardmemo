@@ -98,7 +98,7 @@ export const CardsPage = () => {
               </Typography>
               {deck?.userId === meData?.id && (
                 // В DropDownItem можно передать onClick? Если нет, то обернуть в Button
-                <DropdownMenuDemo icon={groupIcon} type={'menu'}>
+                <DropdownMenuDemo className={s.dropdown} icon={groupIcon} type={'menu'}>
                   <DropDownItem
                     href={`${path.decks}/${deckId}${path.learn}`}
                     icon={playIcon}
