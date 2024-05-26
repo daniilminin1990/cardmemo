@@ -8,19 +8,19 @@ import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { useCreateCardMutation, useUpdateCardMutation } from '@/services/cards/cards.service'
-import { Card } from '@/services/cards/cards.types'
+import { CardResponse } from '@/services/cards/cards.types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './modalEditCard.module.scss'
 
 type ModalAddEditProps = {
-  item?: Card
+  item?: CardResponse
   open: boolean
   setOpen: (value: boolean) => void
 }
 
-function getSchema(item?: Card) {
+function getSchema(item?: CardResponse) {
   return z.object({
     answer: item ? z.string() : z.string().min(3).max(500),
     question: item ? z.string() : z.string().min(3).max(500),

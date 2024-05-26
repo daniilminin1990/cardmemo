@@ -8,12 +8,12 @@ import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
 import { useMeQuery } from '@/services/auth/auth.service'
 import { useDeleteCardByIdMutation } from '@/services/cards/cards.service'
-import { Card } from '@/services/cards/cards.types'
+import { CardResponse } from '@/services/cards/cards.types'
 
 import s from '@/components/TableComponent/tableSingleRow.module.scss'
 
 type Props = {
-  item: Card
+  item: CardResponse
 }
 export const SingleRowCard = ({ item }: Props) => {
   const { data: meData } = useMeQuery()
