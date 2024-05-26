@@ -18,3 +18,23 @@ export const ResetPasswordSchema = z
   })
 
 export type ResetPasswordFormValues = z.infer<typeof ResetPasswordSchema>
+
+export const SignUpSchema = z
+  .object({
+    confirmPassword: z.string().min(3),
+    email: z.string().email(),
+    password: z.string().min(3),
+  })
+  .superRefine((data, ctx) => {
+    if (data.password !== data.confirmPassword) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Passwords do not match',
+        path: ['confirmPassword'],
+      })
+    }
+
+    return data
+  })
+
+export type SignUpFormValues = z.infer<typeof SignUpSchema>

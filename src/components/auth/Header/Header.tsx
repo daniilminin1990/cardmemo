@@ -25,30 +25,32 @@ const Header = ({ data }: HeaderProps) => {
 
   return (
     <div className={style.box}>
-      <div className={style.boxImg}>
-        {/*! Сделал ссылку на главную страницу*/}
-        <Typography as={'a'} href={`${path.decks}`} variant={'body2'}>
-          <img alt={'logo'} className={style.img} src={logo} />
-        </Typography>
+      <div className={style.wrapper}>
+        <div className={style.boxImg}>
+          {/*! Сделал ссылку на главную страницу*/}
+          <Typography as={'a'} href={`${path.decks}`} variant={'body2'}>
+            <img alt={'logo'} className={style.img} src={logo} />
+          </Typography>
+        </div>
+        {data ? (
+          <div className={style.dropDown}>
+            <div className={style.text}>{data.name}</div>
+            <DropdownMenuDemo data={data} icon={ellipseIcon} type={'head'}>
+              <DropDownItem href={`${path.profile}`} icon={headerIcon} text={'My Profile'} />
+              <DropDownItem
+                handleOnClick={logoutHandler}
+                href={`${path.login}`}
+                icon={headerIcon1}
+                text={'Sign Out'}
+              />
+            </DropdownMenuDemo>
+          </div>
+        ) : (
+          <div className={style.buttonBox}>
+            <Button className={style.button}>Sign In</Button>
+          </div>
+        )}
       </div>
-      {data ? (
-        <div className={style.dropDown}>
-          <div className={style.text}>{data.name}</div>
-          <DropdownMenuDemo data={data} icon={ellipseIcon} type={'head'}>
-            <DropDownItem href={`${path.profile}`} icon={headerIcon} text={'My Profile'} />
-            <DropDownItem
-              handleOnClick={logoutHandler}
-              href={`${path.login}`}
-              icon={headerIcon1}
-              text={'Sign Out'}
-            />
-          </DropdownMenuDemo>
-        </div>
-      ) : (
-        <div className={style.buttonBox}>
-          <Button className={style.button}>Sign In</Button>
-        </div>
-      )}
     </div>
   )
 }

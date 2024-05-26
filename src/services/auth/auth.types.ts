@@ -37,6 +37,10 @@ export type UpdateUserDataRequest = {
   avatar?: File | string
   name?: string
 }
+export type SignUpRequest = {
+  email: string
+  password: string
+}
 
 export type ResetPasswordRequest = {
   password: string
