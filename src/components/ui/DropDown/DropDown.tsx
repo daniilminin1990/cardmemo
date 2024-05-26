@@ -1,11 +1,10 @@
 import React, { ReactNode } from 'react'
 
 import Typography from '@/components/ui/Typography/Typography'
+import { MeResponse } from '@/services/auth/auth.types'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import './DropDown.scss'
-
-import { MeResponse } from '../../../../services/auth/auth.types'
 
 type DropdownMenuDemoProps = {
   children: ReactNode
