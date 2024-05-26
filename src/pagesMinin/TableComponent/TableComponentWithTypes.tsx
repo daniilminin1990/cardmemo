@@ -9,22 +9,22 @@ import clsx from 'clsx'
 
 import s from './tableComponent.module.scss'
 
-import { Card, CardsListResponse } from '../../../services/cards/cards.types'
-import { Deck, DecksListResponse } from '../../../services/decks/deck.types'
+import { Card } from '../../../services/cards/cards.types'
+import { Deck } from '../../../services/decks/deck.types'
 
 // Типизация для Item, которая будет применена для map от data,
 // она поймет что тип Deck или Card для соответствующей таблицы
-type Item<T> = T extends DecksListResponse ? Deck : Card
+type Item<T> = T extends Deck[] ? Deck : Card
 
 // Передаем эту типизацию Item для children в Props
-type Props<T extends CardsListResponse | DecksListResponse> = {
+type Props<T extends Card[] | Deck[]> = {
   children: (item: Item<T>) => ReactNode
   data?: T
   tableHeader: { key: string; title: string }[]
 }
 // Получается что TableComponentWithTypes похож немного на полиморфную компоненту, только с 2 типами
-// для CardsListResponse или для DecksListResponse
-export const TableComponentWithTypes = <T extends CardsListResponse | DecksListResponse>({
+// для Card[] или для Decks[]
+export const TableComponentWithTypes = <T extends Card[] | Deck[]>({
   children,
   data,
   tableHeader,
@@ -58,8 +58,8 @@ export const TableComponentWithTypes = <T extends CardsListResponse | DecksListR
           <Table.HeadCell className={s.emptyTableHeadCell}></Table.HeadCell>
         </Table.Row>
       </Table.Head>
-      {data && data?.items.length !== 0 ? (
-        data?.items.map(item => {
+      {data && data?.length !== 0 ? (
+        data?.map(item => {
           return <Table.Body key={item.id}>{children(item as Item<T>)}</Table.Body>
         })
       ) : (

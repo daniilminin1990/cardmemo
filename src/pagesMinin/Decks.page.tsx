@@ -11,7 +11,11 @@ import { ModalAddEditDeck } from '@/pagesMinin/ModalsForTable/ModalAddEditDeck'
 import { SingleRowDeck } from '@/pagesMinin/TableComponent/SingleRowDeck/SingleRowDeck'
 import { TableComponentWithTypes } from '@/pagesMinin/TableComponent/TableComponentWithTypes'
 import { Page } from '@/pagesMinin/componentsMinin/Page/Page'
-import { useQueryParams, useSliderQueryParams } from '@/pagesMinin/utls/useQueryParams'
+import {
+  useQueryParams,
+  useSliderQueryParams,
+  useTabsValuesParams,
+} from '@/pagesMinin/utls/useQueryParams'
 import {
   headersNameDecks,
   initCurrentPage,
@@ -20,6 +24,7 @@ import {
 
 import s from '@/pagesMinin/decksPage.module.scss'
 
+import { useMeQuery } from '../../services/auth/auth.service'
 import { useGetDecksQuery } from '../../services/decks/decks.service'
 
 export function DecksPage() {
@@ -36,6 +41,7 @@ export function DecksPage() {
 
   const {
     isMinMaxLoading,
+    maxCardsCount,
     minMaxData,
     setSliderValues,
     setSliderValuesQuery,
@@ -44,11 +50,13 @@ export function DecksPage() {
     sliderValues,
   } = useSliderQueryParams()
 
-  const [open, setOpen] = useState(false)
-  const [tabsValue, setTabsValue] = useState('All decks')
+  const { authorId, setTabsValue, setTabsValueQuery, tabsValue, tabsValuesData } =
+    useTabsValuesParams()
 
+  const { data: meData } = useMeQuery()
   const { currentData, data, error, isLoading } = useGetDecksQuery(
     {
+      authorId: authorId || '',
       currentPage,
       itemsPerPage,
       maxCardsCount: sliderMax,
@@ -58,32 +66,29 @@ export function DecksPage() {
     },
     { skip: !minMaxData }
   )
-  const decksData = currentData ?? data
-  const sliderValueHandler = (value: number[]) => {
+
+  const handleSliderValue = (value: number[]) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setSliderValues(value)
     setSliderValuesQuery(value)
   }
 
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setSearchQuery(e.currentTarget.value)
   }
-  const tabsSwitcherHandler = (value: string) => {
-    // От этого, полагаю тоже можно избавиться через searchParams
+  const [open, setOpen] = useState(false)
+
+  const handleTabsSwitch = (value: string) => {
+    setTabsValueQuery(value)
     setTabsValue(value)
-    //! Сюда нужно прикрутить ID пользователя, чтобы вытащить только его Decks (после урока авторизации)
-    // if(value === authorId){
-    //   searchParams.set('authorId', value)
-    //   setSearchParams(searchParams)
-    // } else {
-    //   searchParams.delete('authorId')
-    //   setSearchParams(searchParams)
-    // }
   }
 
   // Clear filter func on Click
   const onClearFilter = () => {
+    setTabsValue(tabsValuesData[1].value)
+    setSliderValues([0, maxCardsCount])
+    setSliderValuesQuery([0, maxCardsCount])
     clearQuery()
   }
 
@@ -94,6 +99,11 @@ export function DecksPage() {
   const handleCurrentPageChange = (value: number) => {
     setCurrentPageQuery(value)
   }
+
+  const decksData = currentData ?? data
+  const arrayOfDecks = decksData?.items.filter(item =>
+    tabsValue === meData?.id ? item.userId === meData?.id : true
+  )
 
   if (isLoading || isMinMaxLoading) {
     return <h1>... Loading</h1>
@@ -120,19 +130,15 @@ export function DecksPage() {
           <Input
             callback={setSearchQuery}
             className={s.input}
-            onChange={handleSearch}
-            // querySearch={search}
+            onChange={handleSearchChange}
             type={'search'}
             value={search}
           />
           <TabSwitcher
             className={s.tabsSwitcher}
             label={'Show decks cards'}
-            onValueChange={tabsSwitcherHandler}
-            tabs={[
-              { text: 'My decks', value: 'authorId' }, // ! Тут value должен быть authorId. После авторизации определим
-              { text: 'All decks', value: 'allDecks' },
-            ]}
+            onValueChange={handleTabsSwitch}
+            tabs={tabsValuesData}
             value={tabsValue}
           />
           <div>
@@ -141,7 +147,7 @@ export function DecksPage() {
               label={'Number of cards'}
               max={minMaxData?.max}
               min={minMaxData?.min}
-              onValueChange={sliderValueHandler}
+              onValueChange={handleSliderValue}
               value={sliderValues}
             />
           </div>
@@ -151,8 +157,7 @@ export function DecksPage() {
           </Button>
         </div>
       </div>
-      {/*<SingleRowDeck data={data} tableHeader={headersNameDecks} />*/}
-      <TableComponentWithTypes data={decksData} tableHeader={headersNameDecks}>
+      <TableComponentWithTypes data={arrayOfDecks} tableHeader={headersNameDecks}>
         {/*// передаем функцию, которая принимает item и возвращает SingleRowDeck или SingleRowCard*/}
         {item => <SingleRowDeck item={item} />}
       </TableComponentWithTypes>

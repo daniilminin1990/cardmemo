@@ -6,6 +6,7 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
 import { DataFiller } from '@/pagesMinin/ModalsForTable/ModalEditCard/DataFiller/DataFiller'
+import { useQueryParams } from '@/pagesMinin/utls/useQueryParams'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -33,6 +34,7 @@ function getSchema(item?: Card) {
 export type FormValues = z.infer<ReturnType<typeof getSchema>>
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
+  const { clearQuery } = useQueryParams()
   const [answerImg, setAnswerImg] = useState<File | null | undefined>(undefined)
   const [questionImg, setQuestionImg] = useState<File | null | undefined>(undefined)
 
@@ -65,6 +67,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
         deckId: deckId ?? '',
       })
     }
+    clearQuery()
     setOpen(false)
     setQuestionImg(undefined)
     setAnswerImg(undefined)

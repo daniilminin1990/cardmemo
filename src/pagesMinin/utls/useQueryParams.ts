@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 
 import { initCurrentPage, selectOptionPagination } from '@/pagesMinin/utls/variablesMinin'
 
+import { useMeQuery } from '../../../services/auth/auth.service'
 import { useGetMinMaxCardsCountQuery } from '../../../services/decks/decks.service'
 
 export const useQueryParams = () => {
@@ -64,6 +65,9 @@ export const useQueryParams = () => {
     searchParams.delete('orderBy')
     searchParams.delete('itemsPerPage')
     searchParams.delete('currentPage')
+    searchParams.delete('authorId')
+    searchParams.delete('maxCardsCount')
+    searchParams.delete('minCardsCount')
     setSearchParams(searchParams)
   }
 
@@ -86,11 +90,15 @@ export const useQueryParams = () => {
 }
 
 export const useSliderQueryParams = () => {
+  const { data: minMaxData, isLoading: isMinMaxLoading } = useGetMinMaxCardsCountQuery()
   const [searchParams, setSearchParams] = useSearchParams()
-  const [sliderValues, setSliderValues] = useState<number[]>()
+  const [sliderValues, setSliderValues] = useState<number[]>([
+    minMaxData?.min ?? 0,
+    minMaxData?.max ?? 0,
+  ])
   const sliderMin = Number(searchParams.get('min') ?? '')
   const sliderMax = Number(searchParams.get('max') ?? '')
-  const { data: minMaxData, isLoading: isMinMaxLoading } = useGetMinMaxCardsCountQuery()
+  const maxCardsCount = minMaxData?.max ?? 0
 
   useEffect(() => {
     if (minMaxData) {
@@ -110,11 +118,38 @@ export const useSliderQueryParams = () => {
 
   return {
     isMinMaxLoading,
+    maxCardsCount,
     minMaxData,
     setSliderValues,
     setSliderValuesQuery,
     sliderMax,
     sliderMin,
     sliderValues,
+  }
+}
+
+export const useTabsValuesParams = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const { data: meData } = useMeQuery()
+  const tabsValuesData = [
+    { text: 'My decks', value: meData?.id ?? '' },
+    { text: 'All decks', value: 'All decks' },
+  ]
+  const authorId = searchParams.get('authorId')
+  const setTabsValueQuery = (value: string) => {
+    console.log(value)
+    value === tabsValuesData[0].value
+      ? searchParams.delete('authorId')
+      : searchParams.set('authorId', value ?? tabsValuesData[1].value)
+    setSearchParams(searchParams)
+  }
+  const [tabsValue, setTabsValue] = useState(tabsValuesData[1].value)
+
+  return {
+    authorId,
+    setTabsValue,
+    setTabsValueQuery,
+    tabsValue,
+    tabsValuesData,
   }
 }
