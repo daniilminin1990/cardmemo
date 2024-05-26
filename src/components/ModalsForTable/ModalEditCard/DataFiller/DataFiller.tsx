@@ -48,8 +48,6 @@ export const DataFiller = (props: DataFillerProps) => {
     }
   }, [cover])
 
-  console.log(cover)
-
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null && e.target.files.length > 0) {
       setPreview(URL.createObjectURL(e.target.files[0]))
