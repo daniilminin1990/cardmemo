@@ -28,6 +28,15 @@ export default meta
 const AddNewCardToggle: StoryFn<StoryProps> = (args: StoryProps) => {
   const [open, setOpen] = useState(false)
 
+  const onSubmit = (data: FormData) => {
+    let res = ''
+
+    for (const pair of data.entries()) {
+      res += pair[0] + ': ' + pair[1] + ' | '
+    }
+    alert(res)
+  }
+
   return (
     <>
       <Button onClick={() => setOpen(true)} variant={'primary'}>
@@ -40,7 +49,7 @@ const AddNewCardToggle: StoryFn<StoryProps> = (args: StoryProps) => {
         open={open}
         title={'Add New Card'}
       >
-        <AddNewCard onSubmit={() => {}} setOpenModal={setOpen} />
+        <AddNewCard onSubmit={onSubmit} setOpenModal={setOpen} />
       </Modal>
     </>
   )

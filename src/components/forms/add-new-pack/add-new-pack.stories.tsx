@@ -28,6 +28,15 @@ export default meta
 const AddNewPackToggle: StoryFn<StoryProps> = (args: StoryProps) => {
   const [open, setOpen] = useState(false)
 
+  const onSubmit = (data: FormData) => {
+    let res = ''
+
+    for (const pair of data.entries()) {
+      res += pair[0] + ': ' + pair[1] + ' | '
+    }
+    alert(res)
+  }
+
   return (
     <>
       <Button onClick={() => setOpen(true)} variant={'primary'}>
@@ -40,7 +49,7 @@ const AddNewPackToggle: StoryFn<StoryProps> = (args: StoryProps) => {
         open={open}
         title={'Add New Pack'}
       >
-        <AddNewPack onSubmit={() => {}} setOpenModal={setOpen} />
+        <AddNewPack onSubmit={onSubmit} setOpenModal={setOpen} />
       </Modal>
     </>
   )

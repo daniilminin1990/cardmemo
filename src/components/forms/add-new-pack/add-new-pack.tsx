@@ -23,8 +23,6 @@ type Props = {
   setOpenModal: (open: boolean) => void
 }
 
-type name = 'coverPack' | 'isPrivatePack' | 'packName'
-
 export const AddNewPack = ({ defaultValues, onSubmit, setOpenModal }: Props) => {
   const values: AddNewPackFormType = {
     isPrivatePack: defaultValues?.isPrivatePack || false,
@@ -39,7 +37,8 @@ export const AddNewPack = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
     deleteCoverHandler: packDeleteCoverHandler,
     downloaded: packDownloaded,
     extraActions: packExtraActions,
-  } = useUploadImg<name>({
+  } = useUploadImg<AddNewPackFormType>({
+    defaultCover: defaultValues?.cover,
     getFieldState,
     name: 'coverPack',
     resetField,
@@ -65,11 +64,6 @@ export const AddNewPack = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
     }
 
     onSubmit(form)
-
-    //for test
-    for (const pair of form.entries()) {
-      console.log(pair[0] + ': ' + pair[1])
-    }
 
     setOpenModal(false)
   }
@@ -102,11 +96,7 @@ export const AddNewPack = ({ defaultValues, onSubmit, setOpenModal }: Props) => 
               defaultValue={false}
               name={'isPrivatePack'}
               render={({ field: { onChange, value } }) => (
-                <Checkbox
-                  checked={value}
-                  label={'Private Pack'}
-                  onCheckedChange={onChange}
-                />
+                <Checkbox checked={value} label={'Private Pack'} onCheckedChange={onChange} />
               )}
             />
           </div>
