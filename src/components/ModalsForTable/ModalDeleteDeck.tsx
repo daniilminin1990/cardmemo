@@ -7,34 +7,34 @@ import { useDeleteDeckMutation } from '@/services/decks/decks.service'
 import s from './modals.module.scss'
 
 type Props = {
-    item: Deck
-    open: boolean
-    setIsDeleteModal: (value: boolean) => void
+  item: Deck
+  open: boolean
+  setIsDeleteModal: (value: boolean) => void
 }
 export const ModalDeleteDeck = (props: Props) => {
-    const { item, open, setIsDeleteModal } = props
-    const [deleteDeck] = useDeleteDeckMutation()
-    const onDeleteDeckHandler = () => {
-        deleteDeck({ id: item.id })
-        setIsDeleteModal(true)
-    }
+  const { item, open, setIsDeleteModal } = props
+  const [deleteDeck] = useDeleteDeckMutation()
+  const onDeleteDeckHandler = () => {
+    deleteDeck({ id: item.id })
+    setIsDeleteModal(true)
+  }
 
-    return (
-        <Modal onOpenChange={() => setIsDeleteModal(false)} open={open} title={'Delete Deck'}>
-            <div className={s.body}>
-                <Typography variant={'h1'}>{item.name}</Typography>
-                <Typography variant={'body1'}>
-                    Do you really want to delete deck? All cards will be deleted.
-                </Typography>
-            </div>
-            <div className={s.footer}>
-                <Button onClick={() => setIsDeleteModal(false)} variant={'secondary'}>
-                    <Typography variant={'subtitle2'}>Cancel</Typography>
-                </Button>
-                <Button onClick={onDeleteDeckHandler} variant={'primary'}>
-                    <Typography variant={'subtitle2'}>Delete deck</Typography>
-                </Button>
-            </div>
-        </Modal>
-    )
+  return (
+    <Modal onOpenChange={() => setIsDeleteModal(false)} open={open} title={'Delete Deck'}>
+      <div className={s.body}>
+        <Typography variant={'h1'}>{item.name}</Typography>
+        <Typography variant={'body1'}>
+          Do you really want to delete deck? All cards will be deleted.
+        </Typography>
+      </div>
+      <div className={s.footer}>
+        <Button onClick={() => setIsDeleteModal(false)} variant={'secondary'}>
+          <Typography variant={'subtitle2'}>Cancel</Typography>
+        </Button>
+        <Button onClick={onDeleteDeckHandler} variant={'primary'}>
+          <Typography variant={'subtitle2'}>Delete deck</Typography>
+        </Button>
+      </div>
+    </Modal>
+  )
 }

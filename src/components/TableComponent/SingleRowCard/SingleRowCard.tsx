@@ -1,16 +1,16 @@
-import {Fragment, useState} from 'react'
+import { Fragment, useState } from 'react'
 
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
-import {ModalAddEditCard} from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
+import { ModalDeleteCard } from '@/components/ModalsForTable/ModalDeleteCard'
+import { ModalAddEditCard } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
 import Typography from '@/components/ui/Typography/Typography'
-import {Button} from '@/components/ui/button'
-import {Table} from '@/components/ui/table'
-import {useMeQuery} from '@/services/auth/auth.service'
-import {CardResponse} from '@/services/cards/cards.types'
+import { Button } from '@/components/ui/button'
+import { Table } from '@/components/ui/table'
+import { useMeQuery } from '@/services/auth/auth.service'
+import { CardResponse } from '@/services/cards/cards.types'
 
 import s from '@/components/TableComponent/tableSingleRow.module.scss'
-import {ModalDeleteCard} from "@/components/ModalsForTable/ModalDeleteCard";
 
 type Props = {
   item: CardResponse
@@ -24,10 +24,11 @@ export const SingleRowCard = ({ item }: Props) => {
   const onOpenCardHandler = () => {
     setIsOpenModal(!isOpenModal)
   }
+
   return (
     <Fragment key={item.id}>
       <ModalAddEditCard item={item} open={open} setOpen={setOpen} />
-      <ModalDeleteCard item={item} open={isOpenModal} setIsDeleteModal={setIsOpenModal}/>
+      <ModalDeleteCard item={item} open={isOpenModal} setIsDeleteModal={setIsOpenModal} />
       <Table.Row key={item.id}>
         <Table.Cell>
           <Typography className={s.imgWrapper}>

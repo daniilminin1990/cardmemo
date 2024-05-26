@@ -1,4 +1,4 @@
-.box{
+.box {
   display: grid;
   width: 100%;
   height: 100vh;
@@ -6,13 +6,13 @@
   align-items: center;
 }
 
-.boxFooter{
+.boxFooter {
   display: grid;
   justify-content: center;
   margin-top: 32px;
   grid-gap: 28px;
 }
 
-.text{
+.text {
   text-align: center;
 }
