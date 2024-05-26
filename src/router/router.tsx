@@ -1,10 +1,11 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
+import { LearnPage } from '@/Pages/LearnPage/learnPage'
+import { path } from '@/router/path'
 import { useMeQuery } from '@/services/auth/auth.service'
 
 import { CardsPage } from '../Pages/CardsPage/Cards.page'
 import { DecksPage } from '../Pages/DecksPage/Decks.page'
-import { LearnPage } from '../Pages/LearnPage/Learn.page'
 import { SignInPage } from '../Pages/SignInPage/SignIn.page'
 import { Layout } from '../components/Layout/Layout'
 
@@ -25,7 +26,7 @@ const privateRoutes: RouteObject[] = [
       },
       {
         element: <LearnPage />,
-        path: '/decks/:deckId/card',
+        path: `${path.decks}/:id${path.learn}`,
       },
     ],
     element: <Outlet />,
