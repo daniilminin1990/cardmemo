@@ -1,0 +1,29 @@
+// Общее
+.tableRoot {
+  table-layout: fixed;
+}
+.emptyTableHeadCell {
+  width: 15%;
+}
+
+// Для Cards
+.tableHeadCellCards:nth-child(1),
+.tableHeadCellCards:nth-child(2) {
+  width: 27%;
+}
+
+.arrow {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.5s;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.emptyTableHeadCell {
+}
+.empty {
+  text-align: center;
+}

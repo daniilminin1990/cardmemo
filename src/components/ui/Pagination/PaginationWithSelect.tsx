@@ -13,7 +13,6 @@ type Props = {
   currentPage: number
   disabled?: boolean
   itemsPerPage: number
-  // placeholder?: string
   selectOptions: selectOptionsType[]
   setCurrentPage: (value: number) => void
   setItemsPerPage: (value: number) => void

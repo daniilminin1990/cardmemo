@@ -1,18 +1,13 @@
-import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
 
 import Typography from '@/components/ui/Typography/Typography'
-import { store } from '@/services/store'
 
 import s from './table.module.scss'
 
 import { Table } from './table'
-const withReduxProvider = (story: () => React.ReactNode) => (
-  <Provider store={store}>{story()}</Provider>
-)
+
 const meta = {
   component: Table,
-  decorators: [withReduxProvider],
   tags: ['autodocs'],
   title: 'Components/Table',
 }

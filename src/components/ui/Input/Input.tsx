@@ -1,4 +1,11 @@
-import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useId, useState } from 'react'
+import {
+  ChangeEvent,
+  ComponentPropsWithoutRef,
+  forwardRef,
+  useEffect,
+  useId,
+  useState,
+} from 'react'
 
 import EyeOff from '@/assets/icons/svg/EyeOff'
 import Typography from '@/components/ui/Typography/Typography'
@@ -14,19 +21,29 @@ export type InputProps = {
   callback?: (text: string) => void
   error?: string | undefined
   label?: string
-  querySearch?: null | string
+  //! querySearch?: null | string
 } & ComponentPropsWithoutRef<'input'>
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
-  const { callback, className, error, id, label, placeholder, querySearch, type, ...restProps } =
-    props
+  const {
+    callback,
+    className,
+    error,
+    id,
+    label,
+    placeholder,
+    // ! querySearch,
+    type,
+    ...restProps
+  } = props
 
   const [isShow, setIsShow] = useState(false)
-  const [inputValue, setInputValue] = useState(querySearch || '')
+  //! const [inputValue, setInputValue] = useState(querySearch || '')
+  const [inputValue, setInputValue] = useState('')
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     props.onChange?.(e)
-    setInputValue?.(e.target.value)
+    setInputValue(e.target.value)
   }
   const clearInput = () => {
     setInputValue('')
@@ -34,6 +51,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
       callback('')
     }
   }
+
+  //! ВОТ ЭТОТ useEffect добавил!
+  useEffect(() => {
+    // в value - search из searchParams, поэтому такое сравнение
+    props.value === '' && setInputValue('')
+  }, [props.value])
+
   const isShowChangeHandler = () => {
     setIsShow(!isShow)
   }

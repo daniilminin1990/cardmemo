@@ -17,12 +17,13 @@ input {
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+// ! ЭТО ЗАЧЕМ??? Полагаю чтобы чекбокс правильно отображался
 .card {
   position: relative;
   background-color: transparent;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     z-index: -1;
     width: 100%;
@@ -67,8 +68,23 @@ input {
 
 .content {
   overflow-y: auto;
-  max-height: 590px;
+  //box-sizing: unset;
+  //max-height: 590px;
   padding: 24px;
+
+  //&::-webkit-scrollbar {
+  //  width: 8px;
+  //  background-color: transparent;
+  //}
+  //
+  //&::-webkit-scrollbar-thumb {
+  //  background-color: var(--color-dark-300);
+  //  border-radius: 3px;
+  //
+  //  &:hover {
+  //    background-color: var(--color-dark-100);
+  //  }
+  //}
 }
 
 .closeBtn {

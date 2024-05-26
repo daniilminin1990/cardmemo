@@ -1,5 +1,7 @@
 .body {
   padding-bottom: 34px;
+  position: relative;
+  z-index: 1;
 }
 .uploadImg {
   gap: 5px;

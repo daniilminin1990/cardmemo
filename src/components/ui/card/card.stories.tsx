@@ -3,6 +3,8 @@ import Typography from '@/components/ui/Typography/Typography'
 import { StoryProps } from '@storybook/blocks'
 import { Meta, StoryFn } from '@storybook/react'
 
+import s from './cardStories.module.scss'
+
 import { Card } from './card'
 
 const meta = {
@@ -35,9 +37,9 @@ export const WithContent: StoryFn<StoryProps> = (_: StoryProps) => {
       <Typography as={'h2'} variant={'h2'}>
         Card
       </Typography>
-      <Input label={'Uncontrolled text field'} type={'text'} />
-      <Input label={'Uncontrolled search'} type={'search'} />
-      <Input label={'Uncontrolled password'} type={'password'} />
+      <Input className={s.input} label={'Uncontrolled text field'} type={'text'} />
+      <Input className={s.input} label={'Uncontrolled search'} type={'search'} />
+      <Input className={s.input} label={'Uncontrolled password'} type={'password'} />
     </Card>
   )
 }
