@@ -10,7 +10,8 @@ button {
   min-width: 217px;
   background-color: var(--color-dark-700);
   border-radius: 6px;
-  padding: 5px;
+  // ! ИЗМЕНИЛ Padding 5 -> 12
+  padding: 12px;
   box-shadow:
     0px 10px 38px -10px rgba(22, 23, 24, 0.35),
     0px 10px 20px -15px rgba(22, 23, 24, 0.2);
