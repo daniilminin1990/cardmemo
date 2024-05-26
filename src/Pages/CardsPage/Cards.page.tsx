@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 
 import groupIcon from '@/assets/icons/WhiteSVG/Group 1399.svg'
 import menuIcon2 from '@/assets/icons/WhiteSVG/edit-2-outline.svg'
-import headerIcon from '@/assets/icons/WhiteSVG/person-outline.svg'
+import playIcon from '@/assets/icons/WhiteSVG/play-circle-outline.svg'
 import menuIcon from '@/assets/icons/WhiteSVG/trash-outline.svg'
 import ArrowBackOutline from '@/assets/icons/svg/ArrowBackOutline'
 import { headersNameCards, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
@@ -18,6 +18,7 @@ import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithS
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { useQueryParams } from '@/hooks/useQueryParams'
+import { path } from '@/router/path'
 import { useMeQuery } from '@/services/auth/auth.service'
 import { useGetCardsQuery } from '@/services/cards/cards.service'
 import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
@@ -76,7 +77,12 @@ export const CardsPage = () => {
       <ModalAddEditCard open={open} setOpen={setOpen} />
       <div className={s.heading}>
         <div className={s.headingFirstRow}>
-          <Typography as={Link} style={{ textDecoration: 'none' }} to={'/'} variant={'body2'}>
+          <Typography
+            as={Link}
+            style={{ textDecoration: 'none' }}
+            to={`${path.decks}`}
+            variant={'body2'}
+          >
             <ArrowBackOutline className={s.backIcon} />
             Back to Deck List
           </Typography>
@@ -90,9 +96,15 @@ export const CardsPage = () => {
               {deck?.userId === meData?.id && (
                 // В DropDownItem можно передать onClick? Если нет, то обернуть в Button
                 <DropdownMenuDemo icon={groupIcon} type={'menu'}>
-                  <DropDownItem icon={menuIcon} text={'Learn'} />
-                  <DropDownItem icon={headerIcon} text={'Edit'} />
-                  <DropDownItem icon={menuIcon2} text={'Delete'} />
+                  <Link
+                    style={{ textDecoration: 'none' }}
+                    to={`${path.decks}/${deckId}${path.learn}`}
+                  >
+                    <DropDownItem icon={playIcon} text={'Learn'} />
+                  </Link>
+
+                  <DropDownItem icon={menuIcon2} text={'Edit'} />
+                  <DropDownItem icon={menuIcon} text={'Delete'} />
                 </DropdownMenuDemo>
               )}
             </div>
@@ -111,7 +123,7 @@ export const CardsPage = () => {
                   as={Link}
                   className={s.learnCards}
                   onClick={() => setOpen(true)}
-                  to={`/decks/${deckId}/card`}
+                  to={`${path.decks}/${deckId}/${path.learn}`}
                   type={'button'}
                 >
                   <Typography variant={'subtitle2'}>Learn Cards</Typography>

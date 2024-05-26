@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
+import { path } from '@/router/path'
 import { useLoginMutation, useMeQuery } from '@/services/auth/auth.service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -39,7 +40,7 @@ export const SignInPage = () => {
   const { data: me } = useMeQuery()
 
   if (me) {
-    return <Navigate to={'/decks'} />
+    return <Navigate to={`${path.decks}`} />
   }
 
   return (
