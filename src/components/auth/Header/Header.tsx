@@ -5,6 +5,7 @@ import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
+import { path } from '@/router/path'
 import { useLogoutMutation } from '@/services/auth/auth.service'
 import { MeResponse } from '@/services/auth/auth.types'
 
@@ -26,7 +27,7 @@ const Header = ({ data }: HeaderProps) => {
     <div className={style.box}>
       <div className={style.boxImg}>
         {/*! Сделал ссылку на главную страницу*/}
-        <Typography as={'a'} href={'/'} variant={'body2'}>
+        <Typography as={'a'} href={`${path.decks}`} variant={'body2'}>
           <img alt={'logo'} className={style.img} src={logo} />
         </Typography>
       </div>

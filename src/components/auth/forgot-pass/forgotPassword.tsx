@@ -4,6 +4,7 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
+import { path } from '@/router/path'
 
 import s from './forgotPassword.module.scss'
 type Props = {}
@@ -45,7 +46,7 @@ export const ForgotPassword = ({}: Props) => {
           <Typography as={'h2'} className={s.passQuest} variant={'body2'}>
             Did you remember your password?
           </Typography>
-          <Button as={'a'} className={s.loginLink} href={'/'}>
+          <Button as={'a'} className={s.loginLink} href={`${path.login}`}>
             <Typography as={'span'}>Try logging in</Typography>
           </Button>
         </div>
