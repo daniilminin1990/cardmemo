@@ -1,39 +1,39 @@
-.box{
+.box {
   display: grid;
   justify-content: center;
   padding: 33px 34px 48px 34px;
 }
-.countTry{
-  color: var( --color-dark-100);
+.countTry {
+  color: var(--color-dark-100);
   font-size: var(--font-size-s);
 }
-.radio{
+.radio {
   display: grid;
   grid-gap: 12px;
   margin-bottom: 30px;
 }
-.title{
+.title {
   font-size: var(--font-size-xxl);
   text-align: center;
   margin-bottom: 45px;
 }
-.subtitleQuestionBox{
+.subtitleQuestionBox {
   display: grid;
   grid-gap: 19px;
   margin-bottom: 11px;
 }
-.subtitleQuestion{
+.subtitleQuestion {
   font-size: var(--font-size-m);
 }
-.subtitleAnswerBox{
+.subtitleAnswerBox {
   display: grid;
   grid-gap: 19px;
   margin-bottom: 30px;
 }
-.subtitleAnswer{
+.subtitleAnswer {
   font-size: var(--font-size-m);
 }
 
-.button{
+.button {
   text-align: center;
 }

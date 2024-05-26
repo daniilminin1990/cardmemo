@@ -3,12 +3,14 @@ import React, { ReactNode } from 'react'
 import Typography from '@/components/ui/Typography/Typography'
 import { MeResponse } from '@/services/auth/auth.types'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { clsx } from 'clsx'
 
 // ! Изменил стили на module scss
 import s from './DropDown.module.scss'
 
 type DropdownMenuDemoProps = {
   children: ReactNode
+  className?: string
   //! Добавил data
   data?: MeResponse
   icon: string
@@ -16,7 +18,7 @@ type DropdownMenuDemoProps = {
 }
 
 const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
-  const { children, data, icon, type } = props
+  const { children, className, data, icon, type } = props
 
   return (
     <DropdownMenu.Root>
@@ -24,7 +26,11 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
         <button aria-label={'Customise options'} className={s.IconButton}>
           <div className={s.imgBox}>
             {/*! Добавил картинку поменял И СТИЛИ*/}
-            <img alt={''} className={s.dropdownHeaderImg} src={data?.avatar ?? icon} />
+            <img
+              alt={''}
+              className={clsx(s.dropdownHeaderImg, className)}
+              src={data?.avatar ?? icon}
+            />
           </div>
         </button>
       </DropdownMenu.Trigger>

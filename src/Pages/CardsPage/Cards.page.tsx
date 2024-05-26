@@ -8,6 +8,7 @@ import menuIcon from '@/assets/icons/WhiteSVG/trash-outline.svg'
 import ArrowBackOutline from '@/assets/icons/svg/ArrowBackOutline'
 import { headersNameCards, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
 import { ModalAddEditCard } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
+import ModalOnEmpty from '@/components/ModalsForTable/ModalOnEmpty/ModalOnEmpty'
 import { Page } from '@/components/Page/Page'
 import { SingleRowCard } from '@/components/TableComponent/SingleRowCard/SingleRowCard'
 import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
@@ -51,7 +52,7 @@ export const CardsPage = () => {
     args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: search },
     id: deckId ?? '',
   })
-
+  const [openModal, setOpenModal] = useState(false)
   const handleItemsPerPageChange = (value: number) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setItemsPerPageQuery(value)
@@ -68,24 +69,26 @@ export const CardsPage = () => {
   const cardsData = currentData ?? data
   const isCardsCountFilled = deck?.cardsCount !== 0
 
+  const handleOpenModal = () => {
+    setOpenModal(true)
+  }
+
   if (isLoading) {
     return <h1>...Loading</h1>
   }
 
   return (
     <Page className={s.common} mt={'24px'}>
+      <ModalOnEmpty open={openModal} setIsOpenModal={setOpenModal} />
       <ModalAddEditCard open={open} setOpen={setOpen} />
       <div className={s.heading}>
         <div className={s.headingFirstRow}>
-          <Typography
-            as={Link}
-            style={{ textDecoration: 'none' }}
-            to={`${path.decks}`}
-            variant={'body2'}
-          >
-            <ArrowBackOutline className={s.backIcon} />
-            Back to Deck List
-          </Typography>
+          <Button onClick={handleOpenModal} style={{ all: 'unset' }}>
+            <Typography as={Link} style={{ textDecoration: 'none' }} to={'#'} variant={'body2'}>
+              <ArrowBackOutline className={s.backIcon} />
+              Back to Deck List
+            </Typography>
+          </Button>
         </div>
         <div className={s.headingSecondRow}>
           <div className={clsx(deck?.cover && s.isWithImage)}>
@@ -96,7 +99,11 @@ export const CardsPage = () => {
               {deck?.userId === meData?.id && (
                 // В DropDownItem можно передать onClick? Если нет, то обернуть в Button
                 <DropdownMenuDemo icon={groupIcon} type={'menu'}>
-                  <DropDownItem icon={playIcon} text={'Learn'} href={`${path.decks}/${deckId}${path.learn}`} />
+                  <DropDownItem
+                    href={`${path.decks}/${deckId}${path.learn}`}
+                    icon={playIcon}
+                    text={'Learn'}
+                  />
                   <DropDownItem icon={menuIcon2} text={'Edit'} />
                   <DropDownItem icon={menuIcon} text={'Delete'} />
                 </DropdownMenuDemo>
