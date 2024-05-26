@@ -17,6 +17,31 @@ export const cardsService = flashCardsAPI.injectEndpoints({
       createCard: builder.mutation<CardResponse, { args: CreateCardArgs; deckId: string }>({
         // this is deckId
         invalidatesTags: ['Deck', 'Cards'],
+        async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
+          const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), [
+            { type: 'Cards' || 'Deck' },
+          ])
+
+          try {
+            const { data } = await queryFulfilled // тут будет cardData
+
+            console.log(data)
+
+            invalidateBy.forEach(({ originalArgs }) => {
+              dispatch(
+                cardsService.util.updateQueryData('getCards', originalArgs, draft => {
+                  if (originalArgs.currentPage !== 1) {
+                    return
+                  } // Вот так делать в реальном проекте нельзя
+                  draft.items.unshift(data)
+                  draft.items.pop()
+                })
+              )
+            })
+          } catch (e) {
+            console.log(e)
+          }
+        },
         query: ({ args, deckId }) => {
           const formData = new FormData()
           const { answer, answerImg, question, questionImg } = args
@@ -47,6 +72,33 @@ export const cardsService = flashCardsAPI.injectEndpoints({
       }),
       deleteCardById: builder.mutation<void, DeleteCardArgs>({
         invalidatesTags: ['Cards'],
+        async onQueryStarted({ id }, { dispatch, getState, queryFulfilled }) {
+          const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), [
+            { type: 'Cards' },
+          ])
+          const patchResults: any[] = []
+
+          invalidateBy.forEach(({ originalArgs }) => {
+            patchResults.push(
+              dispatch(
+                cardsService.util.updateQueryData('getCards', originalArgs, draft => {
+                  const itemToDeleteIndex = draft.items.findIndex(card => card.id === id)
+
+                  if (itemToDeleteIndex === -1) {
+                    return
+                  }
+                  draft.items.splice(itemToDeleteIndex, 1)
+                })
+              )
+            )
+          })
+
+          try {
+            await queryFulfilled
+          } catch (e) {
+            patchResults.forEach(patchResult => patchResult.undo())
+          }
+        },
         query: ({ id }) => ({
           body: { id },
           method: 'DELETE',
@@ -81,6 +133,33 @@ export const cardsService = flashCardsAPI.injectEndpoints({
       updateCard: builder.mutation<CardResponse, { args: UpdateCardArgs; cardId: string }>({
         // this is cardId
         invalidatesTags: ['Cards'],
+        async onQueryStarted({ cardId, ...args }, { dispatch, getState, queryFulfilled }) {
+          const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), [
+            { type: 'Cards' },
+          ])
+          const patchResults: any[] = []
+
+          invalidateBy.forEach(({ originalArgs }) => {
+            patchResults.push(
+              dispatch(
+                cardsService.util.updateQueryData('getCards', originalArgs, draft => {
+                  const itemToUpdateIndex = draft.items.findIndex(card => card.id === cardId)
+
+                  if (itemToUpdateIndex === -1) {
+                    return
+                  }
+                  Object.assign(draft.items[itemToUpdateIndex], args)
+                })
+              )
+            )
+          })
+
+          try {
+            await queryFulfilled
+          } catch (e) {
+            patchResults.forEach(patchResult => patchResult.undo())
+          }
+        },
         query: ({ args, cardId }) => {
           const formData = new FormData()
           const { answer, answerImg, question, questionImg } = args

@@ -7,7 +7,11 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
-import { useCreateCardMutation, useUpdateCardMutation } from '@/services/cards/cards.service'
+import {
+  useCreateCardMutation,
+  useGetCardByIdQuery,
+  useUpdateCardMutation,
+} from '@/services/cards/cards.service'
 import { CardResponse } from '@/services/cards/cards.types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -38,6 +42,9 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
 
   const [createCard] = useCreateCardMutation()
   const [updateCard] = useUpdateCardMutation()
+
+  const { currentData: currentCardData } = useGetCardByIdQuery({ id: item?.id ?? '' })
+  const currendCard = currentCardData ?? item
 
   const schema = getSchema(item)
 

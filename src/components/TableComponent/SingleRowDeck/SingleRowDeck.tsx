@@ -12,7 +12,6 @@ import { Table } from '@/components/ui/table'
 import { path } from '@/router/path'
 import { useMeQuery } from '@/services/auth/auth.service'
 import { Deck } from '@/services/decks/deck.types'
-import { useDeleteDeckMutation } from '@/services/decks/decks.service'
 import clsx from 'clsx'
 
 import s from '@/components/TableComponent/tableSingleRow.module.scss'
@@ -25,9 +24,6 @@ export const SingleRowDeck = ({ item }: Props) => {
   const [isUpdateModal, setIsUpdateModal] = useState(false)
   const [isDeleteModal, setIsDeleteModal] = useState(false)
   const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
-  // Region
-  const [deleteDeck] = useDeleteDeckMutation()
-  // End
 
   return (
     <Fragment key={item.id}>
@@ -67,22 +63,12 @@ export const SingleRowDeck = ({ item }: Props) => {
                   />
                 </Link>
               </Button>
-              {/*Region*/}
-              {/*<Button*/}
-              {/*  className={s.btn}*/}
-              {/*  onClick={() => {*/}
-              {/*    setIsDeleteModal(true)*/}
-              {/*  }}*/}
-              {/*>*/}
-              {/*  <TrashOutline className={s.TrashOutline} />*/}
-              {/*</Button>*/}
               <Button
                 className={s.btn}
-                onClick={async () => {
-                  await deleteDeck({ id: item.id })
+                onClick={() => {
+                  setIsDeleteModal(true)
                 }}
               >
-                {/*End*/}
                 <TrashOutline className={s.TrashOutline} />
               </Button>
             </div>
