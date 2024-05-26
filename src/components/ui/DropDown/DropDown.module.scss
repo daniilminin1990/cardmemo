@@ -60,6 +60,12 @@ button {
   position: relative;
   user-select: none;
   outline: none;
+  //! Добавил стили для Button
+  .button {
+    align-items: center;
+    all: unset;
+    display: flex;
+  }
 }
 
 .icon {
