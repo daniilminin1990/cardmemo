@@ -23,14 +23,14 @@ export const LearnPage = () => {
     defaultValues: { grade: undefined },
   })
 
-  const { id = '' } = useParams()
+  const { deckId = '' } = useParams()
 
   const [isShowAnswer, setIsShowAnswer] = useState(false)
   const [previousCardId, setPreviousCardId] = useState('')
 
-  const { data: deckData } = useGetDeckByIdQuery({ id })
+  const { data: deckData } = useGetDeckByIdQuery({ id: deckId })
   const { data: randomCard, isLoading } = useGetRandomCardByIdQuery({
-    id,
+    id: deckId,
     previousCardId,
   })
 
@@ -67,7 +67,7 @@ export const LearnPage = () => {
 
   return (
     <section>
-      <BackBtn name={'Back to Previous Page'} path={`${path.decks}/${id}`} />
+      <BackBtn name={'Back to Previous Page'} path={`${path.decks}/${deckId}`} />
       {randomCard && (
         <Card className={s.card}>
           <div className={s.container}>
