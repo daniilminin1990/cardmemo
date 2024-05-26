@@ -18,14 +18,10 @@ export const cardsService = flashCardsAPI.injectEndpoints({
         // this is deckId
         invalidatesTags: ['Deck', 'Cards'],
         // async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
-        //   const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), [
-        //     { type: 'Cards' || 'Deck' },
-        //   ])
+        //   const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), ['Deck', 'Cards'])
         //
         //   try {
         //     const { data } = await queryFulfilled // тут будет cardData
-        //
-        //     console.log(data)
         //
         //     invalidateBy.forEach(({ originalArgs }) => {
         //       dispatch(

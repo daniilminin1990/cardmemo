@@ -7,11 +7,7 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
-import {
-  useCreateCardMutation,
-  useGetCardByIdQuery,
-  useUpdateCardMutation,
-} from '@/services/cards/cards.service'
+import { useCreateCardMutation, useUpdateCardMutation } from '@/services/cards/cards.service'
 import { CardResponse } from '@/services/cards/cards.types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -43,8 +39,11 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const [createCard] = useCreateCardMutation()
   const [updateCard] = useUpdateCardMutation()
 
-  const { currentData: currentCardData } = useGetCardByIdQuery({ id: item?.id ?? '' })
-  const currendCard = currentCardData ?? item
+  // const { currentData: currentCardData } = useGetCardByIdQuery(
+  //   { id: item?.id ?? '' },
+  //   { skip: !item }
+  // )
+  // const currendCard = currentCardData ?? item
 
   const schema = getSchema(item)
 
@@ -54,7 +53,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   })
 
   const onSubmit: SubmitHandler<FormValues> = data => {
-    if (currendCard) {
+    if (item) {
       updateCard({
         args: {
           answer: data.answer,
@@ -62,7 +61,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
           question: data.question,
           questionImg,
         },
-        cardId: currendCard.id,
+        cardId: item.id,
       })
     } else {
       createCard({
@@ -93,25 +92,25 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
       className={s.customClass}
       onOpenChange={handleOnClose}
       open={open}
-      title={currendCard ? 'Update Card' : 'Add New Card'}
+      title={item ? 'Update Card' : 'Add New Card'}
     >
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.body}>
           <DataFiller
             control={control}
             getImageHandler={getQuestionImgHandler}
-            img={currendCard?.questionImg}
-            item={currendCard}
+            img={item?.questionImg}
+            item={item}
             label={'question'}
-            questionOrAnswer={currendCard?.question}
+            questionOrAnswer={item?.question}
           />
           <DataFiller
             control={control}
             getImageHandler={getAnswerImgHandler}
-            img={currendCard?.answerImg}
-            item={currendCard}
+            img={item?.answerImg}
+            item={item}
             label={'answer'}
-            questionOrAnswer={currendCard?.answer}
+            questionOrAnswer={item?.answer}
           />
         </div>
         <div className={s.footer}>
@@ -123,9 +122,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
             type={'submit'}
             // Не обязательное говно, т.к. по умолчанию onSubmit
           >
-            <Typography variant={'subtitle2'}>
-              {currendCard ? 'Save changes' : 'Create Card'}
-            </Typography>
+            <Typography variant={'subtitle2'}>{item ? 'Save changes' : 'Create Card'}</Typography>
           </Button>
         </div>
       </form>
