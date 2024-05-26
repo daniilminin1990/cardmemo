@@ -1,58 +1,51 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 
+import { SignUpFormValues, SignUpSchema } from '@/common/zodSchemas/auth/auth.schemas'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
+import { path } from '@/router/path'
+import { useSignUpMutation } from '@/services/auth/auth.service'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 
-import style from '@/components/auth/sign-up/SignUp.module.scss'
-
-const signUpSchema = z
-  .object({
-    confirmPassword: z.string().min(3),
-    email: z.string().email(),
-    password: z.string().min(3),
-  })
-  .superRefine((data, ctx) => {
-    if (data.password !== data.confirmPassword) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Passwords do not match',
-        path: ['confirmPassword'],
-      })
-    }
-
-    return data
-  })
-
-type FormValues = z.infer<typeof signUpSchema>
+import s from './SignUp.module.scss'
 
 export default function SignUp() {
-  const { control, handleSubmit } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<SignUpFormValues>({
     defaultValues: {
       confirmPassword: '',
       email: '',
       password: '',
     },
-    resolver: zodResolver(signUpSchema),
+    resolver: zodResolver(SignUpSchema),
   })
 
-  const onSubmit: SubmitHandler<FormValues> = data => console.log(data)
+  const [signUp] = useSignUpMutation()
 
-  // 123
+  // const { goTo } = useNavigation()
+
+  const onSubmit: SubmitHandler<FieldValues> = data => {
+    const { email, password } = data
+
+    signUp({ email, password })
+      .unwrap()
+      .then(() => {
+        // goTo(`${path.login}`)
+      })
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className={style.card}>
-        <div className={style.header}>
-          <Typography as={'h1'} className={style.typographyHead} variant={'h1'}>
+      <Card className={s.card}>
+        <div className={s.header}>
+          <Typography as={'h1'} className={s.typographyHead} variant={'h1'}>
             Sign Up
           </Typography>
         </div>
-        <div className={style.box}>
+        <div className={s.box}>
           <FormTextfield
-            className={style.inputStyle}
+            className={s.inputStyle}
             control={control}
             label={'Email'}
             name={'email'}
@@ -60,7 +53,7 @@ export default function SignUp() {
             type={'text'}
           />
           <FormTextfield
-            className={style.inputStyle}
+            className={s.inputStyle}
             control={control}
             label={'Password'}
             name={'password'}
@@ -68,7 +61,7 @@ export default function SignUp() {
             type={'password'}
           />
           <FormTextfield
-            className={style.inputStyle}
+            className={s.inputStyle}
             control={control}
             label={'Confirm Password'}
             name={'confirmPassword'}
@@ -78,11 +71,17 @@ export default function SignUp() {
         </div>
 
         <Button fullWidth>Submit</Button>
-        <div className={style.footer}>
-          <Typography as={'label'} className={style.typographyFooterTitle} variant={'body2'}>
+        <div className={s.footer}>
+          <Typography as={'label'} className={s.typographyFooterTitle} variant={'body2'}>
             Already have an account?
           </Typography>
-          <Typography className={style.typographyFooterSubtitle} variant={'link1'}>
+
+          <Typography
+            as={'a'}
+            className={s.typographyFooterSubtitle}
+            href={`${path.login}`}
+            variant={'link1'}
+          >
             Sign In
           </Typography>
         </div>

@@ -104,8 +104,7 @@ button {
   align-items: center;
   justify-content: center;
   color: var(--color-accent-500);
-  background-color: black;
-  box-shadow: 0 2px 10px var(--black-a7);
+
   //! Добавил ЭТИ СТИЛИ
   .imgBox {
     .dropdownHeaderImg {
@@ -155,7 +154,9 @@ button {
 .DropdownMenuItemBox {
   margin: 6px 0 6px 0;
 }
-
+.dropdownHeaderImg{
+  border-radius: 50%;
+}
 @keyframes slideUpAndFade {
   from {
     opacity: 0;

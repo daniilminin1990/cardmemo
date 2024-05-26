@@ -1,5 +1,15 @@
+import { path } from '@/router/path'
+import { router } from '@/router/router'
+
 import { flashCardsAPI } from '../flashCardsAPI'
-import { LoginArgs, LoginResponse, MeResponse } from './auth.types'
+import {
+  LoginArgs,
+  LoginResponse,
+  MeResponse,
+  ResetPasswordRequest,
+  SignUpRequest,
+  UpdateUserDataRequest,
+} from './auth.types'
 
 export const authService = flashCardsAPI.injectEndpoints({
   endpoints: builder => {
@@ -42,8 +52,49 @@ export const authService = flashCardsAPI.injectEndpoints({
           url: `v1/auth/me`,
         }),
       }),
+      resetPassword: builder.mutation<void, ResetPasswordRequest>({
+        query: ({ password, token }) => ({
+          body: { password },
+          method: 'POST',
+          url: `v1/auth/reset-password/${token}`,
+        }),
+      }),
+      signUp: builder.mutation<MeResponse, SignUpRequest>({
+        async onQueryStarted(_, { queryFulfilled }) {
+          await queryFulfilled
+          await router.navigate(`${path.login}`)
+        },
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: `v1/auth/sign-up`,
+        }),
+      }),
+
+      updateUserData: builder.mutation<MeResponse, UpdateUserDataRequest>({
+        invalidatesTags: ['Me'],
+        query: ({ avatar, name }) => {
+          const formData = new FormData()
+
+          avatar && formData.append('avatar', avatar)
+          name && formData.append('name', name)
+
+          return {
+            body: formData,
+            method: 'PATCH',
+            url: `v1/auth/me`,
+          }
+        },
+      }),
     }
   },
 })
 
-export const { useLoginMutation, useLogoutMutation, useMeQuery } = authService
+export const {
+  useLoginMutation,
+  useLogoutMutation,
+  useMeQuery,
+  useResetPasswordMutation,
+  useSignUpMutation,
+  useUpdateUserDataMutation,
+} = authService
