@@ -5,7 +5,7 @@ import { headersNameCards, headersNameDecks } from '@/common/globalVariables'
 import Typography from '@/components/ui/Typography/Typography'
 import { Table } from '@/components/ui/table'
 import { useQueryParams } from '@/hooks/useQueryParams'
-import { Card } from '@/services/cards/cards.types'
+import { CardResponse } from '@/services/cards/cards.types'
 import { Deck } from '@/services/decks/deck.types'
 import clsx from 'clsx'
 
@@ -13,17 +13,17 @@ import s from './tableComponent.module.scss'
 
 // Типизация для Item, которая будет применена для map от data,
 // она поймет что тип Deck или Card для соответствующей таблицы
-type Item<T> = T extends Deck[] ? Deck : Card
+type Item<T> = T extends Deck[] ? Deck : CardResponse
 
 // Передаем эту типизацию Item для children в Props
-type Props<T extends Card[] | Deck[]> = {
+type Props<T extends CardResponse[] | Deck[]> = {
   children: (item: Item<T>) => ReactNode
   data?: T
   tableHeader: { key: string; title: string }[]
 }
 // Получается что TableComponentWithTypes похож немного на полиморфную компоненту, только с 2 типами
 // для Card[] или для Decks[]
-export const TableComponentWithTypes = <T extends Card[] | Deck[]>({
+export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
   children,
   data,
   tableHeader,

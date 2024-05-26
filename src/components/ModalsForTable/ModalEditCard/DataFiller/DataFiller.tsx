@@ -7,7 +7,7 @@ import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
-import { Card } from '@/services/cards/cards.types'
+import { CardResponse } from '@/services/cards/cards.types'
 
 import s from './dataFiller.module.scss'
 
@@ -15,7 +15,7 @@ type DataFillerProps = {
   control: Control<FormValues, any>
   getImageHandler: (img: File | null | undefined) => void
   img: null | string | undefined
-  item?: Card
+  item?: CardResponse
   label: keyof FormValues
   questionOrAnswer: string | undefined
 }
