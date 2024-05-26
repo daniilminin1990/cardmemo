@@ -63,7 +63,12 @@ export const SingleRowDeck = ({ item }: Props) => {
                   />
                 </Link>
               </Button>
-              <Button className={s.btn} onClick={() => setIsDeleteModal(true)}>
+              <Button
+                className={s.btn}
+                onClick={() => {
+                  setIsDeleteModal(true)
+                }}
+              >
                 <TrashOutline className={s.TrashOutline} />
               </Button>
             </div>
