@@ -38,6 +38,7 @@ const Header = ({ data }: HeaderProps) => {
             <DropDownItem
               as={'a'}
               handleOnClick={logoutHandler}
+              href={'/'}
               icon={headerIcon1}
               text={'Sign Out'}
             />

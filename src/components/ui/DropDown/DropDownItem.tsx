@@ -11,12 +11,13 @@ type DropDownItemProps = {
   as?: ElementType
   //! Добавил handleClick
   handleOnClick?: () => void
+  href?: string
   icon: string
   text: string
 }
 
 const DropDownItem = (props: DropDownItemProps) => {
-  const { as, handleOnClick, icon, text } = props
+  const { as, handleOnClick, href, icon, text } = props
 
   return (
     <div className={s.DropdownMenuItemBox}>
@@ -24,7 +25,7 @@ const DropDownItem = (props: DropDownItemProps) => {
         {/*! Добавил Button*/}
         <Button
           as={as}
-          href={'/'}
+          href={href}
           onClick={handleOnClick}
           style={{ alignItems: 'center', all: 'unset', display: 'flex' }}
         >
