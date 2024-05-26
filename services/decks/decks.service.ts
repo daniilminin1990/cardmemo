@@ -1,3 +1,5 @@
+import { router } from '@/pagesMinin/router/router'
+
 import { flashCardsAPI } from '../flashCardsAPI'
 import {
   CreateDeckArgs,
@@ -32,6 +34,9 @@ export const decksService = flashCardsAPI.injectEndpoints({
                   draft.items.pop() // Удаляем последний элемент
                 })
               )
+              // Переходим на созданный deck сразу после создания
+
+              router.navigate(`/decks/${data.id}`)
             })
           } catch (e) {
             console.log(e)

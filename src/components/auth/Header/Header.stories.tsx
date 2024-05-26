@@ -14,6 +14,14 @@ type Story = StoryObj<typeof meta>
 
 export const HeadersStory: Story = {
   args: {
-    isAuth: true,
+    data: {
+      avatar: 'Ведро коня',
+      created: '222. 124.15',
+      email: 'string@mail.ru',
+      id: 'sdfsdfsdfd',
+      isEmailVerified: true,
+      name: 'Сентябрь Утка',
+      updated: '222. 124.15',
+    },
   },
 }
