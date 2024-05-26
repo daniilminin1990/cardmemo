@@ -1,6 +1,6 @@
 import { RouterProvider } from 'react-router-dom'
 
-import { router } from '@/pagesMinin/router/router'
+import { router } from '@/router/router'
 
 export function App() {
   return (
