@@ -45,7 +45,7 @@ export function DecksPage() {
 
   const { authorId, setTabsValue, setTabsValueQuery, tabsValue, tabsValuesData } =
     useTabsValuesParams()
-
+  const [open, setOpen] = useState(false)
   const { data: meData } = useMeQuery()
   const { currentData, data, error, isLoading } = useGetDecksQuery(
     {
@@ -70,14 +70,12 @@ export function DecksPage() {
     setCurrentPageQuery(Number(initCurrentPage))
     setSearchQuery(e.currentTarget.value)
   }
-  const [open, setOpen] = useState(false)
 
   const handleTabsSwitch = (value: string) => {
     setTabsValueQuery(value)
     setTabsValue(value)
   }
 
-  // Clear filter func on Click
   const onClearFilter = () => {
     setTabsValue(tabsValuesData[1].value)
     setSliderValues([0, maxCardsCount])
@@ -108,7 +106,6 @@ export function DecksPage() {
 
   return (
     <Page className={s.common}>
-      {/*<ModalOnAddDeckMinin open={open} setOpen={setOpen} />*/}
       <ModalAddEditDeck open={open} setOpen={setOpen} />
       <div className={s.heading}>
         <div className={s.headingFirstRow}>
@@ -134,7 +131,7 @@ export function DecksPage() {
             tabs={tabsValuesData}
             value={tabsValue}
           />
-          <div>
+          <div className={s.sliderBox}>
             <Slider
               className={s.slider}
               label={'Number of cards'}
@@ -151,7 +148,6 @@ export function DecksPage() {
         </div>
       </div>
       <TableComponentWithTypes data={arrayOfDecks} tableHeader={headersNameDecks}>
-        {/*// передаем функцию, которая принимает item и возвращает SingleRowDeck или SingleRowCard*/}
         {item => <SingleRowDeck item={item} />}
       </TableComponentWithTypes>
       <div className={s.footer}>

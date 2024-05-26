@@ -57,30 +57,18 @@ export const useQueryParams = () => {
   }
 
   const clearQuery = () => {
-    searchParams.delete('search')
-    searchParams.delete('orderBy')
-    searchParams.delete('itemsPerPage')
-    searchParams.delete('currentPage')
-    searchParams.delete('authorId')
-    searchParams.delete('maxCardsCount')
-    searchParams.delete('minCardsCount')
-    setSearchParams(searchParams)
+    setSearchParams(new URLSearchParams())
   }
 
   return {
     clearQuery,
     currentOrderBy,
     currentPage,
-    // isMinMaxLoading,
     itemsPerPage,
-    // minMaxData,
     search,
     setCurrentPageQuery,
     setItemsPerPageQuery,
     setSearchQuery,
-    // setSliderValuesQuery,
     setSortByQuery,
-    // sliderMax,
-    // sliderMin,
   }
 }
