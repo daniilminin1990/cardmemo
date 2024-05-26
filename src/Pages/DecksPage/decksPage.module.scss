@@ -1,32 +1,42 @@
 .common {
   max-width: 1008px;
 }
+
 .heading {
   display: grid;
-  gap: 7px;
   grid-template-rows: auto 1fr;
+  gap: 7px;
   width: 100%;
 }
+
 .headingFirstRow {
   display: flex;
   justify-content: space-between;
 }
+
 .searchParams {
-  align-items: end;
-  gap: 25px;
   display: grid;
   grid-template-columns: 1fr 240px 250px 144px;
-  //grid-template-columns: 1fr 1fr 1fr 140px;
-  //grid-template-columns: 29.2% 22.5% 24.5% 14.1%;
+  gap: 25px;
+  align-items: end;
+
   margin-bottom: 36px;
 }
 
-.slider {
-  width: 56%;
+.sliderBox {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 7px;
+
+  width: 100%;
+  max-width: 250px;
+
+  .slider {
+    max-width: 150px;
+  }
 }
 
 .clearFilter {
-  ////text-align: center;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -42,15 +52,17 @@
 .rotate {
   transform: rotate(180deg);
 }
+
 .input {
   width: 100%;
 }
+
 .tabsSwitcher {
 }
 
 .footer {
-  margin: 24px 0;
   width: 100%;
+  margin: 24px 0;
 }
 
 .empty {
