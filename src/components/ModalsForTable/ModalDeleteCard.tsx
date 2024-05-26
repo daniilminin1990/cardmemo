@@ -1,30 +1,30 @@
 import Typography from '@/components/ui/Typography/Typography'
-import { Button } from '@/components/ui/button'
-import { Modal } from '@/components/ui/modal/modal'
-import { Deck } from '@/services/decks/deck.types'
-import { useDeleteDeckMutation } from '@/services/decks/decks.service'
+import {Button} from '@/components/ui/button'
+import {Modal} from '@/components/ui/modal/modal'
 
 import s from './modals.module.scss'
+import {CardResponse} from "@/services/cards/cards.types";
+import {useDeleteCardByIdMutation} from "@/services/cards/cards.service";
 
 type Props = {
-    item: Deck
+    item: CardResponse
     open: boolean
     setIsDeleteModal: (value: boolean) => void
 }
-export const ModalDeleteDeck = (props: Props) => {
+export const ModalDeleteCard = (props: Props) => {
     const { item, open, setIsDeleteModal } = props
-    const [deleteDeck] = useDeleteDeckMutation()
+    const [deleteCard] = useDeleteCardByIdMutation()
     const onDeleteDeckHandler = () => {
-        deleteDeck({ id: item.id })
+        deleteCard({ id: item.id })
         setIsDeleteModal(true)
     }
 
     return (
-        <Modal onOpenChange={() => setIsDeleteModal(false)} open={open} title={'Delete Deck'}>
+        <Modal onOpenChange={() => setIsDeleteModal(false)} open={open} title={'Delete Card'}>
             <div className={s.body}>
-                <Typography variant={'h1'}>{item.name}</Typography>
+                <Typography variant={'h1'}>{item.question}</Typography>
                 <Typography variant={'body1'}>
-                    Do you really want to delete deck? All cards will be deleted.
+                    Do you really want to delete card? Cards will be deleted !!!
                 </Typography>
             </div>
             <div className={s.footer}>
@@ -32,7 +32,7 @@ export const ModalDeleteDeck = (props: Props) => {
                     <Typography variant={'subtitle2'}>Cancel</Typography>
                 </Button>
                 <Button onClick={onDeleteDeckHandler} variant={'primary'}>
-                    <Typography variant={'subtitle2'}>Delete deck</Typography>
+                    <Typography variant={'subtitle2'}>Delete card</Typography>
                 </Button>
             </div>
         </Modal>

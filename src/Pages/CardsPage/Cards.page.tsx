@@ -1,30 +1,31 @@
-import { ChangeEvent, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import {ChangeEvent, useState} from 'react'
+import {Link, useParams} from 'react-router-dom'
 
 import groupIcon from '@/assets/icons/WhiteSVG/Group 1399.svg'
 import menuIcon2 from '@/assets/icons/WhiteSVG/edit-2-outline.svg'
 import playIcon from '@/assets/icons/WhiteSVG/play-circle-outline.svg'
 import menuIcon from '@/assets/icons/WhiteSVG/trash-outline.svg'
 import ArrowBackOutline from '@/assets/icons/svg/ArrowBackOutline'
-import { headersNameCards, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
-import { ModalAddEditCard } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
-import { Page } from '@/components/Page/Page'
-import { SingleRowCard } from '@/components/TableComponent/SingleRowCard/SingleRowCard'
-import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
+import {headersNameCards, initCurrentPage, selectOptionPagination} from '@/common/globalVariables'
+import {ModalAddEditCard} from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
+import {Page} from '@/components/Page/Page'
+import {SingleRowCard} from '@/components/TableComponent/SingleRowCard/SingleRowCard'
+import {TableComponentWithTypes} from '@/components/TableComponent/TableComponentWithTypes'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Input from '@/components/ui/Input/Input'
-import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
+import {PaginationWithSelect} from '@/components/ui/Pagination/PaginationWithSelect'
 import Typography from '@/components/ui/Typography/Typography'
-import { Button } from '@/components/ui/button'
-import { useQueryParams } from '@/hooks/useQueryParams'
-import { path } from '@/router/path'
-import { useMeQuery } from '@/services/auth/auth.service'
-import { useGetCardsQuery } from '@/services/cards/cards.service'
-import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
-import { clsx } from 'clsx'
+import {Button} from '@/components/ui/button'
+import {useQueryParams} from '@/hooks/useQueryParams'
+import {path} from '@/router/path'
+import {useMeQuery} from '@/services/auth/auth.service'
+import {useGetCardsQuery} from '@/services/cards/cards.service'
+import {useGetDeckByIdQuery} from '@/services/decks/decks.service'
+import {clsx} from 'clsx'
 
 import s from './cardsPage.module.scss'
+import ModalOnEmpty from "@/components/ModalsForTable/ModalOnEmpty/ModalOnEmpty";
 
 export const CardsPage = () => {
   const {
@@ -51,7 +52,7 @@ export const CardsPage = () => {
     args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: search },
     id: deckId ?? '',
   })
-
+  const [openModal,setOpenModal] = useState(false)
   const handleItemsPerPageChange = (value: number) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setItemsPerPageQuery(value)
@@ -68,24 +69,30 @@ export const CardsPage = () => {
   const cardsData = currentData ?? data
   const isCardsCountFilled = deck?.cardsCount !== 0
 
+  const handleOpenModal = () => {
+    setOpenModal(true)
+  }
   if (isLoading) {
     return <h1>...Loading</h1>
   }
 
   return (
     <Page className={s.common} mt={'24px'}>
+      <ModalOnEmpty open={openModal} setIsOpenModal= {setOpenModal}/>
       <ModalAddEditCard open={open} setOpen={setOpen} />
       <div className={s.heading}>
         <div className={s.headingFirstRow}>
+          <Button style={{all: 'unset'}}  onClick={handleOpenModal}>
           <Typography
             as={Link}
             style={{ textDecoration: 'none' }}
-            to={`${path.decks}`}
             variant={'body2'}
+            to={"#"}
           >
             <ArrowBackOutline className={s.backIcon} />
             Back to Deck List
           </Typography>
+          </Button>
         </div>
         <div className={s.headingSecondRow}>
           <div className={clsx(deck?.cover && s.isWithImage)}>
