@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import ErrorPage from '@/components/auth/ErrorPage/ErrorPage'
+import ErrorPage from '@/Pages/ErrorPage/ErrorPage'
 
 const meta = {
   component: ErrorPage,
