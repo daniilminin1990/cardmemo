@@ -35,7 +35,12 @@ const Header = ({ data }: HeaderProps) => {
           <div className={style.text}>{data.name}</div>
           <DropdownMenuDemo data={data} icon={ellipseIcon} type={'head'}>
             <DropDownItem icon={headerIcon} text={'My Profile'} />
-            <DropDownItem handleOnClick={logoutHandler} icon={headerIcon1} text={'Sign Out'} />
+            <DropDownItem
+              as={'a'}
+              handleOnClick={logoutHandler}
+              icon={headerIcon1}
+              text={'Sign Out'}
+            />
           </DropdownMenuDemo>
         </div>
       ) : (
