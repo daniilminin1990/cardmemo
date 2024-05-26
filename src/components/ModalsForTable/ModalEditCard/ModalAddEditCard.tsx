@@ -54,7 +54,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   })
 
   const onSubmit: SubmitHandler<FormValues> = data => {
-    if (item) {
+    if (currendCard) {
       updateCard({
         args: {
           answer: data.answer,
@@ -62,7 +62,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
           question: data.question,
           questionImg,
         },
-        cardId: item.id,
+        cardId: currendCard.id,
       })
     } else {
       createCard({
@@ -93,25 +93,25 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
       className={s.customClass}
       onOpenChange={handleOnClose}
       open={open}
-      title={item ? 'Update Card' : 'Add New Card'}
+      title={currendCard ? 'Update Card' : 'Add New Card'}
     >
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.body}>
           <DataFiller
             control={control}
             getImageHandler={getQuestionImgHandler}
-            img={item?.questionImg}
-            item={item}
+            img={currendCard?.questionImg}
+            item={currendCard}
             label={'question'}
-            questionOrAnswer={item?.question}
+            questionOrAnswer={currendCard?.question}
           />
           <DataFiller
             control={control}
             getImageHandler={getAnswerImgHandler}
-            img={item?.answerImg}
-            item={item}
+            img={currendCard?.answerImg}
+            item={currendCard}
             label={'answer'}
-            questionOrAnswer={item?.answer}
+            questionOrAnswer={currendCard?.answer}
           />
         </div>
         <div className={s.footer}>
@@ -123,7 +123,9 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
             type={'submit'}
             // Не обязательное говно, т.к. по умолчанию onSubmit
           >
-            <Typography variant={'subtitle2'}>{item ? 'Save changes' : 'Create Card'}</Typography>
+            <Typography variant={'subtitle2'}>
+              {currendCard ? 'Save changes' : 'Create Card'}
+            </Typography>
           </Button>
         </div>
       </form>
