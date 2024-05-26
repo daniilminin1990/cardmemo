@@ -1,5 +1,11 @@
 import { flashCardsAPI } from '../flashCardsAPI'
-import { LoginArgs, LoginResponse, MeResponse, UpdateUserDataRequest } from './auth.types'
+import {
+  LoginArgs,
+  LoginResponse,
+  MeResponse,
+  ResetPasswordRequest,
+  UpdateUserDataRequest,
+} from './auth.types'
 
 export const authService = flashCardsAPI.injectEndpoints({
   endpoints: builder => {
@@ -42,6 +48,15 @@ export const authService = flashCardsAPI.injectEndpoints({
           url: `v1/auth/me`,
         }),
       }),
+
+      resetPassword: builder.mutation<void, ResetPasswordRequest>({
+        query: ({ password, token }) => ({
+          body: { password },
+          method: 'POST',
+          url: `v1/auth/reset-password/${token}`,
+        }),
+      }),
+
       updateUserData: builder.mutation<MeResponse, UpdateUserDataRequest>({
         invalidatesTags: ['Me'],
         query: ({ avatar, name }) => {
@@ -61,5 +76,10 @@ export const authService = flashCardsAPI.injectEndpoints({
   },
 })
 
-export const { useLoginMutation, useLogoutMutation, useMeQuery, useUpdateUserDataMutation } =
-  authService
+export const {
+  useLoginMutation,
+  useLogoutMutation,
+  useMeQuery,
+  useResetPasswordMutation,
+  useUpdateUserDataMutation,
+} = authService
