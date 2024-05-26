@@ -5,21 +5,26 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import './DropDown.scss'
 
+import { MeResponse } from '../../../../services/auth/auth.types'
+
 type DropdownMenuDemoProps = {
   children: ReactNode
+  //! Добавил data
+  data?: MeResponse
   icon: string
   type: 'head' | 'menu'
 }
 
 const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
-  const { children, icon, type } = props
+  const { children, data, icon, type } = props
 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button aria-label={'Customise options'} className={'IconButton'}>
           <div className={'imgBox'}>
-            <img alt={''} className={'dropdownHeaderImg'} src={icon} />
+            {/*! Добавил картинку поменял И СТИЛИ*/}
+            <img alt={''} className={'dropdownHeaderImg'} src={data?.avatar ?? icon} />
           </div>
         </button>
       </DropdownMenu.Trigger>
@@ -31,13 +36,16 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
         >
           {type === 'head' && (
             <div className={'header'}>
-              <img alt={''} src={icon} />
+              {/*! Добавил Картинку заменил*/}
+              <img alt={''} src={data?.avatar ?? icon} />
               <div>
                 <Typography className={'dropdownTextHeader'} variant={'subtitle1'}>
-                  Ivan
+                  {/*! Добавил Вот это заменил*/}
+                  {data?.name ?? 'Ivan'}
                 </Typography>
                 <Typography className={'dropdownTextHeader'} variant={'caption'}>
-                  j&johnson@gmail.com
+                  {/*! Добавил Вот это заменил*/}
+                  {data?.email ?? '@mail.ru'}
                 </Typography>
               </div>
             </div>
