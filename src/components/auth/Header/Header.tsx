@@ -5,11 +5,11 @@ import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
+import { useLogoutMutation } from '@/services/auth/auth.service'
+import { MeResponse } from '@/services/auth/auth.types'
 
 import style from './Header.module.scss'
 
-import { useLogoutMutation } from '../../../../services/auth/auth.service'
-import { MeResponse } from '../../../../services/auth/auth.types'
 import logo from '../../../assets/img/Logo.png'
 
 type HeaderProps = {
