@@ -30,7 +30,7 @@ const Header = ({ data }: HeaderProps) => {
       </div>
       {data ? (
         <div className={style.dropDown}>
-          <div className={style.text}>Ivan</div>
+          <div className={style.text}>{data.name}</div>
           <DropdownMenuDemo data={data} icon={ellipseIcon} type={'head'}>
             <DropDownItem icon={headerIcon} text={'My Profile'} />
             <Button onClick={logoutHandler} style={{ all: 'unset' }}>
