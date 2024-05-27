@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import s from './BackBtn.module.scss'
 
 type Props = {
-  as: ElementType | undefined
+  as: ElementType
   name: string
   onClick?: () => void
   path: string
@@ -15,7 +15,7 @@ type Props = {
 
 export const BackBtn = ({ as, name, onClick, path }: Props) => {
   return (
-    <Button as={as} className={s.backBtn} href={as === 'a' ? path : '#'} onClick={onClick}>
+    <Button as={as} className={s.backBtn} onClick={onClick} to={path}>
       <Typography as={'span'} className={s.text} variant={'body2'}>
         <ArrowBackOutline className={s.backArrow} />
         {name}
