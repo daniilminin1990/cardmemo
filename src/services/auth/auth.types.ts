@@ -46,3 +46,8 @@ export type ResetPasswordRequest = {
   password: string
   token: string
 }
+
+export type RecoverPasswordRequest = {
+  email: string
+  html: string
+}

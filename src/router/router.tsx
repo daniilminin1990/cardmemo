@@ -1,6 +1,8 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
+import { CheckEmail } from '@/Pages/Auth/CheckEmail/CheckEmail'
 import { CreateNewPassword } from '@/Pages/Auth/CreateNewPassword/CreateNewPassword'
+import { ForgotPassword } from '@/Pages/Auth/ForgotPassword/ForgotPassword'
 import { SignInPage } from '@/Pages/Auth/SignInPage/SignIn.page'
 import SignUp from '@/Pages/Auth/SignUp/SignUp'
 import { CardsPage } from '@/Pages/CardsPage/Cards.page'
@@ -28,6 +30,14 @@ const publicRoutes: RouteObject[] = [
   {
     element: <CreateNewPassword />,
     path: `${path.createNewPassword}/:token`,
+  },
+  {
+    element: <ForgotPassword />,
+    path: `${path.recoverPassword}`,
+  },
+  {
+    element: <CheckEmail />,
+    path: `${path.checkEmail}/:email`,
   },
 ]
 

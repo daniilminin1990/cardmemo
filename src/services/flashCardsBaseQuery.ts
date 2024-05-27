@@ -1,4 +1,3 @@
-import { router } from '@/router/router'
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQuery } from '@reduxjs/toolkit/query'
 import { Mutex } from 'async-mutex'
 import { z } from 'zod'
@@ -63,7 +62,10 @@ export const baseQueryWithReauth: BaseQueryFn<
           // retry the initial query
           result = await baseQuery(args, api, extraOptions)
         } else {
-          await router.navigate('/login')
+          {
+            /*ломает все, поэтому закоментил*/
+          }
+          // await router.navigate('/login')
         }
       } finally {
         // release must be called once the mutex should be released again.

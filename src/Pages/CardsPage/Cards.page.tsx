@@ -125,7 +125,7 @@ export const CardsPage = () => {
                   as={Link}
                   className={s.learnCards}
                   onClick={() => setOpen(true)}
-                  to={`${path.decks}/${deckId}/${path.learn}`}
+                  to={`${path.decks}/${deckId}${path.learn}`}
                   type={'button'}
                 >
                   <Typography variant={'subtitle2'}>Learn Cards</Typography>
