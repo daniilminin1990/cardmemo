@@ -31,6 +31,7 @@ export const CardsPage = () => {
   const {
     currentOrderBy,
     currentPage,
+    debouncedSearchValue,
     itemsPerPage,
     search,
     setCurrentPageQuery,
@@ -49,7 +50,7 @@ export const CardsPage = () => {
   const { data: deck, isLoading } = useGetDeckByIdQuery({ id: deckId ?? '' })
 
   const { currentData, data } = useGetCardsQuery({
-    args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: search },
+    args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
     id: deckId ?? '',
   })
   const [openModal, setOpenModal] = useState(false)
@@ -137,10 +138,9 @@ export const CardsPage = () => {
           <Input
             callback={setSearchQuery}
             className={s.input}
+            currentValue={search}
             onChange={handleSearch}
-            // querySearch={search}
             type={'search'}
-            value={search}
           />
         )}
       </div>
