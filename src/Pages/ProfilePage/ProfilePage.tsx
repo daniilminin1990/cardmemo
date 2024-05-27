@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import LogOut from '@/assets/icons/svg/LogOut'
 import { PersonalInfoFormValue, PersonalInfoScheme } from '@/common/zodSchemas/auth/auth.schemas'
+import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -62,9 +63,11 @@ export const ProfilePage = () => {
       {import.meta.env.DEV && <DevTool control={control} />}
       <Card className={s.card}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Typography as={'h1'} className={s.title} variant={'h1'}>
-            Personal Information
-          </Typography>
+          <div>
+            <Typography as={'h1'} className={s.title} variant={'h1'}>
+              Personal Information
+            </Typography>
+          </div>
 
           <div className={s.box}>
             <div className={s.imgGroup}>
@@ -109,6 +112,9 @@ export const ProfilePage = () => {
                   {me?.email}
                 </Typography>
 
+                <div className={s.backBtn}>
+                  <BackBtn name={'Back to decks'} path={path.decks} />
+                </div>
                 <Link className={s.logoutBtn} onClick={logoutHandler} to={`${path.login}`}>
                   <LogOut className={s.logoutIcon} />
                   <Typography variant={'body2'}>Logout</Typography>
