@@ -1,5 +1,5 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 import { Page } from '@/components/Page/Page'
 import Typography from '@/components/ui/Typography/Typography'
@@ -77,7 +77,12 @@ export const SignInPage = () => {
                 <Checkbox checked={value} label={'RememberMe'} onCheckedChange={onChange} />
               )}
             />
-            <Typography as={'button'} className={s.typographyForgotTitle} variant={'body2'}>
+            <Typography
+              as={Link}
+              className={s.typographyForgotTitle}
+              to={path.recoverPassword}
+              variant={'body2'}
+            >
               Forgot Password?
             </Typography>
           </div>
