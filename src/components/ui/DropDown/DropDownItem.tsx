@@ -19,21 +19,19 @@ const DropDownItem = (props: DropDownItemProps) => {
   const { handleOnClick, href, icon, text } = props
 
   return (
-    <div className={s.DropdownMenuItemBox}>
-      <DropdownMenu.Item asChild className={s.DropdownMenuItem}>
-        {/*! Добавил Button, href, Link*/}
-        {href ? (
-          <Link className={style.Link} to={href}>
-            {/*! Вынес кнопку с Typography в отдельную компоненту*/}
-            <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
-          </Link>
-        ) : (
-          <>
-            <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
-          </>
-        )}
-      </DropdownMenu.Item>
-    </div>
+    <DropdownMenu.Item asChild className={s.DropdownMenuItem}>
+      {/*! Добавил Button, href, Link*/}
+      {href ? (
+        <Link className={style.Link} to={href}>
+          {/*! Вынес кнопку с Typography в отдельную компоненту*/}
+          <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
+        </Link>
+      ) : (
+        <div>
+          <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
+        </div>
+      )}
+    </DropdownMenu.Item>
   )
 }
 

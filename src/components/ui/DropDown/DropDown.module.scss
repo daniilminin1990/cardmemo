@@ -2,10 +2,16 @@
 @import '@radix-ui/colors/mauve.css';
 @import '@radix-ui/colors/violet.css';
 
-button {
-  all: unset;
-}
-
+//.button {
+//  all: unset;
+//  display: flex;
+//  align-items: center;
+//  background-color: transparent;
+//  .button:active,
+//  .button:hover {
+//    background: none !important;
+//  }
+//}
 .DropdownMenuContent {
   will-change: transform, opacity;
 
@@ -40,19 +46,23 @@ button {
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.DropdownMenuContent[data-side='top'] {
+.DropdownMenuContent[data-side='top'],
+.DropdownMenuContentForMenu[data-side='top'] {
   animation-name: slideDownAndFade;
 }
 
-.DropdownMenuContent[data-side='right'] {
+.DropdownMenuContent[data-side='right'],
+.DropdownMenuContentForMenu[data-side='right'] {
   animation-name: slideLeftAndFade;
 }
 
-.DropdownMenuContent[data-side='bottom'] {
+.DropdownMenuContent[data-side='bottom'],
+.DropdownMenuContentForMenu[data-side='bottom'] {
   animation-name: slideUpAndFade;
 }
 
-.DropdownMenuContent[data-side='left'] {
+.DropdownMenuContent[data-side='left'],
+.DropdownMenuContentForMenu[data-side='left'] {
   animation-name: slideRightAndFade;
 }
 
@@ -62,6 +72,8 @@ button {
 
 .DropdownMenuItem {
   user-select: none;
+  cursor: pointer;
+  margin: 6px 0;
 
   position: relative;
 
@@ -77,11 +89,17 @@ button {
   border-radius: 3px;
   outline: none;
 
+  // Region
   //! Добавил стили для Button
   .button {
     all: unset;
     display: flex;
     align-items: center;
+    background-color: transparent;
+    .button:active,
+    button:hover {
+      background: none !important;
+    }
   }
 }
 
@@ -138,10 +156,6 @@ button {
 }
 
 .IconButton:hover {
-  cursor: pointer;
-}
-
-.DropdownMenuItem {
   cursor: pointer;
 }
 
@@ -234,4 +248,8 @@ button {
     transform: translateX(0);
     opacity: 1;
   }
+}
+
+.Link {
+  text-decoration: none;
 }
