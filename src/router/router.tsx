@@ -6,6 +6,7 @@ import SignUp from '@/Pages/Auth/SignUp/SignUp'
 import { CardsPage } from '@/Pages/CardsPage/Cards.page'
 import { DecksPage } from '@/Pages/DecksPage/Decks.page'
 import ErrorPage from '@/Pages/ErrorPage/ErrorPage'
+import { ForgotPassword } from '@/Pages/ForgotPassword/ForgotPassword'
 import { LearnPage } from '@/Pages/LearnPage/learnPage'
 import { ProfilePage } from '@/Pages/ProfilePage/ProfilePage'
 import { Layout } from '@/components/Layout/Layout'
@@ -28,6 +29,10 @@ const publicRoutes: RouteObject[] = [
   {
     element: <CreateNewPassword />,
     path: `${path.createNewPassword}/:token`,
+  },
+  {
+    element: <ForgotPassword />,
+    path: `${path.recoverPassword}`,
   },
 ]
 
