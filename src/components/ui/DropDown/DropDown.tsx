@@ -59,10 +59,8 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
 
           {React.Children.toArray(children).map((child, index) => (
             <React.Fragment key={index}>
-              {type === 'menu' && index !== 0 ? (
+              {type === 'menu' && index !== 0 && (
                 <DropdownMenu.Separator className={s.DropdownMenuSeparator} />
-              ) : (
-                ''
               )}
               {type === 'head' && <DropdownMenu.Separator className={s.DropdownMenuSeparator} />}
               {child}
