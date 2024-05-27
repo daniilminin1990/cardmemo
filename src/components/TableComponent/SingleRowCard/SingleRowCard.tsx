@@ -1,6 +1,8 @@
 import { Fragment, useState } from 'react'
 
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
+import Star from '@/assets/icons/svg/Star'
+import StarOutline from '@/assets/icons/svg/StarOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { ModalDeleteCard } from '@/components/ModalsForTable/ModalDeleteCard'
 import { ModalAddEditCard } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
@@ -47,8 +49,15 @@ export const SingleRowCard = ({ item }: Props) => {
           </Typography>
         </Table.Cell>
         <Table.Cell>{updatedAr}</Table.Cell>
-        {/* Тут показать звездочки с заполнением*/}
-        <Table.Cell>{item.grade}</Table.Cell>
+        <Table.Cell className={s.grade}>
+          {[...Array(5)].map((_, index) =>
+            index < item.grade ? (
+              <Star className={s.star} key={index} />
+            ) : (
+              <StarOutline className={s.star} key={index} />
+            )
+          )}
+        </Table.Cell>
         <Table.Cell>
           {/*  Тут нужно будет добавить проверку на МОИ cards или не мои. Если мои то показать кнопки, если не мои то нихера */}
           {/*{card.userId === authorId ? (*/}
