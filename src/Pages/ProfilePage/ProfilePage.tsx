@@ -21,6 +21,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './ProfilePage.module.scss'
 
+import ArrowIosDownOutline from '../../assets/icons/svg/ArrowBackOutline'
 import defaultAvatar from '../../assets/img/defaultAvatar.png'
 
 export const ProfilePage = () => {
@@ -62,10 +63,17 @@ export const ProfilePage = () => {
       {import.meta.env.DEV && <DevTool control={control} />}
       <Card className={s.card}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Typography as={'h1'} className={s.title} variant={'h1'}>
-            Personal Information
-          </Typography>
-
+          <div>
+            <Button as={Link} style={{ all: 'unset' }} to={path.decks}>
+              <div className={s.backHome}>
+                <ArrowIosDownOutline />
+                <Typography variant={'body1'}> Back </Typography>
+              </div>
+            </Button>
+            <Typography as={'h1'} className={s.title} variant={'h1'}>
+              Personal Information
+            </Typography>
+          </div>
           <div className={s.box}>
             <div className={s.imgGroup}>
               <img alt={'My avatar'} className={s.img} src={me?.avatar || defaultAvatar} />
