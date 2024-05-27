@@ -1,12 +1,13 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
+import { CheckEmail } from '@/Pages/Auth/CheckEmail/CheckEmail'
 import { CreateNewPassword } from '@/Pages/Auth/CreateNewPassword/CreateNewPassword'
+import { ForgotPassword } from '@/Pages/Auth/ForgotPassword/ForgotPassword'
 import { SignInPage } from '@/Pages/Auth/SignInPage/SignIn.page'
 import SignUp from '@/Pages/Auth/SignUp/SignUp'
 import { CardsPage } from '@/Pages/CardsPage/Cards.page'
 import { DecksPage } from '@/Pages/DecksPage/Decks.page'
 import ErrorPage from '@/Pages/ErrorPage/ErrorPage'
-import { ForgotPassword } from '@/Pages/ForgotPassword/ForgotPassword'
 import { LearnPage } from '@/Pages/LearnPage/learnPage'
 import { ProfilePage } from '@/Pages/ProfilePage/ProfilePage'
 import { Layout } from '@/components/Layout/Layout'
@@ -33,6 +34,10 @@ const publicRoutes: RouteObject[] = [
   {
     element: <ForgotPassword />,
     path: `${path.recoverPassword}`,
+  },
+  {
+    element: <CheckEmail />,
+    path: `${path.checkEmail}/:email`,
   },
 ]
 

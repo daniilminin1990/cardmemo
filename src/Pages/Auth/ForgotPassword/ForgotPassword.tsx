@@ -40,7 +40,13 @@ export const ForgotPassword = () => {
             Forgot your password?
           </Typography>
           <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-            <FormTextfield className={s.formTextfield} control={control} label={'Email'} name={'email'}  placeholder={'Email'}/>
+            <FormTextfield
+              className={s.formTextfield}
+              control={control}
+              label={'Email'}
+              name={'email'}
+              placeholder={'Email'}
+            />
             <Typography className={s.information} variant={'body2'}>
               Enter your email address and we will send you further instructions
             </Typography>
