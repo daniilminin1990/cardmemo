@@ -1,0 +1,45 @@
+.container {
+  max-width: 420px;
+  margin: 0 auto;
+  height: 408px;
+  padding-top: 37px;
+
+  .content {
+    padding: 37px 36px 48px;
+    display: flex;
+    flex-direction:column;
+    row-gap: 0;
+    column-gap: 0;
+    align-items: center;
+    justify-content: flex-start;
+
+    .typographyHead {
+      font-size: var(--font-size-xxl);
+      margin-bottom: 30px;
+    }
+
+    .imageContainer {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 19px;
+
+      svg {
+        width: 96px;
+        height: 96px;
+        object-fit: contain;
+      }
+    }
+
+    .notification {
+      margin-bottom: 40px;
+      color: var(--color-light-900);
+      text-align: center;
+      opacity: 0.5;
+    }
+
+    .backBtn {
+      text-decoration: none;
+    }
+  }
+}

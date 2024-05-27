@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import LogOut from '@/assets/icons/svg/LogOut'
 import { PersonalInfoFormValue, PersonalInfoScheme } from '@/common/zodSchemas/auth/auth.schemas'
+import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -21,7 +22,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './ProfilePage.module.scss'
 
-import ArrowIosDownOutline from '../../assets/icons/svg/ArrowBackOutline'
 import defaultAvatar from '../../assets/img/defaultAvatar.png'
 
 export const ProfilePage = () => {
@@ -64,16 +64,11 @@ export const ProfilePage = () => {
       <Card className={s.card}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <Button as={Link} style={{ all: 'unset' }} to={path.decks}>
-              <div className={s.backHome}>
-                <ArrowIosDownOutline />
-                <Typography variant={'body1'}> Back </Typography>
-              </div>
-            </Button>
             <Typography as={'h1'} className={s.title} variant={'h1'}>
               Personal Information
             </Typography>
           </div>
+
           <div className={s.box}>
             <div className={s.imgGroup}>
               <img alt={'My avatar'} className={s.img} src={me?.avatar || defaultAvatar} />
@@ -117,6 +112,9 @@ export const ProfilePage = () => {
                   {me?.email}
                 </Typography>
 
+                <div className={s.backBtn}>
+                  <BackBtn name={'Back to decks'} path={path.decks} />
+                </div>
                 <Link className={s.logoutBtn} onClick={logoutHandler} to={`${path.login}`}>
                   <LogOut className={s.logoutIcon} />
                   <Typography variant={'body2'}>Logout</Typography>

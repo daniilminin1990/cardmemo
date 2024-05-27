@@ -25,6 +25,7 @@ export function DecksPage() {
     clearQuery,
     currentOrderBy,
     currentPage,
+    debouncedSearchValue,
     itemsPerPage,
     search,
     setCurrentPageQuery,
@@ -33,14 +34,13 @@ export function DecksPage() {
   } = useQueryParams()
 
   const {
+    changeMinMaxHandler,
+    debouncedEndValue,
+    debouncedStartValue,
     isMinMaxLoading,
-    maxCardsCount,
     minMaxData,
-    setSliderValues,
-    setSliderValuesQuery,
     sliderMax,
     sliderMin,
-    sliderValues,
   } = useSliderQueryParams()
 
   const { authorId, setTabsValue, setTabsValueQuery, tabsValue, tabsValuesData } =
@@ -52,19 +52,13 @@ export function DecksPage() {
       authorId: authorId || '',
       currentPage,
       itemsPerPage,
-      maxCardsCount: sliderMax,
-      minCardsCount: sliderMin,
-      name: search,
+      maxCardsCount: debouncedEndValue,
+      minCardsCount: debouncedStartValue,
+      name: debouncedSearchValue,
       orderBy: currentOrderBy,
     },
     { skip: !minMaxData }
   )
-
-  const handleSliderValue = (value: number[]) => {
-    setCurrentPageQuery(Number(initCurrentPage))
-    setSliderValues(value)
-    setSliderValuesQuery(value)
-  }
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentPageQuery(Number(initCurrentPage))
@@ -78,8 +72,6 @@ export function DecksPage() {
 
   const onClearFilter = () => {
     setTabsValue(tabsValuesData[1].value)
-    setSliderValues([0, maxCardsCount])
-    setSliderValuesQuery([0, maxCardsCount])
     clearQuery()
   }
 
@@ -120,9 +112,9 @@ export function DecksPage() {
           <Input
             callback={setSearchQuery}
             className={s.input}
+            currentValue={search}
             onChange={handleSearchChange}
             type={'search'}
-            value={search}
           />
           <TabSwitcher
             className={s.tabsSwitcher}
@@ -137,8 +129,8 @@ export function DecksPage() {
               label={'Number of cards'}
               max={minMaxData?.max}
               min={minMaxData?.min}
-              onValueChange={handleSliderValue}
-              value={sliderValues}
+              onValueChange={changeMinMaxHandler}
+              value={[sliderMin, sliderMax]}
             />
           </div>
           <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
