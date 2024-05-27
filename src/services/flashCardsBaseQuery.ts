@@ -63,7 +63,8 @@ export const baseQueryWithReauth: BaseQueryFn<
           // retry the initial query
           result = await baseQuery(args, api, extraOptions)
         } else {
-          await router.navigate('/login')
+          {/*ломает все, поэтому закоментил*/}
+          // await router.navigate('/login')
         }
       } finally {
         // release must be called once the mutex should be released again.

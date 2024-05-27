@@ -23,7 +23,7 @@ export const CheckEmail = () => {
           <Typography className={s.notification} variant={'body2'}>
             We’ve sent an Email with instructions to {email}
           </Typography>
-          <Button as={Link} className={s.backBtn} fullWidth to={'/sign-in'}>
+          <Button as={Link} className={s.backBtn} fullWidth to={'/login'}>
             Back to Sign in
           </Button>
         </div>

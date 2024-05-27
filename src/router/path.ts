@@ -11,5 +11,5 @@ export const path = {
   notFound: '/404',
   profile: '/profile',
   recoverPassword: '/recover-password',
-  signUp: '/signUp',
+  signUp: '/sign-up',
 } as const
