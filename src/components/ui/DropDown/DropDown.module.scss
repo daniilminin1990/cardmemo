@@ -7,41 +7,51 @@ button {
 }
 
 .DropdownMenuContent {
-  min-width: 217px;
-  background-color: var(--color-dark-700);
-  border-radius: 6px;
+  will-change: transform, opacity;
+
+  //min-width: 217px;
+
   // ! ИЗМЕНИЛ Padding 5 -> 12
   padding: 12px;
+
+  background-color: var(--color-dark-700);
+  border-radius: 6px;
   box-shadow:
-    0px 10px 38px -10px rgba(22, 23, 24, 0.35),
-    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+    0 10px 38px -10px rgb(22 23 24 / 35%),
+    0 10px 20px -15px rgb(22 23 24 / 20%);
+
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
 }
 
 .DropdownMenuContentForMenu {
+  will-change: transform, opacity;
+
   min-width: 97px;
+  padding: 12px;
+
   background-color: var(--color-dark-700);
   border-radius: 6px;
-  padding: 12px;
   box-shadow:
-    0px 10px 38px -10px rgba(22, 23, 24, 0.35),
-    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+    0 10px 38px -10px rgb(22 23 24 / 35%),
+    0 10px 20px -15px rgb(22 23 24 / 20%);
+
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
 }
 
 .DropdownMenuContent[data-side='top'] {
   animation-name: slideDownAndFade;
 }
+
 .DropdownMenuContent[data-side='right'] {
   animation-name: slideLeftAndFade;
 }
+
 .DropdownMenuContent[data-side='bottom'] {
   animation-name: slideUpAndFade;
 }
+
 .DropdownMenuContent[data-side='left'] {
   animation-name: slideRightAndFade;
 }
@@ -51,20 +61,27 @@ button {
 }
 
 .DropdownMenuItem {
-  font-size: 13px;
-  line-height: 1;
-  border-radius: 3px;
+  user-select: none;
+
+  position: relative;
+
   display: flex;
   align-items: center;
+
+  width: max-content;
   height: 25px;
-  position: relative;
-  user-select: none;
+
+  font-size: 13px;
+  line-height: 1;
+
+  border-radius: 3px;
   outline: none;
+
   //! Добавил стили для Button
   .button {
-    align-items: center;
     all: unset;
     display: flex;
+    align-items: center;
   }
 }
 
@@ -78,17 +95,19 @@ button {
 
 .DropdownMenuSeparator {
   height: 1px;
+  margin: 5px 0;
   background-color: var(--color-dark-500);
-  margin: 5px;
 }
 
 .DropdownMenuItemIndicator {
   position: absolute;
   left: 0;
-  width: 25px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  width: 25px;
 }
 
 .DropdownMenuArrow {
@@ -96,14 +115,17 @@ button {
 }
 
 .IconButton {
-  font-family: inherit;
-  border-radius: 100%;
-  height: 35px;
-  width: 35px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  width: 35px;
+  height: 35px;
+
+  font-family: inherit;
   color: var(--color-accent-500);
+
+  border-radius: 100%;
 
   //! Добавил ЭТИ СТИЛИ
   .imgBox {
@@ -118,6 +140,7 @@ button {
 .IconButton:hover {
   cursor: pointer;
 }
+
 .DropdownMenuItem {
   cursor: pointer;
 }
@@ -126,7 +149,7 @@ button {
 .IconButton:focus-visible img {
   object-fit: cover;
   border-radius: 50%;
-  box-shadow: 0 0 10px 8px rgba(137, 74, 255, 0.5);
+  box-shadow: 0 0 10px 8px rgb(137 74 255 / 50%);
 }
 
 .DropdownMenuItem:focus p {
@@ -135,68 +158,80 @@ button {
 
 .header {
   display: flex;
-  margin: 6px 0 12px 0;
+  max-width: max-content;
+  margin: 6px 0 12px;
+
   //! Добавил эти стили
   img {
     width: 35px;
     height: 35px;
     margin-right: 10px;
+
     object-fit: cover;
     border-radius: 100%;
   }
 }
+
 .dropdownTextHeader {
   padding-left: 6px;
 }
+
 .dropdownText {
   padding-left: 6px;
 }
+
 .DropdownMenuItemBox {
-  margin: 6px 0 6px 0;
+  margin: 6px 0;
 }
-.dropdownHeaderImg{
+
+.dropdownHeaderImg {
   border-radius: 50%;
 }
+
 @keyframes slideUpAndFade {
   from {
-    opacity: 0;
     transform: translateY(2px);
+    opacity: 0;
   }
+
   to {
-    opacity: 1;
     transform: translateY(0);
+    opacity: 1;
   }
 }
 
 @keyframes slideRightAndFade {
   from {
-    opacity: 0;
     transform: translateX(-2px);
+    opacity: 0;
   }
+
   to {
-    opacity: 1;
     transform: translateX(0);
+    opacity: 1;
   }
 }
 
 @keyframes slideDownAndFade {
   from {
-    opacity: 0;
     transform: translateY(-2px);
+    opacity: 0;
   }
+
   to {
-    opacity: 1;
     transform: translateY(0);
+    opacity: 1;
   }
 }
 
 @keyframes slideLeftAndFade {
   from {
-    opacity: 0;
     transform: translateX(2px);
+    opacity: 0;
   }
+
   to {
-    opacity: 1;
     transform: translateX(0);
+    opacity: 1;
   }
 }

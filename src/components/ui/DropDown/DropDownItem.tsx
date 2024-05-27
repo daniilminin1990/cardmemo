@@ -20,7 +20,7 @@ const DropDownItem = (props: DropDownItemProps) => {
 
   return (
     <div className={s.DropdownMenuItemBox}>
-      <DropdownMenu.Item className={s.DropdownMenuItem}>
+      <DropdownMenu.Item asChild className={s.DropdownMenuItem}>
         {/*! Добавил Button, href, Link*/}
         {href ? (
           <Link className={style.Link} to={href}>
