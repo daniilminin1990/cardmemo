@@ -10,7 +10,6 @@ import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
-import { useSliderQueryParams } from '@/hooks/useSliderQueryParams'
 import { Deck } from '@/services/decks/deck.types'
 import { useCreateDeckMutation, useUpdateDeckMutation } from '@/services/decks/decks.service'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -27,7 +26,6 @@ type ModalAddEditProps = {
 export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { clearQuery, setCurrentPageQuery } = useQueryParams()
-  const { maxCardsCount, setSliderValues, setSliderValuesQuery } = useSliderQueryParams()
   const schema = z.object({
     isPrivate: z.boolean(),
     name: item ? z.string() : z.string().min(3).max(1000),
@@ -84,8 +82,6 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
     item ? updateDeck({ ...data, cover, id: item.id }) : createDeck({ ...data, cover })
     clearQuery()
     setCurrentPageQuery(Number(initCurrentPage))
-    setSliderValues([0, maxCardsCount])
-    setSliderValuesQuery([0, maxCardsCount])
     setOpen(false)
     setCover(undefined)
     setPreview(null)

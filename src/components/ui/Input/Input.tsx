@@ -43,10 +43,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
   }
 
   //! ВОТ ЭТОТ useEffect добавил!
+  // Для зачистки инпута с кнопки ClearFilter или делать через useContext
   useEffect(() => {
-    // в value - search из searchParams, поэтому такое сравнение
-    props.value === '' && setInputValue('')
-  }, [props.value])
+    // в currentValue - search из searchParams, поэтому такое сравнение
+    props.currentValue === '' && setInputValue('')
+  }, [props.currentValue])
 
   const isShowChangeHandler = () => {
     setIsShow(!isShow)
