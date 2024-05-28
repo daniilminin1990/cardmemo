@@ -74,8 +74,8 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
     setCover(e.target.files?.[0] ?? undefined)
     e.target.value = ''
   }
-  const onSubmit: SubmitHandler<FormValues> = data => {
-    item ? updateDeck({ ...data, cover, id: item.id }) : createDeck({ ...data, cover })
+  const onSubmit: SubmitHandler<FormValues> = async data => {
+    await (item ? updateDeck({ ...data, cover, id: item.id }) : createDeck({ ...data, cover }))
     clearQuery()
     setCurrentPageQuery(Number(initCurrentPage))
     setOpen(false)

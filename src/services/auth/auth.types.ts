@@ -31,8 +31,6 @@ export type MeResponse = {
   //! Body - multipart/form-data
 }
 
-export type UpdateMeResponse = MeResponse
-
 export type UpdateUserDataRequest = {
   avatar?: File | string
   name?: string
@@ -40,6 +38,11 @@ export type UpdateUserDataRequest = {
 export type SignUpRequest = {
   email: string
   password: string
+}
+export type SignUpResponse = {
+  email: string
+  id: string
+  name: string
 }
 
 export type ResetPasswordRequest = {

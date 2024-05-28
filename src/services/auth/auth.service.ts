@@ -9,6 +9,7 @@ import {
   RecoverPasswordRequest,
   ResetPasswordRequest,
   SignUpRequest,
+  SignUpResponse,
   UpdateUserDataRequest,
 } from './auth.types'
 
@@ -67,7 +68,7 @@ export const authService = flashCardsAPI.injectEndpoints({
           url: `v1/auth/reset-password/${token}`,
         }),
       }),
-      signUp: builder.mutation<MeResponse, SignUpRequest>({
+      signUp: builder.mutation<SignUpResponse, SignUpRequest>({
         async onQueryStarted(_, { queryFulfilled }) {
           await queryFulfilled
           await router.navigate(`${path.login}`)

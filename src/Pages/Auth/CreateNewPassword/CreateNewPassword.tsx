@@ -25,11 +25,9 @@ export const CreateNewPassword = () => {
   const [open, setOpen] = useState(false)
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
-    await resetPassword({ password: data.newPassword, token })
-      .then(() => {
-        setOpen(true)
-      })
-      .catch(() => {})
+    await resetPassword({ password: data.newPassword, token }).then(() => {
+      setOpen(true)
+    })
   }
 
   return (

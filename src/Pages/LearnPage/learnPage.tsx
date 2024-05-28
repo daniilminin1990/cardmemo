@@ -131,7 +131,6 @@ export const LearnPage = () => {
               </Button>
             )}
           </div>
-          т
         </Card>
       )}
     </section>

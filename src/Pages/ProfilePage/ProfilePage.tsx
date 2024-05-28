@@ -1,7 +1,6 @@
 import { ChangeEvent, useRef, useState } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-import { toast } from 'react-toastify'
 
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import LogOut from '@/assets/icons/svg/LogOut'
@@ -38,15 +37,10 @@ export const ProfilePage = () => {
 
   const logoutHandler = async () => {
     await logout()
-      .unwrap()
-      .catch(() => {
-        toast.error(`Error, try again or later`)
-      })
   }
   const onSubmit: SubmitHandler<FieldValues> = data => {
     updateUserData({ name: data.nickName }).then(() => {
       setEditNickName(false)
-      toast.success('Changes saved!')
     })
   }
   const changeAvatarHandler = (e: ChangeEvent<HTMLInputElement>) => {

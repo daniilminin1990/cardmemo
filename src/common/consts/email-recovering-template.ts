@@ -445,7 +445,7 @@ export const emailRecoveringTemplate = `
                                 <span class="es-button-border"
                                       style="border-style:solid;border-color:#7C72DC;background:#7C72DC;border-width:1px;display:block;border-radius:6px;width:auto"><a
         
-                                  href=${appDeploy}${path.createNewPassword}/##token##"
+                                  href="${appDeploy}${path.createNewPassword}/##token##"
                                   class="es-button" target="_blank"
                                   style="mso-style-priority:100 !important;text-decoration:none !important;mso-line-height-rule:exactly;color:#FFFFFF;font-size:20px;padding:15px 5px 10px;display:block;background:#7C72DC;border-radius:6px;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center;letter-spacing:0;mso-padding-alt:0;mso-border-alt:10px solid #7C72DC">Reset Password</a></span>
                               </td>
