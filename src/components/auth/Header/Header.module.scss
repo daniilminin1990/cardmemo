@@ -8,13 +8,17 @@
   background-color: var(--color-dark-700);
   .img {
     display: block;
-    height: 50px;
-    padding: 5px 0;
-
+    height: 40px;
     width: 100%;
     fill: var(--color-accent-100);
-    object-fit: contain;
+    background-color: var(--color-dark-500);
     border-radius: 8px;
+    box-shadow: 0 0 30px 1px rgb(137 74 255 / 50%);
+    transition: fill 0.2s;
+  }
+
+  .img:hover {
+    fill: var(--color-info-100);
   }
 }
 
