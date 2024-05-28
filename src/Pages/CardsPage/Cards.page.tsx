@@ -8,6 +8,7 @@ import menuIcon from '@/assets/icons/WhiteSVG/trash-outline.svg'
 import ArrowBackOutline from '@/assets/icons/svg/ArrowBackOutline'
 import { headersNameCards, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
 import { ModalAddEditDeck } from '@/components/ModalsForTable/ModalAddEditDeck'
+import { ModalDeleteDeck } from '@/components/ModalsForTable/ModalDeleteDeck'
 import { ModalAddEditCard } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
 import ModalOnEmpty from '@/components/ModalsForTable/ModalOnEmpty/ModalOnEmpty'
 import { Page } from '@/components/Page/Page'
@@ -24,6 +25,7 @@ import { path } from '@/router/path'
 import { router } from '@/router/router'
 import { useMeQuery } from '@/services/auth/auth.service'
 import { useGetCardsQuery } from '@/services/cards/cards.service'
+import { Deck } from '@/services/decks/deck.types'
 import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 import { clsx } from 'clsx'
 
@@ -57,6 +59,7 @@ export const CardsPage = () => {
   })
   const [openModal, setOpenModal] = useState(false)
   const [openEditDeckModal, setOpenEditDeckModal] = useState(false)
+  const [openDeleteDeckModal, setOpenDeleteDeckModal] = useState(false)
   const handleItemsPerPageChange = (value: number) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setItemsPerPageQuery(value)
@@ -90,6 +93,11 @@ export const CardsPage = () => {
       <ModalOnEmpty open={openModal} setIsOpenModal={setOpenModal} />
       <ModalAddEditCard open={open} setOpen={setOpen} />
       <ModalAddEditDeck item={deck} open={openEditDeckModal} setOpen={setOpenEditDeckModal} />
+      <ModalDeleteDeck
+        item={deck ?? ({} as Deck)}
+        open={openDeleteDeckModal}
+        setIsDeleteModal={setOpenDeleteDeckModal}
+      />
       <div className={s.heading}>
         <div className={s.headingFirstRow}>
           <Button onClick={handleOpenModal} style={{ all: 'unset' }}>
@@ -123,7 +131,11 @@ export const CardsPage = () => {
                     icon={menuIcon2}
                     text={'Edit'}
                   />
-                  <DropDownItem icon={menuIcon} text={'Delete'} />
+                  <DropDownItem
+                    handleOnClick={() => setOpenDeleteDeckModal(true)}
+                    icon={menuIcon}
+                    text={'Delete'}
+                  />
                 </DropdownMenuDemo>
               )}
             </div>
