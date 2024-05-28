@@ -60,12 +60,15 @@ export const SingleRowDeck = ({ item }: Props) => {
               <Button className={s.btn} onClick={() => setIsUpdateModal(true)}>
                 <Edit2Outline className={s.Edit2Outline} />
               </Button>
-              <Button className={s.btn} disabled={!item.cardsCount}>
-                <Link to={`${path.decks}/${item.id}${path.learn}`}>
-                  <PlayCircleOutline
-                    className={`${s.playCircleOutline} ${item.cardsCount === 0 && s.disabled}`}
-                  />
-                </Link>
+
+              <Button className={s.btn} disabled={item.cardsCount === 0}>
+                {item.cardsCount === 0 ? (
+                  <PlayCircleOutline className={`${s.playCircleOutline} ${s.disabled}`} />
+                ) : (
+                  <Link to={`${path.decks}/${item.id}${path.learn}`}>
+                    <PlayCircleOutline className={s.playCircleOutline} />
+                  </Link>
+                )}
               </Button>
               <Button
                 className={s.btn}
@@ -79,9 +82,13 @@ export const SingleRowDeck = ({ item }: Props) => {
           ) : (
             <div className={s.iconBtns}>
               <Button className={s.btn} disabled={item.cardsCount === 0}>
-                <PlayCircleOutline
-                  className={`${s.playCircleOutline} ${item.cardsCount === 0 && s.disabled}`}
-                />
+                {item.cardsCount === 0 ? (
+                  <PlayCircleOutline className={`${s.playCircleOutline} ${s.disabled}`} />
+                ) : (
+                  <Link to={`${path.decks}/${item.id}${path.learn}`}>
+                    <PlayCircleOutline className={s.playCircleOutline} />
+                  </Link>
+                )}
               </Button>
             </div>
           )}
