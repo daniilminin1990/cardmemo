@@ -4,6 +4,8 @@ import Input, { InputProps } from '@/components/ui/Input/Input'
 
 export type ControlledInputProps<TFieldValues extends FieldValues> = {
   className?: string
+} & {
+  currentValue?: TFieldValues[Extract<keyof TFieldValues, string>]
 } & Omit<InputProps, 'onChange' | 'value'> &
   Omit<UseControllerProps<TFieldValues>, 'defaultValue' | 'disabled' | 'rules'>
 
@@ -15,8 +17,9 @@ export const FormTextfield = <TFieldValues extends FieldValues>({
   const {
     field,
     fieldState: { error },
-  } = useController({
+  } = useController<TFieldValues>({
     control,
+    defaultValue: rest.currentValue,
     disabled: rest.disabled,
     name,
     shouldUnregister: true,
