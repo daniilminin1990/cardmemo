@@ -85,11 +85,6 @@ export const CardsPage = () => {
     }
   }
 
-  // isCardsCountFilled &&
-  // !search &&
-  // cardsData?.items &&
-  // cardsData.items.length >= currentPage * itemsPerPage
-
   if (isLoading) {
     return <h1>...Loading</h1>
   }
