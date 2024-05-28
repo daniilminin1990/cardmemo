@@ -47,11 +47,11 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
               <div>
                 <Typography className={s.dropdownTextHeader} variant={'subtitle1'}>
                   {/*! Добавил Вот это заменил*/}
-                  {data?.name ?? 'Ivan'}
+                  {data?.name ?? 'JohnDoe'}
                 </Typography>
                 <Typography className={s.dropdownTextHeader} variant={'caption'}>
                   {/*! Добавил Вот это заменил*/}
-                  {data?.email ?? '@mail.ru'}
+                  {data?.email ?? 'john_doe@mail.ru'}
                 </Typography>
               </div>
             </div>
@@ -59,10 +59,8 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
 
           {React.Children.toArray(children).map((child, index) => (
             <React.Fragment key={index}>
-              {type === 'menu' && index !== 0 ? (
+              {type === 'menu' && index !== 0 && (
                 <DropdownMenu.Separator className={s.DropdownMenuSeparator} />
-              ) : (
-                ''
               )}
               {type === 'head' && <DropdownMenu.Separator className={s.DropdownMenuSeparator} />}
               {child}

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { clsx } from 'clsx'
 
 import s from './DropDown.module.scss'
 import style from '@/components/Layout/Header/Header.module.scss'
@@ -19,21 +20,19 @@ const DropDownItem = (props: DropDownItemProps) => {
   const { handleOnClick, href, icon, text } = props
 
   return (
-    <div className={s.DropdownMenuItemBox}>
-      <DropdownMenu.Item asChild className={s.DropdownMenuItem}>
-        {/*! Добавил Button, href, Link*/}
-        {href ? (
-          <Link className={style.Link} to={href}>
-            {/*! Вынес кнопку с Typography в отдельную компоненту*/}
-            <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
-          </Link>
-        ) : (
-          <>
-            <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
-          </>
-        )}
-      </DropdownMenu.Item>
-    </div>
+    <DropdownMenu.Item asChild className={s.DropdownMenuItem}>
+      {/*! Добавил Button, href, Link*/}
+      {href ? (
+        <Link className={style.Link} to={href}>
+          {/*! Вынес кнопку с Typography в отдельную компоненту*/}
+          <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
+        </Link>
+      ) : (
+        <div>
+          <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
+        </div>
+      )}
+    </DropdownMenu.Item>
   )
 }
 
@@ -44,7 +43,7 @@ type DropDownButtonProps = {
 }
 export const DDButton = ({ handleOnClick, icon, text }: DropDownButtonProps) => {
   return (
-    <Button className={s.button} onClick={handleOnClick}>
+    <Button className={clsx(s.button, s.noHover)} onClick={handleOnClick} variant={'outlined'}>
       <img alt={''} src={icon} />
       <Typography className={s.dropdownText} variant={'caption'}>
         {text}
