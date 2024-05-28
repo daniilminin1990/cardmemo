@@ -143,14 +143,16 @@ export function DecksPage() {
         {item => <SingleRowDeck item={item} />}
       </TableComponentWithTypes>
       <div className={s.footer}>
-        <PaginationWithSelect
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPage}
-          selectOptions={selectOptionPagination}
-          setCurrentPage={handleCurrentPageChange}
-          setItemsPerPage={handleItemsPerPageChange}
-          totalItems={data?.pagination.totalItems || 0}
-        />
+        {arrayOfDecks?.length !== 0 && (
+          <PaginationWithSelect
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            selectOptions={selectOptionPagination}
+            setCurrentPage={handleCurrentPageChange}
+            setItemsPerPage={handleItemsPerPageChange}
+            totalItems={data?.pagination.totalItems || 0}
+          />
+        )}
       </div>
     </Page>
   )

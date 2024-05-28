@@ -30,6 +30,7 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
 }: Props<T>) => {
   const { currentOrderBy, setSortByQuery } = useQueryParams()
   const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
+  const { search } = useQueryParams()
 
   return (
     <Table.Root className={s.tableRoot}>
@@ -66,7 +67,9 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
           <Table.Row>
             <Table.Cell className={s.empty} colSpan={header.length + 1}>
               <Typography as={'span'} variant={'body1'}>
-                No content with these terms...
+                {search.length === 0
+                  ? 'Please add any data to show'
+                  : 'No content with these terms...'}
               </Typography>
             </Table.Cell>
           </Table.Row>
