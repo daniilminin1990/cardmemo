@@ -48,7 +48,11 @@ export const CardsPage = () => {
   // А как мы попадем на эту страницу??? -- по Id Deck. Значит id Deck нужно передать в URL при переходе.
   const deckId = useParams().deckId
   const { data: meData } = useMeQuery()
-  const { data: deck, isLoading } = useGetDeckByIdQuery({ id: deckId ?? '' })
+  const {
+    currentData: currentDeckData,
+    data: deck,
+    isLoading,
+  } = useGetDeckByIdQuery({ id: deckId ?? '' })
 
   const { currentData, data } = useGetCardsQuery({
     args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
@@ -69,15 +73,22 @@ export const CardsPage = () => {
   }
 
   const cardsData = currentData ?? data
-  const isCardsCountFilled = deck?.cardsCount !== 0
+  const isCardsCountFilled = currentDeckData?.cardsCount !== 0
+  const isCardsCountZero = currentDeckData?.cardsCount === 0
+  const isMineCards = currentDeckData?.userId === meData?.id
 
   const handleOpenModal = () => {
-    if (deck?.userId === meData?.id) {
+    if ((isMineCards && deck?.cardsCount === 0) || cardsData?.items?.length === 0) {
       setOpenModal(true)
     } else {
       router.navigate(`${path.decks}`)
     }
   }
+
+  // isCardsCountFilled &&
+  // !search &&
+  // cardsData?.items &&
+  // cardsData.items.length >= currentPage * itemsPerPage
 
   if (isLoading) {
     return <h1>...Loading</h1>
@@ -107,7 +118,7 @@ export const CardsPage = () => {
               <Typography as={'h1'} variant={'h1'}>
                 {deck?.name}
               </Typography>
-              {deck?.userId === meData?.id && (
+              {isMineCards && (
                 // В DropDownItem можно передать onClick? Если нет, то обернуть в Button
                 <DropdownMenuDemo className={s.dropdown} icon={groupIcon} type={'menu'}>
                   <DropDownItem
@@ -126,7 +137,7 @@ export const CardsPage = () => {
           </div>
           {isCardsCountFilled && (
             <div className={s.switchButton}>
-              {deck?.userId === meData?.id ? (
+              {isMineCards ? (
                 <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
                   <Typography variant={'subtitle2'}>Add New Card</Typography>
                 </Button>
@@ -154,12 +165,12 @@ export const CardsPage = () => {
           />
         )}
       </div>
-      {!isCardsCountFilled ? (
+      {isCardsCountZero ? (
         <div className={s.emptyContent}>
           <Typography variant={'body1'}>
             This deck is empty. Click add new card to fill this pack
           </Typography>
-          {deck?.userId === meData?.id && (
+          {isMineCards && (
             <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
               <Typography variant={'subtitle2'}>Add New Card</Typography>
             </Button>
@@ -171,14 +182,19 @@ export const CardsPage = () => {
             {item => <SingleRowCard item={item} />}
           </TableComponentWithTypes>
           <div className={s.footer}>
-            <PaginationWithSelect
-              currentPage={currentPage}
-              itemsPerPage={itemsPerPage}
-              selectOptions={selectOptionPagination}
-              setCurrentPage={handleCurrentPageChange}
-              setItemsPerPage={handleItemsPerPageChange}
-              totalItems={cardsData?.pagination.totalItems || 0}
-            />
+            {isCardsCountFilled &&
+              !search &&
+              cardsData?.items &&
+              cardsData.items.length >= currentPage * itemsPerPage && (
+                <PaginationWithSelect
+                  currentPage={currentPage}
+                  itemsPerPage={itemsPerPage}
+                  selectOptions={selectOptionPagination}
+                  setCurrentPage={handleCurrentPageChange}
+                  setItemsPerPage={handleItemsPerPageChange}
+                  totalItems={cardsData?.pagination.totalItems || 0}
+                />
+              )}
           </div>
         </>
       )}
