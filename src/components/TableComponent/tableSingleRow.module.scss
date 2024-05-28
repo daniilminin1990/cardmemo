@@ -106,11 +106,22 @@
   text-decoration: none;
 }
 
-.coverImg {
+.wrapperCoverImg {
   width: 118px;
   height: 48px;
-  object-fit: cover;
-  object-position: 0 0;
+  .coverImg {
+    width: 118px;
+    height: 48px;
+    object-fit: cover;
+    //object-position: 0 0;
+    object-position: center;
+    transition: transform 0.2s;
+    &:hover {
+      height: auto;
+      object-fit: cover;
+      transform: scale(2);
+    }
+  }
 }
 
 .grade {

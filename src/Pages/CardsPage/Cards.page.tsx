@@ -16,6 +16,7 @@ import { TableComponentWithTypes } from '@/components/TableComponent/TableCompon
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Input from '@/components/ui/Input/Input'
+import Loading from '@/components/ui/Loading/Loading'
 import { Page } from '@/components/ui/Page/Page'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Typography from '@/components/ui/Typography/Typography'
@@ -91,7 +92,7 @@ export const CardsPage = () => {
   }
 
   if (isLoading) {
-    return <h1>...Loading</h1>
+    return <Loading />
   }
 
   return (

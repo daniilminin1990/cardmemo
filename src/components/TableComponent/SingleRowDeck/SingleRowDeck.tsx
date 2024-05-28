@@ -34,7 +34,11 @@ export const SingleRowDeck = ({ item }: Props) => {
         <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
           {/*{item?.cardsCount !== 0 ? (*/}
           <Typography as={Link} className={s.imgWrapper} to={`${path.decks}/${item.id}`}>
-            {item.cover && <img alt={'default card img'} className={s.coverImg} src={item.cover} />}
+            {item.cover && (
+              <div className={s.wrapperCoverImg}>
+                <img alt={'default card img'} className={s.coverImg} src={item.cover} />
+              </div>
+            )}
             {item.name}
           </Typography>
           {/*! Это было нужно, чтобы можно было блокировать в которых пусто, но так нельзя, потому что нам нужно в Deck попадать, даже в пустой*/}
