@@ -1,34 +1,40 @@
-import { CSSProperties, ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 import { Outlet } from 'react-router-dom'
+import { Bounce, ToastContainer } from 'react-toastify'
 
-import Header from '@/components/auth/Header/Header'
+import Header from '@/components/Layout/Header/Header'
 import { useMeQuery } from '@/services/auth/auth.service'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 import s from './layout.module.scss'
 
-type Props = {
-  marginTopClass?: CSSProperties['marginTop']
-} & ComponentPropsWithoutRef<'div'>
-
-// Я хер его знает зачем в forwardRef
-export const Layout = forwardRef<ElementRef<'div'>, Props>((props, ref) => {
-  const { children, className, ...rest } = props
-
-  // ? Тут в Header и в main нужно передать данные от me запроса.
+export const Layout = () => {
   const { data: meData, isLoading } = useMeQuery()
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <div className={s.loading}>
+        return <div>Loading...</div>
+      </div>
+    )
   }
 
   return (
-    <div ref={ref} {...rest}>
+    <>
       <Header data={meData} />
-      {/*<main className={s.main}>{children}</main>*/}
       <main className={s.main}>
-        {/*<Outlet context={!isError} />*/}
         <Outlet />
       </main>
-    </div>
+      <ToastContainer
+        autoClose={5000}
+        closeOnClick
+        draggable
+        hideProgressBar={false}
+        pauseOnHover
+        position={'bottom-left'}
+        theme={'dark'}
+        transition={Bounce}
+      />
+    </>
   )
-})
+}

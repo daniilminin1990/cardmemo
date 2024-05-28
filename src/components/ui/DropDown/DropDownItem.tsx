@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import s from './DropDown.module.scss'
-import style from '@/components/auth/Header/Header.module.scss'
+import style from '@/components/Layout/Header/Header.module.scss'
 
 type DropDownItemProps = {
   //! Добавил handleClick, href

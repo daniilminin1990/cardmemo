@@ -1,12 +1,13 @@
 import { ChangeEvent, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { headersNameDecks, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
 import { ModalAddEditDeck } from '@/components/ModalsForTable/ModalAddEditDeck'
-import { Page } from '@/components/Page/Page'
 import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
 import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
 import Input from '@/components/ui/Input/Input'
+import { Page } from '@/components/ui/Page/Page'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Slider from '@/components/ui/Slider/Slider'
 import Typography from '@/components/ui/Typography/Typography'
@@ -47,7 +48,8 @@ export function DecksPage() {
     useTabsValuesParams()
   const [open, setOpen] = useState(false)
   const { data: meData } = useMeQuery()
-  const { currentData, data, error, isLoading } = useGetDecksQuery(
+
+  const { currentData, data, isLoading } = useGetDecksQuery(
     {
       authorId: authorId || '',
       currentPage,
@@ -73,6 +75,7 @@ export function DecksPage() {
   const onClearFilter = () => {
     setTabsValue(tabsValuesData[1].value)
     clearQuery()
+    toast.info('All filters reset!', { autoClose: 2000 })
   }
 
   const handleItemsPerPageChange = (value: number) => {
@@ -90,10 +93,6 @@ export function DecksPage() {
 
   if (isLoading || isMinMaxLoading) {
     return <h1>... Loading</h1>
-  }
-
-  if (error) {
-    return <h1>Error: {JSON.stringify(error)}</h1>
   }
 
   return (

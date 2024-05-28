@@ -1,7 +1,7 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { Link, Navigate } from 'react-router-dom'
 
-import { Page } from '@/components/Page/Page'
+import { Page } from '@/components/ui/Page/Page'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'

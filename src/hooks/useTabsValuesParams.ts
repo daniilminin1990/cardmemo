@@ -12,7 +12,6 @@ export const useTabsValuesParams = () => {
   ]
   const authorId = searchParams.get('authorId')
   const setTabsValueQuery = (value: string) => {
-    console.log(value)
     value === tabsValuesData[0].value
       ? searchParams.set('authorId', value ?? tabsValuesData[1].value)
       : searchParams.delete('authorId')

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
 
+import { handleToastWarning } from '@/common/consts/toastVariants'
 import { LearnCardFormValues } from '@/common/zodSchemas/cards/cards.schemas'
 import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import Typography from '@/components/ui/Typography/Typography'
@@ -15,6 +15,7 @@ import {
   useUpdateCardGradeMutation,
 } from '@/services/cards/cards.service'
 import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
+import { DevTool } from '@hookform/devtools'
 
 import s from './learnPage.module.scss'
 
@@ -45,17 +46,19 @@ export const LearnPage = () => {
   ]
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
-    randomCard?.id &&
-      (await updateCardGrade({ cardId: randomCard.id, grade: Number(data.grade) })
-        .unwrap()
-        .then(() => {
-          setPreviousCardId(randomCard.id)
-          setIsShowAnswer(false)
-          reset()
-        })
-        .catch(() => {
-          data.grade === undefined && toast.warn(`Set grade!`)
-        }))
+    if (data.grade) {
+      if (randomCard?.id) {
+        await updateCardGrade({ cardId: randomCard.id, grade: Number(data.grade) })
+          .unwrap()
+          .then(() => {
+            reset()
+            setPreviousCardId(randomCard.id)
+            setIsShowAnswer(false)
+          })
+      }
+    } else {
+      handleToastWarning('Set grade!')
+    }
   }
   const showAnswwerHandler = () => {
     setIsShowAnswer(true)
@@ -67,6 +70,7 @@ export const LearnPage = () => {
 
   return (
     <section>
+      <DevTool control={control} />
       <BackBtn name={'Back to Previous Page'} path={`${path.decks}/${deckId}`} />
       {randomCard && (
         <Card className={s.card}>

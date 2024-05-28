@@ -23,16 +23,10 @@ export default function SignUp() {
 
   const [signUp] = useSignUpMutation()
 
-  // const { goTo } = useNavigation()
-
   const onSubmit: SubmitHandler<FieldValues> = data => {
     const { email, password } = data
 
     signUp({ email, password })
-      .unwrap()
-      .then(() => {
-        // goTo(`${path.login}`)
-      })
   }
 
   return (
