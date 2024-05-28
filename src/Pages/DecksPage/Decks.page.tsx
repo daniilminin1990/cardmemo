@@ -7,6 +7,7 @@ import { ModalAddEditDeck } from '@/components/ModalsForTable/ModalAddEditDeck'
 import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
 import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
 import Input from '@/components/ui/Input/Input'
+import Loading from '@/components/ui/Loading/Loading'
 import { Page } from '@/components/ui/Page/Page'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Slider from '@/components/ui/Slider/Slider'
@@ -38,7 +39,6 @@ export function DecksPage() {
     changeMinMaxHandler,
     debouncedEndValue,
     debouncedStartValue,
-    isMinMaxLoading,
     minMaxData,
     sliderMax,
     sliderMin,
@@ -91,8 +91,8 @@ export function DecksPage() {
     tabsValue === meData?.id ? item.userId === meData?.id : true
   )
 
-  if (isLoading || isMinMaxLoading) {
-    return <h1>... Loading</h1>
+  if (isLoading) {
+    return <Loading />
   }
 
   return (

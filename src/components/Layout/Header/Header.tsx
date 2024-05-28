@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import ellipseIcon from '@/assets/icons/WhiteSVG/Ellipse 1.svg'
 import headerIcon1 from '@/assets/icons/WhiteSVG/Layer 2.svg'
 import headerIcon from '@/assets/icons/WhiteSVG/person-outline.svg'
@@ -33,7 +35,9 @@ const Header = ({ data }: HeaderProps) => {
         </div>
         {data ? (
           <div className={style.dropDown}>
-            <div className={style.text}>{data.name}</div>
+            <Typography as={Link} className={style.text} to={`${path.profile}`} variant={'h2'}>
+              {data.name}
+            </Typography>
             <DropdownMenuDemo data={data} icon={ellipseIcon} type={'head'}>
               <DropDownItem href={`${path.profile}`} icon={headerIcon} text={'My Profile'} />
               <DropDownItem
