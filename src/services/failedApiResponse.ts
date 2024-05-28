@@ -1,4 +1,4 @@
-import { handleToastError } from '@/common/consts/toastVariants'
+import { handleToastError, throttledToastError } from '@/common/consts/toastVariants'
 
 export type ErrorDataType = {
   data: ErrorMessages
@@ -10,27 +10,56 @@ export type ErrorMessages = [
     message: string
   },
 ]
+
 export const failedApiResponse = (result: any) => {
-  if (result.error && result.error.status === 400) {
-    if (`data` in result.error) {
-      const errorData = result.error.data as ErrorDataType
+  const { url } = result.meta.request
+  const { method } = result.meta.request
 
-      if (`errorMessages` in errorData) {
-        const errorMessages = errorData.errorMessages as ErrorMessages
+  try {
+    if (result) {
+      if (result.error.status === 400) {
+        if (`data` in result.error) {
+          const errorData = result.error.data as ErrorDataType
 
-        if (errorMessages.length === 1) {
-          const message = errorData.errorMessages as string
+          if (`errorMessages` in errorData) {
+            const errorMessages = errorData.errorMessages as ErrorMessages
 
-          handleToastError(message[0])
+            if (errorMessages.length === 1) {
+              const message = errorData.errorMessages as string
+
+              handleToastError(message[0])
+            } else {
+              handleToastError(errorMessages[0].message)
+            }
+          }
         } else {
-          handleToastError(errorMessages[0].message)
+          handleToastError(`Try again later`)
         }
       }
-    } else {
-      handleToastError(`Try again later`)
+
+      if (result.error.status === 401) {
+        if (`data` in result.error) {
+          const errorData = result.error.data as ErrorDataType
+
+          if (`message` in errorData) {
+            const errorMessage = errorData.message as string
+
+            if (errorMessage === 'Invalid credentials') {
+              handleToastError(errorMessage)
+            }
+
+            if (method === 'POST' && url.startsWith('/login')) {
+              handleToastError(errorMessage)
+            }
+          } else {
+            handleToastError(`Try again later`)
+          }
+        }
+      }
     }
-  }
-  if (result.error && result.error.status === 'FETCH_ERROR') {
-    throw new Error()
-  }
+    if (result.error.status === 'FETCH_ERROR') {
+      throttledToastError()
+      throw new Error()
+    }
+  } catch (e) {}
 }
