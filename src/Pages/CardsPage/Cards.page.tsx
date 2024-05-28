@@ -20,6 +20,7 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { path } from '@/router/path'
+import { router } from '@/router/router'
 import { useMeQuery } from '@/services/auth/auth.service'
 import { useGetCardsQuery } from '@/services/cards/cards.service'
 import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
@@ -31,6 +32,7 @@ export const CardsPage = () => {
   const {
     currentOrderBy,
     currentPage,
+    debouncedSearchValue,
     itemsPerPage,
     search,
     setCurrentPageQuery,
@@ -49,7 +51,7 @@ export const CardsPage = () => {
   const { data: deck, isLoading } = useGetDeckByIdQuery({ id: deckId ?? '' })
 
   const { currentData, data } = useGetCardsQuery({
-    args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: search },
+    args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
     id: deckId ?? '',
   })
   const [openModal, setOpenModal] = useState(false)
@@ -70,7 +72,11 @@ export const CardsPage = () => {
   const isCardsCountFilled = deck?.cardsCount !== 0
 
   const handleOpenModal = () => {
-    setOpenModal(true)
+    if (deck?.userId === meData?.id) {
+      setOpenModal(true)
+    } else {
+      router.navigate(`${path.decks}`)
+    }
   }
 
   if (isLoading) {
@@ -84,7 +90,12 @@ export const CardsPage = () => {
       <div className={s.heading}>
         <div className={s.headingFirstRow}>
           <Button onClick={handleOpenModal} style={{ all: 'unset' }}>
-            <Typography as={Link} style={{ textDecoration: 'none' }} to={'#'} variant={'body2'}>
+            <Typography
+              as={Link}
+              style={{ textDecoration: 'none' }}
+              to={deck?.cardsCount !== 0 ? `${path.decks}` : '#'}
+              variant={'body2'}
+            >
               <ArrowBackOutline className={s.backIcon} />
               Back to Deck List
             </Typography>
@@ -137,10 +148,9 @@ export const CardsPage = () => {
           <Input
             callback={setSearchQuery}
             className={s.input}
+            currentValue={search}
             onChange={handleSearch}
-            // querySearch={search}
             type={'search'}
-            value={search}
           />
         )}
       </div>
