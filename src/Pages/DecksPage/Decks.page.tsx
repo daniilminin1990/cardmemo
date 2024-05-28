@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react'
-import { toast } from 'react-toastify'
 
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
+import { handleToastInfo } from '@/common/consts/toastVariants'
 import { headersNameDecks, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
 import { ModalAddEditDeck } from '@/components/ModalsForTable/ModalAddEditDeck'
 import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
@@ -75,7 +75,7 @@ export function DecksPage() {
   const onClearFilter = () => {
     setTabsValue(tabsValuesData[1].value)
     clearQuery()
-    toast.info('All filters reset!', { autoClose: 2000 })
+    handleToastInfo('All filters reset!', 2000)
   }
 
   const handleItemsPerPageChange = (value: number) => {

@@ -1,4 +1,4 @@
-import { handleToastError } from '@/common/consts/toastVariants'
+import { throttledToastError } from '@/common/consts/toastVariants'
 import { failedApiResponse } from '@/services/failedApiResponse'
 import { successApiResponse } from '@/services/successApiResponse'
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQuery } from '@reduxjs/toolkit/query'
@@ -86,7 +86,8 @@ export const baseQueryWithReauth: BaseQueryFn<
 
     return result
   } catch (e) {
-    handleToastError(`Please check the network and try again or later`)
+    console.log('1111111111111')
+    throttledToastError()
 
     return {
       error: {

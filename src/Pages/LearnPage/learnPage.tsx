@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
 
+import { handleToastWarning } from '@/common/consts/toastVariants'
 import { LearnCardFormValues } from '@/common/zodSchemas/cards/cards.schemas'
 import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import Typography from '@/components/ui/Typography/Typography'
@@ -54,7 +54,7 @@ export const LearnPage = () => {
           reset()
         })
         .catch(() => {
-          data.grade === undefined && toast.warn(`Set grade!`)
+          data.grade === undefined && handleToastWarning(`Set grade!`)
         }))
   }
   const showAnswerHandler = () => {
