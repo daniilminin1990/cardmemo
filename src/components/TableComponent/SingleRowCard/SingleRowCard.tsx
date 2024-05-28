@@ -35,7 +35,9 @@ export const SingleRowCard = ({ item }: Props) => {
         <Table.Cell>
           <Typography className={s.imgWrapper}>
             {item.questionImg && (
-              <img alt={'default card img'} className={s.coverImg} src={item.questionImg} />
+              <div className={s.wrapperCoverImg}>
+                <img alt={'default card img'} className={s.coverImg} src={item.questionImg} />
+              </div>
             )}
             {item.question}
           </Typography>
@@ -43,7 +45,9 @@ export const SingleRowCard = ({ item }: Props) => {
         <Table.Cell>
           <Typography className={s.imgWrapper}>
             {item.answerImg && (
-              <img alt={'default card img'} className={s.coverImg} src={item.answerImg} />
+              <div className={s.wrapperCoverImg}>
+                <img alt={'default card img'} className={s.coverImg} src={item.answerImg} />
+              </div>
             )}
             {item.answer}
           </Typography>

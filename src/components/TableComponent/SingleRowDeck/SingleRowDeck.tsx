@@ -41,15 +41,6 @@ export const SingleRowDeck = ({ item }: Props) => {
             )}
             {item.name}
           </Typography>
-          {/*! Это было нужно, чтобы можно было блокировать в которых пусто, но так нельзя, потому что нам нужно в Deck попадать, даже в пустой*/}
-          {/*) : (*/}
-          {/*  <Typography className={s.imgWrapper}>*/}
-          {/*    {item.cover && (*/}
-          {/*      <img alt={'default card img'} className={s.coverImg} src={item.cover} />*/}
-          {/*    )}*/}
-          {/*    {item.name}*/}
-          {/*  </Typography>*/}
-          {/*)}*/}
         </Table.Cell>
         <Table.Cell>{item.cardsCount}</Table.Cell>
         <Table.Cell>{updatedAr}</Table.Cell>
