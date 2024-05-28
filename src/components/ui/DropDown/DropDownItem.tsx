@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { clsx } from 'clsx'
 
 import s from './DropDown.module.scss'
 import style from '@/components/auth/Header/Header.module.scss'
@@ -42,7 +43,7 @@ type DropDownButtonProps = {
 }
 export const DDButton = ({ handleOnClick, icon, text }: DropDownButtonProps) => {
   return (
-    <Button className={s.button} onClick={handleOnClick}>
+    <Button className={clsx(s.button, s.noHover)} onClick={handleOnClick} variant={'outlined'}>
       <img alt={''} src={icon} />
       <Typography className={s.dropdownText} variant={'caption'}>
         {text}
