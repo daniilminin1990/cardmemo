@@ -13,14 +13,14 @@
     fill: var(--color-light-500);
     border-radius: 8px;
     transition:
-      fill 0.1s,
-      filter 0.1s;
-    filter: drop-shadow(0 0 70px var(--color-dark-700));
+      fill 0.3s,
+      filter 0.3s;
+    filter: drop-shadow(0 0 40px var(--color-dark-700));
   }
 
   .img:hover {
     fill: var(--color-accent-100);
-    filter: drop-shadow(0 0 70px var(--color-accent-100));
+    filter: drop-shadow(0 0 40px rgb(137 74 255 / 50%));
   }
 }
 
