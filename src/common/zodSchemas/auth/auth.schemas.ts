@@ -2,7 +2,10 @@ import { z } from 'zod'
 
 export const PersonalInfoScheme = z.object({
   avatar: z.unknown().optional().nullable(),
-  nickName: z.string().min(1, 'Type new nickname'),
+  nickName: z
+    .string()
+    .min(3, 'Nickname must be at least 3 characters long')
+    .max(30, 'Nickname cannot be longer than 30 characters'),
 })
 
 export type PersonalInfoFormValue = z.infer<typeof PersonalInfoScheme>
