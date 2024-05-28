@@ -28,7 +28,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const { clearQuery, setCurrentPageQuery } = useQueryParams()
   const schema = z.object({
     isPrivate: z.boolean(),
-    name: item ? z.string() : z.string().min(3).max(1000),
+    name: item ? z.string().min(3).max(30) : z.string().min(3).max(30),
     rememberMe: z.boolean().optional(),
   })
 
@@ -71,10 +71,6 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
     setOpen(false)
   }
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
-    // console.log('e.target.files', e.target.files)
-    // if (e.target.files !== null && e.target.files.length > 0) {
-    //   setPreview(URL.createObjectURL(e.target.files[0]))
-    // }
     setCover(e.target.files?.[0] ?? undefined)
     e.target.value = ''
   }
@@ -138,17 +134,12 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
               />
             </Button>
           </div>
-          {/*<Checkbox*/}
-          {/*  checked={checked}*/}
-          {/*  label={'Private pack'}*/}
-          {/*  onCheckedChange={() => setChecked(!checked)}*/}
-          {/*/>*/}
           <Controller
             control={control}
             defaultValue={false}
-            name={'rememberMe'}
-            render={({ field: { onChange, value } }) => (
-              <Checkbox checked={value} label={'RememberMe'} onCheckedChange={onChange} />
+            name={'isPrivate'}
+            render={({ field: { onChange, value = item?.isPrivate } }) => (
+              <Checkbox checked={value} label={'Is Private'} onCheckedChange={onChange} />
             )}
           />
         </div>
@@ -156,9 +147,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
           <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
             <Typography variant={'subtitle2'}>Cancel</Typography>
           </Button>
-          <Button
-          // onSubmit={handleSubmit(onSubmit)} Не обязательное говно, т.к. по умолчанию onSubmit
-          >
+          <Button>
             <Typography variant={'subtitle2'}>{item ? 'Save changes' : 'Create Pack'}</Typography>
           </Button>
         </div>
