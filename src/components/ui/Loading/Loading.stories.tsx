@@ -13,6 +13,6 @@ type Story = StoryObj<typeof Loading>
 
 export const DropDownHeader: Story = {
   args: {
-    isShow: true,
+    isLoading: true,
   },
 }
