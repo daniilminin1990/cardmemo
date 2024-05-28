@@ -12,15 +12,12 @@
     width: 100%;
     fill: var(--color-light-500);
     border-radius: 8px;
-    transition:
-      fill 0.3s,
-      filter 0.3s;
-    filter: drop-shadow(0 0 40px var(--color-dark-700));
+    transition: fill 0.3s;
+    filter: drop-shadow(0 0 30px rgb(137 74 255 / 50%));
   }
 
   .img:hover {
     fill: var(--color-accent-100);
-    filter: drop-shadow(0 0 40px rgb(137 74 255 / 50%));
   }
 }
 
