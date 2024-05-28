@@ -20,9 +20,10 @@ export const CheckEmail = () => {
           <div className={s.imageContainer}>
             <CheckEmailIcon />
           </div>
-          <Typography className={s.notification} variant={'body2'}>
-            We’ve sent an Email with instructions to {email}
-          </Typography>
+          <div className={s.notification}>
+            <Typography variant={'body2'}>We’ve sent an Email with instructions to</Typography>
+            <Typography variant={'body2'}>{email}</Typography>
+          </div>
           <Button as={Link} className={s.backBtn} fullWidth to={'/login'}>
             Back to Sign in
           </Button>
