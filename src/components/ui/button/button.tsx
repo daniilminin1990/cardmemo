@@ -14,7 +14,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   children: ReactNode
   className?: string
   fullWidth?: boolean
-  variant?: 'primary' | 'secondary'
+  variant?: 'outlined' | 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
 export const ButtonPolymorph = <T extends ElementType = 'button'>(

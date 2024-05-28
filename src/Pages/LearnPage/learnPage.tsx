@@ -60,7 +60,7 @@ export const LearnPage = () => {
       handleToastWarning('Set grade!')
     }
   }
-  const showAnswwerHandler = () => {
+  const showAnswerHandler = () => {
     setIsShowAnswer(true)
   }
 
@@ -70,8 +70,7 @@ export const LearnPage = () => {
 
   return (
     <section>
-      <DevTool control={control} />
-      <BackBtn name={'Back to Previous Page'} path={`${path.decks}/${deckId}`} />
+      <BackBtn as={'a'} name={'Back to Previous Page'} path={`${path.decks}/${deckId}`} />
       {randomCard && (
         <Card className={s.card}>
           <div className={s.container}>
@@ -130,11 +129,12 @@ export const LearnPage = () => {
                 </form>
               </>
             ) : (
-              <Button as={'button'} className={s.showBtn} onClick={showAnswwerHandler}>
+              <Button as={'button'} className={s.showBtn} onClick={showAnswerHandler}>
                 <Typography as={'span'}>Show Answer</Typography>
               </Button>
             )}
           </div>
+          т
         </Card>
       )}
     </section>
