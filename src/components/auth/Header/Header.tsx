@@ -1,6 +1,7 @@
 import ellipseIcon from '@/assets/icons/WhiteSVG/Ellipse 1.svg'
 import headerIcon1 from '@/assets/icons/WhiteSVG/Layer 2.svg'
 import headerIcon from '@/assets/icons/WhiteSVG/person-outline.svg'
+import FlashCardsLogo1 from '@/assets/icons/svg/FlashCardsLogo1'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Typography from '@/components/ui/Typography/Typography'
@@ -10,8 +11,6 @@ import { useLogoutMutation } from '@/services/auth/auth.service'
 import { MeResponse } from '@/services/auth/auth.types'
 
 import style from './Header.module.scss'
-
-import logo from '../../../assets/img/Logo.png'
 
 //! Прокинул data
 type HeaderProps = {
@@ -29,7 +28,7 @@ const Header = ({ data }: HeaderProps) => {
         <div className={style.boxImg}>
           {/*! Сделал ссылку на главную страницу*/}
           <Typography as={'a'} href={`${path.decks}`} variant={'body2'}>
-            <img alt={'logo'} className={style.img} src={logo} />
+            <FlashCardsLogo1 className={style.img} />
           </Typography>
         </div>
         {data ? (

@@ -133,9 +133,10 @@
 }
 
 .IconButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  //! Убрал эти стили
+  //display: inline-flex;
+  //align-items: center;
+  //justify-content: center;
 
   width: 35px;
   height: 35px;
@@ -174,6 +175,9 @@
   display: flex;
   max-width: max-content;
   margin: 6px 0 12px;
+
+
+
 
   //! Добавил эти стили
   img {
