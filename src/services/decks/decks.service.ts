@@ -130,7 +130,7 @@ export const decksService = flashCardsAPI.injectEndpoints({
         }),
       }),
       updateDeck: builder.mutation<Deck, UpdateDeckArgs>({
-        invalidatesTags: ['Decks'],
+        invalidatesTags: ['Decks', 'Deck'],
         async onQueryStarted({ cover, id, ...args }, { dispatch, getState, queryFulfilled }) {
           const invalidateBy = decksService.util.selectInvalidatedBy(getState(), [
             { type: 'Decks' },

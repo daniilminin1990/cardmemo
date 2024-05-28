@@ -7,6 +7,7 @@ import playIcon from '@/assets/icons/WhiteSVG/play-circle-outline.svg'
 import menuIcon from '@/assets/icons/WhiteSVG/trash-outline.svg'
 import ArrowBackOutline from '@/assets/icons/svg/ArrowBackOutline'
 import { headersNameCards, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
+import { ModalAddEditDeck } from '@/components/ModalsForTable/ModalAddEditDeck'
 import { ModalAddEditCard } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
 import ModalOnEmpty from '@/components/ModalsForTable/ModalOnEmpty/ModalOnEmpty'
 import { Page } from '@/components/Page/Page'
@@ -55,6 +56,7 @@ export const CardsPage = () => {
     id: deckId ?? '',
   })
   const [openModal, setOpenModal] = useState(false)
+  const [openEditDeckModal, setOpenEditDeckModal] = useState(false)
   const handleItemsPerPageChange = (value: number) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setItemsPerPageQuery(value)
@@ -87,6 +89,7 @@ export const CardsPage = () => {
     <Page className={s.common} mt={'24px'}>
       <ModalOnEmpty open={openModal} setIsOpenModal={setOpenModal} />
       <ModalAddEditCard open={open} setOpen={setOpen} />
+      <ModalAddEditDeck item={deck} open={openEditDeckModal} setOpen={setOpenEditDeckModal} />
       <div className={s.heading}>
         <div className={s.headingFirstRow}>
           <Button onClick={handleOpenModal} style={{ all: 'unset' }}>
@@ -115,7 +118,11 @@ export const CardsPage = () => {
                     icon={playIcon}
                     text={'Learn'}
                   />
-                  <DropDownItem icon={menuIcon2} text={'Edit'} />
+                  <DropDownItem
+                    handleOnClick={() => setOpenEditDeckModal(true)}
+                    icon={menuIcon2}
+                    text={'Edit'}
+                  />
                   <DropDownItem icon={menuIcon} text={'Delete'} />
                 </DropdownMenuDemo>
               )}
