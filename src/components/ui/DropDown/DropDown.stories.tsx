@@ -3,12 +3,12 @@ import type { Meta, StoryObj } from '@storybook/react'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 
-import ellipseIcon from '../../../assets/icons/WhiteSVG/Ellipse 1.svg'
 import groupIcon from '../../../assets/icons/WhiteSVG/Group 1399.svg'
 import headerIcon1 from '../../../assets/icons/WhiteSVG/Layer 2.svg'
 import menuIcon2 from '../../../assets/icons/WhiteSVG/edit-2-outline.svg'
 import headerIcon from '../../../assets/icons/WhiteSVG/person-outline.svg'
 import menuIcon from '../../../assets/icons/WhiteSVG/trash-outline.svg'
+import defaultAvatar from '../../../assets/img/defaultAvatar.png'
 
 const meta = {
   component: DropdownMenuDemo,
@@ -22,7 +22,7 @@ type Story = StoryObj<typeof DropdownMenuDemo>
 
 export const DropDownHeader: Story = {
   render: () => (
-    <DropdownMenuDemo icon={ellipseIcon} type={'head'}>
+    <DropdownMenuDemo icon={defaultAvatar} type={'head'}>
       <DropDownItem icon={headerIcon} text={'My Profile'} />
       <DropDownItem icon={headerIcon1} text={'My Profile'} />
     </DropdownMenuDemo>
