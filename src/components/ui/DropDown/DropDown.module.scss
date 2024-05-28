@@ -73,7 +73,7 @@
 .DropdownMenuItem {
   user-select: none;
   cursor: pointer;
-  margin: 6px 0;
+  //margin: 6px 0;
 
   position: relative;
 
@@ -93,6 +93,7 @@
   //! Добавил стили для Button
   .button {
     all: unset;
+    padding: 6px 0;
     display: flex;
     align-items: center;
     background-color: transparent;
@@ -175,9 +176,6 @@
   display: flex;
   max-width: max-content;
   margin: 6px 0 12px;
-
-
-
 
   //! Добавил эти стили
   img {

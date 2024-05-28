@@ -80,7 +80,6 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setOpen(false)
     setCover(undefined)
-    setPreview(null)
   }
   const hanldeSubmitImg = () => {
     refInputImg?.current?.click()
@@ -93,7 +92,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
       open={open}
       title={item ? 'Update Deck' : 'Add New Deck'}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.body}>
           {item?.name && <Typography variant={'h1'}>{item.name}</Typography>}
           {/*{preview && <img alt={'cover'} src={preview} width={'100%'} />}*/}
