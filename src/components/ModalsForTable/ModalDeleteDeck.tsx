@@ -1,6 +1,10 @@
+import { useParams } from 'react-router-dom'
+
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
+import { path } from '@/router/path'
+import { router } from '@/router/router'
 import { Deck } from '@/services/decks/deck.types'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service'
 
@@ -14,9 +18,13 @@ type Props = {
 export const ModalDeleteDeck = (props: Props) => {
   const { item, open, setIsDeleteModal } = props
   const [deleteDeck] = useDeleteDeckMutation()
+  const { deckId } = useParams()
   const onDeleteDeckHandler = () => {
     deleteDeck({ id: item.id })
     setIsDeleteModal(true)
+    if (deckId) {
+      router.navigate(path.decks)
+    }
   }
 
   return (
