@@ -1,0 +1,26 @@
+{
+  "header": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "myProfile": "My Profile"
+  },
+  "decksPage": {
+    "numberOfCards": "Number of cards",
+    "showDecksCards": "Show decks cards",
+    "decksList": "Decks list",
+    "clearFilter": "Clear Filter"
+  },
+  "useTabsValuesParams": {
+    "allDecks": "All decks",
+    "myDecks": "My decks"
+  },
+  "paginationWithSelect": {
+    "show": "Show",
+    "onPage": "on page"
+  },
+  "checkEmail": {
+    "checkEmail": "Check Email",
+    "instruction": "We’ve sent an Email with instructions to",
+    "backToSignIn": "Back to Sign in"
+  }
+}

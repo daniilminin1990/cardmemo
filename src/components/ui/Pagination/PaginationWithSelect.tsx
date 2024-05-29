@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 import { Pagination } from '@/components/ui/Pagination/ui/Pagination'
 import SelectUI from '@/components/ui/Select/Select'
 import Typography from '@/components/ui/Typography/Typography'
@@ -40,6 +42,7 @@ export const PaginationWithSelect = ({
   const onValueChange = (count: string) => {
     setItemsPerPage(+count)
   }
+  const { t } = useTranslation()
 
   return (
     <div
@@ -54,7 +57,7 @@ export const PaginationWithSelect = ({
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
       />
-      <Typography className={s.firstText}>Show </Typography>
+      <Typography className={s.firstText}>{t('paginationWithSelect.show')} </Typography>
       <SelectUI
         className={'select'}
         disabled={disabled}
@@ -62,7 +65,7 @@ export const PaginationWithSelect = ({
         selectOptions={selectOptions}
         value={itemsPerPage.toString()}
       />
-      <Typography className={s.lastText}>on page</Typography>
+      <Typography className={s.lastText}>{t('paginationWithSelect.onPage')}</Typography>
     </div>
   )
 }

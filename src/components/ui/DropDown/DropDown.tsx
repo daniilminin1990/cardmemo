@@ -13,7 +13,7 @@ type DropdownMenuDemoProps = {
   className?: string
   //! Добавил data
   data?: MeResponse
-  icon: string
+  icon?: string
   type: 'head' | 'menu'
 }
 
