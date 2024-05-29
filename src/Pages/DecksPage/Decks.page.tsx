@@ -59,7 +59,7 @@ export function DecksPage() {
       name: debouncedSearchValue,
       orderBy: currentOrderBy,
     },
-    { skip: !minMaxData }
+    { skip: !minMaxData && !meData }
   )
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
