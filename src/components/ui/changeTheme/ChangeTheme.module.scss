@@ -1,0 +1,13 @@
+.box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 60px;
+  min-height: 35px;
+}
+.sunImg, .moonImg {
+  min-width: 40px;
+  min-height: 35px;
+  margin-left: 10px;
+  cursor: pointer;
+}
