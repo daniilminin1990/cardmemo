@@ -28,7 +28,7 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
           {/*! Добавил картинку поменял И СТИЛИ*/}
           <img
             alt={''}
-            className={clsx(s.dropdownHeaderImg, className)}
+            className={clsx(type === 'head' && s.dropdownHeaderImg, className)}
             src={data?.avatar ?? icon}
           />
           {/*</div>*/}
