@@ -1,19 +1,26 @@
 .box {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 36px;
+  justify-content: space-between;
+
   width: 100%;
   height: 60px;
+  margin-bottom: 36px;
+
   background-color: var(--color-dark-700);
+
   .img {
     display: block;
-    height: 40px;
+
     width: 100%;
-    fill: var(--color-accent-100);
-    border-radius: 8px;
-    transition: fill 0.3s;
+    height: 40px;
+
     filter: drop-shadow(0 0 30px rgb(137 74 255 / 50%));
+    border-radius: 8px;
+
+    fill: var(--color-accent-100);
+
+    transition: fill 0.3s;
   }
 
   .img:hover {
@@ -22,33 +29,41 @@
 }
 
 .wrapper {
+  display: flex;
+  justify-content: space-between;
+
   width: 100%;
   max-width: 1280px;
-  display: flex;
-  padding-inline: 24px;
-  justify-content: space-between;
   margin: 0 auto;
+  padding-inline: 24px;
 }
+
 .dropDown {
   display: flex;
   align-items: center;
 }
+
 .text {
-  text-decoration: none;
   padding-right: 14px;
+  text-decoration: none;
+
   &:hover {
     color: var(--color-accent-100);
   }
 }
+
 .boxImg {
   display: flex;
   align-items: center;
 }
+
 .buttonBox {
   display: flex;
   align-items: center;
 }
+
 .button {
+  text-decoration-line: none;
   background-color: var(--color-dark-300);
   box-shadow: none;
 }

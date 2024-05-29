@@ -61,5 +61,7 @@ export const failedApiResponse = (result: any) => {
       throttledToastError()
       throw new Error()
     }
-  } catch (e) {}
+  } catch (e) {
+    ;() => {}
+  }
 }

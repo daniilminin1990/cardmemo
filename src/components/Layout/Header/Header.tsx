@@ -59,7 +59,9 @@ const Header = ({ data }: HeaderProps) => {
           </div>
         ) : (
           <div className={style.buttonBox}>
-            <Button className={style.button}>{t('header.signIn')}</Button>
+            <Button as={Link} className={style.button} to={`${path.login}`}>
+              {t('header.signIn')}
+            </Button>
           </div>
         )}
       </div>

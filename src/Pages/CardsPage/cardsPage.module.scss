@@ -1,23 +1,8 @@
-.common {
-  //max-width: 1008px;
-}
-
-//.loader {
-//  margin: 0 auto;
-//  height: 100vh;
-//}
-
 .heading {
   display: grid;
   grid-template-rows: auto 1fr;
   width: 100%;
   margin-bottom: 24px;
-}
-
-.headingFirstRow {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 36px;
 }
 
 .headingSecondRow {
@@ -35,8 +20,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  //justify-content: center;
   margin-top: 70px;
 
   & > p:first-child {
@@ -44,14 +27,9 @@
     font-size: 16px;
     color: var(--color-dark-100);
   }
-
-  & button > p {
-    margin: 0;
-  }
 }
 
 .clearFilter {
-  ////text-align: center;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,9 +38,6 @@
 
 .input {
   width: 100%;
-}
-
-.tabsSwitcher {
 }
 
 .footer {
@@ -84,10 +59,6 @@
   text-decoration: none;
 }
 
-.backIcon {
-  margin-right: 6px;
-}
-
 .info {
   display: flex;
   gap: 6px;
@@ -99,6 +70,4 @@
   align-items: center;
   width: 24px !important;
   height: 24px !important;
-
-  //margin-left: 6px;
 }

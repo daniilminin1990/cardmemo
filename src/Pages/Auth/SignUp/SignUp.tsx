@@ -1,4 +1,5 @@
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import { SignUpFormValues, SignUpSchema } from '@/common/zodSchemas/auth/auth.schemas'
 import Typography from '@/components/ui/Typography/Typography'
@@ -71,9 +72,9 @@ export default function SignUp() {
           </Typography>
 
           <Typography
-            as={'a'}
+            as={Link}
             className={s.typographyFooterSubtitle}
-            href={`${path.login}`}
+            to={`${path.login}`}
             variant={'link1'}
           >
             Sign In

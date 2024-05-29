@@ -5,7 +5,7 @@ import groupIcon from '@/assets/icons/WhiteSVG/Group 1399.svg'
 import menuIcon2 from '@/assets/icons/WhiteSVG/edit-2-outline.svg'
 import playIcon from '@/assets/icons/WhiteSVG/play-circle-outline.svg'
 import menuIcon from '@/assets/icons/WhiteSVG/trash-outline.svg'
-import ArrowBackOutline from '@/assets/icons/svg/ArrowBackOutline'
+import { handleToastInfo } from '@/common/consts/toastVariants'
 import { headersNameCards, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
 import { ModalAddEditDeck } from '@/components/ModalsForTable/ModalAddEditDeck'
 import { ModalDeleteDeck } from '@/components/ModalsForTable/ModalDeleteDeck'
@@ -13,6 +13,7 @@ import { ModalAddEditCard } from '@/components/ModalsForTable/ModalEditCard/Moda
 import ModalOnEmpty from '@/components/ModalsForTable/ModalOnEmpty/ModalOnEmpty'
 import { SingleRowCard } from '@/components/TableComponent/SingleRowCard/SingleRowCard'
 import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
+import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Input from '@/components/ui/Input/Input'
@@ -98,6 +99,9 @@ export const CardsPage = () => {
   if (isLoading) {
     return <Loading />
   }
+  const notifyLearnHandler = () => {
+    handleToastInfo(`Add card before learning!`)
+  }
 
   return (
     <>
@@ -112,19 +116,7 @@ export const CardsPage = () => {
             setIsDeleteModal={setOpenDeleteDeckModal}
           />
           <div className={s.heading}>
-            <div className={s.headingFirstRow}>
-              <Button onClick={handleOpenModal} style={{ all: 'unset' }}>
-                <Typography
-                  as={Link}
-                  style={{ textDecoration: 'none' }}
-                  to={deck?.cardsCount !== 0 ? `${path.decks}` : '#'}
-                  variant={'body2'}
-                >
-                  <ArrowBackOutline className={s.backIcon} />
-                  Back to Deck List
-                </Typography>
-              </Button>
-            </div>
+            <BackBtn as={Link} name={`Back to Deck List`} onClick={handleOpenModal} path={'#'} />
             <div className={s.headingSecondRow}>
               <div className={clsx(deck?.cover && s.isWithImage)}>
                 <div className={s.info}>
@@ -134,11 +126,20 @@ export const CardsPage = () => {
                   {isMineCards && (
                     // В DropDownItem можно передать onClick? Если нет, то обернуть в Button
                     <DropdownMenuDemo className={s.dropdown} icon={groupIcon} type={'menu'}>
-                      <DropDownItem
-                        href={`${path.decks}/${deckId}${path.learn}`}
-                        icon={playIcon}
-                        text={'Learn'}
-                      />
+                      {isCardsCountZero ? (
+                        <DropDownItem
+                          handleOnClick={notifyLearnHandler}
+                          icon={playIcon}
+                          text={'Learn'}
+                        />
+                      ) : (
+                        <DropDownItem
+                          href={`${path.decks}/${deckId}${path.learn}`}
+                          icon={playIcon}
+                          text={'Learn'}
+                        />
+                      )}
+
                       <DropDownItem
                         handleOnClick={() => setOpenEditDeckModal(true)}
                         icon={menuIcon2}

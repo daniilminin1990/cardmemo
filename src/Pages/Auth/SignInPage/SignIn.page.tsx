@@ -90,11 +90,16 @@ export const SignInPage = () => {
             Sign In
           </Button>
           <div className={s.footer}>
-            <Typography as={'button'} className={s.typographyFooterTitle} variant={'body2'}>
-              {/* eslint-disable-next-line react/no-unescaped-entities */}
-              Don't have an account?
+            <Typography as={'span'} className={s.typographyFooterTitle} variant={'body2'}>
+              Don`t have an account?
             </Typography>
-            <Typography as={'button'} className={s.typographyFooterSubtitle} variant={'link1'}>
+            <Typography
+              as={Link}
+              className={s.typographyFooterSubtitle}
+              to={`${path.signUp}`}
+              type={'button'}
+              variant={'link1'}
+            >
               Sign Up
             </Typography>
           </div>
