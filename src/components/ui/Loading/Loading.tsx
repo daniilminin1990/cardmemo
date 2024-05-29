@@ -1,16 +1,21 @@
 import { ComponentProps } from 'react'
 
+import clsx from 'clsx'
+
 import s from './loading.module.scss'
 
 import img from '../../../assets/img/Loading.svg'
 
 const Loading = ({
-  className = s.loader,
+  className = s.preloader,
   isLoading,
+  type = 'pageLoader',
   ...props
-}: { isLoading?: boolean } & ComponentProps<'div'>) => {
+}: { isLoading?: boolean; type?: 'pageLoader' | 'preloader' } & ComponentProps<'div'>) => {
+  const classNameLoading = clsx(type === 'preloader' ? s.preloader : s.pageLoader, className)
+
   return (
-    <div className={s.loader} {...props}>
+    <div className={classNameLoading} {...props}>
       <img alt={''} src={img} />
     </div>
   )

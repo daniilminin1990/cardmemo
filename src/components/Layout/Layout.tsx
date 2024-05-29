@@ -13,7 +13,7 @@ export const Layout = () => {
   const { data: meData, isLoading } = useMeQuery()
 
   if (isLoading) {
-    return <Loading />
+    return <Loading type={'preloader'} />
   }
 
   return (
