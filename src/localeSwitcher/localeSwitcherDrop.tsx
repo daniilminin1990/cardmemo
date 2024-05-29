@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import ru from '@/assets/Lang/pngegg (2).png'
-import en from '@/assets/Lang/pngegg (4).png'
+import en from '@/assets/Lang/English.png'
+import ru from '@/assets/Lang/Russian.png'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import style from './localeSwitcher.module.scss'
