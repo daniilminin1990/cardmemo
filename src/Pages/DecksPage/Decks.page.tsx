@@ -1,6 +1,5 @@
 import { ChangeEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
 
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { handleToastInfo } from '@/common/consts/toastVariants'
