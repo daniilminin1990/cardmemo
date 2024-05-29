@@ -40,6 +40,14 @@
   font-size: var(--font-size-m);
   font-weight: var(--font-weight-bold);
   color: var(--color-accent-500);
+
+  &:hover {
+    text-decoration-line: underline;
+  }
+
+  &:visited {
+    color: var(--color-accent-500);
+  }
 }
 
 .typographyFooterTitle {

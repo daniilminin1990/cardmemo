@@ -39,8 +39,16 @@ export const successApiResponse = (result: any) => {
           handleToastSuccess(`Registration successful!`)
         }
       }
-      if (status === 204 && statusText === 'No Content' && url.endsWith('/logout')) {
-        handleToastSuccess(`Logout - successful!`)
+      if (status === 204 && statusText === 'No Content') {
+        if (url.endsWith('/logout')) {
+          const kostilb = setTimeout(() => {
+            handleToastSuccess(`Logout - successful!`)
+
+            return () => {
+              clearTimeout(kostilb)
+            }
+          }, 1)
+        }
       }
     } else if (method === 'DELETE') {
       if (status === 200 && statusText === 'OK') {
