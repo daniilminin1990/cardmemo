@@ -1,12 +1,3 @@
-.common {
-  //max-width: 1008px;
-}
-
-//.loader {
-//  margin: 0 auto;
-//  height: 100vh;
-//}
-
 .heading {
   display: grid;
   grid-template-rows: auto 1fr;
@@ -35,8 +26,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  //justify-content: center;
   margin-top: 70px;
 
   & > p:first-child {
@@ -51,7 +40,6 @@
 }
 
 .clearFilter {
-  ////text-align: center;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,9 +48,6 @@
 
 .input {
   width: 100%;
-}
-
-.tabsSwitcher {
 }
 
 .footer {
@@ -99,6 +84,4 @@
   align-items: center;
   width: 24px !important;
   height: 24px !important;
-
-  //margin-left: 6px;
 }
