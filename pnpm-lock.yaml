@@ -71,6 +71,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      i18next:
+        specifier: ^23.11.5
+        version: 23.11.5
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -80,6 +83,9 @@ importers:
       react-hook-form:
         specifier: ^7.51.4
         version: 7.51.4(react@18.3.1)
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-redux:
         specifier: ^9.1.2
         version: 9.1.2(@types/react@18.3.1)(react@18.3.1)(redux@5.0.1)
@@ -3618,6 +3624,9 @@ packages:
   hosted-git-info@2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
 
+  html-parse-stringify@3.0.1:
+    resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==}
+
   html-tags@3.3.1:
     resolution: {integrity: sha512-ztqyC3kLto0e9WbNp0aeP+M3kTt+nbaIveGmUxAtZa+8iFgKLUOD4YKM5j+f3QD89bra7UeumolZHKuOXnTmeQ==}
     engines: {node: '>=8'}
@@ -3633,6 +3642,9 @@ packages:
   human-signals@5.0.0:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
     engines: {node: '>=16.17.0'}
+
+  i18next@23.11.5:
+    resolution: {integrity: sha512-41pvpVbW9rhZPk5xjCX2TPJi2861LEig/YRhUkY+1FQ2IQPS0bKUDYnEqY8XPPbB48h1uIwLnP9iiEfuSl20CA==}
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -4558,6 +4570,19 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
 
+  react-i18next@14.1.2:
+    resolution: {integrity: sha512-FSIcJy6oauJbGEXfhUgVeLzvWBhIBIS+/9c6Lj4niwKZyGaGb4V4vUbATXSlsHJDXXB+ociNxqFNiFuV1gmoqg==}
+    peerDependencies:
+      i18next: '>= 23.2.3'
+      react: '>= 16.8.0'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -5354,6 +5379,10 @@ packages:
         optional: true
       terser:
         optional: true
+
+  void-elements@3.1.0:
+    resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
+    engines: {node: '>=0.10.0'}
 
   watchpack@2.4.1:
     resolution: {integrity: sha512-8wrBCMtVhqcXP2Sup1ctSkga6uc2Bx0IIvKyT7yTFier5AXHooSI+QyQQAtTb7+E0IUCCKyTFmXqdqgum2XWGg==}
@@ -9821,6 +9850,10 @@ snapshots:
 
   hosted-git-info@2.8.9: {}
 
+  html-parse-stringify@3.0.1:
+    dependencies:
+      void-elements: 3.1.0
+
   html-tags@3.3.1: {}
 
   http-errors@2.0.0:
@@ -9834,6 +9867,10 @@ snapshots:
   human-signals@2.1.0: {}
 
   human-signals@5.0.0: {}
+
+  i18next@23.11.5:
+    dependencies:
+      '@babel/runtime': 7.24.4
 
   iconv-lite@0.4.24:
     dependencies:
@@ -10687,6 +10724,15 @@ snapshots:
   react-hook-form@7.51.4(react@18.3.1):
     dependencies:
       react: 18.3.1
+
+  react-i18next@14.1.2(i18next@23.11.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      '@babel/runtime': 7.24.4
+      html-parse-stringify: 3.0.1
+      i18next: 23.11.5
+      react: 18.3.1
+    optionalDependencies:
+      react-dom: 18.3.1(react@18.3.1)
 
   react-is@16.13.1: {}
 
@@ -11582,6 +11628,8 @@ snapshots:
       '@types/node': 20.12.7
       fsevents: 2.3.3
       sass: 1.75.0
+
+  void-elements@3.1.0: {}
 
   watchpack@2.4.1:
     dependencies:

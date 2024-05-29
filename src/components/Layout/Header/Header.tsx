@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import ellipseIcon from '@/assets/icons/WhiteSVG/Ellipse 1.svg'
@@ -8,6 +9,7 @@ import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
+import LocaleSwitcher from '@/localeSwitcher'
 import { path } from '@/router/path'
 import { useLogoutMutation } from '@/services/auth/auth.service'
 import { MeResponse } from '@/services/auth/auth.types'
@@ -20,6 +22,7 @@ type HeaderProps = {
 }
 const Header = ({ data }: HeaderProps) => {
   const [logout] = useLogoutMutation()
+  const { t } = useTranslation()
   const logoutHandler = () => {
     logout()
   }
@@ -33,24 +36,31 @@ const Header = ({ data }: HeaderProps) => {
             <FlashCardsLogo1 className={style.img} />
           </Typography>
         </div>
+        <div>
+          <LocaleSwitcher />
+        </div>
         {data ? (
           <div className={style.dropDown}>
             <Typography as={Link} className={style.text} to={`${path.profile}`} variant={'h2'}>
               {data.name}
             </Typography>
             <DropdownMenuDemo data={data} icon={ellipseIcon} type={'head'}>
-              <DropDownItem href={`${path.profile}`} icon={headerIcon} text={'My Profile'} />
+              <DropDownItem
+                href={`${path.profile}`}
+                icon={headerIcon}
+                text={t('header.myProfile')}
+              />
               <DropDownItem
                 handleOnClick={logoutHandler}
                 href={`${path.login}`}
                 icon={headerIcon1}
-                text={'Sign Out'}
+                text={t('header.signOut')}
               />
             </DropdownMenuDemo>
           </div>
         ) : (
           <div className={style.buttonBox}>
-            <Button className={style.button}>Sign In</Button>
+            <Button className={style.button}>{t('header.signIn')}</Button>
           </div>
         )}
       </div>
