@@ -13,13 +13,16 @@ type Props = {
 }
 
 export const Pagination = ({ currentPage, setCurrentPage, totalPages }: Props) => {
+  // const { currentPageSearchParam } = useQueryParams()
+  //
+  // totalPages = currentPageSearchParam === null ? 1 : totalPages
   const pageNumbers = usePagination({
     currentPage,
     totalPages,
   })
 
   return (
-    <nav aria-label={'Pagination'} className={s.pagination}>
+    <div aria-label={'Pagination'} className={s.pagination}>
       <PageLink
         className={s.icon}
         disabled={currentPage === 1}
@@ -46,6 +49,6 @@ export const Pagination = ({ currentPage, setCurrentPage, totalPages }: Props) =
       >
         <SvgArrowIosForward />
       </PageLink>
-    </nav>
+    </div>
   )
 }

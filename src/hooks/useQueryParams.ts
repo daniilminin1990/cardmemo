@@ -9,6 +9,7 @@ export const useQueryParams = () => {
     searchParams.get('itemsPerPage') ?? Number(selectOptionPagination[0].value)
   )
   const currentPage = Number(searchParams.get('currentPage') ?? Number(initCurrentPage))
+  const currentPageSearchParam = searchParams.get('currentPage')
   const search = searchParams.get('search') ?? ''
   const currentOrderBy = searchParams.get('orderBy') ?? ''
 
@@ -67,6 +68,7 @@ export const useQueryParams = () => {
     clearQuery,
     currentOrderBy,
     currentPage,
+    currentPageSearchParam,
     debouncedSearchValue,
     itemsPerPage,
     search,

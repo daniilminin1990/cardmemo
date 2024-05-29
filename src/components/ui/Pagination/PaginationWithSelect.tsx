@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Pagination } from '@/components/ui/Pagination/ui/Pagination'
 import SelectUI from '@/components/ui/Select/Select'
 import Typography from '@/components/ui/Typography/Typography'
+import { useQueryParams } from '@/hooks/useQueryParams'
 
 import s from './paginationWithSelect.module.scss'
 
@@ -30,10 +31,19 @@ export const PaginationWithSelect = ({
   setItemsPerPage,
   totalItems,
 }: Props) => {
+  disabled = totalItems <= Number(selectOptions[0].value)
   // const [currentPage, setCurrentPage] = useState<number>(1)
   // const [itemsPerPage, setItemsPerPage] = useState<number>(10)
   // const placeholderText = placeholder || selectOptions[0].text
-  const totalPages: number = Math.ceil(totalItems / itemsPerPage) // Is this comes from, server???
+  const { currentPageSearchParam } = useQueryParams()
+
+  const totalPages =
+    currentPageSearchParam === null && totalItems <= itemsPerPage
+      ? 1
+      : Math.ceil(totalItems / itemsPerPage)
+  // const totalPages = Math.ceil(totalItems / itemsPerPage)
+  // disabled =
+  // const totalPages: number = Math.ceil(totalItems / itemsPerPage) // Is this comes from, server???
   // const {} = useGetDecksQuery({
   //   currentPage,
   //   itemsPerPage,

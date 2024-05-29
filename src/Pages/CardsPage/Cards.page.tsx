@@ -81,7 +81,11 @@ export const CardsPage = () => {
 
   const cardsData = currentData ?? data
   const isCardsCountFilled = currentDeckData?.cardsCount !== 0
-  const isCardsCountZero = currentDeckData?.cardsCount === 0
+  const isCardsCountZero =
+    currentDeckData?.cardsCount === 0 &&
+    deck?.cardsCount === 0 &&
+    currentData?.items?.length === 0 &&
+    data?.items?.length === 0
   const isMineCards = currentDeckData?.userId === meData?.id
 
   const handleOpenModal = () => {
@@ -206,19 +210,20 @@ export const CardsPage = () => {
                 {item => <SingleRowCard item={item} />}
               </TableComponentWithTypes>
               <div className={s.footer}>
-                {isCardsCountFilled &&
-                  !search &&
-                  cardsData?.items &&
-                  cardsData.items.length >= currentPage * itemsPerPage && (
-                    <PaginationWithSelect
-                      currentPage={currentPage}
-                      itemsPerPage={itemsPerPage}
-                      selectOptions={selectOptionPagination}
-                      setCurrentPage={handleCurrentPageChange}
-                      setItemsPerPage={handleItemsPerPageChange}
-                      totalItems={cardsData?.pagination.totalItems || 0}
-                    />
-                  )}
+                {/*! Это для скрытия пагинации было прикручено. Херота - убрал*/}
+                {/*{isCardsCountFilled &&*/}
+                {/*  !search &&*/}
+                {/*  cardsData?.items &&*/}
+                {/*  cardsData.items.length >= currentPage * itemsPerPage && (*/}
+                <PaginationWithSelect
+                  currentPage={currentPage}
+                  itemsPerPage={itemsPerPage}
+                  selectOptions={selectOptionPagination}
+                  setCurrentPage={handleCurrentPageChange}
+                  setItemsPerPage={handleItemsPerPageChange}
+                  totalItems={cardsData?.pagination.totalItems || 0}
+                />
+                {/*)}*/}
               </div>
             </>
           )}
