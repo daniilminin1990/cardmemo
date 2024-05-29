@@ -84,7 +84,11 @@ export const CardsPage = () => {
   const isMineCards = currentDeckData?.userId === meData?.id
 
   const handleOpenModal = () => {
-    if ((isMineCards && deck?.cardsCount === 0) || cardsData?.items?.length === 0) {
+    if (
+      (isMineCards && isCardsCountZero) ||
+      (isMineCards && cardsData?.items?.length === 0) ||
+      (isMineCards && data?.items?.length === 0)
+    ) {
       setOpenModal(true)
     } else {
       router.navigate(`${path.decks}`)
