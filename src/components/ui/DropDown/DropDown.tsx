@@ -24,12 +24,14 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button aria-label={'Customise options'} className={s.IconButton}>
-          {/*! Добавил картинку поменял И СТИЛИ*/}
-          <img
-            alt={''}
-            className={clsx(s.dropdownHeaderImg, className)}
-            src={data?.avatar ?? icon}
-          />
+          <div className={s.imgBox}>
+            {/*! Добавил картинку поменял И СТИЛИ*/}
+            <img
+              alt={''}
+              className={clsx(s.dropdownHeaderImg, className)}
+              src={data?.avatar ?? icon}
+            />
+          </div>
         </button>
       </DropdownMenu.Trigger>
 
