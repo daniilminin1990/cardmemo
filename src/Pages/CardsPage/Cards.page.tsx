@@ -6,8 +6,8 @@ import menuIcon2 from '@/assets/icons/WhiteSVG/edit-2-outline.svg'
 import playIcon from '@/assets/icons/WhiteSVG/play-circle-outline.svg'
 import menuIcon from '@/assets/icons/WhiteSVG/trash-outline.svg'
 import ArrowBackOutline from '@/assets/icons/svg/ArrowBackOutline'
-import { handleToastInfo } from '@/common/consts/toastVariants'
 import { headersNameCards, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
+import { handleToastInfo } from '@/common/consts/toastVariants'
 import { ModalAddEditDeck } from '@/components/ModalsForTable/ModalAddEditDeck'
 import { ModalDeleteDeck } from '@/components/ModalsForTable/ModalDeleteDeck'
 import { ModalAddEditCard } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
@@ -151,12 +151,6 @@ export const CardsPage = () => {
                           text={'Learn'}
                         />
                       )}
-
-                      {/*<DropDownItem*/}
-                      {/*  href={`${path.decks}/${deckId}${path.learn}`}*/}
-                      {/*  icon={playIcon}*/}
-                      {/*  text={'Learn'}*/}
-                      {/*/>*/}
 
                       <DropDownItem
                         handleOnClick={() => setOpenEditDeckModal(true)}
