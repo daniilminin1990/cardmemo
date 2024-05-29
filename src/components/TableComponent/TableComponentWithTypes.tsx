@@ -45,7 +45,7 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
               key={name.key}
               onClick={() => setSortByQuery(name.key)}
             >
-              <Typography as={'span'} variant={'subtitle2'}>
+              <Typography as={'button'} className={s.nameSortBtn} variant={'subtitle2'}>
                 {name.title}
                 {currentOrderBy.includes(name.key) && (
                   <ArrowIosDownOutline

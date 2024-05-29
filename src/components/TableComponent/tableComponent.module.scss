@@ -2,16 +2,28 @@
 .tableRoot {
   table-layout: fixed;
 }
+
 .emptyTableHeadCell {
   width: 15%;
 }
+
+.nameSortBtn {
+  display: flex;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-info-700);
+  }
+}
+
 // Для Decks
 .tableHeadCellDecks:nth-child(1) {
   width: 35%;
 }
+
 .tableHeadCellDecks:nth-child(2) {
   width: 10%;
 }
+
 // Для Cards
 .tableHeadCellCards:nth-child(1),
 .tableHeadCellCards:nth-child(2) {
@@ -30,6 +42,7 @@
 
 .emptyTableHeadCell {
 }
+
 .empty {
   text-align: center;
 }
