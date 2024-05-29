@@ -17,9 +17,9 @@ export const Root = forwardRef<HTMLTableElement, RootProps>(({ className = '', .
 export type HeadProps = ComponentPropsWithRef<'thead'>
 
 export const Head = forwardRef<HTMLTableSectionElement, HeadProps>(
-  ({ className, ...props }: HeadProps, ref) => {
+  ({ className = '', ...props }: HeadProps, ref) => {
     const classNames = {
-      thead: clsx(s.thead, className),
+      thead: clsx(s.thead, className?.startsWith('_') ? className : s[className]),
     }
 
     return <thead className={classNames.thead} {...props} ref={ref} />
@@ -28,9 +28,9 @@ export const Head = forwardRef<HTMLTableSectionElement, HeadProps>(
 export type BodyProps = ComponentPropsWithRef<'tbody'>
 
 export const Body = forwardRef<HTMLTableSectionElement, BodyProps>(
-  ({ className, ...props }: BodyProps, ref) => {
+  ({ className = '', ...props }: BodyProps, ref) => {
     const classNames = {
-      tbody: clsx(s.tbody, className),
+      tbody: clsx(s.tbody, className?.startsWith('_') ? className : s[className]),
     }
 
     return <tbody className={classNames.tbody} {...props} ref={ref} />
@@ -39,9 +39,9 @@ export const Body = forwardRef<HTMLTableSectionElement, BodyProps>(
 export type RowProps = ComponentPropsWithRef<'tr'>
 
 export const Row = forwardRef<HTMLTableRowElement, RowProps>(
-  ({ className, ...props }: RowProps, ref) => {
+  ({ className = '', ...props }: RowProps, ref) => {
     const classNames = {
-      row: clsx(s.row, className),
+      row: clsx(s.row, className?.startsWith('_') ? className : s[className]),
     }
 
     return <tr className={classNames.row} {...props} ref={ref} />
@@ -50,9 +50,9 @@ export const Row = forwardRef<HTMLTableRowElement, RowProps>(
 export type HeadCellProps = ComponentPropsWithRef<'th'>
 
 export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
-  ({ className, ...rest }: HeadCellProps, ref) => {
+  ({ className = '', ...rest }: HeadCellProps, ref) => {
     const classNames = {
-      headCell: clsx(s.headCell, className),
+      headCell: clsx(s.headCell, className?.startsWith('_') ? className : s[className]),
     }
 
     return <th className={classNames.headCell} {...rest} ref={ref} />
@@ -62,9 +62,9 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
 export type CellProps = ComponentPropsWithRef<'td'>
 
 export const Cell = forwardRef<HTMLTableCellElement, CellProps>(
-  ({ className, ...rest }: CellProps, ref) => {
+  ({ className = '', ...rest }: CellProps, ref) => {
     const classNames = {
-      cell: clsx(s.cell, className),
+      cell: clsx(s.cell, className?.startsWith('_') ? className : s[className]),
     }
 
     return <td className={classNames.cell} {...rest} ref={ref} />
