@@ -150,13 +150,13 @@
   border-radius: 100%;
 
   //! Добавил ЭТИ СТИЛИ
-  .imgBox {
-    .dropdownHeaderImg {
-      width: 35px;
-      height: 35px;
-      object-fit: cover;
-    }
+  //.imgBox {
+  .dropdownHeaderImg {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
   }
+  //}
 }
 
 .IconButton:hover {
