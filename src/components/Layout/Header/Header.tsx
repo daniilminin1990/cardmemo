@@ -9,7 +9,7 @@ import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
-import LocaleSwitcher from '@/localeSwitcher'
+import LocaleSwitcherDrop from '@/localeSwitcher/localeSwitcherDrop'
 import { path } from '@/router/path'
 import { useLogoutMutation } from '@/services/auth/auth.service'
 import { MeResponse } from '@/services/auth/auth.types'
@@ -35,15 +35,14 @@ const Header = ({ data }: HeaderProps) => {
           <Typography as={'a'} href={`${path.decks}`} variant={'body2'}>
             <FlashCardsLogo1 className={style.img} />
           </Typography>
-        </div>
-        <div>
-          <LocaleSwitcher />
+          <LocaleSwitcherDrop />
         </div>
         {data ? (
           <div className={style.dropDown}>
             <Typography as={Link} className={style.text} to={`${path.profile}`} variant={'h2'}>
               {data.name}
             </Typography>
+
             <DropdownMenuDemo data={data} icon={ellipseIcon} type={'head'}>
               <DropDownItem
                 href={`${path.profile}`}
