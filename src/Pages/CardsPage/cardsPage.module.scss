@@ -5,12 +5,6 @@
   margin-bottom: 24px;
 }
 
-.headingFirstRow {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 36px;
-}
-
 .headingSecondRow {
   display: flex;
   align-items: start;
@@ -32,10 +26,6 @@
     margin-bottom: 30px;
     font-size: 16px;
     color: var(--color-dark-100);
-  }
-
-  & button > p {
-    margin: 0;
   }
 }
 
@@ -67,10 +57,6 @@
 
 .learnCards {
   text-decoration: none;
-}
-
-.backIcon {
-  margin-right: 6px;
 }
 
 .info {
