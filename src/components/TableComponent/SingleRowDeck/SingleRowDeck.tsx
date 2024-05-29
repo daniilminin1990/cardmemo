@@ -51,16 +51,16 @@ export const SingleRowDeck = ({ item }: Props) => {
               <Button className={s.btn} onClick={() => setIsUpdateModal(true)}>
                 <Edit2Outline className={s.Edit2Outline} />
               </Button>
-
-              <Button className={s.btn} disabled={item.cardsCount === 0}>
-                {item.cardsCount === 0 ? (
+              {item.cardsCount === 0 ? (
+                <Button className={s.btn} disabled={item.cardsCount === 0}>
                   <PlayCircleOutline className={`${s.playCircleOutline} ${s.disabled}`} />
-                ) : (
-                  <Link to={`${path.decks}/${item.id}${path.learn}`}>
-                    <PlayCircleOutline className={s.playCircleOutline} />
-                  </Link>
-                )}
-              </Button>
+                </Button>
+              ) : (
+                <Button as={'a'} className={s.btn} href={`${path.decks}/${item.id}${path.learn}`}>
+                  <PlayCircleOutline className={s.playCircleOutline} />
+                </Button>
+              )}
+
               <Button
                 className={s.btn}
                 onClick={() => {
@@ -72,15 +72,15 @@ export const SingleRowDeck = ({ item }: Props) => {
             </div>
           ) : (
             <div className={s.iconBtns}>
-              <Button className={s.btn} disabled={item.cardsCount === 0}>
-                {item.cardsCount === 0 ? (
+              {item.cardsCount === 0 ? (
+                <Button className={s.btn} disabled={item.cardsCount === 0}>
                   <PlayCircleOutline className={`${s.playCircleOutline} ${s.disabled}`} />
-                ) : (
-                  <Link to={`${path.decks}/${item.id}${path.learn}`}>
-                    <PlayCircleOutline className={s.playCircleOutline} />
-                  </Link>
-                )}
-              </Button>
+                </Button>
+              ) : (
+                <Button as={'a'} className={s.btn} href={`${path.decks}/${item.id}${path.learn}`}>
+                  <PlayCircleOutline className={s.playCircleOutline} />
+                </Button>
+              )}
             </div>
           )}
         </Table.Cell>
