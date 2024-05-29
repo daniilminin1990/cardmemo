@@ -107,7 +107,7 @@ export const ProfilePage = () => {
                 </Typography>
 
                 <div className={s.backBtn}>
-                  <BackBtn as={Link} name={'Back to decks'} path={path.decks} />
+                  <BackBtn as={Link} name={'Back to Deck List'} path={path.decks} />
                 </div>
                 <Link className={s.logoutBtn} onClick={logoutHandler} to={`${path.login}`}>
                   <LogOut className={s.logoutIcon} />
