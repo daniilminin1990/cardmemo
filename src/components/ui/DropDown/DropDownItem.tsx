@@ -44,7 +44,7 @@ type DropDownButtonProps = {
 export const DDButton = ({ handleOnClick, icon, text }: DropDownButtonProps) => {
   return (
     <Button className={clsx(s.button, s.noHover)} onClick={handleOnClick} variant={'outlined'}>
-      <img alt={''} src={icon} />
+      <img alt={''} className={style.DDButtonImg} src={icon} />
       <Typography className={s.dropdownText} variant={'caption'}>
         {text}
       </Typography>
