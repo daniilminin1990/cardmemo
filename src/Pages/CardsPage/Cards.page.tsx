@@ -6,6 +6,8 @@ import menuIcon2 from '@/assets/icons/WhiteSVG/edit-2-outline.svg'
 import playIcon from '@/assets/icons/WhiteSVG/play-circle-outline.svg'
 import menuIcon from '@/assets/icons/WhiteSVG/trash-outline.svg'
 import ArrowBackOutline from '@/assets/icons/svg/ArrowBackOutline'
+import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
+import { handleToastInfo } from '@/common/consts/toastVariants'
 import { headersNameCards, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
 import { ModalAddEditDeck } from '@/components/ModalsForTable/ModalAddEditDeck'
 import { ModalDeleteDeck } from '@/components/ModalsForTable/ModalDeleteDeck'
@@ -98,6 +100,9 @@ export const CardsPage = () => {
   if (isLoading) {
     return <Loading />
   }
+  const notifyLearnHandler = () => {
+    handleToastInfo(`Add card before learning!`)
+  }
 
   return (
     <>
@@ -134,11 +139,26 @@ export const CardsPage = () => {
                   {isMineCards && (
                     // В DropDownItem можно передать onClick? Если нет, то обернуть в Button
                     <DropdownMenuDemo className={s.dropdown} icon={groupIcon} type={'menu'}>
-                      <DropDownItem
-                        href={`${path.decks}/${deckId}${path.learn}`}
-                        icon={playIcon}
-                        text={'Learn'}
-                      />
+                      {isCardsCountZero ? (
+                        <DropDownItem
+                          handleOnClick={notifyLearnHandler}
+                          icon={playIcon}
+                          text={'Learn'}
+                        />
+                      ) : (
+                        <DropDownItem
+                          href={`${path.decks}/${deckId}${path.learn}`}
+                          icon={playIcon}
+                          text={'Learn'}
+                        />
+                      )}
+
+                      {/*<DropDownItem*/}
+                      {/*  href={`${path.decks}/${deckId}${path.learn}`}*/}
+                      {/*  icon={playIcon}*/}
+                      {/*  text={'Learn'}*/}
+                      {/*/>*/}
+
                       <DropDownItem
                         handleOnClick={() => setOpenEditDeckModal(true)}
                         icon={menuIcon2}
