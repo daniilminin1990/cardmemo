@@ -1,4 +1,6 @@
 import { ChangeEvent, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { handleToastInfo } from '@/common/consts/toastVariants'
@@ -23,6 +25,7 @@ import { useGetDecksQuery } from '@/services/decks/decks.service'
 import s from '@/Pages/DecksPage/decksPage.module.scss'
 
 export function DecksPage() {
+  const { t } = useTranslation()
   const {
     clearQuery,
     currentOrderBy,
@@ -101,7 +104,7 @@ export function DecksPage() {
       <div className={s.heading}>
         <div className={s.headingFirstRow}>
           <Typography as={'h1'} variant={'h1'}>
-            Decks list
+            {t('decksPage.decksList')}
           </Typography>
           <Button onClick={() => setOpen(true)} variant={'primary'}>
             <Typography variant={'subtitle2'}>Add New Deck</Typography>
@@ -117,7 +120,7 @@ export function DecksPage() {
           />
           <TabSwitcher
             className={s.tabsSwitcher}
-            label={'Show decks cards'}
+            label={t('decksPage.showDecksCards')}
             onValueChange={handleTabsSwitch}
             tabs={tabsValuesData}
             value={tabsValue}
@@ -125,7 +128,7 @@ export function DecksPage() {
           <div className={s.sliderBox}>
             <Slider
               className={s.slider}
-              label={'Number of cards'}
+              label={t('decksPage.numberOfCards')}
               max={minMaxData?.max}
               min={minMaxData?.min}
               onValueChange={changeMinMaxHandler}
@@ -134,7 +137,7 @@ export function DecksPage() {
           </div>
           <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
             <TrashOutline />
-            <Typography variant={'subtitle2'}>Clear Filter</Typography>
+            <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
           </Button>
         </div>
       </div>

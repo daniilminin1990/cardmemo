@@ -1,0 +1,26 @@
+{
+  "header": {
+    "signIn": "Войти",
+    "signOut": "Выйти",
+    "myProfile": "Мой профиль"
+  },
+  "decksPage": {
+    "numberOfCards": "Количество карт",
+    "showDecksCards": "Отображать колоды",
+    "decksList": "Список колод",
+    "clearFilter": "Очистить"
+  },
+  "useTabsValuesParams": {
+    "allDecks": "Мои",
+    "myDecks": "Все"
+  },
+  "paginationWithSelect": {
+    "show": "Отображать",
+    "onPage": "на странице"
+  },
+  "checkEmail": {
+    "checkEmail": "Проверить почту",
+    "instruction": "Мы отправили электронное письмо с инструкциями на",
+    "backToSignIn": "Вернуться к странице входа"
+  }
+}
