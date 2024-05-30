@@ -40,7 +40,9 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const [preview, setPreview] = useState<null | string>(initPreview)
   const refInputImg = useRef<HTMLInputElement>(null)
   const { control, handleSubmit } = useForm<FormValues>({
-    defaultValues: { isPrivate: false, name: '' },
+    defaultValues: item
+      ? { isPrivate: item.isPrivate, name: item.name }
+      : { isPrivate: false, name: '' },
     resolver: zodResolver(schema),
   })
 
@@ -70,17 +72,22 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
     setOpen(false)
   }
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
-    setCover(e.target.files?.[0] ?? undefined)
+    setCover(preview === item?.cover ? undefined : e.target.files?.[0] ?? undefined)
     e.target.value = ''
   }
   const onSubmit: SubmitHandler<FormValues> = async data => {
-    if (item && data.name === item.name) {
+    if (data.name === item?.name) {
       handleToastInfo('This name already exists, please choose another one', 3000)
-
-      return
+    } else if (preview === item?.cover) {
+      handleToastInfo('This cover already exists, please choose another one', 3000)
+    } else {
+      handleToastInfo('This name and cover already exists, please choose another one', 3000)
     }
-
-    await (item ? updateDeck({ ...data, cover, id: item.id }) : createDeck({ ...data, cover }))
+    if (item) {
+      await updateDeck({ ...data, cover, id: item.id })
+    } else {
+      await createDeck({ ...data, cover })
+    }
     clearQuery()
     setCurrentPageQuery(Number(initCurrentPage))
     setOpen(false)
