@@ -56,7 +56,7 @@ const ChangeTheme = () => {
             'color-dark-500': '#999',
             'color-dark-700': '#666',
             'color-dark-900': '#e6e6e6',
-            'color-light-100': '#2b334a',
+            'color-light-100': '#212846',
             'color-light-300': '#4c4c4c',
             'color-light-500': '#333',
             'color-light-700': '#171717',
