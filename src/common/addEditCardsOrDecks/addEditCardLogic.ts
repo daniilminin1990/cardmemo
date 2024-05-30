@@ -1,51 +1,44 @@
 import { useEffect, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Control } from 'react-hook-form'
 
 import { FormValuesAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
-import { FormValuesAddEditDeck, schemaAddEditDeck } from '@/common/zodSchemas/decks/decks.schemas'
 import { CardResponse } from '@/services/cards/cards.types'
-import { Deck } from '@/services/decks/deck.types'
-import { zodResolver } from '@hookform/resolvers/zod'
 
 type Props = {
+  control: Control<FormValuesAddEditCard, any>
   img: null | string | undefined
   item?: CardResponse
 }
-export const useAddEditCardLogic = ({ item }: Props) => {
-  const refInputImg = useRef<HTMLInputElement>(null)
-  const [cover, setCover] = useState<File | null | undefined>(undefined)
-  const initPreview = item ? item.cover ?? null : ''
+export const useAddEditCardLogic = (props: Props) => {
+  const { control, img, item } = props
+  const initPreview = item ? img ?? null : ''
   const [preview, setPreview] = useState<null | string>(initPreview)
-  const { control, handleSubmit } = useForm<FormValuesAddEditCard>({
-    defaultValues: item
-      ? { isPrivate: item.isPrivate, name: item.name }
-      : { isPrivate: false, name: '' },
-    resolver: zodResolver(schemaAddEditDeck),
-  })
+  const [cover, setCover] = useState<File | null | undefined>(undefined)
+  const refInputImg = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (item?.cover) {
-      setPreview(item?.cover)
+    if (img) {
+      setPreview(img)
     }
-  }, [item?.cover])
+  }, [img])
+  // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
   useEffect(() => {
     if (cover) {
-      const newPreview = URL.createObjectURL(cover)
+      const newPreviewQuestion = URL.createObjectURL(cover)
 
       if (preview) {
         URL.revokeObjectURL(preview)
       }
 
-      setPreview(newPreview)
+      setPreview(newPreviewQuestion)
 
-      return () => URL.revokeObjectURL(newPreview)
+      return () => URL.revokeObjectURL(newPreviewQuestion)
     }
   }, [cover])
 
   return {
     control,
     cover,
-    handleSubmit,
     preview,
     refInputImg,
     setCover,

@@ -2,8 +2,6 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
-import { getEditCardNotifyMsg } from '@/common/addEditCardsOrDecks/getEditCardNotifyMsg'
-import { handleToastInfo } from '@/common/consts/toastVariants'
 import { FormValuesAddEditCard, schemaAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import { DataFiller } from '@/components/ModalsForTable/ModalEditCard/DataFiller/DataFiller'
 import Typography from '@/components/ui/Typography/Typography'
@@ -22,11 +20,17 @@ type ModalAddEditProps = {
   setOpen: (value: boolean) => void
 }
 
+export type GetImagesState = {
+  img: File | null | undefined
+  preview: null | string
+}
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { clearQuery } = useQueryParams()
   const [answerImg, setAnswerImg] = useState<File | null | undefined>(undefined)
   const [questionImg, setQuestionImg] = useState<File | null | undefined>(undefined)
+  const initAnswerPreview = item ? item.answerImg ?? null : ''
+  const initQuestionPreview = item ? item.answerImg ?? null : ''
 
   const deckId = useParams().deckId
 
@@ -42,7 +46,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
 
   const onSubmit: SubmitHandler<FormValuesAddEditCard> = data => {
     if (item) {
-      //? Не хватает стейта preview для answer и question (дописать хук который будет забирать значения)
+      //? Не хватает стейта preview для answer и question (СДЕЛАТЬ ЧЕРЕЗ RTK state)
       // const msg = getEditCardNotifyMsg({
       //   data,
       //   item,

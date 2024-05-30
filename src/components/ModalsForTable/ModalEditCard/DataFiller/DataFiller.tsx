@@ -1,7 +1,8 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent } from 'react'
 import { Control } from 'react-hook-form'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
+import { useAddEditCardLogic } from '@/common/addEditCardsOrDecks/addEditCardLogic'
 import { FormValuesAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
@@ -20,39 +21,49 @@ type DataFillerProps = {
   questionOrAnswer: string | undefined
 }
 export const DataFiller = (props: DataFillerProps) => {
-  const { control, getImageHandler, img, item, label, questionOrAnswer } = props
-  const initPreview = item ? img ?? null : ''
-  const [preview, setPreview] = useState<null | string>(initPreview)
-  const [cover, setCover] = useState<File | null | undefined>(undefined)
-  const refInputImg = useRef<HTMLInputElement>(null)
+  const { getImageHandler, item, label, questionOrAnswer, ...rest } = props
+  // const initPreview = item ? img ?? null : ''
+  // const [preview, setPreview] = useState<null | string>(initPreview)
+  // const [cover, setCover] = useState<File | null | undefined>(undefined)
+  // const refInputImg = useRef<HTMLInputElement>(null)
+  //
+  // const title = label.charAt(0).toUpperCase() + label.slice(1)
+  //
+  // useEffect(() => {
+  //   if (img) {
+  //     setPreview(img)
+  //   }
+  // }, [img])
+  // // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
+  // useEffect(() => {
+  //   if (cover) {
+  //     const newPreviewQuestion = URL.createObjectURL(cover)
+  //
+  //     if (preview) {
+  //       URL.revokeObjectURL(preview)
+  //     }
+  //
+  //     setPreview(newPreviewQuestion)
+  //
+  //     return () => URL.revokeObjectURL(newPreviewQuestion)
+  //   }
+  // }, [cover])
 
+  const { control, cover, preview, refInputImg, setCover, setPreview } = useAddEditCardLogic({
+    control: rest.control,
+    img: rest.img,
+    item,
+  })
+
+  console.log({ DFpreview: preview })
   const title = label.charAt(0).toUpperCase() + label.slice(1)
-
-  useEffect(() => {
-    if (img) {
-      setPreview(img)
-    }
-  }, [img])
-  // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
-  useEffect(() => {
-    if (cover) {
-      const newPreviewQuestion = URL.createObjectURL(cover)
-
-      if (preview) {
-        URL.revokeObjectURL(preview)
-      }
-
-      setPreview(newPreviewQuestion)
-
-      return () => URL.revokeObjectURL(newPreviewQuestion)
-    }
-  }, [cover])
 
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
     // ! Этот коммент чтобы заменить первый useEffect
     // if (e.target.files !== null && e.target.files.length > 0) {
     //   setPreview(URL.createObjectURL(e.target.files[0]))
     // }
+    // ! Это условие чтобы не давать сэтать одинаковые картинки и вследствии не отправлять на сервер
     setCover(
       cover?.lastModified === e.target.files?.[0].lastModified ||
         cover?.name === e.target.files?.[0].name
@@ -63,7 +74,7 @@ export const DataFiller = (props: DataFillerProps) => {
     getImageHandler(e.target.files?.[0] ?? undefined)
     e.target.value = ''
   }
-  const hanldeSubmitImg = () => {
+  const handleSubmitImg = () => {
     refInputImg?.current?.click()
   }
 
@@ -101,7 +112,7 @@ export const DataFiller = (props: DataFillerProps) => {
             <Typography variant={'subtitle2'}>Remove cover</Typography>
           </Button>
         )}
-        <Button className={s.uploadImg} fullWidth onClick={hanldeSubmitImg} type={'button'}>
+        <Button className={s.uploadImg} fullWidth onClick={handleSubmitImg} type={'button'}>
           <ImageOutline className={s.icon} />
           <Typography variant={'subtitle2'}>{preview ? 'Change cover' : 'Upload Image'}</Typography>
           {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
