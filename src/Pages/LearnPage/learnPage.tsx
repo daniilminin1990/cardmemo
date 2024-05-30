@@ -45,7 +45,6 @@ export const LearnPage = () => {
   ]
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
-    console.log(data)
     randomCard?.id &&
       (await updateCardGrade({ cardId: randomCard.id, grade: Number(data.grade) })
         .unwrap()
