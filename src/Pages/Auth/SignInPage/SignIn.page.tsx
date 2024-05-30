@@ -36,7 +36,6 @@ export const SignInPage = () => {
   const onSubmit: SubmitHandler<FormValues> = data => {
     signIn(data)
   }
-  // ? Сделаем тут запрос me и если true, то редирект на ./, иначе отбросить ошибки incorrect data в попап меню
   const { data: me } = useMeQuery()
 
   if (me) {
@@ -69,7 +68,7 @@ export const SignInPage = () => {
               placeholder={'Password'}
               type={'password'}
             />
-            <FormCheckbox control={control} label={'Is checked'} name={'rememberMe'} />
+            <FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
             <Typography
               as={Link}
               className={s.typographyForgotTitle}

@@ -63,11 +63,8 @@ export const SingleRowCard = ({ item }: Props) => {
           )}
         </Table.Cell>
         <Table.Cell>
-          {/*  Тут нужно будет добавить проверку на МОИ cards или не мои. Если мои то показать кнопки, если не мои то нихера */}
-          {/*{card.userId === authorId ? (*/}
           {item.userId === meData?.id ? (
             <div className={s.iconBtns}>
-              {/*<Button className={s.btn} onClick={() => setIsUpdateModal(true)}>*/}
               <Button className={s.btn} onClick={() => setOpen(true)}>
                 <Edit2Outline className={s.Edit2Outline} />
               </Button>

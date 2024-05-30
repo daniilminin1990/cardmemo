@@ -1,4 +1,5 @@
-// Общее
+@import 'src/styles/mixins';
+
 .tableRoot {
   table-layout: fixed;
 }
@@ -8,11 +9,9 @@
 }
 
 .nameSortBtn {
-  display: flex;
+  @include focus-visible-default;
 
-  &:focus-visible {
-    outline: 2px solid var(--color-info-700);
-  }
+  display: flex;
 }
 
 // Для Decks

@@ -1,36 +1,49 @@
-.boxContent{
+@import 'src/styles/mixins';
+
+.boxContent {
+  @include focus-visible-default;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 10px;
+  align-items: center;
+  justify-content: center;
 }
-.flag{
+
+.flag {
+  cursor: pointer;
   width: 40px;
   height: 30px;
   object-fit: cover;
-  cursor: pointer;
 }
-.flagEng{
+
+.flagEng {
+  cursor: pointer;
   width: 40px;
   height: 30px;
-  cursor: pointer;
 }
-.DropdownMenuContent{
+
+.DropdownMenuContent {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
   gap: 5px;
-}
-.IconButton{
-  display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+}
+
+.IconButton {
+  @include focus-visible-default;
+
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   margin-left: 10px;
 }
-.flagOwn{
+
+.flagOwn {
   width: 30px;
   height: 20px;
   border: 1px solid black;

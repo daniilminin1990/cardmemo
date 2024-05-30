@@ -27,12 +27,10 @@ export const SingleRowDeck = ({ item }: Props) => {
 
   return (
     <Fragment key={item.id}>
-      {/*<ModalUpdateDeck item={deck} open={isUpdateModal} setOpen={setIsUpdateModal} />*/}
       <ModalAddEditDeck item={item} open={isUpdateModal} setOpen={setIsUpdateModal} />
       <ModalDeleteDeck item={item} open={isDeleteModal} setIsDeleteModal={setIsDeleteModal} />
       <Table.Row key={item.id}>
         <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
-          {/*{item?.cardsCount !== 0 ? (*/}
           <Typography as={Link} className={s.imgWrapper} to={`${path.decks}/${item.id}`}>
             {item.cover && (
               <div className={s.wrapperCoverImg}>

@@ -63,7 +63,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
 
       return () => URL.revokeObjectURL(newPreview)
     }
-  }, [cover])
+  }, [cover, preview])
 
   const handleOnClose = () => {
     item ? setPreview(item.cover || null) : setPreview(null)
@@ -100,7 +100,6 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.body}>
           {item?.name && <Typography variant={'h1'}>{item.name}</Typography>}
-          {/*{preview && <img alt={'cover'} src={preview} width={'100%'} />}*/}
           {preview && <img alt={'cover'} src={preview} width={'100%'} />}
           <FormTextfield
             className={s.input}
@@ -128,7 +127,6 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
               <Typography variant={'subtitle2'}>
                 {preview ? 'Change cover' : 'Upload Image'}
               </Typography>
-              {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
               <Input
                 accept={'image/*'}
                 className={s.inputImg}
@@ -140,7 +138,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
               />
             </Button>
           </div>
-          <FormCheckbox control={control} label={'Is Private'} name={'isPrivate'} />
+          <FormCheckbox control={control} label={'Private'} name={'isPrivate'} />
         </div>
         <div className={s.footer}>
           <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
