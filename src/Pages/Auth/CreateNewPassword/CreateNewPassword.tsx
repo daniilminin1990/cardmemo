@@ -33,7 +33,7 @@ export const CreateNewPassword = () => {
 
   return (
     <>
-      <SuccessModal open={open} />
+      <SuccessModal open={open} setOpen={setOpen} />
       {isLoading && <LoadingBar />}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card className={s.card}>
