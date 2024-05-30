@@ -2,22 +2,11 @@
 @import '@radix-ui/colors/mauve.css';
 @import '@radix-ui/colors/violet.css';
 
-//.button {
-//  all: unset;
-//  display: flex;
-//  align-items: center;
-//  background-color: transparent;
-//  .button:active,
-//  .button:hover {
-//    background: none !important;
-//  }
-//}
+
 .DropdownMenuContent {
   will-change: transform, opacity;
 
-  //min-width: 217px;
 
-  // ! ИЗМЕНИЛ Padding 5 -> 12
   padding: 12px;
 
   background-color: var(--color-dark-700);
@@ -47,7 +36,8 @@
 }
 
 .DropdownMenuContent[data-side='top'],
-.DropdownMenuContentForMenu[data-side='top'] {
+.DropdownMenuContentForMenu[data-side='top']
+{
   animation-name: slideDownAndFade;
 }
 
@@ -90,8 +80,7 @@
   border-radius: 3px;
   outline: none;
 
-  // Region
-  //! Добавил стили для Button
+
   .button {
     all: unset;
 

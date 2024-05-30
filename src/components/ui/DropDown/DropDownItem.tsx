@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 import Typography from '@/components/ui/Typography/Typography'
@@ -18,15 +19,20 @@ type DropDownItemProps = {
 
 const DropDownItem = (props: DropDownItemProps) => {
   const { handleOnClick, href, icon, text } = props
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLAnchorElement | HTMLDivElement>) => {
+    if (event.key === 'Enter') {
+      handleOnClick?.()
+    }
+  }
 
   return (
     <DropdownMenu.Item asChild className={s.DropdownMenuItem}>
       {href ? (
-        <Link className={style.Link} to={href}>
+        <Link className={style.Link} onKeyDown={handleKeyDown} to={href}>
           <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
         </Link>
       ) : (
-        <div>
+        <div onKeyDown={handleKeyDown}>
           <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
         </div>
       )}

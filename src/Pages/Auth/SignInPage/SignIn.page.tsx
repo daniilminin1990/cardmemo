@@ -1,11 +1,11 @@
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, Navigate } from 'react-router-dom'
 
 import { Page } from '@/components/ui/Page/Page'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import Checkbox from '@/components/ui/checkbox/checkbox'
+import FormCheckbox from '@/components/ui/form/form-checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { path } from '@/router/path'
 import { useLoginMutation, useMeQuery } from '@/services/auth/auth.service'
@@ -68,14 +68,7 @@ export const SignInPage = () => {
               placeholder={'Password'}
               type={'password'}
             />
-            <Controller
-              control={control}
-              defaultValue={false}
-              name={'rememberMe'}
-              render={({ field: { onChange, value } }) => (
-                <Checkbox checked={value} label={'RememberMe'} onCheckedChange={onChange} />
-              )}
-            />
+            <FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
             <Typography
               as={Link}
               className={s.typographyForgotTitle}

@@ -11,7 +11,6 @@ import s from './DropDown.module.scss'
 type DropdownMenuDemoProps = {
   children: ReactNode
   className?: string
-  //! Добавил data
   data?: MeResponse
   icon?: string
   type: 'head' | 'menu'

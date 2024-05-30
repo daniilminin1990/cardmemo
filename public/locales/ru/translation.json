@@ -11,8 +11,8 @@
     "clearFilter": "Очистить"
   },
   "useTabsValuesParams": {
-    "allDecks": "Мои",
-    "myDecks": "Все"
+    "allDecks": "Все",
+    "myDecks": "Мои"
   },
   "paginationWithSelect": {
     "show": "Отображать",

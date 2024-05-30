@@ -1,7 +1,6 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef, useId } from 'react'
+import React, { ComponentPropsWithoutRef, ElementRef, forwardRef, useId } from 'react'
 
 import CheckIcon from '@/assets/icons/svg/CheckboxIcon'
-import Typography from '@/components/ui/Typography/Typography'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import { clsx } from 'clsx'
 
@@ -22,6 +21,12 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps
       Label: clsx(s.Label, disabled && s.disabled, className),
     }
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (event.key === 'Enter') {
+        onCheckedChange && onCheckedChange(!checked)
+      }
+    }
+
     return (
       <div className={classNames.CheckboxContainer}>
         <CheckboxRadix.Root
@@ -31,6 +36,7 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps
           defaultChecked
           id={id ?? generatedId}
           onCheckedChange={onCheckedChange}
+          onKeyDown={handleKeyDown}
           ref={ref}
         >
           {checked && (
@@ -39,10 +45,9 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps
             </CheckboxRadix.Indicator>
           )}
         </CheckboxRadix.Root>
+
         <label className={s.Label} htmlFor={id ?? generatedId}>
-          <Typography as={'label'} variant={'body2'}>
-            {label}
-          </Typography>
+          {label}
         </label>
       </div>
     )

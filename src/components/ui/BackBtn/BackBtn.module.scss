@@ -1,6 +1,8 @@
 .backBtn {
   display: flex;
-
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
   width: max-content;
   margin-bottom: 32px;
   padding: 0;
@@ -17,6 +19,7 @@
 
   &:hover {
     background-color: transparent;
+    color: var(--color-accent-500);
   }
 
   .text {
@@ -28,10 +31,6 @@
     width: max-content;
 
     transition: 0.3s;
-
-    &:hover {
-      color: var(--color-accent-500);
-    }
 
     .backArrow {
       width: 16px;
