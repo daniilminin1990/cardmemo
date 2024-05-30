@@ -26,8 +26,8 @@ function getSchema(item?: CardResponse) {
     question: item ? z.string() : z.string().min(3).max(500),
   })
 }
-
 export type FormValues = z.infer<ReturnType<typeof getSchema>>
+
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { clearQuery } = useQueryParams()
@@ -39,12 +39,6 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const [createCard] = useCreateCardMutation()
   const [updateCard] = useUpdateCardMutation()
 
-  // const { currentData: currentCardData } = useGetCardByIdQuery(
-  //   { id: item?.id ?? '' },
-  //   { skip: !item }
-  // )
-  // const currendCard = currentCardData ?? item
-
   const schema = getSchema(item)
 
   const { control, handleSubmit } = useForm<FormValues>({
@@ -53,7 +47,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   })
 
   const onSubmit: SubmitHandler<FormValues> = data => {
-    if (item) {
+    if (item && (data.answer === item.answer || data.question === item.question)) {
       updateCard({
         args: {
           answer: data.answer,
@@ -76,7 +70,6 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   }
 
   const getQuestionImgHandler = (img: File | null | undefined) => {
-    console.log(img)
     setQuestionImg(img)
   }
   const getAnswerImgHandler = (img: File | null | undefined) => {

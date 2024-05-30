@@ -7,7 +7,13 @@
   height: 24px;
   transition: transform 0.5s;
 }
-
+.cardTableRow {
+  //background-color: lightgray;
+  > :nth-child(1),
+  > :nth-child(2) {
+    padding: 6px 15px;
+  }
+}
 .rotate {
   transform: rotate(180deg);
 }
@@ -150,7 +156,7 @@
   padding: 0;
 
   text-decoration: none;
-  white-space: nowrap;
+  white-space: normal;
 
   background-color: transparent;
   box-shadow: none;

@@ -9,6 +9,7 @@ import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleR
 import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
 import Input from '@/components/ui/Input/Input'
 import Loading from '@/components/ui/Loading/Loading'
+import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Slider from '@/components/ui/Slider/Slider'
@@ -49,9 +50,9 @@ export function DecksPage() {
   const { authorId, setTabsValue, setTabsValueQuery, tabsValue, tabsValuesData } =
     useTabsValuesParams()
   const [open, setOpen] = useState(false)
-  const { data: meData } = useMeQuery()
+  const { data: meData, isLoading: meIsLoading } = useMeQuery()
 
-  const { currentData, data, isLoading } = useGetDecksQuery(
+  const { currentData, data, isFetching, isLoading } = useGetDecksQuery(
     {
       authorId: authorId || '',
       currentPage,
@@ -88,63 +89,61 @@ export function DecksPage() {
     setCurrentPageQuery(value)
   }
 
-  const decksData = currentData ?? data
-  const arrayOfDecks = decksData?.items.filter(item =>
-    tabsValue === meData?.id ? item.userId === meData?.id : true
-  )
+  const decksData = currentData?.items ?? data?.items
 
-  if (isLoading) {
+  if (isLoading || meIsLoading) {
     return <Loading />
   }
 
   return (
-    <Page className={s.common}>
-      <ModalAddEditDeck open={open} setOpen={setOpen} />
-      <div className={s.heading}>
-        <div className={s.headingFirstRow}>
-          <Typography as={'h1'} variant={'h1'}>
-            {t('decksPage.decksList')}
-          </Typography>
-          <Button onClick={() => setOpen(true)} variant={'primary'}>
-            <Typography variant={'subtitle2'}>Add New Deck</Typography>
-          </Button>
-        </div>
-        <div className={s.searchParams}>
-          <Input
-            callback={setSearchQuery}
-            className={s.input}
-            currentValue={search}
-            onChange={handleSearchChange}
-            type={'search'}
-          />
-          <TabSwitcher
-            className={s.tabsSwitcher}
-            label={t('decksPage.showDecksCards')}
-            onValueChange={handleTabsSwitch}
-            tabs={tabsValuesData}
-            value={tabsValue}
-          />
-          <div className={s.sliderBox}>
-            <Slider
-              className={s.slider}
-              label={t('decksPage.numberOfCards')}
-              max={minMaxData?.max}
-              min={minMaxData?.min}
-              onValueChange={changeMinMaxHandler}
-              value={[sliderMin, sliderMax]}
-            />
+    <>
+      {isFetching && <LoadingBar />}
+      <Page className={s.common}>
+        <ModalAddEditDeck open={open} setOpen={setOpen} />
+        <div className={s.heading}>
+          <div className={s.headingFirstRow}>
+            <Typography as={'h1'} variant={'h1'}>
+              {t('decksPage.decksList')}
+            </Typography>
+            <Button onClick={() => setOpen(true)} variant={'primary'}>
+              <Typography variant={'subtitle2'}>Add New Deck</Typography>
+            </Button>
           </div>
-          <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
-            <TrashOutline />
-            <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
-          </Button>
+          <div className={s.searchParams}>
+            <Input
+              callback={setSearchQuery}
+              className={s.input}
+              currentValue={search}
+              onChange={handleSearchChange}
+              type={'search'}
+            />
+            <TabSwitcher
+              className={s.tabsSwitcher}
+              label={t('decksPage.showDecksCards')}
+              onValueChange={handleTabsSwitch}
+              tabs={tabsValuesData}
+              value={tabsValue}
+            />
+            <div className={s.sliderBox}>
+              <Slider
+                className={s.slider}
+                label={t('decksPage.numberOfCards')}
+                max={minMaxData?.max}
+                min={minMaxData?.min}
+                onValueChange={changeMinMaxHandler}
+                value={[sliderMin, sliderMax]}
+              />
+            </div>
+            <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
+              <TrashOutline />
+              <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
+            </Button>
+          </div>
         </div>
-      </div>
-      <TableComponentWithTypes data={arrayOfDecks} tableHeader={headersNameDecks}>
-        {item => <SingleRowDeck item={item} />}
-      </TableComponentWithTypes>
-      <div className={s.footer}>
-        {arrayOfDecks?.length !== 0 && (
+        <TableComponentWithTypes data={decksData} tableHeader={headersNameDecks}>
+          {item => <SingleRowDeck item={item} />}
+        </TableComponentWithTypes>
+        <div className={s.footer}>
           <PaginationWithSelect
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}
@@ -153,8 +152,8 @@ export function DecksPage() {
             setItemsPerPage={handleItemsPerPageChange}
             totalItems={data?.pagination.totalItems || 0}
           />
-        )}
-      </div>
-    </Page>
+        </div>
+      </Page>
+    </>
   )
 }

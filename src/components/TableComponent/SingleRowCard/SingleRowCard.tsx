@@ -31,7 +31,7 @@ export const SingleRowCard = ({ item }: Props) => {
     <Fragment key={item.id}>
       <ModalAddEditCard item={item} open={open} setOpen={setOpen} />
       <ModalDeleteCard item={item} open={isOpenModal} setIsDeleteModal={setIsOpenModal} />
-      <Table.Row key={item.id}>
+      <Table.Row className={s.cardTableRow} key={item.id}>
         <Table.Cell>
           <Typography className={s.imgWrapper}>
             {item.questionImg && (

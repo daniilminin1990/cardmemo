@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
+import { handleToastInfo } from '@/common/consts/toastVariants'
 import { initCurrentPage } from '@/common/globalVariables'
 import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
@@ -27,13 +28,11 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { clearQuery, setCurrentPageQuery } = useQueryParams()
   const schema = z.object({
-    isPrivate: z.boolean(),
-    name: item ? z.string().min(3).max(30) : z.string().min(3).max(30),
-    rememberMe: z.boolean().optional(),
+    isPrivate: z.boolean().optional(),
+    name: z.string().min(3).max(30),
   })
 
   type FormValues = z.infer<typeof schema>
-  // const [checked, setChecked] = useState(false)
   const [updateDeck] = useUpdateDeckMutation()
   const [createDeck] = useCreateDeckMutation()
   const [cover, setCover] = useState<File | null | undefined>(undefined)
@@ -41,7 +40,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const [preview, setPreview] = useState<null | string>(initPreview)
   const refInputImg = useRef<HTMLInputElement>(null)
   const { control, handleSubmit } = useForm<FormValues>({
-    defaultValues: { isPrivate: false, name: '', rememberMe: true },
+    defaultValues: { isPrivate: false, name: '' },
     resolver: zodResolver(schema),
   })
 
@@ -75,6 +74,12 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
     e.target.value = ''
   }
   const onSubmit: SubmitHandler<FormValues> = async data => {
+    if (item && data.name === item.name) {
+      handleToastInfo('This name already exists, please choose another one', 3000)
+
+      return
+    }
+
     await (item ? updateDeck({ ...data, cover, id: item.id }) : createDeck({ ...data, cover }))
     clearQuery()
     setCurrentPageQuery(Number(initCurrentPage))
@@ -100,6 +105,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
           <FormTextfield
             className={s.input}
             control={control}
+            currentValue={item ? item?.name : ''}
             label={item ? 'Edit title' : 'Type new Deck name'}
             name={'name'}
           />
@@ -129,6 +135,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
                 name={'cover'}
                 onChange={handleInputImg}
                 ref={refInputImg}
+                style={{ display: 'none' }}
                 type={'file'}
               />
             </Button>
