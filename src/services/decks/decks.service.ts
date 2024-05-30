@@ -39,7 +39,7 @@ export const decksService = flashCardsAPI.injectEndpoints({
               router.navigate(`/decks/${data.id}`)
             })
           } catch (e) {
-            console.log(e)
+            ;() => {}
           }
         },
         query: ({ cover, isPrivate, name }) => {

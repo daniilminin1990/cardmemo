@@ -36,7 +36,6 @@ export const SignInPage = () => {
   const onSubmit: SubmitHandler<FormValues> = data => {
     signIn(data)
   }
-  // ? Сделаем тут запрос me и если true, то редирект на ./, иначе отбросить ошибки incorrect data в попап меню
   const { data: me } = useMeQuery()
 
   if (me) {

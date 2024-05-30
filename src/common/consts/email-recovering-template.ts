@@ -303,7 +303,7 @@ export const emailRecoveringTemplate = `
 <div dir="ltr" class="es-wrapper-color" lang="und" style="background-color:#F4F4F4; padding-bottom: 100px"><!--[if gte mso 9]>
   <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
     <v:fill type="tile" color="#f4f4f4"></v:fill>
-  </v:background>
+  </v:background> 
   <![endif]-->
   <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0"
          style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#F4F4F4">

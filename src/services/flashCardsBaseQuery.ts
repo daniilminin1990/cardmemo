@@ -86,7 +86,6 @@ export const baseQueryWithReauth: BaseQueryFn<
 
     return result
   } catch (e) {
-    console.log('1111111111111')
     throttledToastError()
 
     return {

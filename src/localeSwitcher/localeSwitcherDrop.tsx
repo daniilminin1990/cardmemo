@@ -35,12 +35,12 @@ const LocaleSwitcherDrop = () => {
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content className={style.DropdownMenuContent} sideOffset={5}>
-          <DropdownMenu.Item>
+          <DropdownMenu.Item asChild>
             <div className={style.boxContent}>
               <img alt={''} className={style.flagEng} onClick={onHandleClickLang2} src={en} />
             </div>
           </DropdownMenu.Item>
-          <DropdownMenu.Item>
+          <DropdownMenu.Item asChild>
             <div className={style.boxContent}>
               <img alt={''} className={style.flag} onClick={onHandleClickLang} src={ru} />
             </div>
