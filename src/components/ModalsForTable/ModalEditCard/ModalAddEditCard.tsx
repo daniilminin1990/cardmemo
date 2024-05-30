@@ -21,43 +21,12 @@ type ModalAddEditProps = {
   setOpen: (value: boolean) => void
 }
 
-// const getSchema = (item?: CardResponse) => {
-//   return z.object({
-//     answer: z
-//       .string()
-//       .min(3)
-//       .max(500)
-//       .superRefine((val, ctx) => {
-//         if (val === item?.answer) {
-//           ctx.addIssue({
-//             code: z.ZodIssueCode.custom,
-//             message: 'Values are equal',
-//           })
-//         }
-//       }),
-//     question: z
-//       .string()
-//       .min(3)
-//       .max(500)
-//       .superRefine((val, ctx) => {
-//         if (val === item?.question) {
-//           ctx.addIssue({
-//             code: z.ZodIssueCode.custom,
-//             message: 'Values are equal',
-//           })
-//         }
-//       }),
-//   })
-// }
+export const schemaAddEditCard = z.object({
+  answer: z.string().min(3).max(500),
+  question: z.string().min(3).max(500),
+})
 
-const getSchema = () => {
-  return z.object({
-    answer: z.string().min(3).max(500),
-    question: z.string().min(3).max(500),
-  })
-}
-
-export type FormValues = z.infer<ReturnType<typeof getSchema>>
+export type FormValuesAddEditCard = z.infer<typeof schemaAddEditCard>
 
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
@@ -70,15 +39,12 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const [createCard] = useCreateCardMutation()
   const [updateCard] = useUpdateCardMutation()
 
-  // const schema = getSchema(item)
-  const schema = getSchema()
-
-  const { control, handleSubmit } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<FormValuesAddEditCard>({
     defaultValues: { answer: '', question: '' },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schemaAddEditCard),
   })
 
-  const onSubmit: SubmitHandler<FormValues> = data => {
+  const onSubmit: SubmitHandler<FormValuesAddEditCard> = data => {
     let message = ''
 
     if (item) {
@@ -95,7 +61,6 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
       handleToastInfo(message)
     }
 
-    // После проверок, выполните запросы на создание или обновление
     if (item) {
       updateCard({
         args: {

@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Control } from 'react-hook-form'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
-import { FormValues } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
+import { FormValuesAddEditCard } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
 import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -12,11 +12,11 @@ import { CardResponse } from '@/services/cards/cards.types'
 import s from './dataFiller.module.scss'
 
 type DataFillerProps = {
-  control: Control<FormValues, any>
+  control: Control<FormValuesAddEditCard, any>
   getImageHandler: (img: File | null | undefined) => void
   img: null | string | undefined
   item?: CardResponse
-  label: keyof FormValues
+  label: keyof FormValuesAddEditCard
   questionOrAnswer: string | undefined
 }
 export const DataFiller = (props: DataFillerProps) => {
