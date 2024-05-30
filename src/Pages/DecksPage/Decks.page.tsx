@@ -88,10 +88,7 @@ export function DecksPage() {
     setCurrentPageQuery(value)
   }
 
-  const decksData = currentData ?? data
-  const arrayOfDecks = decksData?.items.filter(item =>
-    tabsValue === meData?.id ? item.userId === meData?.id : true
-  )
+  const decksData = currentData?.items ?? data?.items
 
   if (isLoading) {
     return <Loading />
@@ -140,20 +137,18 @@ export function DecksPage() {
           </Button>
         </div>
       </div>
-      <TableComponentWithTypes data={arrayOfDecks} tableHeader={headersNameDecks}>
+      <TableComponentWithTypes data={decksData} tableHeader={headersNameDecks}>
         {item => <SingleRowDeck item={item} />}
       </TableComponentWithTypes>
       <div className={s.footer}>
-        {arrayOfDecks?.length !== 0 && (
-          <PaginationWithSelect
-            currentPage={currentPage}
-            itemsPerPage={itemsPerPage}
-            selectOptions={selectOptionPagination}
-            setCurrentPage={handleCurrentPageChange}
-            setItemsPerPage={handleItemsPerPageChange}
-            totalItems={data?.pagination.totalItems || 0}
-          />
-        )}
+        <PaginationWithSelect
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          selectOptions={selectOptionPagination}
+          setCurrentPage={handleCurrentPageChange}
+          setItemsPerPage={handleItemsPerPageChange}
+          totalItems={data?.pagination.totalItems || 0}
+        />
       </div>
     </Page>
   )

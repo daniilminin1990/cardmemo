@@ -38,7 +38,6 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
         <Table.Row>
           {header.map(name => (
             <Table.HeadCell
-              // className={s.tableHeadCellCards}
               className={clsx(
                 tableHeader === headersNameDecks ? s.tableHeadCellDecks : s.tableHeadCellCards
               )}
@@ -68,7 +67,7 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
             <Table.Cell className={s.empty} colSpan={header.length + 1}>
               <Typography as={'span'} variant={'body1'}>
                 {search.length === 0
-                  ? 'Please add any data to show'
+                  ? 'Please add any data to show or clear filters'
                   : 'No content with these terms...'}
               </Typography>
             </Table.Cell>

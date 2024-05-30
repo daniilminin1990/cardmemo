@@ -14,13 +14,14 @@ export const useSliderQueryParams = () => {
   const debouncedStartValue = useDebounce(sliderMin)
   const debouncedEndValue = useDebounce(sliderMax)
 
-  const changeMinMaxHandler = (value: number | number[]) => {
-    if (Array.isArray(value)) {
-      searchParams.set('min', `${value[0]}`)
-      searchParams.set('max', `${value[1]}`)
-    } else {
-      searchParams.set('min', `${value}`)
-    }
+  const changeMinMaxHandler = (value: number[]) => {
+    value[0] === minMaxData?.min
+      ? searchParams.delete('min')
+      : searchParams.set('min', `${value[0]}`)
+    value[1] === minMaxData?.max
+      ? searchParams.delete('max')
+      : searchParams.set('max', `${value[1]}`)
+
     setSearchParams(searchParams)
   }
 
