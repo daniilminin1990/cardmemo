@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { DataFiller } from '@/components/ModalsForTable/ModalEditCard/DataFiller/DataFiller'
 import Typography from '@/components/ui/Typography/Typography'
@@ -20,63 +21,107 @@ type ModalAddEditProps = {
   setOpen: (value: boolean) => void
 }
 
-function getSchema(item?: CardResponse) {
-  return z.object({
-    answer: item ? z.string() : z.string().min(3).max(500),
-    question: item ? z.string() : z.string().min(3).max(500),
-  })
-}
+// function getSchema(item?: CardResponse) {
+//   return z.object({
+//     answer: item ? z.string() : z.string().min(3).max(500),
+//     question: item ? z.string() : z.string().min(3).max(500),
+//   })
+// }
+// export type FormValues = z.infer<ReturnType<typeof getSchema>>
 
-export type FormValues = z.infer<ReturnType<typeof getSchema>>
+const schema = z.object({
+  answer: z.string().min(3).max(500),
+  question: z.string().min(3).max(500),
+})
+
+export type FormValues = z.infer<typeof schema>
+
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { clearQuery } = useQueryParams()
   const [answerImg, setAnswerImg] = useState<File | null | undefined>(undefined)
   const [questionImg, setQuestionImg] = useState<File | null | undefined>(undefined)
+  // const [submitFunction, setSubmitFunction] = useState<(() => void) | null>(null)
 
   const deckId = useParams().deckId
 
   const [createCard] = useCreateCardMutation()
   const [updateCard] = useUpdateCardMutation()
 
-  // const { currentData: currentCardData } = useGetCardByIdQuery(
-  //   { id: item?.id ?? '' },
-  //   { skip: !item }
-  // )
-  // const currendCard = currentCardData ?? item
+  // const schema = getSchema(item)
 
-  const schema = getSchema(item)
+  type FormValues = z.infer<typeof schema>
 
   const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: { answer: '', question: '' },
     resolver: zodResolver(schema),
   })
 
+  const confirmActionToast = (onConfirm: () => void) => {
+    const closeToast = () => {
+      toast.dismiss(toastId)
+    }
+
+    const toastId = toast(
+      <div>
+        <p>This name already exists, are you sure you want to save it?</p>
+        <button onClick={onConfirm}>Yes, save it</button>
+        <button onClick={closeToast}>No, cancel</button>
+      </div>,
+      {
+        autoClose: false,
+      }
+    )
+  }
+
   const onSubmit: SubmitHandler<FormValues> = data => {
-    if (item) {
-      updateCard({
-        args: {
-          answer: data.answer,
-          answerImg,
-          question: data.question,
-          questionImg,
-        },
-        cardId: item.id,
+    if (item && (data.answer === item.answer || data.question === item.question)) {
+      confirmActionToast(() => {
+        updateCard({
+          args: {
+            answer: data.answer,
+            answerImg,
+            question: data.question,
+            questionImg,
+          },
+          cardId: item.id,
+        })
+        clearQuery()
+        setOpen(false)
+        setQuestionImg(undefined)
+        setAnswerImg(undefined)
       })
+
+      return
     } else {
       createCard({
         args: { answer: data.answer, answerImg, question: data.question, questionImg },
         deckId: deckId ?? '',
       })
     }
-    clearQuery()
-    setOpen(false)
-    setQuestionImg(undefined)
-    setAnswerImg(undefined)
+    // if (item) {
+    //   updateCard({
+    //     args: {
+    //       answer: data.answer,
+    //       answerImg,
+    //       question: data.question,
+    //       questionImg,
+    //     },
+    //     cardId: item.id,
+    //   })
+    // } else {
+    //   createCard({
+    //     args: { answer: data.answer, answerImg, question: data.question, questionImg },
+    //     deckId: deckId ?? '',
+    //   })
+    // }
+    // clearQuery()
+    // setOpen(false)
+    // setQuestionImg(undefined)
+    // setAnswerImg(undefined)
   }
 
   const getQuestionImgHandler = (img: File | null | undefined) => {
-    console.log(img)
     setQuestionImg(img)
   }
   const getAnswerImgHandler = (img: File | null | undefined) => {

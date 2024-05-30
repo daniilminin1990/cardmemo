@@ -67,6 +67,7 @@ export const DataFiller = (props: DataFillerProps) => {
       <FormTextfield
         className={s.input}
         control={control}
+        currentValue={label === 'question' ? item?.question : item?.answer}
         label={item ? `Edit ${label}` : title}
         name={label}
       />
@@ -104,6 +105,7 @@ export const DataFiller = (props: DataFillerProps) => {
             name={'cover'}
             onChange={handleInputImg}
             ref={refInputImg}
+            style={{ display: 'none' }}
             type={'file'}
           />
         </Button>
