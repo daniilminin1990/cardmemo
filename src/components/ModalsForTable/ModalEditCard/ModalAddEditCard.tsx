@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
 
+import { handleToastInfo } from '@/common/consts/toastVariants'
 import { DataFiller } from '@/components/ModalsForTable/ModalEditCard/DataFiller/DataFiller'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -21,27 +21,49 @@ type ModalAddEditProps = {
   setOpen: (value: boolean) => void
 }
 
-// function getSchema(item?: CardResponse) {
+// const getSchema = (item?: CardResponse) => {
 //   return z.object({
-//     answer: item ? z.string() : z.string().min(3).max(500),
-//     question: item ? z.string() : z.string().min(3).max(500),
+//     answer: z
+//       .string()
+//       .min(3)
+//       .max(500)
+//       .superRefine((val, ctx) => {
+//         if (val === item?.answer) {
+//           ctx.addIssue({
+//             code: z.ZodIssueCode.custom,
+//             message: 'Values are equal',
+//           })
+//         }
+//       }),
+//     question: z
+//       .string()
+//       .min(3)
+//       .max(500)
+//       .superRefine((val, ctx) => {
+//         if (val === item?.question) {
+//           ctx.addIssue({
+//             code: z.ZodIssueCode.custom,
+//             message: 'Values are equal',
+//           })
+//         }
+//       }),
 //   })
 // }
-// export type FormValues = z.infer<ReturnType<typeof getSchema>>
 
-const schema = z.object({
-  answer: z.string().min(3).max(500),
-  question: z.string().min(3).max(500),
-})
+const getSchema = () => {
+  return z.object({
+    answer: z.string().min(3).max(500),
+    question: z.string().min(3).max(500),
+  })
+}
 
-export type FormValues = z.infer<typeof schema>
+export type FormValues = z.infer<ReturnType<typeof getSchema>>
 
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { clearQuery } = useQueryParams()
   const [answerImg, setAnswerImg] = useState<File | null | undefined>(undefined)
   const [questionImg, setQuestionImg] = useState<File | null | undefined>(undefined)
-  // const [submitFunction, setSubmitFunction] = useState<(() => void) | null>(null)
 
   const deckId = useParams().deckId
 
@@ -49,76 +71,52 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const [updateCard] = useUpdateCardMutation()
 
   // const schema = getSchema(item)
-
-  type FormValues = z.infer<typeof schema>
+  const schema = getSchema()
 
   const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: { answer: '', question: '' },
     resolver: zodResolver(schema),
   })
 
-  const confirmActionToast = (onConfirm: () => void) => {
-    const closeToast = () => {
-      toast.dismiss(toastId)
+  const onSubmit: SubmitHandler<FormValues> = data => {
+    let message = ''
+
+    if (item) {
+      // Проверяем, есть ли редактируемый элемент
+      if (data.answer === item.answer) {
+        message += 'Answer values are equal. '
+      }
+      if (data.question === item.question) {
+        message += 'Question values are equal. '
+      }
     }
 
-    const toastId = toast(
-      <div>
-        <p>This name already exists, are you sure you want to save it?</p>
-        <button onClick={onConfirm}>Yes, save it</button>
-        <button onClick={closeToast}>No, cancel</button>
-      </div>,
-      {
-        autoClose: false,
-      }
-    )
-  }
+    if (message) {
+      handleToastInfo(message)
+    }
 
-  const onSubmit: SubmitHandler<FormValues> = data => {
-    if (item && (data.answer === item.answer || data.question === item.question)) {
-      confirmActionToast(() => {
-        updateCard({
-          args: {
-            answer: data.answer,
-            answerImg,
-            question: data.question,
-            questionImg,
-          },
-          cardId: item.id,
-        })
-        clearQuery()
-        setOpen(false)
-        setQuestionImg(undefined)
-        setAnswerImg(undefined)
+    // После проверок, выполните запросы на создание или обновление
+    if (item) {
+      updateCard({
+        args: {
+          answer: data.answer,
+          answerImg,
+          question: data.question,
+          questionImg,
+        },
+        cardId: item.id,
       })
-
-      return
     } else {
       createCard({
         args: { answer: data.answer, answerImg, question: data.question, questionImg },
         deckId: deckId ?? '',
       })
     }
-    // if (item) {
-    //   updateCard({
-    //     args: {
-    //       answer: data.answer,
-    //       answerImg,
-    //       question: data.question,
-    //       questionImg,
-    //     },
-    //     cardId: item.id,
-    //   })
-    // } else {
-    //   createCard({
-    //     args: { answer: data.answer, answerImg, question: data.question, questionImg },
-    //     deckId: deckId ?? '',
-    //   })
-    // }
-    // clearQuery()
-    // setOpen(false)
-    // setQuestionImg(undefined)
-    // setAnswerImg(undefined)
+
+    clearQuery()
+    setOpen(false)
+    setQuestionImg(undefined)
+    setAnswerImg(undefined)
   }
 
   const getQuestionImgHandler = (img: File | null | undefined) => {
