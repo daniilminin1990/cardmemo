@@ -4,6 +4,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
 import { handleToastInfo } from '@/common/consts/toastVariants'
 import { initCurrentPage } from '@/common/globalVariables'
+import { FormValuesAddEditDeck, schemaAddEditDeck } from '@/common/zodSchemas/decks/decks.schemas'
 import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -14,7 +15,6 @@ import { useQueryParams } from '@/hooks/useQueryParams'
 import { Deck } from '@/services/decks/deck.types'
 import { useCreateDeckMutation, useUpdateDeckMutation } from '@/services/decks/decks.service'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 
 import s from './modals.module.scss'
 
@@ -27,23 +27,18 @@ type ModalAddEditProps = {
 export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { clearQuery, setCurrentPageQuery } = useQueryParams()
-  const schema = z.object({
-    isPrivate: z.boolean().optional(),
-    name: z.string().min(3).max(30),
-  })
 
-  type FormValues = z.infer<typeof schema>
   const [updateDeck] = useUpdateDeckMutation()
   const [createDeck] = useCreateDeckMutation()
   const [cover, setCover] = useState<File | null | undefined>(undefined)
   const initPreview = item ? item.cover ?? null : ''
   const [preview, setPreview] = useState<null | string>(initPreview)
   const refInputImg = useRef<HTMLInputElement>(null)
-  const { control, handleSubmit } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<FormValuesAddEditDeck>({
     defaultValues: item
       ? { isPrivate: item.isPrivate, name: item.name }
       : { isPrivate: false, name: '' },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schemaAddEditDeck),
   })
 
   useEffect(() => {
@@ -75,7 +70,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
     setCover(preview === item?.cover ? undefined : e.target.files?.[0] ?? undefined)
     e.target.value = ''
   }
-  const onSubmit: SubmitHandler<FormValues> = async data => {
+  const onSubmit: SubmitHandler<FormValuesAddEditDeck> = async data => {
     if (data.name === item?.name) {
       handleToastInfo('This name already exists, please choose another one', 3000)
     } else if (preview === item?.cover) {
