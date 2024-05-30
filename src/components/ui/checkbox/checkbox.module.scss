@@ -2,15 +2,19 @@ button {
   all: unset;
 }
 
+
+
 .CheckboxContainer,
 .CheckboxRoot {
+
   align-items: center;
   display: flex;
-  width: 100px;
+  width: 120px;
 }
 
 .CheckboxContainer {
   font-size: 16px;
+
 }
 
 .CheckboxRoot {

@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
 import { handleToastInfo } from '@/common/consts/toastVariants'
@@ -7,7 +7,7 @@ import { initCurrentPage } from '@/common/globalVariables'
 import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
-import Checkbox from '@/components/ui/checkbox/checkbox'
+import FormCheckbox from '@/components/ui/form/form-checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
@@ -140,14 +140,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
               />
             </Button>
           </div>
-          <Controller
-            control={control}
-            defaultValue={false}
-            name={'isPrivate'}
-            render={({ field: { onChange, value = item?.isPrivate } }) => (
-              <Checkbox checked={value} label={'Is Private'} onCheckedChange={onChange} />
-            )}
-          />
+          <FormCheckbox control={control} label={'Is Private'} name={'isPrivate'} />
         </div>
         <div className={s.footer}>
           <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>

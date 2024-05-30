@@ -1,4 +1,5 @@
 .backBtn {
+  display: flex;
   width: max-content;
   margin-bottom: 32px;
   padding: 0;
@@ -21,7 +22,7 @@
     flex-flow: row nowrap;
     gap: 6px;
     align-items: center;
-
+    width: 200px;
     transition: 0.3s;
 
     &:hover {
