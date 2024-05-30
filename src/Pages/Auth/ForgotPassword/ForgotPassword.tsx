@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { emailRecoveringTemplate as html } from '@/common/consts/email-recovering-template'
+import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -26,7 +27,7 @@ export const ForgotPassword = () => {
   })
 
   const navigate = useNavigate()
-  const [recoverPassword] = useRecoverPasswordMutation()
+  const [recoverPassword, { isLoading }] = useRecoverPasswordMutation()
   const onSubmit = async ({ email }: ForgotPasswordFormType) => {
     await recoverPassword({ email, html }).unwrap()
     navigate(`${path.checkEmail}/${email}`)
@@ -34,6 +35,7 @@ export const ForgotPassword = () => {
 
   return (
     <div className={s.container}>
+      {isLoading && <LoadingBar />}
       <Card>
         <section className={s.content}>
           <Typography as={'h2'} variant={'large'}>

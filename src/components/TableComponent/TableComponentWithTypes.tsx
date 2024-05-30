@@ -19,6 +19,7 @@ type Item<T> = T extends Deck[] ? Deck : CardResponse
 type Props<T extends CardResponse[] | Deck[]> = {
   children: (item: Item<T>) => ReactNode
   data?: T
+  isLoading?: boolean
   tableHeader: { key: string; title: string }[]
 }
 // Получается что TableComponentWithTypes похож немного на полиморфную компоненту, только с 2 типами
@@ -26,11 +27,22 @@ type Props<T extends CardResponse[] | Deck[]> = {
 export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
   children,
   data,
+  isLoading,
   tableHeader,
 }: Props<T>) => {
   const { currentOrderBy, setSortByQuery } = useQueryParams()
   const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
   const { search } = useQueryParams()
+
+  let message = ''
+
+  if (isLoading) {
+    message = 'Please wait, the data is loading'
+  } else if (search.length === 0) {
+    message = 'Please add any data to show or clear filters'
+  } else {
+    message = 'No content with these terms...'
+  }
 
   return (
     <Table.Root className={s.tableRoot}>
@@ -66,9 +78,7 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
           <Table.Row>
             <Table.Cell className={s.empty} colSpan={header.length + 1}>
               <Typography as={'span'} variant={'body1'}>
-                {search.length === 0
-                  ? 'Please add any data to show or clear filters'
-                  : 'No content with these terms...'}
+                {message}
               </Typography>
             </Table.Cell>
           </Table.Row>
