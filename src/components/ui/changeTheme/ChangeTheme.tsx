@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
 import { changeTheme } from '@/common/utillThemeChanger'
 import { UserContext } from '@/components/ui/changeTheme/Context'
@@ -6,27 +6,74 @@ import { UserContext } from '@/components/ui/changeTheme/Context'
 import style from './ChangeTheme.module.scss'
 
 import moon from '../../../assets/ChangeTheme/moonIcon.png'
-import sun from '../../../assets/ChangeTheme/sun.png'
+import sun from '../../../assets/ChangeTheme/sunIcon.png'
+
+type Theme = 'moon' | 'sun'
+
 const ChangeTheme = () => {
   const context = useContext(UserContext)
-  const onChangeThemeHandlerSun = () => {
-    context?.setTheme(context?.theme === 'moon' ? 'sun' : 'moon')
-    const newThemeColors = {
-      'color-dark-100': '#e6e6e6',
-      'color-dark-300': '#cccccc',
+
+  useEffect(() => {
+    const storedTheme: Theme = localStorage.getItem('theme') as Theme
+
+    if (storedTheme) {
+      context?.setTheme(storedTheme)
+      updateThemeColors(storedTheme)
+    }
+  }, [context])
+
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === 'theme') {
+        const newTheme = localStorage.getItem('theme') as Theme
+
+        context?.setTheme(newTheme)
+        updateThemeColors(newTheme)
+      }
     }
 
-    changeTheme(newThemeColors)
-  }
-  const onChangeThemeHandlerMoon = () => {
-    context?.setTheme(context?.theme === 'moon' ? 'sun' : 'moon')
-    const newThemeColors = {
-      'color-dark-100': '#a8afcc',
-      'color-dark-300': '#4c4c4c',
-      'color-dark-500': '#333',
-      'color-dark-700': '#171717',
-      'color-dark-900': '#000000',
+    window.addEventListener('storage', handleStorageChange)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
     }
+  }, [context])
+
+  const onChangeThemeHandler = () => {
+    const newTheme = context?.theme === 'moon' ? 'sun' : 'moon'
+
+    context?.setTheme(newTheme)
+    localStorage.setItem('theme', newTheme)
+    updateThemeColors(newTheme)
+  }
+
+  const updateThemeColors = (theme: Theme) => {
+    const newThemeColors =
+      theme === 'sun'
+        ? {
+            'color-dark-100': '#333',
+            'color-dark-300': '#cccccc',
+            'color-dark-500': '#999',
+            'color-dark-700': '#666',
+            'color-dark-900': '#e6e6e6',
+            'color-light-100': '#2b334a',
+            'color-light-300': '#4c4c4c',
+            'color-light-500': '#333',
+            'color-light-700': '#171717',
+            'color-light-900': '#000000',
+          }
+        : {
+            'color-dark-100': '#a8afcc',
+            'color-dark-300': '#4c4c4c',
+            'color-dark-500': '#333',
+            'color-dark-700': '#171717',
+            'color-dark-900': '#000000',
+            'color-light-100': '#fff',
+            'color-light-300': '#f9f7ff',
+            'color-light-500': '#f4f2fa',
+            'color-light-700': '#dcdae0',
+            'color-light-900': '#c3c1c7',
+          }
 
     changeTheme(newThemeColors)
   }
@@ -34,9 +81,9 @@ const ChangeTheme = () => {
   return (
     <div className={style.box}>
       {context?.theme === 'moon' ? (
-        <img alt={'moon'} className={style.moonImg} onClick={onChangeThemeHandlerMoon} src={moon} />
+        <img alt={'moon'} className={style.moonImg} onClick={onChangeThemeHandler} src={moon} />
       ) : (
-        <img alt={'sun'} className={style.sunImg} onClick={onChangeThemeHandlerSun} src={sun} />
+        <img alt={'sun'} className={style.sunImg} onClick={onChangeThemeHandler} src={sun} />
       )}
     </div>
   )

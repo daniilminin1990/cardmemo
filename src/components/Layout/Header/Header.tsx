@@ -9,6 +9,7 @@ import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
+import ChangeTheme from '@/components/ui/changeTheme/ChangeTheme'
 import LocaleSwitcherDrop from '@/localeSwitcher/localeSwitcherDrop'
 import { path } from '@/router/path'
 import { useLogoutMutation } from '@/services/auth/auth.service'
@@ -36,6 +37,7 @@ const Header = ({ data }: HeaderProps) => {
             <FlashCardsLogo1 className={style.img} />
           </Typography>
           <LocaleSwitcherDrop />
+          <ChangeTheme />
         </div>
         {data ? (
           <div className={style.dropDown}>

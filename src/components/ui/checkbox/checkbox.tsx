@@ -23,28 +23,28 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps
     }
 
     return (
-      <Typography as={'label'} className={classNames.Label} variant={'body2'}>
-        <div className={classNames.CheckboxContainer}>
-          <CheckboxRadix.Root
-            {...rest}
-            checked={checked}
-            className={classNames.CheckboxRoot}
-            defaultChecked
-            id={id ?? generatedId}
-            onCheckedChange={onCheckedChange}
-            ref={ref}
-          >
-            {checked && (
-              <CheckboxRadix.Indicator asChild className={classNames.CheckboxIndicator}>
-                {<CheckIcon />}
-              </CheckboxRadix.Indicator>
-            )}
-          </CheckboxRadix.Root>
-          <label className={classNames.Label} htmlFor={id ?? generatedId}>
+      <div className={classNames.CheckboxContainer}>
+        <CheckboxRadix.Root
+          {...rest}
+          checked={checked}
+          className={s.CheckboxRoot}
+          defaultChecked
+          id={id ?? generatedId}
+          onCheckedChange={onCheckedChange}
+          ref={ref}
+        >
+          {checked && (
+            <CheckboxRadix.Indicator asChild className={classNames.CheckboxIndicator}>
+              {<CheckIcon />}
+            </CheckboxRadix.Indicator>
+          )}
+        </CheckboxRadix.Root>
+        <label className={s.Label} htmlFor={id ?? generatedId}>
+          <Typography as={'label'} variant={'body2'}>
             {label}
-          </label>
-        </div>
-      </Typography>
+          </Typography>
+        </label>
+      </div>
     )
   }
 )

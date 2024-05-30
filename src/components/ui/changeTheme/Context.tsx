@@ -5,8 +5,9 @@ type UserContextProps = {
   theme: string
 }
 export const UserContext = createContext<UserContextProps | null>(null)
+
 const Context = (props: any) => {
-  const [theme, setTheme] = useState('moon')
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'moon')
   const value = {
     setTheme,
     theme,
