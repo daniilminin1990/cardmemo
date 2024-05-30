@@ -8,7 +8,7 @@ import style from './ChangeTheme.module.scss'
 import moon from '../../../assets/ChangeTheme/moonIcon.png'
 import sun from '../../../assets/ChangeTheme/sunIcon.png'
 
-type Theme = 'moon' | 'sun'
+export type Theme = 'moon' | 'sun'
 
 const ChangeTheme = () => {
   const context = useContext(UserContext)
