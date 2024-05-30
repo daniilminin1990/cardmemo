@@ -18,8 +18,8 @@ import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 import s from './learnPage.module.scss'
 
 export const LearnPage = () => {
-  const { control, handleSubmit, reset } = useForm<LearnCardFormValues>({
-    defaultValues: { grade: undefined },
+  const { control, handleSubmit, setValue } = useForm<LearnCardFormValues>({
+    defaultValues: { grade: null },
   })
   const navigate = useNavigate()
 
@@ -45,16 +45,17 @@ export const LearnPage = () => {
   ]
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
+    console.log(data)
     randomCard?.id &&
       (await updateCardGrade({ cardId: randomCard.id, grade: Number(data.grade) })
         .unwrap()
         .then(() => {
           setPreviousCardId(randomCard.id)
           setIsShowAnswer(false)
-          reset()
+          setValue('grade', null)
         })
         .catch(() => {
-          data.grade === undefined && handleToastWarning(`Set grade!`)
+          data.grade === null && handleToastWarning(`Set grade!`)
         }))
   }
   const showAnswerHandler = () => {
