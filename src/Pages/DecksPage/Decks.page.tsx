@@ -106,7 +106,7 @@ export function DecksPage() {
             {t('decksPage.decksList')}
           </Typography>
           <Button onClick={() => setOpen(true)} variant={'primary'}>
-            <Typography variant={'subtitle2'}>Add New Deck</Typography>
+            <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
           </Button>
         </div>
         <div className={s.searchParams}>

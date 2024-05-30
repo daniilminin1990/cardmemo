@@ -1,4 +1,5 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { Link, Navigate } from 'react-router-dom'
 
 import { Page } from '@/components/ui/Page/Page'
@@ -23,6 +24,7 @@ const signInSchema = z.object({
 type FormValues = z.infer<typeof signInSchema>
 
 export const SignInPage = () => {
+  const { t } = useTranslation()
   const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       email: '',
@@ -49,14 +51,14 @@ export const SignInPage = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={s.header}>
             <Typography as={'h1'} className={s.typographyHead} variant={'h1'}>
-              Sign In
+              {t('signInPage.signIn')}
             </Typography>
           </div>
           <div className={s.box}>
             <FormTextfield
               className={s.inputStyle}
               control={control}
-              label={'Email'}
+              label={t('signInPage.email')}
               name={'email'}
               placeholder={'Email'}
               type={'text'}
@@ -64,7 +66,7 @@ export const SignInPage = () => {
             <FormTextfield
               className={s.inputStyle}
               control={control}
-              label={'Password'}
+              label={t('signInPage.password')}
               name={'password'}
               placeholder={'Password'}
               type={'password'}
@@ -74,7 +76,11 @@ export const SignInPage = () => {
               defaultValue={false}
               name={'rememberMe'}
               render={({ field: { onChange, value } }) => (
-                <Checkbox checked={value} label={'RememberMe'} onCheckedChange={onChange} />
+                <Checkbox
+                  checked={value}
+                  label={t('signInPage.rememberMe')}
+                  onCheckedChange={onChange}
+                />
               )}
             />
             <Typography
@@ -83,15 +89,15 @@ export const SignInPage = () => {
               to={path.recoverPassword}
               variant={'body2'}
             >
-              Forgot Password?
+              {t('signInPage.forgotPassword')}
             </Typography>
           </div>
           <Button fullWidth type={'submit'}>
-            Sign In
+            {t('signInPage.signIn')}
           </Button>
           <div className={s.footer}>
             <Typography as={'span'} className={s.typographyFooterTitle} variant={'body2'}>
-              Don`t have an account?
+              {t('signInPage.dontHaveAccount')}
             </Typography>
             <Typography
               as={Link}
@@ -100,7 +106,7 @@ export const SignInPage = () => {
               type={'button'}
               variant={'link1'}
             >
-              Sign Up
+              {t('signInPage.signUp')}
             </Typography>
           </div>
         </form>

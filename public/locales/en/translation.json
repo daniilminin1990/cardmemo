@@ -1,4 +1,7 @@
 {
+  "localeSwitcher": {
+    "language": "En"
+  },
   "header": {
     "signIn": "Sign In",
     "signOut": "Sign Out",
@@ -8,6 +11,7 @@
     "numberOfCards": "Number of cards",
     "showDecksCards": "Show decks cards",
     "decksList": "Decks list",
+    "addNewDeck": "Add New Deck",
     "clearFilter": "Clear Filter"
   },
   "useTabsValuesParams": {
@@ -22,5 +26,42 @@
     "checkEmail": "Check Email",
     "instruction": "We’ve sent an Email with instructions to",
     "backToSignIn": "Back to Sign in"
+  },
+  "modalAddEditDeck": {
+    "addNewDeck": "Add New Deck",
+    "updateDeck": "Update Deck",
+    "editTitle": "Edit title",
+    "nameDeck": "Name Deck",
+    "removeCover": "Remove cover",
+    "uploadImage": "Upload Image",
+    "changeCover": "Change cover",
+    "private": "Private",
+    "cancel": "Cancel",
+    "saveChanges": "Save changes",
+    "createPack": "Create Deck"
+  },
+  "signInPage": {
+    "signIn": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot Password?",
+    "dontHaveAccount": "Don`t have an account?",
+    "signUp": "Sign Up"
+  },
+  "learnPage": {
+    "backPreviousPage": "Back to Previous Page",
+    "learn": "Learn",
+    "question": "Question",
+    "countAttempts": "Count of attempts",
+    "answer": "Answer",
+    "showAnswer": "Show Answer",
+    "rateYourself": "Rate yourself",
+    "nextQuestion": "Next Question",
+    "didtKnow": "Did not know",
+    "forgot": "Forgot",
+    "aLotThought": "A lot of thought",
+    "confused": "Confused",
+    "knewAnswer": "Knew the answer"
   }
 }
