@@ -42,7 +42,6 @@ export const useQueryParams = () => {
     const currentOrderBy = searchParams.get('orderBy')
     let newOrderBy
 
-    // Проверяем текущее состояние и определяем новое состояние
     switch (currentOrderBy) {
       case `${sortByQuery}-asc`:
         newOrderBy = `${sortByQuery}-desc`
@@ -55,7 +54,6 @@ export const useQueryParams = () => {
         break
     }
 
-    // Обновляем Query-параметр orderBy
     newOrderBy ? searchParams.set('orderBy', newOrderBy) : searchParams.delete('orderBy')
     setSearchParams(searchParams)
   }

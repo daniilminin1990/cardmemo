@@ -46,7 +46,7 @@ export const DataFiller = (props: DataFillerProps) => {
 
       return () => URL.revokeObjectURL(newPreviewQuestion)
     }
-  }, [cover])
+  }, [cover, preview])
 
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null && e.target.files.length > 0) {
@@ -98,7 +98,6 @@ export const DataFiller = (props: DataFillerProps) => {
         <Button className={s.uploadImg} fullWidth onClick={hanldeSubmitImg} type={'button'}>
           <ImageOutline className={s.icon} />
           <Typography variant={'subtitle2'}>{preview ? 'Change cover' : 'Upload Image'}</Typography>
-          {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
           <Input
             accept={'image/*'}
             className={s.inputImg}

@@ -1,4 +1,6 @@
 .backBtn {
+  display: flex;
+
   width: max-content;
   margin-bottom: 32px;
   padding: 0;
@@ -8,11 +10,12 @@
   background-color: transparent;
   box-shadow: none;
 
-  &:hover {
+  &:focus-visible {
+    color: var(--color-accent-500);
     background-color: transparent;
   }
 
-  &:focus-visible {
+  &:hover {
     background-color: transparent;
   }
 
@@ -21,6 +24,8 @@
     flex-flow: row nowrap;
     gap: 6px;
     align-items: center;
+
+    width: max-content;
 
     transition: 0.3s;
 

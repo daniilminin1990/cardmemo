@@ -21,10 +21,8 @@ const DropDownItem = (props: DropDownItemProps) => {
 
   return (
     <DropdownMenu.Item asChild className={s.DropdownMenuItem}>
-      {/*! Добавил Button, href, Link*/}
       {href ? (
         <Link className={style.Link} to={href}>
-          {/*! Вынес кнопку с Typography в отдельную компоненту*/}
           <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
         </Link>
       ) : (

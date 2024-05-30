@@ -24,7 +24,6 @@ export const CreateNewPassword = () => {
   const [resetPassword, { isLoading }] = useResetPasswordMutation()
 
   const [open, setOpen] = useState(false)
-  // Оппля
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
     await resetPassword({ password: data.newPassword, token }).then(() => {
