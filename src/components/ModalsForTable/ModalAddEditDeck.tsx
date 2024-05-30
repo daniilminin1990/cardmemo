@@ -1,10 +1,12 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { ChangeEvent } from 'react'
+import { Controller, SubmitHandler } from 'react-hook-form'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
+import { useAddEditDeckLogic } from '@/common/addEditCardsOrDecks/addEditDeckLogic'
+import { getEditDeckNotifyMsg } from '@/common/addEditCardsOrDecks/getEditDeckNotifyMsg'
 import { handleToastInfo } from '@/common/consts/toastVariants'
 import { initCurrentPage } from '@/common/globalVariables'
-import { FormValuesAddEditDeck, schemaAddEditDeck } from '@/common/zodSchemas/decks/decks.schemas'
+import { FormValuesAddEditDeck } from '@/common/zodSchemas/decks/decks.schemas'
 import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -14,7 +16,6 @@ import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { Deck } from '@/services/decks/deck.types'
 import { useCreateDeckMutation, useUpdateDeckMutation } from '@/services/decks/decks.service'
-import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './modals.module.scss'
 
@@ -27,68 +28,78 @@ type ModalAddEditProps = {
 export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { clearQuery, setCurrentPageQuery } = useQueryParams()
+  const { control, cover, handleSubmit, preview, refInputImg, setCover, setPreview } =
+    useAddEditDeckLogic({
+      item,
+    })
 
   const [updateDeck] = useUpdateDeckMutation()
   const [createDeck] = useCreateDeckMutation()
-  const [cover, setCover] = useState<File | null | undefined>(undefined)
-  const initPreview = item ? item.cover ?? null : ''
-  const [preview, setPreview] = useState<null | string>(initPreview)
-  const refInputImg = useRef<HTMLInputElement>(null)
-  const { control, handleSubmit } = useForm<FormValuesAddEditDeck>({
-    defaultValues: item
-      ? { isPrivate: item.isPrivate, name: item.name }
-      : { isPrivate: false, name: '' },
-    resolver: zodResolver(schemaAddEditDeck),
-  })
-
-  useEffect(() => {
-    if (item?.cover) {
-      setPreview(item?.cover)
-    }
-  }, [item?.cover])
-
-  // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
-  useEffect(() => {
-    if (cover) {
-      const newPreview = URL.createObjectURL(cover)
-
-      if (preview) {
-        URL.revokeObjectURL(preview)
-      }
-
-      setPreview(newPreview)
-
-      return () => URL.revokeObjectURL(newPreview)
-    }
-  }, [cover])
+  // const { control, handleSubmit } = useForm<FormValuesAddEditDeck>({
+  //   defaultValues: item
+  //     ? { isPrivate: item.isPrivate, name: item.name }
+  //     : { isPrivate: false, name: '' },
+  //   resolver: zodResolver(schemaAddEditDeck),
+  // })
+  // const initPreview = item ? item.cover ?? null : ''
+  // const [preview, setPreview] = useState<null | string>(initPreview)
+  // const [cover, setCover] = useState<File | null | undefined>(undefined)
+  // const refInputImg = useRef<HTMLInputElement>(null)
+  //
+  // useEffect(() => {
+  //   if (item?.cover) {
+  //     setPreview(item?.cover)
+  //   }
+  // }, [item?.cover])
+  //
+  // // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
+  // useEffect(() => {
+  //   if (cover) {
+  //     const newPreview = URL.createObjectURL(cover)
+  //
+  //     if (preview) {
+  //       URL.revokeObjectURL(preview)
+  //     }
+  //
+  //     setPreview(newPreview)
+  //
+  //     return () => URL.revokeObjectURL(newPreview)
+  //   }
+  // }, [cover])
 
   const handleOnClose = () => {
     item ? setPreview(item.cover || null) : setPreview(null)
     setOpen(false)
   }
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
-    setCover(preview === item?.cover ? undefined : e.target.files?.[0] ?? undefined)
+    // ! Этот коммент чтобы заменить первый useEffect
+    // if (e.target.files !== null && e.target.files.length > 0) {
+    //   setPreview(URL.createObjectURL(e.target.files[0]))
+    // }
+    // ! Это условие чтобы не давать сэтать одинаковые картинки и вследствии не отправлять на сервер
+    setCover(
+      cover?.lastModified === e.target.files?.[0].lastModified ||
+        cover?.name === e.target.files?.[0].name
+        ? null
+        : e.target.files?.[0] ?? undefined
+    )
     e.target.value = ''
   }
-  const onSubmit: SubmitHandler<FormValuesAddEditDeck> = async data => {
-    if (data.name === item?.name) {
-      handleToastInfo('This name already exists, please choose another one', 3000)
-    } else if (preview === item?.cover) {
-      handleToastInfo('This cover already exists, please choose another one', 3000)
-    } else {
-      handleToastInfo('This name and cover already exists, please choose another one', 3000)
-    }
+  const onSubmit: SubmitHandler<FormValuesAddEditDeck> = data => {
     if (item) {
-      await updateDeck({ ...data, cover, id: item.id })
+      const msg = getEditDeckNotifyMsg({ data, item, preview })
+
+      handleToastInfo(msg)
+      updateDeck({ ...data, cover, id: item.id })
     } else {
-      await createDeck({ ...data, cover })
+      createDeck({ ...data, cover })
     }
     clearQuery()
     setCurrentPageQuery(Number(initCurrentPage))
     setOpen(false)
     setCover(undefined)
   }
-  const hanldeSubmitImg = () => {
+  const handleSubmitImg = () => {
     refInputImg?.current?.click()
   }
 
@@ -125,7 +136,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
                 <Typography variant={'subtitle2'}>Remove cover</Typography>
               </Button>
             )}
-            <Button className={s.uploadImg} fullWidth onClick={hanldeSubmitImg} type={'button'}>
+            <Button className={s.uploadImg} fullWidth onClick={handleSubmitImg} type={'button'}>
               <ImageOutline className={s.icon} />
               <Typography variant={'subtitle2'}>
                 {preview ? 'Change cover' : 'Upload Image'}

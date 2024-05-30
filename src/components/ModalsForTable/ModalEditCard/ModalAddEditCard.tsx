@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
+import { getEditCardNotifyMsg } from '@/common/addEditCardsOrDecks/getEditCardNotifyMsg'
 import { handleToastInfo } from '@/common/consts/toastVariants'
+import { FormValuesAddEditCard, schemaAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import { DataFiller } from '@/components/ModalsForTable/ModalEditCard/DataFiller/DataFiller'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -11,7 +13,6 @@ import { useQueryParams } from '@/hooks/useQueryParams'
 import { useCreateCardMutation, useUpdateCardMutation } from '@/services/cards/cards.service'
 import { CardResponse } from '@/services/cards/cards.types'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 
 import s from './modalEditCard.module.scss'
 
@@ -20,13 +21,6 @@ type ModalAddEditProps = {
   open: boolean
   setOpen: (value: boolean) => void
 }
-
-export const schemaAddEditCard = z.object({
-  answer: z.string().min(3).max(500),
-  question: z.string().min(3).max(500),
-})
-
-export type FormValuesAddEditCard = z.infer<typeof schemaAddEditCard>
 
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
@@ -40,28 +34,22 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const [updateCard] = useUpdateCardMutation()
 
   const { control, handleSubmit } = useForm<FormValuesAddEditCard>({
-    defaultValues: { answer: '', question: '' },
+    defaultValues: item
+      ? { answer: item.answer, question: item.question }
+      : { answer: '', question: '' },
     resolver: zodResolver(schemaAddEditCard),
   })
 
   const onSubmit: SubmitHandler<FormValuesAddEditCard> = data => {
-    let message = ''
-
     if (item) {
-      // Проверяем, есть ли редактируемый элемент
-      if (data.answer === item.answer) {
-        message += 'Answer values are equal. '
-      }
-      if (data.question === item.question) {
-        message += 'Question values are equal. '
-      }
-    }
+      //? Не хватает стейта preview для answer и question (дописать хук который будет забирать значения)
+      // const msg = getEditCardNotifyMsg({
+      //   data,
+      //   item,
+      //   previewAnswerImg: answerImg,
+      //   previewQuestionImg: questionImg,
+      // })
 
-    if (message) {
-      handleToastInfo(message)
-    }
-
-    if (item) {
       updateCard({
         args: {
           answer: data.answer,

@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Control } from 'react-hook-form'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
-import { FormValuesAddEditCard } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
+import { FormValuesAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -21,12 +21,12 @@ type DataFillerProps = {
 }
 export const DataFiller = (props: DataFillerProps) => {
   const { control, getImageHandler, img, item, label, questionOrAnswer } = props
-  const title = label.charAt(0).toUpperCase() + label.slice(1)
   const initPreview = item ? img ?? null : ''
   const [preview, setPreview] = useState<null | string>(initPreview)
-  // const [updateDeck] = useUpdateDeckMutation()
   const [cover, setCover] = useState<File | null | undefined>(undefined)
   const refInputImg = useRef<HTMLInputElement>(null)
+
+  const title = label.charAt(0).toUpperCase() + label.slice(1)
 
   useEffect(() => {
     if (img) {
@@ -49,10 +49,16 @@ export const DataFiller = (props: DataFillerProps) => {
   }, [cover])
 
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files !== null && e.target.files.length > 0) {
-      setPreview(URL.createObjectURL(e.target.files[0]))
-    }
-    setCover(e.target.files?.[0] ?? undefined)
+    // ! Этот коммент чтобы заменить первый useEffect
+    // if (e.target.files !== null && e.target.files.length > 0) {
+    //   setPreview(URL.createObjectURL(e.target.files[0]))
+    // }
+    setCover(
+      cover?.lastModified === e.target.files?.[0].lastModified ||
+        cover?.name === e.target.files?.[0].name
+        ? null
+        : e.target.files?.[0] ?? undefined
+    )
     // getImageHandler(e.target.files?.[0] ?? null)
     getImageHandler(e.target.files?.[0] ?? undefined)
     e.target.value = ''
