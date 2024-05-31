@@ -7,6 +7,7 @@ import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import LogOut from '@/assets/icons/svg/LogOut'
 import { PersonalInfoFormValue, PersonalInfoScheme } from '@/common/zodSchemas/auth/auth.schemas'
 import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
+import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -17,7 +18,6 @@ import {
   useMeQuery,
   useUpdateUserDataMutation,
 } from '@/services/auth/auth.service'
-import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './ProfilePage.module.scss'
@@ -31,9 +31,9 @@ export const ProfilePage = () => {
     resolver: zodResolver(PersonalInfoScheme),
   })
 
-  const { data: me } = useMeQuery()
+  const { data: me, isFetching, isLoading } = useMeQuery()
   const [logout] = useLogoutMutation()
-  const [updateUserData] = useUpdateUserDataMutation()
+  const [updateUserData, { isLoading: isUpdateLoading }] = useUpdateUserDataMutation()
 
   const [isEditNickName, setEditNickName] = useState(false)
 
@@ -54,9 +54,11 @@ export const ProfilePage = () => {
     avatarFileInputRef.current?.click()
   }
 
+  const loadingStatus = isLoading || isUpdateLoading || isFetching
+
   return (
     <>
-      {import.meta.env.DEV && <DevTool control={control} />}
+      {loadingStatus && <LoadingBar />}
       <Card className={s.card}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
@@ -111,10 +113,16 @@ export const ProfilePage = () => {
                 <div className={s.backBtn}>
                   <BackBtn as={Link} name={t('profilePage.backDeckList')} path={path.decks} />
                 </div>
-                <Link className={s.logoutBtn} onClick={logoutHandler} to={`${path.login}`}>
+
+                <Button
+                  as={Link}
+                  className={s.logoutBtn}
+                  onClick={logoutHandler}
+                  to={`${path.login}`}
+                >
                   <LogOut className={s.logoutIcon} />
                   <Typography variant={'body2'}>{t('profilePage.logout')}</Typography>
-                </Link>
+                </Button>
               </div>
             ) : (
               <div className={s.nameEditWrapper}>

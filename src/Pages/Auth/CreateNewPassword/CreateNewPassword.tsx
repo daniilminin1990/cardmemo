@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 
 import { SuccessModal } from '@/Pages/Auth/CreateNewPassword/SuccessModal'
 import { ResetPasswordFormValues, ResetPasswordSchema } from '@/common/zodSchemas/auth/auth.schemas'
+import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -20,7 +21,7 @@ export const CreateNewPassword = () => {
 
   const { token = '' } = useParams()
 
-  const [resetPassword] = useResetPasswordMutation()
+  const [resetPassword, { isLoading }] = useResetPasswordMutation()
 
   const [open, setOpen] = useState(false)
 
@@ -32,7 +33,8 @@ export const CreateNewPassword = () => {
 
   return (
     <>
-      <SuccessModal open={open} />
+      <SuccessModal open={open} setOpen={setOpen} />
+      {isLoading && <LoadingBar />}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card className={s.card}>
           <div className={s.header}>

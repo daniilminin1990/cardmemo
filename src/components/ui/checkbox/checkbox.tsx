@@ -1,7 +1,6 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef, useId } from 'react'
+import React, { ComponentPropsWithoutRef, ElementRef, forwardRef, useId } from 'react'
 
 import CheckIcon from '@/assets/icons/svg/CheckboxIcon'
-import Typography from '@/components/ui/Typography/Typography'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import { clsx } from 'clsx'
 
@@ -22,29 +21,35 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps
       Label: clsx(s.Label, disabled && s.disabled, className),
     }
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (event.key === 'Enter') {
+        onCheckedChange && onCheckedChange(!checked)
+      }
+    }
+
     return (
-      <Typography as={'label'} className={classNames.Label} variant={'body2'}>
-        <div className={classNames.CheckboxContainer}>
-          <CheckboxRadix.Root
-            {...rest}
-            checked={checked}
-            className={classNames.CheckboxRoot}
-            defaultChecked
-            id={id ?? generatedId}
-            onCheckedChange={onCheckedChange}
-            ref={ref}
-          >
-            {checked && (
-              <CheckboxRadix.Indicator asChild className={classNames.CheckboxIndicator}>
-                {<CheckIcon />}
-              </CheckboxRadix.Indicator>
-            )}
-          </CheckboxRadix.Root>
-          <label className={classNames.Label} htmlFor={id ?? generatedId}>
-            {label}
-          </label>
-        </div>
-      </Typography>
+      <div className={classNames.CheckboxContainer}>
+        <CheckboxRadix.Root
+          {...rest}
+          checked={checked}
+          className={s.CheckboxRoot}
+          defaultChecked
+          id={id ?? generatedId}
+          onCheckedChange={onCheckedChange}
+          onKeyDown={handleKeyDown}
+          ref={ref}
+        >
+          {checked && (
+            <CheckboxRadix.Indicator asChild className={classNames.CheckboxIndicator}>
+              {<CheckIcon />}
+            </CheckboxRadix.Indicator>
+          )}
+        </CheckboxRadix.Root>
+
+        <label className={s.Label} htmlFor={id ?? generatedId}>
+          {label}
+        </label>
+      </div>
     )
   }
 )

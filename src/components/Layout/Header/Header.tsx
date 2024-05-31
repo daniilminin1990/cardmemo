@@ -9,6 +9,7 @@ import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
+import ChangeTheme from '@/components/ui/changeTheme/ChangeTheme'
 import LocaleSwitcherDrop from '@/localeSwitcher/localeSwitcherDrop'
 import { path } from '@/router/path'
 import { useLogoutMutation } from '@/services/auth/auth.service'
@@ -31,19 +32,30 @@ const Header = ({ data }: HeaderProps) => {
     <div className={style.box}>
       <div className={style.wrapper}>
         <div className={style.boxImg}>
-          {/*! Сделал ссылку на главную страницу*/}
-          <Typography as={'a'} href={`${path.decks}`} variant={'body2'}>
-            <FlashCardsLogo1 className={style.img} />
+          <Typography
+            as={'a'}
+            className={style.logo}
+            href={`${path.decks}`}
+            tabIndex={-1}
+            variant={'body2'}
+          >
+            <FlashCardsLogo1 className={style.img} tabIndex={0} />
           </Typography>
           <LocaleSwitcherDrop />
+          <ChangeTheme />
         </div>
         {data ? (
-          <div className={style.dropDown}>
-            <Typography as={Link} className={style.text} to={`${path.profile}`} variant={'h2'}>
+          <div className={style.profile}>
+            <Typography as={Link} className={style.name} to={`${path.profile}`} variant={'h2'}>
               {data.name}
             </Typography>
 
-            <DropdownMenuDemo data={data} icon={ellipseIcon} type={'head'}>
+            <DropdownMenuDemo
+              className={style.dropDown}
+              data={data}
+              icon={ellipseIcon}
+              type={'head'}
+            >
               <DropDownItem
                 href={`${path.profile}`}
                 icon={headerIcon}

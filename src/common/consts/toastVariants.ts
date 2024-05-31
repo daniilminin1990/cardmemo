@@ -14,6 +14,7 @@ export const handleToastWarning = (message: string, autoClose: number = 3000) =>
 export const handleToastInfo = (message: string, autoClose: number = 3000) => {
   toast.info(message, { autoClose })
 }
+
 export const throttledToastError = useThrottle(() => {
   handleToastError(`Please check the network and try again or later!`)
 }, 3000)

@@ -15,7 +15,7 @@
   border-radius: 2px;
   border: 1px solid var(--color-dark-100);
   color: var(--color-light-100);
-  background-color: var(--color-dark-700);
+  background-color: var(--color-dark-500);
   padding: 6px 12px;
   height: 35px;
   gap: 5px;
@@ -50,8 +50,8 @@
   cursor: auto;
   border: 1px solid var(--color-dark-300);
   .selectIconDisabled {
-    fill: var(--color-dark300);
-    color: var(--color-dark-300);
+    fill: var(--color-dark-300);
+    color: var(--color-dark-100);
   }
 }
 .selectIcon {
@@ -61,7 +61,7 @@
 .selectContent {
   overflow: hidden;
   width: var(--radix-select-trigger-width);
-  background-color: var(--color-dark-700);
+  background-color: var(--color-dark-500);
   border-radius: 0 0 2px 2px;
   border: 1px solid var(--color-dark-100);
   justify-content: start;
@@ -78,7 +78,7 @@
     &:focus,
     &[data-state='checked'] {
       color: var(--color-accent-300);
-      background-color: var(--color-accent-900);
+      background-color: var(--color-accent-300);
     }
   }
 }

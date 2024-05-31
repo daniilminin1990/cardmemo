@@ -6,6 +6,7 @@ button {
 .CheckboxRoot {
   align-items: center;
   display: flex;
+  width: 150px;
 }
 
 .CheckboxContainer {
@@ -36,6 +37,7 @@ button {
   transform: translate(-50%, -50%) scale(0);
   transition: transform 0.3s ease-out;
 }
+
 
 .CheckboxRoot:hover:not(.disabled)::before,
 .Label:hover .CheckboxRoot::before {

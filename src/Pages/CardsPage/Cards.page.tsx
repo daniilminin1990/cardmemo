@@ -18,7 +18,7 @@ import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Input from '@/components/ui/Input/Input'
-import Loading from '@/components/ui/Loading/Loading'
+import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Typography from '@/components/ui/Typography/Typography'
@@ -49,19 +49,15 @@ export const CardsPage = () => {
 
   const [open, setOpen] = useState(false)
 
-  // Когда переходим на эту страницу, то переходим по Deck ID,
-  // то есть ID можем взять из URL, значит можно использовать хук useParams
-
-  // А как мы попадем на эту страницу??? -- по Id Deck. Значит id Deck нужно передать в URL при переходе.
   const deckId = useParams().deckId
   const { data: meData } = useMeQuery()
   const {
     currentData: currentDeckData,
     data: deck,
-    isLoading,
+    isLoading: isDeckLoading,
   } = useGetDeckByIdQuery({ id: deckId ?? '' })
 
-  const { currentData, data } = useGetCardsQuery({
+  const { currentData, data, isFetching, isLoading } = useGetCardsQuery({
     args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
     id: deckId ?? '',
   })
@@ -83,7 +79,11 @@ export const CardsPage = () => {
 
   const cardsData = currentData ?? data
   const isCardsCountFilled = currentDeckData?.cardsCount !== 0
-  const isCardsCountZero = currentDeckData?.cardsCount === 0
+  const isCardsCountZero =
+    currentDeckData?.cardsCount === 0 &&
+    deck?.cardsCount === 0 &&
+    currentData?.items?.length === 0 &&
+    data?.items?.length === 0
   const isMineCards = currentDeckData?.userId === meData?.id
 
   const handleOpenModal = () => {
@@ -98,141 +98,136 @@ export const CardsPage = () => {
     }
   }
 
-  if (isLoading) {
-    return <Loading />
-  }
   const notifyLearnHandler = () => {
     handleToastInfo(`Add card before learning!`)
   }
 
+  const loadingStatus = isLoading || isFetching || isDeckLoading
+
   return (
     <>
-      {deck ? (
-        <Page className={s.common} mt={'24px'}>
-          <ModalOnEmpty open={openModal} setIsOpenModal={setOpenModal} />
-          <ModalAddEditCard open={open} setOpen={setOpen} />
-          <ModalAddEditDeck item={deck} open={openEditDeckModal} setOpen={setOpenEditDeckModal} />
-          <ModalDeleteDeck
-            item={deck ?? ({} as Deck)}
-            open={openDeleteDeckModal}
-            setIsDeleteModal={setOpenDeleteDeckModal}
+      {loadingStatus && <LoadingBar />}
+      <Page className={s.common} mt={'24px'}>
+        <ModalOnEmpty open={openModal} setIsOpenModal={setOpenModal} />
+        <ModalAddEditCard open={open} setOpen={setOpen} />
+        <ModalAddEditDeck item={deck} open={openEditDeckModal} setOpen={setOpenEditDeckModal} />
+        <ModalDeleteDeck
+          item={deck ?? ({} as Deck)}
+          open={openDeleteDeckModal}
+          setIsDeleteModal={setOpenDeleteDeckModal}
+        />
+        <div className={s.heading}>
+          <BackBtn
+            as={Link}
+            name={t('cardsPage.backDeckList')}
+            onClick={handleOpenModal}
+            path={'#'}
           />
-          <div className={s.heading}>
-            <BackBtn
-              as={Link}
-              name={t('cardsPage.backDeckList')}
-              onClick={handleOpenModal}
-              path={'#'}
-            />
-            <div className={s.headingSecondRow}>
-              <div className={clsx(deck?.cover && s.isWithImage)}>
-                <div className={s.info}>
-                  <Typography as={'h1'} variant={'h1'}>
-                    {deck?.name}
-                  </Typography>
-                  {isMineCards && (
-                    // В DropDownItem можно передать onClick? Если нет, то обернуть в Button
-                    <DropdownMenuDemo className={s.dropdown} icon={groupIcon} type={'menu'}>
-                      {isCardsCountZero ? (
-                        <DropDownItem
-                          handleOnClick={notifyLearnHandler}
-                          icon={playIcon}
-                          text={t('cardsPage.learn')}
-                        />
-                      ) : (
-                        <DropDownItem
-                          href={`${path.decks}/${deckId}${path.learn}`}
-                          icon={playIcon}
-                          text={t('cardsPage.learn')}
-                        />
-                      )}
+          <div className={s.headingSecondRow}>
+            <div className={clsx(deck?.cover && s.isWithImage)}>
+              <div className={s.info}>
+                <Typography as={'h1'} variant={'h1'}>
+                  {deck?.name}
+                </Typography>
+                {isMineCards && (
+                  // В DropDownItem можно передать onClick? Если нет, то обернуть в Button
+                  <DropdownMenuDemo className={s.dropdown} icon={groupIcon} type={'menu'}>
+                    {isCardsCountZero ? (
+                      <DropDownItem
+                        handleOnClick={notifyLearnHandler}
+                        icon={playIcon}
+                        text={t('cardsPage.learn')}
+                      />
+                    ) : (
+                      <DropDownItem
+                        href={`${path.decks}/${deckId}${path.learn}`}
+                        icon={playIcon}
+                        text={t('cardsPage.learn')}
+                      />
+                    )}
 
-                      <DropDownItem
-                        handleOnClick={() => setOpenEditDeckModal(true)}
-                        icon={menuIcon2}
-                        text={t('cardsPage.edit')}
-                      />
-                      <DropDownItem
-                        handleOnClick={() => setOpenDeleteDeckModal(true)}
-                        icon={menuIcon}
-                        text={t('cardsPage.delete')}
-                      />
-                    </DropdownMenuDemo>
-                  )}
-                </div>
-                {isCardsCountFilled && deck?.cover && (
-                  <img alt={'img'} src={deck?.cover} width={'200px'} />
+                    <DropDownItem
+                      handleOnClick={() => setOpenEditDeckModal(true)}
+                      icon={menuIcon2}
+                      text={t('cardsPage.edit')}
+                    />
+                    <DropDownItem
+                      handleOnClick={() => setOpenDeleteDeckModal(true)}
+                      icon={menuIcon}
+                      text={t('cardsPage.delete')}
+                    />
+                  </DropdownMenuDemo>
                 )}
               </div>
-              {isCardsCountFilled && (
-                <div className={s.switchButton}>
-                  {isMineCards ? (
-                    <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
-                      <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
-                    </Button>
-                  ) : (
-                    <Button
-                      as={Link}
-                      className={s.learnCards}
-                      onClick={() => setOpen(true)}
-                      to={`${path.decks}/${deckId}${path.learn}`}
-                      type={'button'}
-                    >
-                      <Typography variant={'subtitle2'}>Learn Cards</Typography>
-                    </Button>
-                  )}
-                </div>
+              {isCardsCountFilled && deck?.cover && (
+                <img alt={'img'} src={deck?.cover} width={'200px'} />
               )}
             </div>
             {isCardsCountFilled && (
-              <Input
-                callback={setSearchQuery}
-                className={s.input}
-                currentValue={search}
-                onChange={handleSearch}
-                type={'search'}
-              />
+              <div className={s.switchButton}>
+                {isMineCards ? (
+                  <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
+                    <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
+                  </Button>
+                ) : (
+                  <Button
+                    as={Link}
+                    className={s.learnCards}
+                    onClick={() => setOpen(true)}
+                    to={`${path.decks}/${deckId}${path.learn}`}
+                    type={'button'}
+                  >
+                    <Typography variant={'subtitle2'}>Learn Cards</Typography>
+                  </Button>
+                )}
+              </div>
             )}
           </div>
-          {isCardsCountZero ? (
-            <div className={s.emptyContent}>
-              <Typography variant={'body1'}>
-                {isMineCards
-                  ? `${t('cardsPage.emptyDeck')}`
-                  : `${t('cardsPage.unfortunatelyEmptyDeck')}`}
-              </Typography>
-              {isMineCards && (
-                <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
-                  <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
-                </Button>
-              )}
-            </div>
-          ) : (
-            <>
-              <TableComponentWithTypes data={cardsData?.items} tableHeader={headersNameCards}>
-                {item => <SingleRowCard item={item} />}
-              </TableComponentWithTypes>
-              <div className={s.footer}>
-                {isCardsCountFilled &&
-                  !search &&
-                  cardsData?.items &&
-                  cardsData.items.length >= currentPage * itemsPerPage && (
-                    <PaginationWithSelect
-                      currentPage={currentPage}
-                      itemsPerPage={itemsPerPage}
-                      selectOptions={selectOptionPagination}
-                      setCurrentPage={handleCurrentPageChange}
-                      setItemsPerPage={handleItemsPerPageChange}
-                      totalItems={cardsData?.pagination.totalItems || 0}
-                    />
-                  )}
-              </div>
-            </>
+          {isCardsCountFilled && (
+            <Input
+              callback={setSearchQuery}
+              className={s.input}
+              currentValue={search}
+              onChange={handleSearch}
+              type={'search'}
+            />
           )}
-        </Page>
-      ) : (
-        router.navigate(path.decks)
-      )}
+        </div>
+        {isCardsCountZero ? (
+          <div className={s.emptyContent}>
+            <Typography variant={'body1'}>
+              {isMineCards
+                ? `${t('cardsPage.emptyDeck')}`
+                : `${t('cardsPage.unfortunatelyEmptyDeck')}`}
+            </Typography>
+            {isMineCards && (
+              <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
+                <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
+              </Button>
+            )}
+          </div>
+        ) : (
+          <>
+            <TableComponentWithTypes
+              data={cardsData?.items}
+              isLoading={loadingStatus}
+              tableHeader={headersNameCards}
+            >
+              {item => <SingleRowCard item={item} />}
+            </TableComponentWithTypes>
+            <div className={s.footer}>
+              <PaginationWithSelect
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+                selectOptions={selectOptionPagination}
+                setCurrentPage={handleCurrentPageChange}
+                setItemsPerPage={handleItemsPerPageChange}
+                totalItems={cardsData?.pagination.totalItems || 0}
+              />
+            </div>
+          </>
+        )}
+      </Page>
     </>
   )
 }

@@ -19,8 +19,8 @@ import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 import s from './learnPage.module.scss'
 
 export const LearnPage = () => {
-  const { control, handleSubmit, reset } = useForm<LearnCardFormValues>({
-    defaultValues: { grade: undefined },
+  const { control, handleSubmit, setValue } = useForm<LearnCardFormValues>({
+    defaultValues: { grade: null },
   })
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -52,10 +52,10 @@ export const LearnPage = () => {
         .then(() => {
           setPreviousCardId(randomCard.id)
           setIsShowAnswer(false)
-          reset()
+          setValue('grade', null)
         })
         .catch(() => {
-          data.grade === undefined && handleToastWarning(`Set grade!`)
+          data.grade === null && handleToastWarning(`Set grade!`)
         }))
   }
   const showAnswerHandler = () => {

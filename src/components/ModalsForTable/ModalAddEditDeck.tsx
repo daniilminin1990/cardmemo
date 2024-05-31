@@ -1,13 +1,14 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
+import { handleToastInfo } from '@/common/consts/toastVariants'
 import { initCurrentPage } from '@/common/globalVariables'
 import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
-import Checkbox from '@/components/ui/checkbox/checkbox'
+import FormCheckbox from '@/components/ui/form/form-checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
@@ -29,13 +30,11 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const { clearQuery, setCurrentPageQuery } = useQueryParams()
   const { t } = useTranslation()
   const schema = z.object({
-    isPrivate: z.boolean(),
-    name: item ? z.string().min(3).max(30) : z.string().min(3).max(30),
-    rememberMe: z.boolean().optional(),
+    isPrivate: z.boolean().optional(),
+    name: z.string().min(3).max(30),
   })
 
   type FormValues = z.infer<typeof schema>
-  // const [checked, setChecked] = useState(false)
   const [updateDeck] = useUpdateDeckMutation()
   const [createDeck] = useCreateDeckMutation()
   const [cover, setCover] = useState<File | null | undefined>(undefined)
@@ -43,7 +42,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const [preview, setPreview] = useState<null | string>(initPreview)
   const refInputImg = useRef<HTMLInputElement>(null)
   const { control, handleSubmit } = useForm<FormValues>({
-    defaultValues: { isPrivate: false, name: '', rememberMe: true },
+    defaultValues: { isPrivate: false, name: '' },
     resolver: zodResolver(schema),
   })
 
@@ -66,7 +65,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
 
       return () => URL.revokeObjectURL(newPreview)
     }
-  }, [cover])
+  }, [cover, preview])
 
   const handleOnClose = () => {
     item ? setPreview(item.cover || null) : setPreview(null)
@@ -77,6 +76,12 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
     e.target.value = ''
   }
   const onSubmit: SubmitHandler<FormValues> = async data => {
+    if (item && data.name === item.name) {
+      handleToastInfo('This name already exists, please choose another one', 3000)
+
+      return
+    }
+
     await (item ? updateDeck({ ...data, cover, id: item.id }) : createDeck({ ...data, cover }))
     clearQuery()
     setCurrentPageQuery(Number(initCurrentPage))
@@ -97,11 +102,11 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.body}>
           {item?.name && <Typography variant={'h1'}>{item.name}</Typography>}
-          {/*{preview && <img alt={'cover'} src={preview} width={'100%'} />}*/}
           {preview && <img alt={'cover'} src={preview} width={'100%'} />}
           <FormTextfield
             className={s.input}
             control={control}
+            currentValue={item ? item?.name : ''}
             label={
               item ? `${t('modalAddEditDeck.editTitle')}` : `${t('modalAddEditDeck.nameDeck')}`
             }
@@ -128,33 +133,22 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
                   ? `${t('modalAddEditDeck.changeCover')}`
                   : `${t('modalAddEditDeck.uploadImage')}`}
               </Typography>
-              {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
               <Input
                 accept={'image/*'}
                 className={s.inputImg}
                 name={'cover'}
                 onChange={handleInputImg}
                 ref={refInputImg}
+                style={{ display: 'none' }}
                 type={'file'}
               />
             </Button>
           </div>
-          <Controller
-            control={control}
-            defaultValue={false}
-            name={'isPrivate'}
-            render={({ field: { onChange, value = item?.isPrivate } }) => (
-              <Checkbox
-                checked={value}
-                label={t('modalAddEditDeck.private')}
-                onCheckedChange={onChange}
-              />
-            )}
-          />
+          <FormCheckbox control={control} label={'Private'} name={'isPrivate'} />
         </div>
         <div className={s.footer}>
           <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
-            <Typography variant={'subtitle2'}>{t('modalAddEditDeck.cancel')}</Typography>
+            <Typography variant={'subtitle2'}>Cancel</Typography>
           </Button>
           <Button>
             <Typography variant={'subtitle2'}>
