@@ -84,6 +84,7 @@
   "cardsPage": {
     "backDeckList": "Back to Deck List",
     "learn": "Learn",
+    "learnCards": "Learn Cards",
     "edit": "Edit",
     "delete": "Delete",
     "emptyDeck": "This deck is empty. Click add new card to fill this pack",

@@ -1,66 +1,74 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent } from 'react'
 import { Control } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
-import { FormValues } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
+import { useAddEditCardLogic } from '@/common/addEditCardsOrDecks/addEditCardLogic'
+import { FormValuesAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { CardResponse } from '@/services/cards/cards.types'
+import { cardsActions } from '@/services/cardsSlice/cardsSlice'
+import { useAppDispatch } from '@/services/store'
 
 import s from './dataFiller.module.scss'
 
 type DataFillerProps = {
-  control: Control<FormValues, any>
-  getImageHandler: (img: File | null | undefined) => void
+  control: Control<FormValuesAddEditCard, any>
   img: null | string | undefined
   item?: CardResponse
-  label: keyof FormValues
+  label: keyof FormValuesAddEditCard
   questionOrAnswer: string | undefined
 }
 export const DataFiller = (props: DataFillerProps) => {
+  const { item, label, questionOrAnswer, ...rest } = props
+  const dispatch = useAppDispatch()
+
+  const { control, cover, preview, refInputImg, setCover, setPreview } = useAddEditCardLogic({
+    control: rest.control,
+    img: rest.img,
+    item,
+    label,
+  })
+
   const { t } = useTranslation()
-  const { control, getImageHandler, img, item, label, questionOrAnswer } = props
   const title = label.charAt(0).toUpperCase() + label.slice(1)
-  const initPreview = item ? img ?? null : ''
-  const [preview, setPreview] = useState<null | string>(initPreview)
-  // const [updateDeck] = useUpdateDeckMutation()
-  const [cover, setCover] = useState<File | null | undefined>(undefined)
-  const refInputImg = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    if (img) {
-      setPreview(img)
-    }
-  }, [img])
-  // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
-  useEffect(() => {
-    if (cover) {
-      const newPreviewQuestion = URL.createObjectURL(cover)
-
-      if (preview) {
-        URL.revokeObjectURL(preview)
-      }
-
-      setPreview(newPreviewQuestion)
-
-      return () => URL.revokeObjectURL(newPreviewQuestion)
-    }
-  }, [cover, preview])
 
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files !== null && e.target.files.length > 0) {
-      setPreview(URL.createObjectURL(e.target.files[0]))
-    }
-    setCover(e.target.files?.[0] ?? undefined)
-    // getImageHandler(e.target.files?.[0] ?? null)
-    getImageHandler(e.target.files?.[0] ?? undefined)
+    // ! Этот коммент чтобы заменить первый useEffect
+    // if (e.target.files !== null && e.target.files.length > 0) {
+    //   setPreview(URL.createObjectURL(e.target.files[0]))
+    // }
+    // ! Это условие чтобы не давать сэтать одинаковые картинки и вследствии не отправлять на сервер
+    const newCover =
+      cover?.lastModified === e.target.files?.[0].lastModified ||
+      cover?.name === e.target.files?.[0].name
+        ? null
+        : e.target.files?.[0] ?? undefined
+
+    setCover(newCover)
+    label === t('modalAddEditCard.question')
+      ? dispatch(cardsActions.setQuestionImg({ questionImg: newCover }))
+      : dispatch(cardsActions.setAnswerImg({ answerImg: newCover }))
     e.target.value = ''
   }
-  const hanldeSubmitImg = () => {
+  const handleSubmitImg = () => {
     refInputImg?.current?.click()
+  }
+
+  const handleRemoveImgs = () => {
+    // label === t('modalAddEditCard.question')
+    //   ? dispatch(cardsActions.setPreviewQuestion({ previewQuestion: null }))
+    //   : dispatch(cardsActions.setPreviewAnswer({ previewAnswer: null }))
+    label === t('modalAddEditCard.question')
+      ? dispatch(cardsActions.setPreviewQuestion({ previewQuestion: null })) &&
+        dispatch(cardsActions.setQuestionImg({ questionImg: null }))
+      : dispatch(cardsActions.setPreviewAnswer({ previewAnswer: null })) &&
+        dispatch(cardsActions.setAnswerImg({ answerImg: null }))
+    setPreview(null)
+    setCover(null)
   }
 
   return (
@@ -69,9 +77,9 @@ export const DataFiller = (props: DataFillerProps) => {
       <FormTextfield
         className={s.input}
         control={control}
-        currentValue={label === 'question' ? item?.question : item?.answer}
+        currentValue={label === t('modalAddEditCard.question') ? item?.question : item?.answer}
         label={item ? `Edit ${label}` : title}
-        name={label}
+        name={label === t('modalAddEditCard.question') ? 'question' : 'answer'}
       />
       {preview && (
         <div className={s.imgWrapper}>
@@ -85,19 +93,11 @@ export const DataFiller = (props: DataFillerProps) => {
       )}
       <div className={s.buttonsWrapper}>
         {preview && (
-          <Button
-            className={s.uploadImg}
-            fullWidth
-            onClick={() => {
-              setPreview(null)
-              setCover(null)
-            }}
-            type={'button'}
-          >
+          <Button className={s.uploadImg} fullWidth onClick={handleRemoveImgs} type={'button'}>
             <Typography variant={'subtitle2'}>Remove cover</Typography>
           </Button>
         )}
-        <Button className={s.uploadImg} fullWidth onClick={hanldeSubmitImg} type={'button'}>
+        <Button className={s.uploadImg} fullWidth onClick={handleSubmitImg} type={'button'}>
           <ImageOutline className={s.icon} />
           <Typography variant={'subtitle2'}>
             {preview ? `${t('dataFiller.changeCover')}` : `${t('dataFiller.uploadImage')}`}
