@@ -1,7 +1,8 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useContext, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import groupIcon from '@/assets/icons/WhiteSVG/Group 1399.svg'
+import groupIconBlack from '@/assets/icons/WhiteSVG/Group 1399Black.svg'
 import menuIcon2 from '@/assets/icons/WhiteSVG/edit-2-outline.svg'
 import playIcon from '@/assets/icons/WhiteSVG/play-circle-outline.svg'
 import menuIcon from '@/assets/icons/WhiteSVG/trash-outline.svg'
@@ -22,6 +23,7 @@ import { Page } from '@/components/ui/Page/Page'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
+import { UserContext } from '@/components/ui/changeTheme/Context'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { path } from '@/router/path'
 import { router } from '@/router/router'
@@ -34,6 +36,7 @@ import { clsx } from 'clsx'
 import s from './cardsPage.module.scss'
 
 export const CardsPage = () => {
+  const context = useContext(UserContext)
   const {
     currentOrderBy,
     currentPage,
@@ -123,7 +126,11 @@ export const CardsPage = () => {
                   {deck?.name}
                 </Typography>
                 {isMineCards && (
-                  <DropdownMenuDemo className={s.dropdown} icon={groupIcon} type={'menu'}>
+                  <DropdownMenuDemo
+                    className={s.dropdown}
+                    icon={context?.theme === 'moon' ? groupIcon : groupIconBlack}
+                    type={'menu'}
+                  >
                     {isCardsCountZero ? (
                       <DropDownItem
                         handleOnClick={notifyLearnHandler}
