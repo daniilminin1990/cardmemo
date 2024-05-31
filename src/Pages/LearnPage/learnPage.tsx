@@ -65,7 +65,7 @@ export const LearnPage = () => {
 
   return (
     <section>
-      <BackBtn to={`${path.decks}/${deckId}`}>{t('learnPage.backPreviousPage')}</BackBtn>
+      <BackBtn to={`${path.decks}/${deckId}`}>{t('learnPage.backCardsPage')}</BackBtn>
       {randomCard && (
         <Card className={s.card}>
           <div className={s.container}>

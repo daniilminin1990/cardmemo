@@ -51,7 +51,7 @@
     "signUp": "Регистрация"
   },
   "learnPage": {
-    "backPreviousPage": "Вернуться на предыдущую страницу",
+    "backCardsPage": "Вернуться на страницу карт",
     "learn": "Изучить",
     "question": "Вопрос",
     "countAttempts": "Количество попыток",
