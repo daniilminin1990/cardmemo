@@ -2,7 +2,7 @@
   border-collapse: collapse;
 
   width: 100%;
-  max-width: 1006px;
+  //max-width: 1006px;
   height: 100%;
   min-height: 100px;
 
@@ -21,7 +21,7 @@
 
 .headCell {
   padding: 6px 24px;
-  white-space: nowrap;
+  white-space: normal;
 
   &:not(:last-child):hover {
     cursor: pointer;
@@ -43,6 +43,7 @@
 .cell {
   padding: 6px 24px;
   text-align: left;
+  word-break: break-word;
 }
 
 .empty {

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import Typography from '@/components/ui/Typography/Typography'
@@ -17,24 +18,23 @@ const ModalOnEmpty = (props: Props) => {
   const onDeleteDeckHandler = () => {
     setIsOpenModal(false)
   }
+  const { t } = useTranslation()
 
   return (
     <Modal
       onOpenChange={() => setIsOpenModal(false)}
       open={open}
-      title={'Are you sure you want to leave this page?'}
+      title={`${t('modalOnEmpty.areYouSure')}`}
     >
       <div className={s.body}>
-        <Typography variant={'body1'}>
-          Do you really want to leave this page? You haven't created any cards !!!
-        </Typography>
+        <Typography variant={'body1'}>{t('modalOnEmpty.reallyWant')}</Typography>
       </div>
       <div className={s.footer}>
         <Button className={style.button} onClick={onDeleteDeckHandler} variant={'secondary'}>
-          <Typography variant={'subtitle2'}>No</Typography>
+          <Typography variant={'subtitle2'}>{t('modalOnEmpty.no')}</Typography>
         </Button>
         <Button as={Link} className={style.button} to={`${path.decks}`} variant={'primary'}>
-          <Typography variant={'subtitle2'}>Yes</Typography>
+          <Typography variant={'subtitle2'}>{t('modalOnEmpty.yes')}</Typography>
         </Button>
       </div>
     </Modal>

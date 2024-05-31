@@ -27,25 +27,18 @@ export const SingleRowDeck = ({ item }: Props) => {
 
   return (
     <Fragment key={item.id}>
-      {/*<ModalUpdateDeck item={deck} open={isUpdateModal} setOpen={setIsUpdateModal} />*/}
       <ModalAddEditDeck item={item} open={isUpdateModal} setOpen={setIsUpdateModal} />
       <ModalDeleteDeck item={item} open={isDeleteModal} setIsDeleteModal={setIsDeleteModal} />
       <Table.Row key={item.id}>
         <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
-          {/*{item?.cardsCount !== 0 ? (*/}
           <Typography as={Link} className={s.imgWrapper} to={`${path.decks}/${item.id}`}>
-            {item.cover && <img alt={'default card img'} className={s.coverImg} src={item.cover} />}
+            {item.cover && (
+              <div className={s.wrapperCoverImg}>
+                <img alt={'default card img'} className={s.coverImg} src={item.cover} />
+              </div>
+            )}
             {item.name}
           </Typography>
-          {/*! Это было нужно, чтобы можно было блокировать в которых пусто, но так нельзя, потому что нам нужно в Deck попадать, даже в пустой*/}
-          {/*) : (*/}
-          {/*  <Typography className={s.imgWrapper}>*/}
-          {/*    {item.cover && (*/}
-          {/*      <img alt={'default card img'} className={s.coverImg} src={item.cover} />*/}
-          {/*    )}*/}
-          {/*    {item.name}*/}
-          {/*  </Typography>*/}
-          {/*)}*/}
         </Table.Cell>
         <Table.Cell>{item.cardsCount}</Table.Cell>
         <Table.Cell>{updatedAr}</Table.Cell>
@@ -56,13 +49,16 @@ export const SingleRowDeck = ({ item }: Props) => {
               <Button className={s.btn} onClick={() => setIsUpdateModal(true)}>
                 <Edit2Outline className={s.Edit2Outline} />
               </Button>
-              <Button className={s.btn} disabled={!item.cardsCount}>
-                <Link to={`${path.decks}/${item.id}${path.learn}`}>
-                  <PlayCircleOutline
-                    className={`${s.playCircleOutline} ${item.cardsCount === 0 && s.disabled}`}
-                  />
-                </Link>
-              </Button>
+              {item.cardsCount === 0 ? (
+                <Button className={s.btn} disabled={item.cardsCount === 0}>
+                  <PlayCircleOutline className={`${s.playCircleOutline} ${s.disabled}`} />
+                </Button>
+              ) : (
+                <Button as={'a'} className={s.btn} href={`${path.decks}/${item.id}${path.learn}`}>
+                  <PlayCircleOutline className={s.playCircleOutline} />
+                </Button>
+              )}
+
               <Button
                 className={s.btn}
                 onClick={() => {
@@ -74,11 +70,15 @@ export const SingleRowDeck = ({ item }: Props) => {
             </div>
           ) : (
             <div className={s.iconBtns}>
-              <Button className={s.btn} disabled={item.cardsCount === 0}>
-                <PlayCircleOutline
-                  className={`${s.playCircleOutline} ${item.cardsCount === 0 && s.disabled}`}
-                />
-              </Button>
+              {item.cardsCount === 0 ? (
+                <Button className={s.btn} disabled={item.cardsCount === 0}>
+                  <PlayCircleOutline className={`${s.playCircleOutline} ${s.disabled}`} />
+                </Button>
+              ) : (
+                <Button as={'a'} className={s.btn} href={`${path.decks}/${item.id}${path.learn}`}>
+                  <PlayCircleOutline className={s.playCircleOutline} />
+                </Button>
+              )}
             </div>
           )}
         </Table.Cell>

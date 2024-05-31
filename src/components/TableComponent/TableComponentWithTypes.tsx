@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import { headersNameCards, headersNameDecks } from '@/common/globalVariables'
@@ -19,6 +20,7 @@ type Item<T> = T extends Deck[] ? Deck : CardResponse
 type Props<T extends CardResponse[] | Deck[]> = {
   children: (item: Item<T>) => ReactNode
   data?: T
+  isLoading?: boolean
   tableHeader: { key: string; title: string }[]
 }
 // Получается что TableComponentWithTypes похож немного на полиморфную компоненту, только с 2 типами
@@ -26,10 +28,23 @@ type Props<T extends CardResponse[] | Deck[]> = {
 export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
   children,
   data,
+  isLoading,
   tableHeader,
 }: Props<T>) => {
   const { currentOrderBy, setSortByQuery } = useQueryParams()
   const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
+  const { search } = useQueryParams()
+  const { t } = useTranslation()
+
+  let message = ''
+
+  if (isLoading) {
+    message = 'Please wait, the data is loading'
+  } else if (search.length === 0) {
+    message = `${t('tableComponentWithTypes.pleaseAddAnyData')}`
+  } else {
+    message = `${t('tableComponentWithTypes.noContent')}...`
+  }
 
   return (
     <Table.Root className={s.tableRoot}>
@@ -37,15 +52,15 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
         <Table.Row>
           {header.map(name => (
             <Table.HeadCell
-              // className={s.tableHeadCellCards}
               className={clsx(
                 tableHeader === headersNameDecks ? s.tableHeadCellDecks : s.tableHeadCellCards
               )}
               key={name.key}
               onClick={() => setSortByQuery(name.key)}
             >
-              <Typography as={'span'} variant={'subtitle2'}>
-                {name.title}
+              <Typography as={'button'} className={s.nameSortBtn} variant={'subtitle2'}>
+                {/*{name.title}*/}
+                {t(`${name.locale}`)}
                 {currentOrderBy.includes(name.key) && (
                   <ArrowIosDownOutline
                     className={`${s.arrow} ${currentOrderBy.includes('asc') ? s.rotate : ''}`}
@@ -66,7 +81,7 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
           <Table.Row>
             <Table.Cell className={s.empty} colSpan={header.length + 1}>
               <Typography as={'span'} variant={'body1'}>
-                No content with these terms...
+                {message}
               </Typography>
             </Table.Cell>
           </Table.Row>

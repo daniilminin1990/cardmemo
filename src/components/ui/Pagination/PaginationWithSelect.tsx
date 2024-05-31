@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next'
+
 import { Pagination } from '@/components/ui/Pagination/ui/Pagination'
 import SelectUI from '@/components/ui/Select/Select'
 import Typography from '@/components/ui/Typography/Typography'
+import { useQueryParams } from '@/hooks/useQueryParams'
 
 import s from './paginationWithSelect.module.scss'
 
@@ -28,10 +31,19 @@ export const PaginationWithSelect = ({
   setItemsPerPage,
   totalItems,
 }: Props) => {
+  disabled = totalItems <= Number(selectOptions[0].value)
   // const [currentPage, setCurrentPage] = useState<number>(1)
   // const [itemsPerPage, setItemsPerPage] = useState<number>(10)
   // const placeholderText = placeholder || selectOptions[0].text
-  const totalPages: number = Math.ceil(totalItems / itemsPerPage) // Is this comes from, server???
+  const { currentPageSearchParam } = useQueryParams()
+
+  const totalPages =
+    currentPageSearchParam === null && totalItems <= itemsPerPage
+      ? 1
+      : Math.ceil(totalItems / itemsPerPage)
+  // const totalPages = Math.ceil(totalItems / itemsPerPage)
+  // disabled =
+  // const totalPages: number = Math.ceil(totalItems / itemsPerPage) // Is this comes from, server???
   // const {} = useGetDecksQuery({
   //   currentPage,
   //   itemsPerPage,
@@ -40,6 +52,7 @@ export const PaginationWithSelect = ({
   const onValueChange = (count: string) => {
     setItemsPerPage(+count)
   }
+  const { t } = useTranslation()
 
   return (
     <div
@@ -54,7 +67,7 @@ export const PaginationWithSelect = ({
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
       />
-      <Typography className={s.firstText}>Show </Typography>
+      <Typography className={s.firstText}>{t('paginationWithSelect.show')} </Typography>
       <SelectUI
         className={'select'}
         disabled={disabled}
@@ -62,7 +75,7 @@ export const PaginationWithSelect = ({
         selectOptions={selectOptions}
         value={itemsPerPage.toString()}
       />
-      <Typography className={s.lastText}>on page</Typography>
+      <Typography className={s.lastText}>{t('paginationWithSelect.onPage')}</Typography>
     </div>
   )
 }

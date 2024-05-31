@@ -1,11 +1,13 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { clsx } from 'clsx'
 
 import s from './DropDown.module.scss'
-import style from '@/components/auth/Header/Header.module.scss'
+import style from '@/components/Layout/Header/Header.module.scss'
 
 type DropDownItemProps = {
   //! Добавил handleClick, href
@@ -17,23 +19,24 @@ type DropDownItemProps = {
 
 const DropDownItem = (props: DropDownItemProps) => {
   const { handleOnClick, href, icon, text } = props
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLAnchorElement | HTMLDivElement>) => {
+    if (event.key === 'Enter') {
+      handleOnClick?.()
+    }
+  }
 
   return (
-    <div className={s.DropdownMenuItemBox}>
-      <DropdownMenu.Item className={s.DropdownMenuItem}>
-        {/*! Добавил Button, href, Link*/}
-        {href ? (
-          <Link className={style.Link} to={href}>
-            {/*! Вынес кнопку с Typography в отдельную компоненту*/}
-            <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
-          </Link>
-        ) : (
-          <>
-            <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
-          </>
-        )}
-      </DropdownMenu.Item>
-    </div>
+    <DropdownMenu.Item asChild className={s.DropdownMenuItem}>
+      {href ? (
+        <Link className={style.Link} onKeyDown={handleKeyDown} to={href}>
+          <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
+        </Link>
+      ) : (
+        <div onKeyDown={handleKeyDown}>
+          <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
+        </div>
+      )}
+    </DropdownMenu.Item>
   )
 }
 
@@ -44,8 +47,8 @@ type DropDownButtonProps = {
 }
 export const DDButton = ({ handleOnClick, icon, text }: DropDownButtonProps) => {
   return (
-    <Button className={s.button} onClick={handleOnClick}>
-      <img alt={''} src={icon} />
+    <Button className={clsx(s.button, s.noHover)} onClick={handleOnClick} variant={'outlined'}>
+      <img alt={''} className={style.DDButtonImg} src={icon} />
       <Typography className={s.dropdownText} variant={'caption'}>
         {text}
       </Typography>

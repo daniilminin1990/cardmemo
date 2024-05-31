@@ -34,12 +34,9 @@ const SelectUI = ({ className, disabled, onValueChange, selectOptions, value }: 
       <Select.Root disabled={disabled} onValueChange={onValueChange}>
         <Select.Trigger aria-label={'select'} asChild className={selectClasses.trigger}>
           <button>
-            {/*<Select.Value aria-label={value}>*/}
-            {/*Изменил эту строку ниже -- теперь тут определяет по selectOptions*/}
             <Typography className={s.selectVariant} variant={'body2'}>
               {selectOptions.find(el => el.value === value)?.text || selectOptions[0].text}
             </Typography>
-            {/*</Select.Value>*/}
             <ArrowIosDownOutline className={selectClasses.icon} />
           </button>
         </Select.Trigger>

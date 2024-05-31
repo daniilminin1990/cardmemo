@@ -1,0 +1,132 @@
+{
+  "localeSwitcher": {
+    "language": "En"
+  },
+  "header": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "myProfile": "My Profile"
+  },
+  "decksPage": {
+    "numberOfCards": "Number of cards",
+    "showDecksCards": "Show decks cards",
+    "decksList": "Decks list",
+    "addNewDeck": "Add New Deck",
+    "clearFilter": "Clear Filter"
+  },
+  "useTabsValuesParams": {
+    "allDecks": "All decks",
+    "myDecks": "My decks"
+  },
+  "paginationWithSelect": {
+    "show": "Show",
+    "onPage": "on page"
+  },
+  "checkEmail": {
+    "checkEmail": "Check Email",
+    "instruction": "We’ve sent an Email with instructions to",
+    "backToSignIn": "Back to Sign in"
+  },
+  "modalAddEditDeck": {
+    "addNewDeck": "Add New Deck",
+    "updateDeck": "Update Deck",
+    "editTitle": "Edit title",
+    "nameDeck": "Name Deck",
+    "removeCover": "Remove cover",
+    "uploadImage": "Upload Image",
+    "changeCover": "Change cover",
+    "private": "Private",
+    "cancel": "Cancel",
+    "saveChanges": "Save changes",
+    "createPack": "Create Deck"
+  },
+  "signInPage": {
+    "signIn": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot Password?",
+    "dontHaveAccount": "Don`t have an account?",
+    "signUp": "Sign Up"
+  },
+  "learnPage": {
+    "backPreviousPage": "Back to Previous Page",
+    "learn": "Learn",
+    "question": "Question",
+    "countAttempts": "Count of attempts",
+    "answer": "Answer",
+    "showAnswer": "Show Answer",
+    "rateYourself": "Rate yourself",
+    "nextQuestion": "Next Question",
+    "didtKnow": "Did not know",
+    "forgot": "Forgot",
+    "aLotThought": "A lot of thought",
+    "confused": "Confused",
+    "knewAnswer": "Knew the answer"
+  },
+  "modalOnEmpty": {
+    "areYouSure": "Are you sure you want to leave this page?",
+    "reallyWant": "Do you really want to leave this page? You haven't created any cards !!!",
+    "no": "No",
+    "yes": "Yes"
+  },
+  "tableComponentWithTypes": {
+    "name": "Name",
+    "cards": "Cards",
+    "lastUpdated": "Last Updated",
+    "createdBy": "Created by",
+    "pleaseAddAnyData": "Please add any data to show",
+    "noContent": "No content with these terms",
+    "question": "Question",
+    "answer": "Answer",
+    "grade": "Grade"
+  },
+  "cardsPage": {
+    "backDeckList": "Back to Deck List",
+    "learn": "Learn",
+    "learnCards": "Learn Cards",
+    "edit": "Edit",
+    "delete": "Delete",
+    "emptyDeck": "This deck is empty. Click add new card to fill this pack",
+    "unfortunatelyEmptyDeck": "Unfortunately this deck is empty",
+    "addNewCard": "Add New Card"
+  },
+  "modalAddEditCard": {
+    "updateCard": "Update Card",
+    "addNewCard": "Add New Card",
+    "question": "question",
+    "answer": "answer",
+    "saveChanges": "Save changes",
+    "createCard": "Create Card",
+    "cancel": "Cancel"
+  },
+  "dataFiller": {
+    "uploadImage": "Upload Image",
+    "changeCover": "Change cover"
+  },
+  "profilePage": {
+    "personalInfo": "Personal Information",
+    "signUp": "Sign Up",
+    "backDeckList": "Back to Deck List",
+    "saveChanges": "Save changes",
+    "logout": "Logout",
+    "nickname": "Nickname"
+  },
+  "forgotPassword": {
+    "forgotPassword": "Forgot your password?",
+    "email": "Email",
+    "enterYourEmail": "Enter your email address and we will send you further instructions",
+    "rememberPassword": "Did you remember your password?",
+    "tryLogIn": "Try logging in",
+    "sendInstructions": "Send Instructions"
+  },
+  "signUp": {
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign In",
+    "submit": "Submit"
+  }
+}

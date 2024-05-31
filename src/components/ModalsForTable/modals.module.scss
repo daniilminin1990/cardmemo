@@ -1,6 +1,7 @@
-//* p {
-//  margin: 0;
-//}
+.form {
+  max-height: 70vh;
+}
+
 .body {
   margin-bottom: 45px;
   position: relative;
@@ -74,4 +75,5 @@
 .footer {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 30px;
 }

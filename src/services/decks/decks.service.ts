@@ -39,7 +39,7 @@ export const decksService = flashCardsAPI.injectEndpoints({
               router.navigate(`/decks/${data.id}`)
             })
           } catch (e) {
-            console.log(e)
+            ;() => {}
           }
         },
         query: ({ cover, isPrivate, name }) => {
@@ -115,8 +115,8 @@ export const decksService = flashCardsAPI.injectEndpoints({
             authorId: args?.authorId || undefined,
             currentPage: args?.currentPage || undefined,
             itemsPerPage: args?.itemsPerPage || undefined,
-            maxCardsCount: args?.maxCardsCount || undefined,
-            minCardsCount: args?.minCardsCount || undefined,
+            maxCardsCount: args?.maxCardsCount || 0,
+            minCardsCount: args?.minCardsCount || 0,
             name: args?.name || undefined,
             orderBy: args?.orderBy || undefined,
           },
@@ -130,7 +130,7 @@ export const decksService = flashCardsAPI.injectEndpoints({
         }),
       }),
       updateDeck: builder.mutation<Deck, UpdateDeckArgs>({
-        invalidatesTags: ['Decks'],
+        invalidatesTags: ['Decks', 'Deck'],
         async onQueryStarted({ cover, id, ...args }, { dispatch, getState, queryFulfilled }) {
           const invalidateBy = decksService.util.selectInvalidatedBy(getState(), [
             { type: 'Decks' },

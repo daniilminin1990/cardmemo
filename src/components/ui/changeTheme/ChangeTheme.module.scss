@@ -1,0 +1,29 @@
+@import 'src/styles/mixins';
+
+.box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 60px;
+  min-height: 35px;
+}
+
+.sunImg,
+.moonImg {
+  @include focus-visible-default;
+
+  cursor: pointer;
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 35px;
+}
+
+.sunImg {
+  filter: drop-shadow(0 0 10px rgb(241 172 0 / 100%));
+}
+
+.moonImg {
+  filter: drop-shadow(0 0 10px rgb(0 117 244));
+}

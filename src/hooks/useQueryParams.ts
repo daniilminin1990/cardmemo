@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom'
 
 import { initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
+import { useDebounce } from '@/hooks/useDebounce'
 
 export const useQueryParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -8,8 +9,11 @@ export const useQueryParams = () => {
     searchParams.get('itemsPerPage') ?? Number(selectOptionPagination[0].value)
   )
   const currentPage = Number(searchParams.get('currentPage') ?? Number(initCurrentPage))
+  const currentPageSearchParam = searchParams.get('currentPage')
   const search = searchParams.get('search') ?? ''
   const currentOrderBy = searchParams.get('orderBy') ?? ''
+
+  const debouncedSearchValue = useDebounce(search)
 
   const setSearchQuery = (searchQuery: string) => {
     searchQuery === ''
@@ -35,10 +39,9 @@ export const useQueryParams = () => {
   }
 
   const setSortByQuery = (sortByQuery: string) => {
-    const currentOrderBy = searchParams.get('orderBy')
+    // const currentOrderBy = searchParams.get('orderBy')
     let newOrderBy
 
-    // Проверяем текущее состояние и определяем новое состояние
     switch (currentOrderBy) {
       case `${sortByQuery}-asc`:
         newOrderBy = `${sortByQuery}-desc`
@@ -51,7 +54,6 @@ export const useQueryParams = () => {
         break
     }
 
-    // Обновляем Query-параметр orderBy
     newOrderBy ? searchParams.set('orderBy', newOrderBy) : searchParams.delete('orderBy')
     setSearchParams(searchParams)
   }
@@ -64,6 +66,8 @@ export const useQueryParams = () => {
     clearQuery,
     currentOrderBy,
     currentPage,
+    currentPageSearchParam,
+    debouncedSearchValue,
     itemsPerPage,
     search,
     setCurrentPageQuery,

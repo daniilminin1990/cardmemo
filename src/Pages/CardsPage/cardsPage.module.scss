@@ -1,43 +1,35 @@
-.common {
-  max-width: 1008px;
-}
 .heading {
   display: grid;
   grid-template-rows: auto 1fr;
   width: 100%;
   margin-bottom: 24px;
 }
-.headingFirstRow {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 36px;
-}
+
 .headingSecondRow {
   display: flex;
-  justify-content: space-between;
   align-items: start;
+  justify-content: space-between;
   margin-bottom: 24px;
+
   & .isWithImage > h1 {
     margin-bottom: 15px;
   }
 }
+
 .emptyContent {
   display: flex;
   flex-direction: column;
   align-items: center;
-  //justify-content: center;
   margin-top: 70px;
+
   & > p:first-child {
-    color: var(--color-dark-100);
     margin-bottom: 30px;
     font-size: 16px;
-  }
-  & button > p {
-    margin: 0;
+    color: var(--color-dark-100);
   }
 }
+
 .clearFilter {
-  ////text-align: center;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,18 +39,17 @@
 .input {
   width: 100%;
 }
-.tabsSwitcher {
-}
 
 .footer {
-  margin: 24px 0;
   width: 100%;
+  margin: 24px 0;
 }
 
 .switchButton {
   display: flex;
-  justify-content: end;
   align-items: end;
+  justify-content: end;
+
   & > button:first-child > p {
     margin: 0;
   }
@@ -68,12 +59,15 @@
   text-decoration: none;
 }
 
-.backIcon {
-  margin-right: 6px;
-}
-
 .info {
   display: flex;
-  justify-content: space-between;
+  gap: 6px;
   align-items: center;
+}
+
+.dropdown {
+  display: flex;
+  align-items: center;
+  width: 24px !important;
+  height: 24px !important;
 }

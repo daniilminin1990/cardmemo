@@ -1,17 +1,28 @@
-// Общее
+@import 'src/styles/mixins';
+
 .tableRoot {
   table-layout: fixed;
 }
+
 .emptyTableHeadCell {
   width: 15%;
 }
+
+.nameSortBtn {
+  @include focus-visible-default;
+
+  display: flex;
+}
+
 // Для Decks
 .tableHeadCellDecks:nth-child(1) {
   width: 35%;
 }
+
 .tableHeadCellDecks:nth-child(2) {
-  width: 10%;
+  width: 12%;
 }
+
 // Для Cards
 .tableHeadCellCards:nth-child(1),
 .tableHeadCellCards:nth-child(2) {
@@ -30,6 +41,7 @@
 
 .emptyTableHeadCell {
 }
+
 .empty {
   text-align: center;
 }

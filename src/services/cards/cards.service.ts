@@ -1,3 +1,5 @@
+import { current } from '@reduxjs/toolkit'
+
 import { flashCardsAPI } from '../flashCardsAPI'
 import {
   CardResponse,
@@ -129,43 +131,32 @@ export const cardsService = flashCardsAPI.injectEndpoints({
       updateCard: builder.mutation<CardResponse, { args: UpdateCardArgs; cardId: string }>({
         // this is cardId
         invalidatesTags: ['Cards'],
-        // async onQueryStarted({ cardId, ...args }, { dispatch, getState, queryFulfilled }) {
-        //   //! 11111111111
-        //   // const patchResults: any[] = dispatch(
-        //   //   cardsService.util.updateQueryData('getCards', { id: cardId, ...args }, draft => {
-        //   //     const itemToUpdateIndex = draft.items.findIndex(card => card.id === cardId)
-        //   //
-        //   //     if (itemToUpdateIndex === -1) {
-        //   //       return
-        //   //     }
-        //   //     Object.assign(draft.items[itemToUpdateIndex], args)
-        //   //   })
-        //   // )
-        //   //! 222222222222222
-        //   const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), ['Cards'])
-        //   const patchResults: any[] = []
-        //
-        //   invalidateBy.forEach(({ originalArgs }) => {
-        //     patchResults.push(
-        //       dispatch(
-        //         cardsService.util.updateQueryData('getCards', originalArgs, draft => {
-        //           const itemToUpdateIndex = draft.items.findIndex(card => card.id === cardId)
-        //
-        //           if (itemToUpdateIndex === -1) {
-        //             return
-        //           }
-        //           Object.assign(draft.items[itemToUpdateIndex], args)
-        //         })
-        //       )
-        //     )
-        //   })
-        //
-        //   try {
-        //     await queryFulfilled
-        //   } catch (e) {
-        //     patchResults.forEach(patchResult => patchResult.undo())
-        //   }
-        // },
+        async onQueryStarted({ args, cardId }, { dispatch, getState, queryFulfilled }) {
+          const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), ['Cards'])
+          const patchResults: any[] = []
+
+          invalidateBy.forEach(({ originalArgs }) => {
+            patchResults.push(
+              dispatch(
+                cardsService.util.updateQueryData('getCards', originalArgs, draft => {
+                  const itemToUpdateIndex = draft.items.findIndex(card => card.id === cardId)
+
+                  console.log('here', args, current(draft.items[itemToUpdateIndex]))
+
+                  if (itemToUpdateIndex === -1) {
+                    return
+                  }
+                  Object.assign(draft.items[itemToUpdateIndex], args)
+                })
+              )
+            )
+          })
+          try {
+            await queryFulfilled
+          } catch (e) {
+            patchResults.forEach(patchResult => patchResult.undo())
+          }
+        },
         query: ({ args, cardId }) => {
           const formData = new FormData()
           const { answer, answerImg, question, questionImg } = args
@@ -195,7 +186,20 @@ export const cardsService = flashCardsAPI.injectEndpoints({
         },
       }),
       updateCardGrade: builder.mutation<CardWithGradeResponse, SaveGradeRequest>({
-        invalidatesTags: ['Cards'],
+        onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+          const res = await queryFulfilled
+          const newCard: CardWithGradeResponse = res.data
+
+          dispatch(
+            cardsService.util.updateQueryData(
+              'getRandomCardById',
+              { id: newCard.deckId },
+              draft => {
+                Object.assign(draft, newCard)
+              }
+            )
+          )
+        },
 
         query: args => {
           return {

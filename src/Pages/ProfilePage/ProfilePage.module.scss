@@ -13,6 +13,7 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  padding-bottom: 40px;
 }
 
 .imgGroup {
@@ -24,6 +25,7 @@
   img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
     border-radius: 50%;
   }
 
@@ -82,6 +84,12 @@
   color: var(--color-dark-100);
 }
 
+.backBtn {
+  position: absolute;
+  bottom: -63px;
+  left: 0;
+}
+
 .logoutBtn {
   display: flex;
   gap: 10px;
@@ -90,12 +98,20 @@
 
   width: 122px;
   height: 36px;
-  margin-bottom: 40px;
 
   text-decoration-line: none;
 
   background-color: var(--color-dark-300);
   border-radius: 4px;
+  box-shadow: none;
+
+  &:focus-visible {
+    background-color: var(--color-dark-100);
+  }
+
+  &:hover {
+    background-color: var(--color-dark-100);
+  }
 }
 
 .nameEditWrapper {
@@ -107,4 +123,10 @@
 
 .inputStyle {
   width: 348px;
+}
+
+.backHome {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }

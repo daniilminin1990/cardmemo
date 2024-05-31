@@ -9,6 +9,7 @@ import {
 
 import EyeOff from '@/assets/icons/svg/EyeOff'
 import Typography from '@/components/ui/Typography/Typography'
+import { Button } from '@/components/ui/button'
 import clsx from 'clsx'
 
 import s from './Input.module.scss'
@@ -43,10 +44,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
   }
 
   //! ВОТ ЭТОТ useEffect добавил!
+  // Для зачистки инпута с кнопки ClearFilter или делать через useContext
   useEffect(() => {
-    // в value - search из searchParams, поэтому такое сравнение
-    props.value === '' && setInputValue('')
-  }, [props.value])
+    // в currentValue - search из searchParams, поэтому такое сравнение
+    props.currentValue === '' && setInputValue('')
+  }, [props.currentValue])
 
   const isShowChangeHandler = () => {
     setIsShow(!isShow)
@@ -82,13 +84,17 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
       </Typography>
       <div className={s.searchClose}>
         {type === 'password' && (
-          <EyeIcon className={s.Eye} onClick={isShowChangeHandler} viewBox={'0 0 24 24'} />
+          <Button className={s.Eye} onClick={isShowChangeHandler} type={'button'}>
+            <EyeIcon viewBox={'0 0 24 24'} />
+          </Button>
         )}
         {type === 'search' && <Search className={s.Search} viewBox={'0 0 24 24'} />}
 
         <div>
           {type === 'search' && (
-            <Close className={s.Close} onClick={clearInput} viewBox={'0 0 24 24'} />
+            <Button className={s.Close} onClick={clearInput}>
+              <Close viewBox={'0 0 24 24'} />
+            </Button>
           )}
         </div>
 

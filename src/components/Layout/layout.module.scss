@@ -1,14 +1,14 @@
-.layout {
-}
-
 .main {
   display: flex;
   flex-direction: column;
   align-items: center;
 
   width: 100%;
-  max-width: 1006px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding-top: var(--header-height);
   padding-inline: 24px;
+}
+
+.loader {
+  margin: 60px auto;
 }
