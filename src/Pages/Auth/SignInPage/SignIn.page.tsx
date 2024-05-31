@@ -70,7 +70,11 @@ export const SignInPage = () => {
               placeholder={'Password'}
               type={'password'}
             />
-            <FormCheckbox control={control} label={t('signInPage.rememberMe')} name={'rememberMe'} />
+            <FormCheckbox
+              control={control}
+              label={t('signInPage.rememberMe')}
+              name={'rememberMe'}
+            />
             <Typography
               as={Link}
               className={s.typographyForgotTitle}

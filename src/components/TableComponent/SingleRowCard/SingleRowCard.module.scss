@@ -1,0 +1,125 @@
+@import 'src/styles/mixins';
+
+.imgWrapper {
+  @include focus-visible-default;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: start;
+
+  text-decoration: none;
+}
+
+.wrapperCoverImg {
+  width: 118px;
+  height: 48px;
+
+  .coverImg {
+    width: 118px;
+    height: 48px;
+
+    object-fit: cover;
+
+    //object-position: 0 0;
+    object-position: center;
+
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.6);
+      height: auto;
+      object-fit: cover;
+    }
+  }
+}
+
+.grade {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10px;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  .star {
+    width: 16px;
+    height: 16px;
+    color: var(--color-warning-300);
+  }
+}
+
+.iconBtns {
+  position: relative;
+
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10px;
+  justify-content: center;
+
+  .btn {
+    position: relative;
+
+    display: inherit;
+
+    width: 16px;
+    height: 16px;
+    padding: 0;
+
+    background-color: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+
+    &::before {
+      content: '';
+
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+
+      width: 28px;
+      height: 28px;
+
+      opacity: 0.5;
+      background-color: transparent;
+      border-radius: 50%;
+
+      transition: 0.5s;
+    }
+
+    &:hover::before,
+    &:active::before,
+    &:focus-visible::before {
+      transform: translate(-50%, -50%) scale(1);
+      background-color: var(--color-dark-100);
+    }
+
+    &:active::before {
+      background-color: var(--color-dark-300);
+    }
+
+    &:disabled::before {
+      background-color: transparent;
+    }
+  }
+}
+
+.Edit2Outline,
+.TrashOutline {
+  cursor: pointer;
+
+  position: absolute;
+
+  width: 16px;
+  height: 16px;
+
+  color: var(--color-light-100);
+
+  &:disabled {
+    background-color: transparent;
+  }
+}

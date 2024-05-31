@@ -4,8 +4,8 @@ import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import Star from '@/assets/icons/svg/Star'
 import StarOutline from '@/assets/icons/svg/StarOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
-import { DeleteModal } from '@/components/ModalsForTable/DeleteModal/DeleteModal'
-import { ModalAddEditCard } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
+import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
+import { ModalAddEditCard } from '@/components/Modals/ModalEditCard/ModalAddEditCard'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
@@ -13,7 +13,7 @@ import { useMeQuery } from '@/services/auth/auth.service'
 import { useDeleteCardByIdMutation } from '@/services/cards/cards.service'
 import { CardResponse } from '@/services/cards/cards.types'
 
-import s from '@/components/TableComponent/tableSingleRow.module.scss'
+import s from './SingleRowCard.module.scss'
 
 type Props = {
   item: CardResponse
@@ -47,7 +47,7 @@ export const SingleRowCard = ({ item }: Props) => {
           Do you really want to delete card? Cards will be deleted !!!
         </Typography>
       </DeleteModal>
-      <Table.Row className={s.cardTableRow} key={item.id}>
+      <Table.Row key={item.id}>
         <Table.Cell>
           <Typography className={s.imgWrapper}>
             {item.questionImg && (
@@ -79,7 +79,7 @@ export const SingleRowCard = ({ item }: Props) => {
           )}
         </Table.Cell>
         <Table.Cell>
-          {item.userId === meData?.id ? (
+          {item.userId === meData?.id && (
             <div className={s.iconBtns}>
               <Button className={s.btn} onClick={() => setOpen(true)}>
                 <Edit2Outline className={s.Edit2Outline} />
@@ -88,8 +88,6 @@ export const SingleRowCard = ({ item }: Props) => {
                 <TrashOutline className={s.TrashOutline} />
               </Button>
             </div>
-          ) : (
-            <></>
           )}
         </Table.Cell>
       </Table.Row>
