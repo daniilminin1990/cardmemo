@@ -14,7 +14,7 @@ import { Layout } from '@/components/Layout/Layout'
 import { path } from '@/router/path'
 import { useMeQuery } from '@/services/auth/auth.service'
 
-const publicRoutes: RouteObject[] = [
+export const publicRoutes: RouteObject[] = [
   {
     element: <SignInPage />,
     path: `${path.login}`,
@@ -23,10 +23,7 @@ const publicRoutes: RouteObject[] = [
     element: <SignUp />,
     path: `${path.signUp}`,
   },
-  {
-    element: <ErrorPage />,
-    path: `${path['*']}`,
-  },
+
   {
     element: <CreateNewPassword />,
     path: `${path.createNewPassword}/:token`,
@@ -38,6 +35,10 @@ const publicRoutes: RouteObject[] = [
   {
     element: <CheckEmail />,
     path: `${path.checkEmail}/:email`,
+  },
+  {
+    element: <ErrorPage />,
+    path: `${path['*']}`,
   },
 ]
 

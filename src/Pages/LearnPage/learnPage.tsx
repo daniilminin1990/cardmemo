@@ -27,12 +27,10 @@ export const LearnPage = () => {
   const { deckId = '' } = useParams()
 
   const [isShowAnswer, setIsShowAnswer] = useState(false)
-  const [previousCardId, setPreviousCardId] = useState('')
 
   const { data: deckData } = useGetDeckByIdQuery({ id: deckId })
   const { data: randomCard, isLoading } = useGetRandomCardByIdQuery({
     id: deckId,
-    previousCardId,
   })
 
   const [updateCardGrade] = useUpdateCardGradeMutation()
@@ -50,7 +48,6 @@ export const LearnPage = () => {
       (await updateCardGrade({ cardId: randomCard.id, grade: Number(data.grade) })
         .unwrap()
         .then(() => {
-          setPreviousCardId(randomCard.id)
           setIsShowAnswer(false)
           setValue('grade', null)
         })
