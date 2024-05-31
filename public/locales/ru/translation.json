@@ -64,5 +64,52 @@
     "aLotThought": "Долго вспоминал",
     "confused": "Слегка озадачился",
     "knewAnswer": "Знал ответ"
+  },
+  "modalOnEmpty": {
+    "areYouSure": "Вы уверены, что хотите покинуть эту страницу?",
+    "reallyWant": "Вы действительно хотите покинуть эту страницу? Вы не создали ни одной карты!!!",
+    "no": "Нет",
+    "yes": "Да"
+  },
+  "tableComponentWithTypes": {
+    "name": "Имя",
+    "cards": "Колличество",
+    "lastUpdated": "Последнее обновление",
+    "createdBy": "Создано",
+    "pleaseAddAnyData": "Пожалуйста, добавьте данные для отображения",
+    "noContent": "Нет данных с такими условиями",
+    "question": "Вопрос",
+    "answer": "Ответ",
+    "grade": "Оценка"
+  },
+  "cardsPage": {
+    "backDeckList": "Вернуться на страницу с колодами",
+    "learn": "Изучить",
+    "edit": "Изменить",
+    "delete": "Удалить",
+    "emptyDeck": "Эта колода пуста. Нажмите кнопку добавить, чтобы заполнить эту колоду",
+    "unfortunatelyEmptyDeck": "К сожалению, эта колода пуста.",
+    "addNewCard": "Добавить карту"
+  },
+  "modalAddEditCard": {
+    "updateCard": "Изменить карту",
+    "addNewCard": "Добавить новую карту",
+    "question": "Вопрос",
+    "answer": "Ответ",
+    "saveChanges": "Сохранить",
+    "createCard": "Создать",
+    "cancel": "Отмена"
+  },
+  "dataFiller": {
+    "uploadImage": "Загрузить обложку",
+    "changeCover": "Изменить обложку"
+  },
+  "profilePage": {
+    "personalInfo": "Личная информация",
+    "signUp": "Зарегистрироваться",
+    "backDeckList": "Вернуться на страницу с колодами",
+    "saveChanges": "Сохранить",
+    "logout": "Выход",
+    "nickname": "Никнейм"
   }
 }

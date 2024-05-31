@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import { headersNameCards, headersNameDecks } from '@/common/globalVariables'
@@ -31,6 +32,7 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
   const { currentOrderBy, setSortByQuery } = useQueryParams()
   const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
   const { search } = useQueryParams()
+  const { t } = useTranslation()
 
   return (
     <Table.Root className={s.tableRoot}>
@@ -46,7 +48,8 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
               onClick={() => setSortByQuery(name.key)}
             >
               <Typography as={'button'} className={s.nameSortBtn} variant={'subtitle2'}>
-                {name.title}
+                {/*{name.title}*/}
+                {t(`${name.locale}`)}
                 {currentOrderBy.includes(name.key) && (
                   <ArrowIosDownOutline
                     className={`${s.arrow} ${currentOrderBy.includes('asc') ? s.rotate : ''}`}
@@ -68,8 +71,8 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
             <Table.Cell className={s.empty} colSpan={header.length + 1}>
               <Typography as={'span'} variant={'body1'}>
                 {search.length === 0
-                  ? 'Please add any data to show'
-                  : 'No content with these terms...'}
+                  ? `${t('tableComponentWithTypes.pleaseAddAnyData')}`
+                  : `${t('tableComponentWithTypes.noContent')}...`}
               </Typography>
             </Table.Cell>
           </Table.Row>
