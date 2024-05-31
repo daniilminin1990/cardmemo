@@ -8,8 +8,8 @@ export const useSliderQueryParams = () => {
 
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const sliderMin = Number(searchParams.get('min') ?? minMaxData?.min)
-  const sliderMax = Number(searchParams.get('max') ?? minMaxData?.max)
+  const sliderMin = Number(searchParams.get('min') ?? (minMaxData?.min || 0))
+  const sliderMax = Number(searchParams.get('max') ?? (minMaxData?.max || 0))
 
   const debouncedStartValue = useDebounce(sliderMin)
   const debouncedEndValue = useDebounce(sliderMax)

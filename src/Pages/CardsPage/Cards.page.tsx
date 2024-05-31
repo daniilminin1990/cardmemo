@@ -67,10 +67,12 @@ export const CardsPage = () => {
   const [openModal, setOpenModal] = useState(false)
   const [openEditDeckModal, setOpenEditDeckModal] = useState(false)
   const [openDeleteDeckModal, setOpenDeleteDeckModal] = useState(false)
+
   const handleItemsPerPageChange = (value: number) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setItemsPerPageQuery(value)
   }
+
   const handleCurrentPageChange = (value: number) => {
     setCurrentPageQuery(value)
   }
@@ -81,12 +83,15 @@ export const CardsPage = () => {
   }
 
   const cardsData = currentData ?? data
+
   const isCardsCountFilled = currentDeckData?.cardsCount !== 0
+
   const isCardsCountZero =
     currentDeckData?.cardsCount === 0 &&
     deck?.cardsCount === 0 &&
     currentData?.items?.length === 0 &&
     data?.items?.length === 0
+
   const isMineCards = currentDeckData?.userId === meData?.id
 
   const handleOpenModal = () => {
