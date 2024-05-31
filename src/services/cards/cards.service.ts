@@ -18,28 +18,32 @@ export const cardsService = flashCardsAPI.injectEndpoints({
     return {
       createCard: builder.mutation<CardResponse, { args: CreateCardArgs; deckId: string }>({
         // this is deckId
-        invalidatesTags: ['Deck', 'Cards'],
-        // async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
-        //   const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), ['Deck', 'Cards'])
-        //
-        //   try {
-        //     const { data } = await queryFulfilled // тут будет cardData
-        //
-        //     invalidateBy.forEach(({ originalArgs }) => {
-        //       dispatch(
-        //         cardsService.util.updateQueryData('getCards', originalArgs, draft => {
-        //           if (originalArgs.currentPage !== 1) {
-        //             return
-        //           } // Вот так делать в реальном проекте нельзя
-        //           draft.items.unshift(data)
-        //           draft.items.pop()
-        //         })
-        //       )
-        //     })
-        //   } catch (e) {
-        //     console.log(e)
-        //   }
-        // },
+        invalidatesTags: ['Decks', 'Cards'],
+        async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
+          const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), [
+            'Deck',
+            'Cards',
+            { id: 'List', type: 'Decks' },
+          ])
+
+          try {
+            const { data } = await queryFulfilled // тут будет cardData
+
+            invalidateBy.forEach(({ originalArgs }) => {
+              dispatch(
+                cardsService.util.updateQueryData('getCards', originalArgs, draft => {
+                  if (originalArgs.args.currentPage !== 1) {
+                    return
+                  } // Вот так делать в реальном проекте нельзя
+                  draft.items.unshift(data)
+                  draft.items.pop()
+                })
+              )
+            })
+          } catch (e) {
+            console.log(e)
+          }
+        },
         query: ({ args, deckId }) => {
           const formData = new FormData()
           const { answer, answerImg, question, questionImg } = args
