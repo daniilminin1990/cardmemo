@@ -1,4 +1,7 @@
+import { matchPath } from 'react-router-dom'
+
 import { throttledToastError } from '@/common/consts/toastVariants'
+import { publicRoutes, router } from '@/router/router'
 import { failedApiResponse } from '@/services/failedApiResponse'
 import { successApiResponse } from '@/services/successApiResponse'
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQuery } from '@reduxjs/toolkit/query'
@@ -66,8 +69,14 @@ export const baseQueryWithReauth: BaseQueryFn<
             // retry the initial query
             result = await baseQuery(args, api, extraOptions)
           } else {
-            /*ломает все, поэтому закоментил*/
-            // await router.navigate('/login')
+            /*!Исправили*/
+            const isPublicRoute = publicRoutes.find(route =>
+              matchPath(route.path ?? '', window.location.pathname)
+            )
+
+            if (!isPublicRoute) {
+              void router.navigate('/login')
+            }
           }
         } finally {
           // release must be called once the mutex should be released again.
