@@ -1,0 +1,28 @@
+.button {
+  width: 100px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.modal {
+  margin-left: 10px;
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 45px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-evenly;
+}

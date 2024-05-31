@@ -4,8 +4,8 @@ import { Link, useParams } from 'react-router-dom'
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
-import { DeleteModal } from '@/components/ModalsForTable/DeleteModal/DeleteModal'
-import { ModalAddEditDeck } from '@/components/ModalsForTable/ModalAddEditDeck'
+import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
+import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
@@ -16,7 +16,7 @@ import { Deck } from '@/services/decks/deck.types'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service'
 import clsx from 'clsx'
 
-import s from '@/components/TableComponent/tableSingleRow.module.scss'
+import s from './SingleRowDeck.module.scss'
 
 type Props = {
   item: Deck

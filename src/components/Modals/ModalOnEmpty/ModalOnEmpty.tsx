@@ -6,8 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
 import { path } from '@/router/path'
 
-import style from './ModalOnEmpty.module.scss'
-import s from '@/components/ModalsForTable/modals.module.scss'
+import s from './ModalOnEmpty.module.scss'
 
 type Props = {
   open: boolean
@@ -30,10 +29,10 @@ const ModalOnEmpty = (props: Props) => {
         <Typography variant={'body1'}>{t('modalOnEmpty.reallyWant')}</Typography>
       </div>
       <div className={s.footer}>
-        <Button className={style.button} onClick={onDeleteDeckHandler} variant={'secondary'}>
+        <Button className={s.button} onClick={onDeleteDeckHandler} variant={'secondary'}>
           <Typography variant={'subtitle2'}>{t('modalOnEmpty.no')}</Typography>
         </Button>
-        <Button as={Link} className={style.button} to={`${path.decks}`} variant={'primary'}>
+        <Button as={Link} className={s.button} to={`${path.decks}`} variant={'primary'}>
           <Typography variant={'subtitle2'}>{t('modalOnEmpty.yes')}</Typography>
         </Button>
       </div>

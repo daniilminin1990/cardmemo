@@ -12,19 +12,15 @@ import clsx from 'clsx'
 
 import s from './tableComponent.module.scss'
 
-// Типизация для Item, которая будет применена для map от data,
-// она поймет что тип Deck или Card для соответствующей таблицы
 type Item<T> = T extends Deck[] ? Deck : CardResponse
 
-// Передаем эту типизацию Item для children в Props
 type Props<T extends CardResponse[] | Deck[]> = {
   children: (item: Item<T>) => ReactNode
   data?: T
   isLoading?: boolean
   tableHeader: { key: string; title: string }[]
 }
-// Получается что TableComponentWithTypes похож немного на полиморфную компоненту, только с 2 типами
-// для Card[] или для Decks[]
+
 export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
   children,
   data,

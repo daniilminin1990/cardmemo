@@ -19,7 +19,7 @@ import { useQueryParams } from '@/hooks/useQueryParams'
 import { Deck } from '@/services/decks/deck.types'
 import { useCreateDeckMutation, useUpdateDeckMutation } from '@/services/decks/decks.service'
 
-import s from './modals.module.scss'
+import s from './AddEditDeckModal.module.scss'
 
 type ModalAddEditProps = {
   item?: Deck
