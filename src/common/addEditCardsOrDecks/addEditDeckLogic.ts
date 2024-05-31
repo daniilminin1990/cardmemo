@@ -9,10 +9,10 @@ type Props = {
   item?: Deck
 }
 export const useAddEditDeckLogic = ({ item }: Props) => {
-  const refInputImg = useRef<HTMLInputElement>(null)
-  const [cover, setCover] = useState<File | null | undefined>(undefined)
   const initPreview = item ? item.cover ?? null : ''
   const [preview, setPreview] = useState<null | string>(initPreview)
+  const [cover, setCover] = useState<File | null | undefined>(undefined)
+  const refInputImg = useRef<HTMLInputElement>(null)
   const { control, handleSubmit } = useForm<FormValuesAddEditDeck>({
     defaultValues: item
       ? { isPrivate: item.isPrivate, name: item.name }

@@ -9,6 +9,8 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { CardResponse } from '@/services/cards/cards.types'
+import { cardsActions } from '@/services/cardsSlice/cardsSlice'
+import { useAppDispatch } from '@/services/store'
 
 import s from './dataFiller.module.scss'
 
@@ -22,6 +24,7 @@ type DataFillerProps = {
 }
 export const DataFiller = (props: DataFillerProps) => {
   const { getImageHandler, item, label, questionOrAnswer, ...rest } = props
+  const dispatch = useAppDispatch()
   // const initPreview = item ? img ?? null : ''
   // const [preview, setPreview] = useState<null | string>(initPreview)
   // const [cover, setCover] = useState<File | null | undefined>(undefined)
@@ -53,6 +56,7 @@ export const DataFiller = (props: DataFillerProps) => {
     control: rest.control,
     img: rest.img,
     item,
+    label,
   })
 
   console.log({ DFpreview: preview })
@@ -64,12 +68,17 @@ export const DataFiller = (props: DataFillerProps) => {
     //   setPreview(URL.createObjectURL(e.target.files[0]))
     // }
     // ! Это условие чтобы не давать сэтать одинаковые картинки и вследствии не отправлять на сервер
-    setCover(
+    const newCover =
       cover?.lastModified === e.target.files?.[0].lastModified ||
-        cover?.name === e.target.files?.[0].name
+      cover?.name === e.target.files?.[0].name
         ? null
         : e.target.files?.[0] ?? undefined
-    )
+
+    setCover(newCover)
+    label === 'question'
+      ? dispatch(cardsActions.setQuestionImg({ questionImg: newCover }))
+      : dispatch(cardsActions.setAnswerImg({ answerImg: newCover }))
+
     // getImageHandler(e.target.files?.[0] ?? null)
     getImageHandler(e.target.files?.[0] ?? undefined)
     e.target.value = ''
@@ -104,6 +113,9 @@ export const DataFiller = (props: DataFillerProps) => {
             className={s.uploadImg}
             fullWidth
             onClick={() => {
+              label === 'question'
+                ? dispatch(cardsActions.setPreviewQuestion({ previewQuestion: null }))
+                : dispatch(cardsActions.setPreviewAnswer({ previewAnswer: null }))
               setPreview(null)
               setCover(null)
             }}

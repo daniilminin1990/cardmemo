@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import { FormValuesAddEditCard, schemaAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
@@ -10,6 +11,7 @@ import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { useCreateCardMutation, useUpdateCardMutation } from '@/services/cards/cards.service'
 import { CardResponse } from '@/services/cards/cards.types'
+import { cardsSelectors, cardsSlice } from '@/services/cardsSlice/cardsSlice'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './modalEditCard.module.scss'
@@ -20,17 +22,18 @@ type ModalAddEditProps = {
   setOpen: (value: boolean) => void
 }
 
-export type GetImagesState = {
-  img: File | null | undefined
-  preview: null | string
-}
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { clearQuery } = useQueryParams()
   const [answerImg, setAnswerImg] = useState<File | null | undefined>(undefined)
   const [questionImg, setQuestionImg] = useState<File | null | undefined>(undefined)
-  const initAnswerPreview = item ? item.answerImg ?? null : ''
-  const initQuestionPreview = item ? item.answerImg ?? null : ''
+  const aImg = useSelector(cardsSelectors.cardAnswerImg)
+  const qImg = useSelector(cardsSelectors.cardQuestionImg)
+  const aPreImg = useSelector(cardsSelectors.cardPreviewAnswer)
+  const qPreImg = useSelector(cardsSelectors.cardPreviewQuestion)
+
+  console.log({ aPreImg, qPreImg })
+  console.log({ aImg, qImg })
 
   const deckId = useParams().deckId
 
