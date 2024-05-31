@@ -111,7 +111,7 @@ export const ProfilePage = () => {
                 </Typography>
 
                 <div className={s.backBtn}>
-                  <BackBtn as={Link} name={t('profilePage.backDeckList')} path={path.decks} />
+                  <BackBtn to={path.decks}>{t('profilePage.backDeckList')}</BackBtn>
                 </div>
 
                 <Button

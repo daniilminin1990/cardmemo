@@ -125,12 +125,9 @@ export const CardsPage = () => {
           setIsDeleteModal={setOpenDeleteDeckModal}
         />
         <div className={s.heading}>
-          <BackBtn
-            as={Link}
-            name={t('cardsPage.backDeckList')}
-            onClick={handleOpenModal}
-            path={'#'}
-          />
+          <BackBtn onClick={handleOpenModal} to={'#'}>
+            {t('cardsPage.backDeckList')}
+          </BackBtn>
           <div className={s.headingSecondRow}>
             <div className={clsx(deck?.cover && s.isWithImage)}>
               <div className={s.info}>
