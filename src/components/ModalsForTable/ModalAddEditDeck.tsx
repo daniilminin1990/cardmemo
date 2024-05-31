@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react'
-import { Controller, SubmitHandler } from 'react-hook-form'
+import { SubmitHandler } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
 import { useAddEditDeckLogic } from '@/common/addEditCardsOrDecks/addEditDeckLogic'
@@ -11,7 +12,6 @@ import Input from '@/components/ui/Input/Input'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
-import Checkbox from '@/components/ui/checkbox/checkbox'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
@@ -28,6 +28,7 @@ type ModalAddEditProps = {
 
 export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
+  const { t } = useTranslation()
   const { clearQuery, setCurrentPageQuery } = useQueryParams()
   const { control, cover, handleSubmit, preview, refInputImg, setCover, setPreview } =
     useAddEditDeckLogic({
@@ -82,7 +83,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
         className={s.customClass}
         onOpenChange={handleOnClose}
         open={open}
-        title={item ? 'Update Deck' : 'Add New Deck'}
+        title={item ? `${t('modalAddEditDeck.updateDeck')}` : `${t('modalAddEditDeck.addNewDeck')}`}
       >
         <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={s.body}>
@@ -93,7 +94,9 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
               className={s.input}
               control={control}
               currentValue={item ? item?.name : ''}
-              label={item ? 'Edit title' : 'Type new Deck name'}
+              label={
+                item ? `${t('modalAddEditDeck.editTitle')}` : `${t('modalAddEditDeck.nameDeck')}`
+              }
               name={'name'}
             />
             <div className={s.buttonsWrapper}>
@@ -107,15 +110,16 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
                   }}
                   type={'button'}
                 >
-                  <Typography variant={'subtitle2'}>Remove cover</Typography>
+                  <Typography variant={'subtitle2'}>{t('modalAddEditDeck.removeCover')}</Typography>
                 </Button>
               )}
               <Button className={s.uploadImg} fullWidth onClick={handleSubmitImg} type={'button'}>
                 <ImageOutline className={s.icon} />
                 <Typography variant={'subtitle2'}>
-                  {preview ? 'Change cover' : 'Upload Image'}
+                  {preview
+                    ? `${t('modalAddEditDeck.changeCover')}`
+                    : `${t('modalAddEditDeck.uploadImage')}`}
                 </Typography>
-                {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
                 <Input
                   accept={'image/*'}
                   className={s.inputImg}
@@ -127,21 +131,22 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
                 />
               </Button>
             </div>
-            <Controller
+            <FormCheckbox
               control={control}
-              defaultValue={false}
+              label={t('modalAddEditDeck.private')}
               name={'isPrivate'}
-              render={({ field: { onChange, value = item?.isPrivate } }) => (
-                <Checkbox checked={value} label={'Is Private'} onCheckedChange={onChange} />
-              )}
             />
           </div>
           <div className={s.footer}>
             <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
-              <Typography variant={'subtitle2'}>Cancel</Typography>
+              <Typography variant={'subtitle2'}>{t('modalAddEditDeck.cancel')}</Typography>
             </Button>
             <Button>
-              <Typography variant={'subtitle2'}>{item ? 'Save changes' : 'Create Pack'}</Typography>
+              <Typography variant={'subtitle2'}>
+                {item
+                  ? `${t('modalAddEditDeck.saveChanges')}`
+                  : `${t('modalAddEditDeck.createPack')}`}
+              </Typography>
             </Button>
           </div>
         </form>

@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react'
 import { Control } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
 import { useAddEditCardLogic } from '@/common/addEditCardsOrDecks/addEditCardLogic'
@@ -32,6 +33,7 @@ export const DataFiller = (props: DataFillerProps) => {
     label,
   })
 
+  const { t } = useTranslation()
   const title = label.charAt(0).toUpperCase() + label.slice(1)
 
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +94,10 @@ export const DataFiller = (props: DataFillerProps) => {
         )}
         <Button className={s.uploadImg} fullWidth onClick={handleSubmitImg} type={'button'}>
           <ImageOutline className={s.icon} />
-          <Typography variant={'subtitle2'}>{preview ? 'Change cover' : 'Upload Image'}</Typography>
+          <Typography variant={'subtitle2'}>
+            {preview ? `${t('dataFiller.changeCover')}` : `${t('dataFiller.uploadImage')}`}
+          </Typography>
+          {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
           <Input
             accept={'image/*'}
             className={s.inputImg}

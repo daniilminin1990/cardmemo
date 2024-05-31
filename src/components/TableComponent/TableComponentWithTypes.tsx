@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import { headersNameCards, headersNameDecks } from '@/common/globalVariables'
@@ -33,15 +34,16 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
   const { currentOrderBy, setSortByQuery } = useQueryParams()
   const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
   const { search } = useQueryParams()
+  const { t } = useTranslation()
 
   let message = ''
 
   if (isLoading) {
     message = 'Please wait, the data is loading'
   } else if (search.length === 0) {
-    message = 'Please add any data to show or clear filters'
+    message = `${t('tableComponentWithTypes.pleaseAddAnyData')}`
   } else {
-    message = 'No content with these terms...'
+    message = `${t('tableComponentWithTypes.noContent')}...`
   }
 
   return (
@@ -57,7 +59,8 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
               onClick={() => setSortByQuery(name.key)}
             >
               <Typography as={'button'} className={s.nameSortBtn} variant={'subtitle2'}>
-                {name.title}
+                {/*{name.title}*/}
+                {t(`${name.locale}`)}
                 {currentOrderBy.includes(name.key) && (
                   <ArrowIosDownOutline
                     className={`${s.arrow} ${currentOrderBy.includes('asc') ? s.rotate : ''}`}

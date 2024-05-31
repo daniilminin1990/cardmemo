@@ -1,5 +1,6 @@
 import { ChangeEvent, useRef, useState } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
@@ -24,6 +25,7 @@ import s from './ProfilePage.module.scss'
 import defaultAvatar from '../../assets/img/defaultAvatar.png'
 
 export const ProfilePage = () => {
+  const { t } = useTranslation()
   const { control, handleSubmit } = useForm<PersonalInfoFormValue>({
     mode: 'onSubmit',
     resolver: zodResolver(PersonalInfoScheme),
@@ -61,7 +63,7 @@ export const ProfilePage = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Typography as={'h1'} className={s.title} variant={'h1'}>
-              Personal Information
+              {t('profilePage.personalInfo')}
             </Typography>
           </div>
 
@@ -109,7 +111,7 @@ export const ProfilePage = () => {
                 </Typography>
 
                 <div className={s.backBtn}>
-                  <BackBtn as={Link} name={'Back to Deck List'} path={path.decks} />
+                  <BackBtn as={Link} name={t('profilePage.backDeckList')} path={path.decks} />
                 </div>
 
                 <Button
@@ -119,7 +121,7 @@ export const ProfilePage = () => {
                   to={`${path.login}`}
                 >
                   <LogOut className={s.logoutIcon} />
-                  <Typography variant={'body2'}>Logout</Typography>
+                  <Typography variant={'body2'}>{t('profilePage.logout')}</Typography>
                 </Button>
               </div>
             ) : (
@@ -128,13 +130,13 @@ export const ProfilePage = () => {
                   className={s.inputStyle}
                   control={control}
                   currentValue={me?.name}
-                  label={'Nickname'}
+                  label={t('profilePage.nickname')}
                   name={'nickName'}
                   placeholder={'Type new nickname'}
                   type={'text'}
                 />
                 <Button fullWidth>
-                  <Typography variant={'body2'}>Save changes</Typography>
+                  <Typography variant={'body2'}>{t('profilePage.saveChanges')}</Typography>
                 </Button>
               </div>
             )}

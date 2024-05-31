@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { handleToastWarning } from '@/common/consts/toastVariants'
@@ -22,7 +23,7 @@ export const LearnPage = () => {
     defaultValues: { grade: null },
   })
   const navigate = useNavigate()
-
+  const { t } = useTranslation()
   const { deckId = '' } = useParams()
 
   const [isShowAnswer, setIsShowAnswer] = useState(false)
@@ -37,11 +38,11 @@ export const LearnPage = () => {
   const [updateCardGrade] = useUpdateCardGradeMutation()
 
   const gradeNames = [
-    { grade: 1, name: 'Did not know' },
-    { grade: 2, name: 'Forgot' },
-    { grade: 3, name: 'A lot of thought' },
-    { grade: 4, name: 'Confused' },
-    { grade: 5, name: 'Knew the answer' },
+    { grade: 1, name: `${t('learnPage.didtKnow')}` },
+    { grade: 2, name: `${t('learnPage.forgot')}` },
+    { grade: 3, name: `${t('learnPage.aLotThought')}` },
+    { grade: 4, name: `${t('learnPage.confused')}` },
+    { grade: 5, name: `${t('learnPage.knewAnswer')}` },
   ]
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
@@ -71,15 +72,15 @@ export const LearnPage = () => {
 
   return (
     <section>
-      <BackBtn as={Link} name={'Back to Previous Page'} onClick={goBack} path={`#`} />
+      <BackBtn as={Link} name={t('learnPage.backPreviousPage')} onClick={goBack} path={`#`} />
       {randomCard && (
         <Card className={s.card}>
           <div className={s.container}>
             <Typography as={'h1'} className={s.title} variant={'h1'}>
-              Learn {deckData?.name}
+              {`${t('learnPage.learn')}: "${deckData?.name}"`}
             </Typography>
             <Typography as={'span'} className={s.question} variant={'subtitle1'}>
-              Question:
+              {`${t('learnPage.question')}: `}
               <Typography as={'span'} className={s.text} variant={'body1'}>
                 {randomCard.question}
               </Typography>
@@ -90,12 +91,12 @@ export const LearnPage = () => {
               </div>
             )}
             <Typography as={'h2'} className={s.passQuest} variant={'body2'}>
-              Count of attempts: {randomCard.shots}
+              {`${t('learnPage.countAttempts')}: ${randomCard.shots}`}
             </Typography>
             {isShowAnswer ? (
               <>
                 <Typography as={'span'} className={s.question} variant={'subtitle1'}>
-                  Answer:
+                  {`${t('learnPage.answer')}: `}
                   <Typography as={'span'} className={s.text} variant={'body1'}>
                     {randomCard.answer}
                   </Typography>
@@ -103,6 +104,9 @@ export const LearnPage = () => {
                 {randomCard.answerImg && (
                   <div className={s.answerCardImg}>
                     <img alt={'answer card img'} src={randomCard.answerImg} />
+                    <Typography as={'span'} className={s.question} variant={'subtitle1'}>
+                      {`${t('learnPage.rateYourself')}: `}
+                    </Typography>
                   </div>
                 )}
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -125,13 +129,13 @@ export const LearnPage = () => {
                     )}
                   />
                   <Button as={'button'} className={s.nextQuestionBtn} fullWidth type={'submit'}>
-                    <Typography as={'span'}>Next Question</Typography>
+                    <Typography as={'span'}>{t('learnPage.nextQuestion')}</Typography>
                   </Button>
                 </form>
               </>
             ) : (
               <Button as={'button'} className={s.showBtn} onClick={showAnswerHandler}>
-                <Typography as={'span'}>Show Answer</Typography>
+                <Typography as={'span'}>{t('learnPage.showAnswer')}</Typography>
               </Button>
             )}
           </div>

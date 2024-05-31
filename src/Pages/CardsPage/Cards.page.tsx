@@ -1,4 +1,5 @@
 import { ChangeEvent, useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
 
 import groupIcon from '@/assets/icons/WhiteSVG/Group 1399.svg'
@@ -37,6 +38,7 @@ import s from './cardsPage.module.scss'
 
 export const CardsPage = () => {
   const context = useContext(UserContext)
+  const { t } = useTranslation()
   const {
     currentOrderBy,
     currentPage,
@@ -118,7 +120,12 @@ export const CardsPage = () => {
           setIsDeleteModal={setOpenDeleteDeckModal}
         />
         <div className={s.heading}>
-          <BackBtn as={Link} name={`Back to Deck List`} onClick={handleOpenModal} path={'#'} />
+          <BackBtn
+            as={Link}
+            name={t('cardsPage.backDeckList')}
+            onClick={handleOpenModal}
+            path={'#'}
+          />
           <div className={s.headingSecondRow}>
             <div className={clsx(deck?.cover && s.isWithImage)}>
               <div className={s.info}>
@@ -135,25 +142,25 @@ export const CardsPage = () => {
                       <DropDownItem
                         handleOnClick={notifyLearnHandler}
                         icon={playIcon}
-                        text={'Learn'}
+                        text={t('cardsPage.learn')}
                       />
                     ) : (
                       <DropDownItem
                         href={`${path.decks}/${deckId}${path.learn}`}
                         icon={playIcon}
-                        text={'Learn'}
+                        text={t('cardsPage.learn')}
                       />
                     )}
 
                     <DropDownItem
                       handleOnClick={() => setOpenEditDeckModal(true)}
                       icon={menuIcon2}
-                      text={'Edit'}
+                      text={t('cardsPage.edit')}
                     />
                     <DropDownItem
                       handleOnClick={() => setOpenDeleteDeckModal(true)}
                       icon={menuIcon}
-                      text={'Delete'}
+                      text={t('cardsPage.delete')}
                     />
                   </DropdownMenuDemo>
                 )}
@@ -166,7 +173,7 @@ export const CardsPage = () => {
               <div className={s.switchButton}>
                 {isMineCards ? (
                   <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
-                    <Typography variant={'subtitle2'}>Add New Card</Typography>
+                    <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
                   </Button>
                 ) : (
                   <Button
@@ -196,12 +203,12 @@ export const CardsPage = () => {
           <div className={s.emptyContent}>
             <Typography variant={'body1'}>
               {isMineCards
-                ? 'This deck is empty. Click add new card to fill this pack'
-                : 'Unfortunately this deck is empty'}
+                ? `${t('cardsPage.emptyDeck')}`
+                : `${t('cardsPage.unfortunatelyEmptyDeck')}`}
             </Typography>
             {isMineCards && (
               <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
-                <Typography variant={'subtitle2'}>Add New Card</Typography>
+                <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
               </Button>
             )}
           </div>

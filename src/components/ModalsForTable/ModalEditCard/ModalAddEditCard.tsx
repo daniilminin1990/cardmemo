@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { getEditCardNotifyMsg } from '@/common/addEditCardsOrDecks/getEditCardNotifyMsg'
@@ -26,6 +27,7 @@ type ModalAddEditProps = {
 }
 
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
+  const { t } = useTranslation()
   const { item, open, setOpen } = props
   const { clearQuery } = useQueryParams()
   const answerImg = useSelector(cardsSelectors.cardAnswerImg)
@@ -92,7 +94,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
         className={s.customClass}
         onOpenChange={handleOnClose}
         open={open}
-        title={item ? 'Update Card' : 'Add New Card'}
+        title={item ? `${t('modalAddEditCard.updateCard')}` : `${t('modalAddEditCard.addNewCard')}`}
       >
         <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={s.body}>
@@ -100,23 +102,27 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
               control={control}
               img={item?.questionImg}
               item={item}
-              label={'question'}
+              label={t('modalAddEditCard.question')}
               questionOrAnswer={item?.question}
             />
             <DataFiller
               control={control}
               img={item?.answerImg}
               item={item}
-              label={'answer'}
+              label={t('modalAddEditCard.answer')}
               questionOrAnswer={item?.answer}
             />
           </div>
           <div className={s.footer}>
             <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
-              <Typography variant={'subtitle2'}>Cancel</Typography>
+              <Typography variant={'subtitle2'}>{t('modalAddEditCard.cancel')}</Typography>
             </Button>
             <Button onClick={handleSubmit(onSubmit)} type={'submit'}>
-              <Typography variant={'subtitle2'}>{item ? 'Save changes' : 'Create Card'}</Typography>
+              <Typography variant={'subtitle2'}>
+                {item
+                  ? `${t('modalAddEditCard.saveChanges')}`
+                  : `${t('modalAddEditCard.createCard')}`}
+              </Typography>
             </Button>
           </div>
         </form>

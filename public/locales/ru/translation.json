@@ -1,4 +1,7 @@
 {
+  "localeSwitcher": {
+    "language": "Ru"
+  },
   "header": {
     "signIn": "Войти",
     "signOut": "Выйти",
@@ -8,6 +11,7 @@
     "numberOfCards": "Количество карт",
     "showDecksCards": "Отображать колоды",
     "decksList": "Список колод",
+    "addNewDeck": "Добавить новую колоду",
     "clearFilter": "Очистить"
   },
   "useTabsValuesParams": {
@@ -22,5 +26,107 @@
     "checkEmail": "Проверить почту",
     "instruction": "Мы отправили электронное письмо с инструкциями на",
     "backToSignIn": "Вернуться к странице входа"
+  },
+  "modalAddEditDeck": {
+    "addNewDeck": "Добавить новую колоду",
+    "updateDeck": "Редактировать колоду",
+    "editTitle": "Изменить имя",
+    "nameDeck": "Название колоды",
+    "removeCover": "Удалить обложку",
+    "uploadImage": "Загрузить обложку",
+    "changeCover": "Изменить обложку",
+    "private": "Приватная",
+    "namePack": "Имя колоды",
+    "cancel": "Отмена",
+    "saveChanges": "Сохранить",
+    "createPack": "Создать"
+  },
+  "signInPage": {
+    "signIn": "Войти",
+    "email": "Почта",
+    "password": "Пароль",
+    "rememberMe": "Запомнить меня",
+    "forgotPassword": "Забыли пароль?",
+    "dontHaveAccount": "Нет аккаунта?",
+    "signUp": "Регистрация"
+  },
+  "learnPage": {
+    "backPreviousPage": "Вернуться на предыдущую страницу",
+    "learn": "Изучить",
+    "question": "Вопрос",
+    "countAttempts": "Количество попыток",
+    "answer": "Ответ",
+    "showAnswer": "Показать ответ",
+    "rateYourself": "Оценить себя",
+    "nextQuestion": "Следующий вопрос",
+    "didtKnow": "Не знал",
+    "forgot": "Забыл",
+    "aLotThought": "Долго вспоминал",
+    "confused": "Слегка озадачился",
+    "knewAnswer": "Знал ответ"
+  },
+  "modalOnEmpty": {
+    "areYouSure": "Вы уверены, что хотите покинуть эту страницу?",
+    "reallyWant": "Вы действительно хотите покинуть эту страницу? Вы не создали ни одной карты!!!",
+    "no": "Нет",
+    "yes": "Да"
+  },
+  "tableComponentWithTypes": {
+    "name": "Имя",
+    "cards": "Колличество",
+    "lastUpdated": "Последнее обновление",
+    "createdBy": "Создано",
+    "pleaseAddAnyData": "Пожалуйста, добавьте данные для отображения",
+    "noContent": "Нет данных с такими условиями",
+    "question": "Вопрос",
+    "answer": "Ответ",
+    "grade": "Оценка"
+  },
+  "cardsPage": {
+    "backDeckList": "Вернуться на страницу с колодами",
+    "learn": "Изучить",
+    "edit": "Изменить",
+    "delete": "Удалить",
+    "emptyDeck": "Эта колода пуста. Нажмите кнопку добавить, чтобы заполнить эту колоду",
+    "unfortunatelyEmptyDeck": "К сожалению, эта колода пуста.",
+    "addNewCard": "Добавить карту"
+  },
+  "modalAddEditCard": {
+    "updateCard": "Изменить карту",
+    "addNewCard": "Добавить новую карту",
+    "question": "Вопрос",
+    "answer": "Ответ",
+    "saveChanges": "Сохранить",
+    "createCard": "Создать",
+    "cancel": "Отмена"
+  },
+  "dataFiller": {
+    "uploadImage": "Загрузить обложку",
+    "changeCover": "Изменить обложку"
+  },
+  "profilePage": {
+    "personalInfo": "Личная информация",
+    "signUp": "Регистрация",
+    "backDeckList": "Вернуться на страницу с колодами",
+    "saveChanges": "Сохранить",
+    "logout": "Выход",
+    "nickname": "Никнейм"
+  },
+  "forgotPassword": {
+    "forgotPassword": "Забыли пароль?",
+    "email": "Почта",
+    "enterYourEmail": "Введите свой адрес электронной почты, и мы вышлем вам дальнейшие инструкции",
+    "rememberPassword": "Помните пароль?",
+    "tryLogIn": "Попробуйте войти в систему",
+    "sendInstructions": "Отправить инструкции"
+  },
+  "signUp": {
+    "signUp": "Регистрация",
+    "email": "Почта",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердить пароль",
+    "haveAccount": "Уже есть аккаунт?",
+    "signIn": "Войти",
+    "submit": "Подтвердить"
   }
 }
