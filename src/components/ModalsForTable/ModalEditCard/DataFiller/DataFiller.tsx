@@ -16,41 +16,14 @@ import s from './dataFiller.module.scss'
 
 type DataFillerProps = {
   control: Control<FormValuesAddEditCard, any>
-  getImageHandler: (img: File | null | undefined) => void
   img: null | string | undefined
   item?: CardResponse
   label: keyof FormValuesAddEditCard
   questionOrAnswer: string | undefined
 }
 export const DataFiller = (props: DataFillerProps) => {
-  const { getImageHandler, item, label, questionOrAnswer, ...rest } = props
+  const { item, label, questionOrAnswer, ...rest } = props
   const dispatch = useAppDispatch()
-  // const initPreview = item ? img ?? null : ''
-  // const [preview, setPreview] = useState<null | string>(initPreview)
-  // const [cover, setCover] = useState<File | null | undefined>(undefined)
-  // const refInputImg = useRef<HTMLInputElement>(null)
-  //
-  // const title = label.charAt(0).toUpperCase() + label.slice(1)
-  //
-  // useEffect(() => {
-  //   if (img) {
-  //     setPreview(img)
-  //   }
-  // }, [img])
-  // // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
-  // useEffect(() => {
-  //   if (cover) {
-  //     const newPreviewQuestion = URL.createObjectURL(cover)
-  //
-  //     if (preview) {
-  //       URL.revokeObjectURL(preview)
-  //     }
-  //
-  //     setPreview(newPreviewQuestion)
-  //
-  //     return () => URL.revokeObjectURL(newPreviewQuestion)
-  //   }
-  // }, [cover])
 
   const { control, cover, preview, refInputImg, setCover, setPreview } = useAddEditCardLogic({
     control: rest.control,
@@ -59,7 +32,6 @@ export const DataFiller = (props: DataFillerProps) => {
     label,
   })
 
-  console.log({ DFpreview: preview })
   const title = label.charAt(0).toUpperCase() + label.slice(1)
 
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
@@ -78,13 +50,18 @@ export const DataFiller = (props: DataFillerProps) => {
     label === 'question'
       ? dispatch(cardsActions.setQuestionImg({ questionImg: newCover }))
       : dispatch(cardsActions.setAnswerImg({ answerImg: newCover }))
-
-    // getImageHandler(e.target.files?.[0] ?? null)
-    getImageHandler(e.target.files?.[0] ?? undefined)
     e.target.value = ''
   }
   const handleSubmitImg = () => {
     refInputImg?.current?.click()
+  }
+
+  const handleRemoveImgs = () => {
+    label === 'question'
+      ? dispatch(cardsActions.setPreviewQuestion({ previewQuestion: null }))
+      : dispatch(cardsActions.setPreviewAnswer({ previewAnswer: null }))
+    setPreview(null)
+    setCover(null)
   }
 
   return (
@@ -109,25 +86,13 @@ export const DataFiller = (props: DataFillerProps) => {
       )}
       <div className={s.buttonsWrapper}>
         {preview && (
-          <Button
-            className={s.uploadImg}
-            fullWidth
-            onClick={() => {
-              label === 'question'
-                ? dispatch(cardsActions.setPreviewQuestion({ previewQuestion: null }))
-                : dispatch(cardsActions.setPreviewAnswer({ previewAnswer: null }))
-              setPreview(null)
-              setCover(null)
-            }}
-            type={'button'}
-          >
+          <Button className={s.uploadImg} fullWidth onClick={handleRemoveImgs} type={'button'}>
             <Typography variant={'subtitle2'}>Remove cover</Typography>
           </Button>
         )}
         <Button className={s.uploadImg} fullWidth onClick={handleSubmitImg} type={'button'}>
           <ImageOutline className={s.icon} />
           <Typography variant={'subtitle2'}>{preview ? 'Change cover' : 'Upload Image'}</Typography>
-          {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
           <Input
             accept={'image/*'}
             className={s.inputImg}

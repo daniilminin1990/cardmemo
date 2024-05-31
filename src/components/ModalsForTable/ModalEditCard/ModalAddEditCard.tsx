@@ -1,17 +1,20 @@
-import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
+import { getEditCardNotifyMsg } from '@/common/addEditCardsOrDecks/getEditCardNotifyMsg'
+import { handleToastInfo } from '@/common/consts/toastVariants'
 import { FormValuesAddEditCard, schemaAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import { DataFiller } from '@/components/ModalsForTable/ModalEditCard/DataFiller/DataFiller'
+import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { useCreateCardMutation, useUpdateCardMutation } from '@/services/cards/cards.service'
 import { CardResponse } from '@/services/cards/cards.types'
-import { cardsSelectors, cardsSlice } from '@/services/cardsSlice/cardsSlice'
+import { cardsActions, cardsSelectors } from '@/services/cardsSlice/cardsSlice'
+import { useAppDispatch } from '@/services/store'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './modalEditCard.module.scss'
@@ -25,20 +28,16 @@ type ModalAddEditProps = {
 export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { clearQuery } = useQueryParams()
-  const [answerImg, setAnswerImg] = useState<File | null | undefined>(undefined)
-  const [questionImg, setQuestionImg] = useState<File | null | undefined>(undefined)
-  const aImg = useSelector(cardsSelectors.cardAnswerImg)
-  const qImg = useSelector(cardsSelectors.cardQuestionImg)
-  const aPreImg = useSelector(cardsSelectors.cardPreviewAnswer)
-  const qPreImg = useSelector(cardsSelectors.cardPreviewQuestion)
-
-  console.log({ aPreImg, qPreImg })
-  console.log({ aImg, qImg })
+  const answerImg = useSelector(cardsSelectors.cardAnswerImg)
+  const questionImg = useSelector(cardsSelectors.cardQuestionImg)
+  const previewAnswerImg = useSelector(cardsSelectors.cardPreviewAnswer)
+  const previewQuestionImg = useSelector(cardsSelectors.cardPreviewQuestion)
+  const dispatch = useAppDispatch()
 
   const deckId = useParams().deckId
 
-  const [createCard] = useCreateCardMutation()
-  const [updateCard] = useUpdateCardMutation()
+  const [createCard, { isLoading: isLoadingCreate }] = useCreateCardMutation()
+  const [updateCard, { isLoading: isLoadingUpdate }] = useUpdateCardMutation()
 
   const { control, handleSubmit } = useForm<FormValuesAddEditCard>({
     defaultValues: item
@@ -49,13 +48,14 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
 
   const onSubmit: SubmitHandler<FormValuesAddEditCard> = data => {
     if (item) {
-      //? Не хватает стейта preview для answer и question (СДЕЛАТЬ ЧЕРЕЗ RTK state)
-      // const msg = getEditCardNotifyMsg({
-      //   data,
-      //   item,
-      //   previewAnswerImg: answerImg,
-      //   previewQuestionImg: questionImg,
-      // })
+      const msg = getEditCardNotifyMsg({
+        data,
+        item,
+        previewAnswerImg,
+        previewQuestionImg,
+      })
+
+      handleToastInfo(msg)
 
       updateCard({
         args: {
@@ -75,60 +75,52 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
 
     clearQuery()
     setOpen(false)
-    setQuestionImg(undefined)
-    setAnswerImg(undefined)
-  }
-
-  const getQuestionImgHandler = (img: File | null | undefined) => {
-    setQuestionImg(img)
-  }
-  const getAnswerImgHandler = (img: File | null | undefined) => {
-    setAnswerImg(img)
+    dispatch(cardsActions.setAnswerImg({ answerImg: undefined }))
+    dispatch(cardsActions.setQuestionImg({ questionImg: undefined }))
   }
 
   const handleOnClose = () => {
     setOpen(false)
   }
 
+  const loadingStatus = isLoadingCreate || isLoadingUpdate
+
   return (
-    <Modal
-      className={s.customClass}
-      onOpenChange={handleOnClose}
-      open={open}
-      title={item ? 'Update Card' : 'Add New Card'}
-    >
-      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={s.body}>
-          <DataFiller
-            control={control}
-            getImageHandler={getQuestionImgHandler}
-            img={item?.questionImg}
-            item={item}
-            label={'question'}
-            questionOrAnswer={item?.question}
-          />
-          <DataFiller
-            control={control}
-            getImageHandler={getAnswerImgHandler}
-            img={item?.answerImg}
-            item={item}
-            label={'answer'}
-            questionOrAnswer={item?.answer}
-          />
-        </div>
-        <div className={s.footer}>
-          <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
-            <Typography variant={'subtitle2'}>Cancel</Typography>
-          </Button>
-          <Button
-            onClick={handleSubmit(onSubmit)}
-            type={'submit'}
-            // Не обязательное говно, т.к. по умолчанию onSubmit
-          >
-            <Typography variant={'subtitle2'}>{item ? 'Save changes' : 'Create Card'}</Typography>
-          </Button>
-        </div>
-      </form>
-    </Modal>
+    <>
+      {loadingStatus && <LoadingBar />}
+      <Modal
+        className={s.customClass}
+        onOpenChange={handleOnClose}
+        open={open}
+        title={item ? 'Update Card' : 'Add New Card'}
+      >
+        <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+          <div className={s.body}>
+            <DataFiller
+              control={control}
+              img={item?.questionImg}
+              item={item}
+              label={'question'}
+              questionOrAnswer={item?.question}
+            />
+            <DataFiller
+              control={control}
+              img={item?.answerImg}
+              item={item}
+              label={'answer'}
+              questionOrAnswer={item?.answer}
+            />
+          </div>
+          <div className={s.footer}>
+            <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
+              <Typography variant={'subtitle2'}>Cancel</Typography>
+            </Button>
+            <Button onClick={handleSubmit(onSubmit)} type={'submit'}>
+              <Typography variant={'subtitle2'}>{item ? 'Save changes' : 'Create Card'}</Typography>
+            </Button>
+          </div>
+        </form>
+      </Modal>
+    </>
   )
 }

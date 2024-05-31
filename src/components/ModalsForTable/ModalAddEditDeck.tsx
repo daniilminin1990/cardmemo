@@ -8,6 +8,7 @@ import { handleToastInfo } from '@/common/consts/toastVariants'
 import { initCurrentPage } from '@/common/globalVariables'
 import { FormValuesAddEditDeck } from '@/common/zodSchemas/decks/decks.schemas'
 import Input from '@/components/ui/Input/Input'
+import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import Checkbox from '@/components/ui/checkbox/checkbox'
@@ -33,39 +34,8 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
       item,
     })
 
-  const [updateDeck] = useUpdateDeckMutation()
-  const [createDeck] = useCreateDeckMutation()
-  // const { control, handleSubmit } = useForm<FormValuesAddEditDeck>({
-  //   defaultValues: item
-  //     ? { isPrivate: item.isPrivate, name: item.name }
-  //     : { isPrivate: false, name: '' },
-  //   resolver: zodResolver(schemaAddEditDeck),
-  // })
-  // const initPreview = item ? item.cover ?? null : ''
-  // const [preview, setPreview] = useState<null | string>(initPreview)
-  // const [cover, setCover] = useState<File | null | undefined>(undefined)
-  // const refInputImg = useRef<HTMLInputElement>(null)
-  //
-  // useEffect(() => {
-  //   if (item?.cover) {
-  //     setPreview(item?.cover)
-  //   }
-  // }, [item?.cover])
-  //
-  // // Генерируем ссылку на загружаемый файл и сэтаем в preview, который будем отображать, и очищаем после сэта хэш
-  // useEffect(() => {
-  //   if (cover) {
-  //     const newPreview = URL.createObjectURL(cover)
-  //
-  //     if (preview) {
-  //       URL.revokeObjectURL(preview)
-  //     }
-  //
-  //     setPreview(newPreview)
-  //
-  //     return () => URL.revokeObjectURL(newPreview)
-  //   }
-  // }, [cover])
+  const [updateDeck, { isLoading: isLoadingUpdate }] = useUpdateDeckMutation()
+  const [createDeck, { isLoading: isLoadingCreate }] = useCreateDeckMutation()
 
   const handleOnClose = () => {
     item ? setPreview(item.cover || null) : setPreview(null)
@@ -103,74 +73,79 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
     refInputImg?.current?.click()
   }
 
+  const loadingStatus = isLoadingCreate || isLoadingUpdate
+
   return (
-    <Modal
-      className={s.customClass}
-      onOpenChange={handleOnClose}
-      open={open}
-      title={item ? 'Update Deck' : 'Add New Deck'}
-    >
-      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={s.body}>
-          {item?.name && <Typography variant={'h1'}>{item.name}</Typography>}
-          {/*{preview && <img alt={'cover'} src={preview} width={'100%'} />}*/}
-          {preview && <img alt={'cover'} src={preview} width={'100%'} />}
-          <FormTextfield
-            className={s.input}
-            control={control}
-            currentValue={item ? item?.name : ''}
-            label={item ? 'Edit title' : 'Type new Deck name'}
-            name={'name'}
-          />
-          <div className={s.buttonsWrapper}>
-            {preview && (
-              <Button
-                className={s.uploadImg}
-                fullWidth
-                onClick={() => {
-                  setPreview(null)
-                  setCover(null)
-                }}
-                type={'button'}
-              >
-                <Typography variant={'subtitle2'}>Remove cover</Typography>
+    <>
+      {loadingStatus && <LoadingBar />}
+      <Modal
+        className={s.customClass}
+        onOpenChange={handleOnClose}
+        open={open}
+        title={item ? 'Update Deck' : 'Add New Deck'}
+      >
+        <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+          <div className={s.body}>
+            {item?.name && <Typography variant={'h1'}>{item.name}</Typography>}
+            {/*{preview && <img alt={'cover'} src={preview} width={'100%'} />}*/}
+            {preview && <img alt={'cover'} src={preview} width={'100%'} />}
+            <FormTextfield
+              className={s.input}
+              control={control}
+              currentValue={item ? item?.name : ''}
+              label={item ? 'Edit title' : 'Type new Deck name'}
+              name={'name'}
+            />
+            <div className={s.buttonsWrapper}>
+              {preview && (
+                <Button
+                  className={s.uploadImg}
+                  fullWidth
+                  onClick={() => {
+                    setPreview(null)
+                    setCover(null)
+                  }}
+                  type={'button'}
+                >
+                  <Typography variant={'subtitle2'}>Remove cover</Typography>
+                </Button>
+              )}
+              <Button className={s.uploadImg} fullWidth onClick={handleSubmitImg} type={'button'}>
+                <ImageOutline className={s.icon} />
+                <Typography variant={'subtitle2'}>
+                  {preview ? 'Change cover' : 'Upload Image'}
+                </Typography>
+                {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
+                <Input
+                  accept={'image/*'}
+                  className={s.inputImg}
+                  name={'cover'}
+                  onChange={handleInputImg}
+                  ref={refInputImg}
+                  style={{ display: 'none' }}
+                  type={'file'}
+                />
               </Button>
-            )}
-            <Button className={s.uploadImg} fullWidth onClick={handleSubmitImg} type={'button'}>
-              <ImageOutline className={s.icon} />
-              <Typography variant={'subtitle2'}>
-                {preview ? 'Change cover' : 'Upload Image'}
-              </Typography>
-              {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
-              <Input
-                accept={'image/*'}
-                className={s.inputImg}
-                name={'cover'}
-                onChange={handleInputImg}
-                ref={refInputImg}
-                style={{ display: 'none' }}
-                type={'file'}
-              />
+            </div>
+            <Controller
+              control={control}
+              defaultValue={false}
+              name={'isPrivate'}
+              render={({ field: { onChange, value = item?.isPrivate } }) => (
+                <Checkbox checked={value} label={'Is Private'} onCheckedChange={onChange} />
+              )}
+            />
+          </div>
+          <div className={s.footer}>
+            <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
+              <Typography variant={'subtitle2'}>Cancel</Typography>
+            </Button>
+            <Button>
+              <Typography variant={'subtitle2'}>{item ? 'Save changes' : 'Create Pack'}</Typography>
             </Button>
           </div>
-          <Controller
-            control={control}
-            defaultValue={false}
-            name={'isPrivate'}
-            render={({ field: { onChange, value = item?.isPrivate } }) => (
-              <Checkbox checked={value} label={'Is Private'} onCheckedChange={onChange} />
-            )}
-          />
-        </div>
-        <div className={s.footer}>
-          <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
-            <Typography variant={'subtitle2'}>Cancel</Typography>
-          </Button>
-          <Button>
-            <Typography variant={'subtitle2'}>{item ? 'Save changes' : 'Create Pack'}</Typography>
-          </Button>
-        </div>
-      </form>
-    </Modal>
+        </form>
+      </Modal>
+    </>
   )
 }

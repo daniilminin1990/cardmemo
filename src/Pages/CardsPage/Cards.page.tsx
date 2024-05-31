@@ -100,9 +100,6 @@ export const CardsPage = () => {
     }
   }
 
-  // if (isLoading) {
-  //   return <Loading />
-  // }
   const notifyLearnHandler = () => {
     handleToastInfo(`Add card before learning!`)
   }
