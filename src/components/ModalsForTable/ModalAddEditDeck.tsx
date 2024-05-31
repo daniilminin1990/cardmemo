@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
 import { handleToastInfo } from '@/common/consts/toastVariants'
@@ -27,6 +28,7 @@ type ModalAddEditProps = {
 export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { clearQuery, setCurrentPageQuery } = useQueryParams()
+  const { t } = useTranslation()
   const schema = z.object({
     isPrivate: z.boolean().optional(),
     name: z.string().min(3).max(30),
@@ -95,7 +97,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
       className={s.customClass}
       onOpenChange={handleOnClose}
       open={open}
-      title={item ? 'Update Deck' : 'Add New Deck'}
+      title={item ? `${t('modalAddEditDeck.updateDeck')}` : `${t('modalAddEditDeck.addNewDeck')}`}
     >
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.body}>
@@ -105,7 +107,9 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
             className={s.input}
             control={control}
             currentValue={item ? item?.name : ''}
-            label={item ? 'Edit title' : 'Type new Deck name'}
+            label={
+              item ? `${t('modalAddEditDeck.editTitle')}` : `${t('modalAddEditDeck.nameDeck')}`
+            }
             name={'name'}
           />
           <div className={s.buttonsWrapper}>
@@ -119,13 +123,15 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
                 }}
                 type={'button'}
               >
-                <Typography variant={'subtitle2'}>Remove cover</Typography>
+                <Typography variant={'subtitle2'}>{t('modalAddEditDeck.removeCover')}</Typography>
               </Button>
             )}
             <Button className={s.uploadImg} fullWidth onClick={hanldeSubmitImg} type={'button'}>
               <ImageOutline className={s.icon} />
               <Typography variant={'subtitle2'}>
-                {preview ? 'Change cover' : 'Upload Image'}
+                {preview
+                  ? `${t('modalAddEditDeck.changeCover')}`
+                  : `${t('modalAddEditDeck.uploadImage')}`}
               </Typography>
               <Input
                 accept={'image/*'}
@@ -138,14 +144,22 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
               />
             </Button>
           </div>
-          <FormCheckbox control={control} label={'Private'} name={'isPrivate'} />
+          <FormCheckbox
+            control={control}
+            label={t('modalAddEditDeck.private')}
+            name={'isPrivate'}
+          />
         </div>
         <div className={s.footer}>
           <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
-            <Typography variant={'subtitle2'}>Cancel</Typography>
+            <Typography variant={'subtitle2'}>{t('modalAddEditDeck.cancel')}</Typography>
           </Button>
           <Button>
-            <Typography variant={'subtitle2'}>{item ? 'Save changes' : 'Create Pack'}</Typography>
+            <Typography variant={'subtitle2'}>
+              {item
+                ? `${t('modalAddEditDeck.saveChanges')}`
+                : `${t('modalAddEditDeck.createPack')}`}
+            </Typography>
           </Button>
         </div>
       </form>

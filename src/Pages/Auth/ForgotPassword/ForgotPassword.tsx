@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { emailRecoveringTemplate as html } from '@/common/consts/email-recovering-template'
@@ -32,6 +33,7 @@ export const ForgotPassword = () => {
     await recoverPassword({ email, html }).unwrap()
     navigate(`${path.checkEmail}/${email}`)
   }
+  const { t } = useTranslation()
 
   return (
     <div className={s.container}>
@@ -39,27 +41,27 @@ export const ForgotPassword = () => {
       <Card>
         <section className={s.content}>
           <Typography as={'h2'} variant={'large'}>
-            Forgot your password?
+            {t('forgotPassword.forgotPassword')}
           </Typography>
           <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
             <FormTextfield
               className={s.formTextfield}
               control={control}
-              label={'Email'}
+              label={t('forgotPassword.email')}
               name={'email'}
               placeholder={'Email'}
             />
             <Typography className={s.information} variant={'body2'}>
-              Enter your email address and we will send you further instructions
+              {t('forgotPassword.enterYourEmail')}
             </Typography>
-            <Button fullWidth>Send Instructions</Button>
+            <Button fullWidth>{t('forgotPassword.sendInstructions')}</Button>
           </form>
           <div className={s.register}>
             <Typography as={'button'} className={s.typographyFooterTitle} variant={'body2'}>
-              Did you remember your password?
+              {t('forgotPassword.rememberPassword')}
             </Typography>
             <Typography as={Link} className={s.signIn} to={path.login} variant={'link1'}>
-              Try logging in
+              {t('forgotPassword.tryLogIn')}
             </Typography>
           </div>
         </section>

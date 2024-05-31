@@ -98,62 +98,62 @@ export function DecksPage() {
   return (
     <>
       {isFetching && <LoadingBar />}
-      <Page className={s.common}>
-        <ModalAddEditDeck open={open} setOpen={setOpen} />
-        <div className={s.heading}>
-          <div className={s.headingFirstRow}>
-            <Typography as={'h1'} variant={'h1'}>
-              {t('decksPage.decksList')}
-            </Typography>
-            <Button onClick={() => setOpen(true)} variant={'primary'}>
-              <Typography variant={'subtitle2'}>Add New Deck</Typography>
-            </Button>
-          </div>
-          <div className={s.searchParams}>
-            <Input
-              callback={setSearchQuery}
-              className={s.input}
-              currentValue={search}
-              onChange={handleSearchChange}
-              type={'search'}
-            />
-            <TabSwitcher
-              className={s.tabsSwitcher}
-              label={t('decksPage.showDecksCards')}
-              onValueChange={handleTabsSwitch}
-              tabs={tabsValuesData}
-              value={tabsValue}
-            />
-            <div className={s.sliderBox}>
-              <Slider
-                className={s.slider}
-                label={t('decksPage.numberOfCards')}
-                max={minMaxData?.max}
-                min={minMaxData?.min}
-                onValueChange={changeMinMaxHandler}
-                value={[sliderMin, sliderMax]}
-              />
-            </div>
-            <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
-              <TrashOutline />
-              <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
-            </Button>
-          </div>
+    <Page className={s.common}>
+      <ModalAddEditDeck open={open} setOpen={setOpen} />
+      <div className={s.heading}>
+        <div className={s.headingFirstRow}>
+          <Typography as={'h1'} variant={'h1'}>
+            {t('decksPage.decksList')}
+          </Typography>
+          <Button onClick={() => setOpen(true)} variant={'primary'}>
+            <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
+          </Button>
         </div>
-        <TableComponentWithTypes data={decksData} tableHeader={headersNameDecks}>
-          {item => <SingleRowDeck item={item} />}
-        </TableComponentWithTypes>
-        <div className={s.footer}>
-          <PaginationWithSelect
-            currentPage={currentPage}
-            itemsPerPage={itemsPerPage}
-            selectOptions={selectOptionPagination}
-            setCurrentPage={handleCurrentPageChange}
-            setItemsPerPage={handleItemsPerPageChange}
-            totalItems={data?.pagination.totalItems || 0}
+        <div className={s.searchParams}>
+          <Input
+            callback={setSearchQuery}
+            className={s.input}
+            currentValue={search}
+            onChange={handleSearchChange}
+            type={'search'}
           />
+          <TabSwitcher
+            className={s.tabsSwitcher}
+            label={t('decksPage.showDecksCards')}
+            onValueChange={handleTabsSwitch}
+            tabs={tabsValuesData}
+            value={tabsValue}
+          />
+          <div className={s.sliderBox}>
+            <Slider
+              className={s.slider}
+              label={t('decksPage.numberOfCards')}
+              max={minMaxData?.max}
+              min={minMaxData?.min}
+              onValueChange={changeMinMaxHandler}
+              value={[sliderMin, sliderMax]}
+            />
+          </div>
+          <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
+            <TrashOutline />
+            <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
+          </Button>
         </div>
-      </Page>
+      </div>
+      <TableComponentWithTypes data={decksData} tableHeader={headersNameDecks}>
+        {item => <SingleRowDeck item={item} />}
+      </TableComponentWithTypes>
+        <div className={s.footer}>
+        <PaginationWithSelect
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          selectOptions={selectOptionPagination}
+          setCurrentPage={handleCurrentPageChange}
+          setItemsPerPage={handleItemsPerPageChange}
+          totalItems={data?.pagination.totalItems || 0}
+        />
+      </div>
+    </Page>
     </>
   )
 }

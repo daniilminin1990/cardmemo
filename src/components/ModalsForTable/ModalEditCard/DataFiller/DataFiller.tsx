@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Control } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
 import { FormValues } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
@@ -20,6 +21,7 @@ type DataFillerProps = {
   questionOrAnswer: string | undefined
 }
 export const DataFiller = (props: DataFillerProps) => {
+  const { t } = useTranslation()
   const { control, getImageHandler, img, item, label, questionOrAnswer } = props
   const title = label.charAt(0).toUpperCase() + label.slice(1)
   const initPreview = item ? img ?? null : ''
@@ -97,7 +99,10 @@ export const DataFiller = (props: DataFillerProps) => {
         )}
         <Button className={s.uploadImg} fullWidth onClick={hanldeSubmitImg} type={'button'}>
           <ImageOutline className={s.icon} />
-          <Typography variant={'subtitle2'}>{preview ? 'Change cover' : 'Upload Image'}</Typography>
+          <Typography variant={'subtitle2'}>
+            {preview ? `${t('dataFiller.changeCover')}` : `${t('dataFiller.uploadImage')}`}
+          </Typography>
+          {/*<Input className={s.inputImg} id={'upload-photo'} name={'photo'} type={'file'} />*/}
           <Input
             accept={'image/*'}
             className={s.inputImg}

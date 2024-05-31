@@ -1,4 +1,5 @@
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { SignUpFormValues, SignUpSchema } from '@/common/zodSchemas/auth/auth.schemas'
@@ -29,20 +30,21 @@ export default function SignUp() {
 
     signUp({ email, password })
   }
+  const { t } = useTranslation()
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card className={s.card}>
         <div className={s.header}>
           <Typography as={'h1'} className={s.typographyHead} variant={'h1'}>
-            Sign Up
+            {t('signUp.signUp')}
           </Typography>
         </div>
         <div className={s.box}>
           <FormTextfield
             className={s.inputStyle}
             control={control}
-            label={'Email'}
+            label={t('signUp.email')}
             name={'email'}
             placeholder={'Input'}
             type={'text'}
@@ -50,7 +52,7 @@ export default function SignUp() {
           <FormTextfield
             className={s.inputStyle}
             control={control}
-            label={'Password'}
+            label={t('signUp.password')}
             name={'password'}
             placeholder={'Input'}
             type={'password'}
@@ -58,17 +60,17 @@ export default function SignUp() {
           <FormTextfield
             className={s.inputStyle}
             control={control}
-            label={'Confirm Password'}
+            label={t('signUp.confirmPassword')}
             name={'confirmPassword'}
             placeholder={'Input'}
             type={'password'}
           />
         </div>
 
-        <Button fullWidth>Submit</Button>
+        <Button fullWidth>{t('signUp.submit')}</Button>
         <div className={s.footer}>
           <Typography as={'label'} className={s.typographyFooterTitle} variant={'body2'}>
-            Already have an account?
+            {t('signUp.haveAccount')}
           </Typography>
 
           <Typography
@@ -77,7 +79,7 @@ export default function SignUp() {
             to={`${path.login}`}
             variant={'link1'}
           >
-            Sign In
+            {t('signUp.signIn')}
           </Typography>
         </div>
       </Card>

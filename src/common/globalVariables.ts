@@ -1,15 +1,15 @@
 export const headersNameDecks = [
-  { key: 'name', title: 'Name' },
-  { key: 'cardsCount', title: 'Cards' },
-  { key: 'updated', title: 'Last Updated' },
-  { key: 'created', title: 'Created by' },
+  { key: 'name', locale: 'tableComponentWithTypes.name', title: 'Name' },
+  { key: 'cardsCount', locale: 'tableComponentWithTypes.cards', title: 'Cards' },
+  { key: 'updated', locale: 'tableComponentWithTypes.lastUpdated', title: 'Last Updated' },
+  { key: 'created', locale: 'tableComponentWithTypes.createdBy', title: 'Created by' },
 ]
 
 export const headersNameCards = [
-  { key: 'question', title: 'Question' },
-  { key: 'answer', title: 'Answer' },
-  { key: 'updated', title: 'Last Updated' },
-  { key: 'grade', title: 'Grade' },
+  { key: 'question', locale: 'tableComponentWithTypes.question', title: 'Question' },
+  { key: 'answer', locale: 'tableComponentWithTypes.answer', title: 'Answer' },
+  { key: 'updated', locale: 'tableComponentWithTypes.lastUpdated', title: 'Last Updated' },
+  { key: 'grade', locale: 'tableComponentWithTypes.grade', title: 'Grade' },
 ]
 
 export const selectOptionPagination = [
