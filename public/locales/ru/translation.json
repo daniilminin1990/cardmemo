@@ -73,7 +73,7 @@
   },
   "tableComponentWithTypes": {
     "name": "Имя",
-    "cards": "Кол-во",
+    "cards": "Карты",
     "lastUpdated": "Обновлено",
     "createdBy": "Автор",
     "pleaseAddAnyData": "Пожалуйста, добавьте данные для отображения",
