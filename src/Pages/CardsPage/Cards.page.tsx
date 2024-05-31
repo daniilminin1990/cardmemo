@@ -9,8 +9,8 @@ import playIcon from '@/assets/icons/WhiteSVG/play-circle-outline.svg'
 import menuIcon from '@/assets/icons/WhiteSVG/trash-outline.svg'
 import { handleToastInfo } from '@/common/consts/toastVariants'
 import { headersNameCards, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
+import { DeleteModal } from '@/components/ModalsForTable/DeleteModal/DeleteModal'
 import { ModalAddEditDeck } from '@/components/ModalsForTable/ModalAddEditDeck'
-import { ModalDeleteDeck } from '@/components/ModalsForTable/ModalDeleteDeck'
 import { ModalAddEditCard } from '@/components/ModalsForTable/ModalEditCard/ModalAddEditCard'
 import ModalOnEmpty from '@/components/ModalsForTable/ModalOnEmpty/ModalOnEmpty'
 import { SingleRowCard } from '@/components/TableComponent/SingleRowCard/SingleRowCard'
@@ -30,8 +30,7 @@ import { path } from '@/router/path'
 import { router } from '@/router/router'
 import { useMeQuery } from '@/services/auth/auth.service'
 import { useGetCardsQuery } from '@/services/cards/cards.service'
-import { Deck } from '@/services/decks/deck.types'
-import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
+import { useDeleteDeckMutation, useGetDeckByIdQuery } from '@/services/decks/decks.service'
 import { clsx } from 'clsx'
 
 import s from './cardsPage.module.scss'
@@ -52,13 +51,13 @@ export const CardsPage = () => {
 
   const [open, setOpen] = useState(false)
 
-  const deckId = useParams().deckId
+  const { deckId = '' } = useParams()
   const { data: meData } = useMeQuery()
   const {
     currentData: currentDeckData,
     data: deck,
     isLoading: isDeckLoading,
-  } = useGetDeckByIdQuery({ id: deckId ?? '' })
+  } = useGetDeckByIdQuery({ id: deckId })
 
   const { currentData, data, isFetching, isLoading } = useGetCardsQuery({
     args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
@@ -66,8 +65,8 @@ export const CardsPage = () => {
   })
   const [openModal, setOpenModal] = useState(false)
   const [openEditDeckModal, setOpenEditDeckModal] = useState(false)
-  const [openDeleteDeckModal, setOpenDeleteDeckModal] = useState(false)
-
+  const [isDeleteModal, setIsDeleteModal] = useState(false)
+  const [deleteDeck] = useDeleteDeckMutation()
   const handleItemsPerPageChange = (value: number) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setItemsPerPageQuery(value)
@@ -80,6 +79,14 @@ export const CardsPage = () => {
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setSearchQuery(e.currentTarget.value)
+  }
+
+  const onDeleteDeckHandler = () => {
+    deleteDeck({ id: deckId })
+    setIsDeleteModal(true)
+    if (deckId) {
+      router.navigate(path.decks)
+    }
   }
 
   const cardsData = currentData ?? data
@@ -119,18 +126,21 @@ export const CardsPage = () => {
         <ModalOnEmpty open={openModal} setIsOpenModal={setOpenModal} />
         <ModalAddEditCard open={open} setOpen={setOpen} />
         <ModalAddEditDeck item={deck} open={openEditDeckModal} setOpen={setOpenEditDeckModal} />
-        <ModalDeleteDeck
-          item={deck ?? ({} as Deck)}
-          open={openDeleteDeckModal}
-          setIsDeleteModal={setOpenDeleteDeckModal}
-        />
+        <DeleteModal
+          deleteFn={onDeleteDeckHandler}
+          open={isDeleteModal}
+          setOpen={setIsDeleteModal}
+          title={'Delete Deck'}
+        >
+          <Typography variant={'h1'}>{deck?.name}</Typography>
+          <Typography variant={'body1'}>
+            Do you really want to delete deck? All cards will be deleted.
+          </Typography>
+        </DeleteModal>
         <div className={s.heading}>
-          <BackBtn
-            as={Link}
-            name={t('cardsPage.backDeckList')}
-            onClick={handleOpenModal}
-            path={'#'}
-          />
+          <BackBtn onClick={handleOpenModal} to={'#'}>
+            {t('cardsPage.backDeckList')}
+          </BackBtn>
           <div className={s.headingSecondRow}>
             <div className={clsx(deck?.cover && s.isWithImage)}>
               <div className={s.info}>
@@ -163,7 +173,7 @@ export const CardsPage = () => {
                       text={t('cardsPage.edit')}
                     />
                     <DropDownItem
-                      handleOnClick={() => setOpenDeleteDeckModal(true)}
+                      handleOnClick={() => setIsDeleteModal(true)}
                       icon={menuIcon}
                       text={t('cardsPage.delete')}
                     />
