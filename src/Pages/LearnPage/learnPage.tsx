@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { handleToastWarning } from '@/common/consts/toastVariants'
 import { LearnCardFormValues } from '@/common/zodSchemas/cards/cards.schemas'
@@ -10,6 +10,7 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Radio } from '@/components/ui/radio/radio'
+import { path } from '@/router/path'
 import {
   useGetRandomCardByIdQuery,
   useUpdateCardGradeMutation,
@@ -22,7 +23,6 @@ export const LearnPage = () => {
   const { control, handleSubmit, setValue } = useForm<LearnCardFormValues>({
     defaultValues: { grade: null },
   })
-  const navigate = useNavigate()
   const { t } = useTranslation()
   const { deckId = '' } = useParams()
 
@@ -63,13 +63,9 @@ export const LearnPage = () => {
     return <div>Loading</div>
   }
 
-  const goBack = () => {
-    navigate(-1)
-  }
-
   return (
     <section>
-      <BackBtn as={Link} name={t('learnPage.backPreviousPage')} onClick={goBack} path={`#`} />
+      <BackBtn to={`${path.decks}/${deckId}`}>{t('learnPage.backPreviousPage')}</BackBtn>
       {randomCard && (
         <Card className={s.card}>
           <div className={s.container}>

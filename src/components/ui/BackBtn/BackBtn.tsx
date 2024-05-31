@@ -1,4 +1,5 @@
-import { ElementType } from 'react'
+import { ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 
 import ArrowBackOutline from '@/assets/icons/svg/ArrowBackOutline'
 import { Button } from '@/components/ui/button'
@@ -6,17 +7,16 @@ import { Button } from '@/components/ui/button'
 import s from './BackBtn.module.scss'
 
 type Props = {
-  as: ElementType
-  name: string
+  children: ReactNode
   onClick?: () => void
-  path: string
+  to: string
 }
 
-export const BackBtn = ({ as, name, onClick, path }: Props) => {
+export const BackBtn = ({ children, onClick, to }: Props) => {
   return (
-    <Button as={as} className={s.backBtn} onClick={onClick} to={path}>
+    <Button as={Link} className={s.backBtn} onClick={onClick} to={to}>
       <ArrowBackOutline className={s.backArrow} />
-      {name}
+      {children}
     </Button>
   )
 }
