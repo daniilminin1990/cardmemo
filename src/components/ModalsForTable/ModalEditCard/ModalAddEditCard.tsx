@@ -76,7 +76,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
     }
 
     clearQuery()
-    // setOpen(false)
+    setOpen(false)
     dispatch(cardsActions.setAnswerImg({ answerImg: undefined }))
     dispatch(cardsActions.setQuestionImg({ questionImg: undefined }))
   }
