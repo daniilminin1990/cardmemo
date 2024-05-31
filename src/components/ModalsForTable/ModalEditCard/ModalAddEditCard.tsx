@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import { getEditCardNotifyMsg } from '@/common/addEditCardsOrDecks/getEditCardNotifyMsg'
@@ -117,7 +117,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
             <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
               <Typography variant={'subtitle2'}>{t('modalAddEditCard.cancel')}</Typography>
             </Button>
-            <Button onClick={handleSubmit(onSubmit)} type={'submit'}>
+            <Button onClick={handleSubmit(onSubmit)}>
               <Typography variant={'subtitle2'}>
                 {item
                   ? `${t('modalAddEditCard.saveChanges')}`

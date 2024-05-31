@@ -183,7 +183,7 @@ export const CardsPage = () => {
                     to={`${path.decks}/${deckId}${path.learn}`}
                     type={'button'}
                   >
-                    <Typography variant={'subtitle2'}>Learn Cards</Typography>
+                    <Typography variant={'subtitle2'}>{t('cardsPage.learnCards')}</Typography>
                   </Button>
                 )}
               </div>

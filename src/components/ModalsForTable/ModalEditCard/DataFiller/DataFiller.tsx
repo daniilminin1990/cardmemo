@@ -49,7 +49,7 @@ export const DataFiller = (props: DataFillerProps) => {
         : e.target.files?.[0] ?? undefined
 
     setCover(newCover)
-    label === 'question'
+    label === t('modalAddEditCard.question')
       ? dispatch(cardsActions.setQuestionImg({ questionImg: newCover }))
       : dispatch(cardsActions.setAnswerImg({ answerImg: newCover }))
     e.target.value = ''
@@ -59,9 +59,14 @@ export const DataFiller = (props: DataFillerProps) => {
   }
 
   const handleRemoveImgs = () => {
-    label === 'question'
-      ? dispatch(cardsActions.setPreviewQuestion({ previewQuestion: null }))
-      : dispatch(cardsActions.setPreviewAnswer({ previewAnswer: null }))
+    // label === t('modalAddEditCard.question')
+    //   ? dispatch(cardsActions.setPreviewQuestion({ previewQuestion: null }))
+    //   : dispatch(cardsActions.setPreviewAnswer({ previewAnswer: null }))
+    label === t('modalAddEditCard.question')
+      ? dispatch(cardsActions.setPreviewQuestion({ previewQuestion: null })) &&
+        dispatch(cardsActions.setQuestionImg({ questionImg: null }))
+      : dispatch(cardsActions.setPreviewAnswer({ previewAnswer: null })) &&
+        dispatch(cardsActions.setAnswerImg({ answerImg: null }))
     setPreview(null)
     setCover(null)
   }
@@ -72,9 +77,9 @@ export const DataFiller = (props: DataFillerProps) => {
       <FormTextfield
         className={s.input}
         control={control}
-        currentValue={label === 'question' ? item?.question : item?.answer}
+        currentValue={label === t('modalAddEditCard.question') ? item?.question : item?.answer}
         label={item ? `Edit ${label}` : title}
-        name={label}
+        name={label === t('modalAddEditCard.question') ? 'question' : 'answer'}
       />
       {preview && (
         <div className={s.imgWrapper}>
