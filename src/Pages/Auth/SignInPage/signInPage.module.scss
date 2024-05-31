@@ -1,3 +1,5 @@
+@import 'src/styles/mixins';
+
 .card {
   position: relative;
   z-index: 1;
@@ -35,12 +37,16 @@
 }
 
 .typographyForgotTitle {
+  @include focus-visible-default;
+
   margin-right: 0;
   margin-left: auto;
   color: var(--color-light-900);
 }
 
 .typographyFooterSubtitle {
+  @include focus-visible-default;
+
   display: flex;
   justify-content: center;
 

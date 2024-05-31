@@ -26,7 +26,7 @@ const ModalOnEmpty = (props: Props) => {
     >
       <div className={s.body}>
         <Typography variant={'body1'}>
-          Do you really want to leave this page? You haven't created any cards !!!
+          Do you really want to leave this page? You haven`t created any cards !!!
         </Typography>
       </div>
       <div className={s.footer}>

@@ -47,10 +47,6 @@ export const CardsPage = () => {
 
   const [open, setOpen] = useState(false)
 
-  // Когда переходим на эту страницу, то переходим по Deck ID,
-  // то есть ID можем взять из URL, значит можно использовать хук useParams
-
-  // А как мы попадем на эту страницу??? -- по Id Deck. Значит id Deck нужно передать в URL при переходе.
   const deckId = useParams().deckId
   const { data: meData } = useMeQuery()
   const {
@@ -127,7 +123,6 @@ export const CardsPage = () => {
                   {deck?.name}
                 </Typography>
                 {isMineCards && (
-                  // В DropDownItem можно передать onClick? Если нет, то обернуть в Button
                   <DropdownMenuDemo className={s.dropdown} icon={groupIcon} type={'menu'}>
                     {isCardsCountZero ? (
                       <DropDownItem
@@ -213,11 +208,6 @@ export const CardsPage = () => {
               {item => <SingleRowCard item={item} />}
             </TableComponentWithTypes>
             <div className={s.footer}>
-              {/*! Это для скрытия пагинации было прикручено. Херота - убрал*/}
-              {/*{isCardsCountFilled &&*/}
-              {/*  !search &&*/}
-              {/*  cardsData?.items &&*/}
-              {/*  cardsData.items.length >= currentPage * itemsPerPage && (*/}
               <PaginationWithSelect
                 currentPage={currentPage}
                 itemsPerPage={itemsPerPage}
@@ -226,7 +216,6 @@ export const CardsPage = () => {
                 setItemsPerPage={handleItemsPerPageChange}
                 totalItems={cardsData?.pagination.totalItems || 0}
               />
-              {/*)}*/}
             </div>
           </>
         )}

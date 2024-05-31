@@ -1,4 +1,8 @@
 .backBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
   width: max-content;
   margin-bottom: 32px;
   padding: 0;
@@ -8,12 +12,14 @@
   background-color: transparent;
   box-shadow: none;
 
-  &:hover {
+  &:focus-visible {
+    color: var(--color-accent-500);
     background-color: transparent;
   }
 
-  &:focus-visible {
+  &:hover {
     background-color: transparent;
+    color: var(--color-accent-500);
   }
 
   .text {
@@ -22,11 +28,9 @@
     gap: 6px;
     align-items: center;
 
-    transition: 0.3s;
+    width: max-content;
 
-    &:hover {
-      color: var(--color-accent-500);
-    }
+    transition: 0.3s;
 
     .backArrow {
       width: 16px;

@@ -17,7 +17,6 @@ import {
   useMeQuery,
   useUpdateUserDataMutation,
 } from '@/services/auth/auth.service'
-import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './ProfilePage.module.scss'
@@ -57,7 +56,6 @@ export const ProfilePage = () => {
 
   return (
     <>
-      {import.meta.env.DEV && <DevTool control={control} />}
       {loadingStatus && <LoadingBar />}
       <Card className={s.card}>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -113,10 +111,16 @@ export const ProfilePage = () => {
                 <div className={s.backBtn}>
                   <BackBtn as={Link} name={'Back to Deck List'} path={path.decks} />
                 </div>
-                <Link className={s.logoutBtn} onClick={logoutHandler} to={`${path.login}`}>
+
+                <Button
+                  as={Link}
+                  className={s.logoutBtn}
+                  onClick={logoutHandler}
+                  to={`${path.login}`}
+                >
                   <LogOut className={s.logoutIcon} />
                   <Typography variant={'body2'}>Logout</Typography>
-                </Link>
+                </Button>
               </div>
             ) : (
               <div className={s.nameEditWrapper}>

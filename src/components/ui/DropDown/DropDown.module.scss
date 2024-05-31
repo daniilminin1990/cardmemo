@@ -2,22 +2,11 @@
 @import '@radix-ui/colors/mauve.css';
 @import '@radix-ui/colors/violet.css';
 
-//.button {
-//  all: unset;
-//  display: flex;
-//  align-items: center;
-//  background-color: transparent;
-//  .button:active,
-//  .button:hover {
-//    background: none !important;
-//  }
-//}
+
 .DropdownMenuContent {
   will-change: transform, opacity;
 
-  //min-width: 217px;
 
-  // ! ИЗМЕНИЛ Padding 5 -> 12
   padding: 12px;
 
   background-color: var(--color-dark-700);
@@ -47,7 +36,8 @@
 }
 
 .DropdownMenuContent[data-side='top'],
-.DropdownMenuContentForMenu[data-side='top'] {
+.DropdownMenuContentForMenu[data-side='top']
+{
   animation-name: slideDownAndFade;
 }
 
@@ -71,8 +61,9 @@
 }
 
 .DropdownMenuItem {
-  user-select: none;
   cursor: pointer;
+  user-select: none;
+
   //margin: 6px 0;
 
   position: relative;
@@ -89,14 +80,17 @@
   border-radius: 3px;
   outline: none;
 
-  // Region
-  //! Добавил стили для Button
+
   .button {
     all: unset;
-    padding: 6px 0;
+
     display: flex;
     align-items: center;
+
+    padding: 6px 0;
+
     background-color: transparent;
+
     .button:active,
     button:hover {
       background: none !important;
@@ -106,10 +100,6 @@
 
 .icon {
   fill: #0a6638;
-}
-
-.dropdownText:focus-visible {
-  color: var(--color-accent-500);
 }
 
 .DropdownMenuSeparator {
@@ -134,29 +124,21 @@
 }
 
 .IconButton {
-  //! Убрал эти стили
-  //display: inline-flex;
-  //align-items: center;
-  //justify-content: center;
-
-  //width: 35px;
-  //height: 35px;
   display: flex;
+
   font-family: inherit;
   color: var(--color-accent-500);
+
   background: none;
-  outline: none;
   border: none;
   border-radius: 100%;
+  outline: none;
 
-  //! Добавил ЭТИ СТИЛИ
-  //.imgBox {
   .dropdownHeaderImg {
     width: 35px;
     height: 35px;
     object-fit: cover;
   }
-  //}
 }
 
 .IconButton:hover {
@@ -167,7 +149,7 @@
 .IconButton:focus-visible img {
   object-fit: cover;
   border-radius: 50%;
-  box-shadow: 0 0 10px 8px rgb(137 74 255 / 50%);
+  box-shadow: 0 0 10px 8px rgb(128 255 191 / 80%);
 }
 
 .DropdownMenuItem:focus p {
