@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import { getEditCardNotifyMsg } from '@/common/addEditCardsOrDecks/getEditCardNotifyMsg'
+import { base64toFile } from '@/common/base64toFile'
 import { handleToastInfo } from '@/common/consts/toastVariants'
 import { FormValuesAddEditCard, schemaAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import { DataFiller } from '@/components/Modals/ModalEditCard/DataFiller/DataFiller'
@@ -62,15 +63,20 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
       updateCard({
         args: {
           answer: data.answer,
-          answerImg,
+          answerImg: base64toFile(answerImg),
           question: data.question,
-          questionImg,
+          questionImg: base64toFile(questionImg),
         },
         cardId: item.id,
       })
     } else {
       createCard({
-        args: { answer: data.answer, answerImg, question: data.question, questionImg },
+        args: {
+          answer: data.answer,
+          answerImg: base64toFile(answerImg),
+          question: data.question,
+          questionImg: base64toFile(questionImg),
+        },
         deckId: deckId ?? '',
       })
     }

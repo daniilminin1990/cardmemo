@@ -125,7 +125,11 @@ export const CardsPage = () => {
       <Page className={s.common} mt={'24px'}>
         <ModalOnEmpty open={openModal} setIsOpenModal={setOpenModal} />
         <ModalAddEditCard open={open} setOpen={setOpen} />
-        <ModalAddEditDeck item={deck} open={openEditDeckModal} setOpen={setOpenEditDeckModal} />
+        <ModalAddEditDeck
+          item={currentDeckData}
+          open={openEditDeckModal}
+          setOpen={setOpenEditDeckModal}
+        />
         <DeleteModal
           deleteFn={onDeleteDeckHandler}
           open={isDeleteModal}

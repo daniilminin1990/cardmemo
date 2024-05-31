@@ -48,10 +48,20 @@ export const DataFiller = (props: DataFillerProps) => {
         ? null
         : e.target.files?.[0] ?? undefined
 
+    // Переводим newCover в base64
+    if (newCover) {
+      const reader = new FileReader()
+
+      reader.onloadend = () => {
+        const base64String = reader.result
+
+        label === t('modalAddEditCard.question')
+          ? dispatch(cardsActions.setQuestionImg({ questionImg: base64String }))
+          : dispatch(cardsActions.setAnswerImg({ answerImg: base64String }))
+      }
+      reader.readAsDataURL(newCover)
+    }
     setCover(newCover)
-    label === t('modalAddEditCard.question')
-      ? dispatch(cardsActions.setQuestionImg({ questionImg: newCover }))
-      : dispatch(cardsActions.setAnswerImg({ answerImg: newCover }))
     e.target.value = ''
   }
   const handleSubmitImg = () => {
@@ -59,9 +69,6 @@ export const DataFiller = (props: DataFillerProps) => {
   }
 
   const handleRemoveImgs = () => {
-    // label === t('modalAddEditCard.question')
-    //   ? dispatch(cardsActions.setPreviewQuestion({ previewQuestion: null }))
-    //   : dispatch(cardsActions.setPreviewAnswer({ previewAnswer: null }))
     label === t('modalAddEditCard.question')
       ? dispatch(cardsActions.setPreviewQuestion({ previewQuestion: null })) &&
         dispatch(cardsActions.setQuestionImg({ questionImg: null }))
