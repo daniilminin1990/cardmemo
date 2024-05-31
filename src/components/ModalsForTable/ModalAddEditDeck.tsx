@@ -144,11 +144,15 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
               />
             </Button>
           </div>
-          <FormCheckbox control={control} label={'Private'} name={'isPrivate'} />
+          <FormCheckbox
+            control={control}
+            label={t('modalAddEditDeck.private')}
+            name={'isPrivate'}
+          />
         </div>
         <div className={s.footer}>
           <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>
-            <Typography variant={'subtitle2'}>Cancel</Typography>
+            <Typography variant={'subtitle2'}>{t('modalAddEditDeck.cancel')}</Typography>
           </Button>
           <Button>
             <Typography variant={'subtitle2'}>

@@ -110,5 +110,22 @@
     "saveChanges": "Save changes",
     "logout": "Logout",
     "nickname": "Nickname"
+  },
+  "forgotPassword": {
+    "forgotPassword": "Forgot your password?",
+    "email": "Email",
+    "enterYourEmail": "Enter your email address and we will send you further instructions",
+    "rememberPassword": "Did you remember your password?",
+    "tryLogIn": "Try logging in",
+    "sendInstructions": "Send Instructions"
+  },
+  "signUp": {
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign In",
+    "submit": "Submit"
   }
 }

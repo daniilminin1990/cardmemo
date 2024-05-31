@@ -35,7 +35,7 @@
     "removeCover": "Удалить обложку",
     "uploadImage": "Загрузить обложку",
     "changeCover": "Изменить обложку",
-    "private": "Приватная колода",
+    "private": "Приватная",
     "namePack": "Имя колоды",
     "cancel": "Отмена",
     "saveChanges": "Сохранить",
@@ -106,10 +106,27 @@
   },
   "profilePage": {
     "personalInfo": "Личная информация",
-    "signUp": "Зарегистрироваться",
+    "signUp": "Регистрация",
     "backDeckList": "Вернуться на страницу с колодами",
     "saveChanges": "Сохранить",
     "logout": "Выход",
     "nickname": "Никнейм"
+  },
+  "forgotPassword": {
+    "forgotPassword": "Забыли пароль?",
+    "email": "Почта",
+    "enterYourEmail": "Введите свой адрес электронной почты, и мы вышлем вам дальнейшие инструкции",
+    "rememberPassword": "Помните пароль?",
+    "tryLogIn": "Попробуйте войти в систему",
+    "sendInstructions": "Отправить инструкции"
+  },
+  "signUp": {
+    "signUp": "Регистрация",
+    "email": "Почта",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердить пароль",
+    "haveAccount": "Уже есть аккаунт?",
+    "signIn": "Войти",
+    "submit": "Подтвердить"
   }
 }
