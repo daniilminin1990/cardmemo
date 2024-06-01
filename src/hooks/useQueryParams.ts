@@ -39,7 +39,6 @@ export const useQueryParams = () => {
   }
 
   const setSortByQuery = (sortByQuery: string) => {
-    // const currentOrderBy = searchParams.get('orderBy')
     let newOrderBy
 
     switch (currentOrderBy) {
@@ -59,7 +58,13 @@ export const useQueryParams = () => {
   }
 
   const clearQuery = () => {
-    setSearchParams(new URLSearchParams())
+    const itemsPerPageValue = searchParams.get('itemsPerPage')
+    const newSearchParams = new URLSearchParams()
+
+    if (itemsPerPageValue) {
+      newSearchParams.append('itemsPerPage', itemsPerPageValue)
+    }
+    setSearchParams(newSearchParams)
   }
 
   return {
