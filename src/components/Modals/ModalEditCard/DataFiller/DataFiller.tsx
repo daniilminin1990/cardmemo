@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, memo } from 'react'
 import { Control } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
@@ -23,7 +23,7 @@ type DataFillerProps = {
   label: keyof FormValuesAddEditCard
   questionOrAnswer: string | undefined
 }
-export const DataFiller = (props: DataFillerProps) => {
+export const DataFiller = memo((props: DataFillerProps) => {
   const { control, getCoverHandler, getPreviewHandler, img, item, label, questionOrAnswer } = props
 
   const { cover, preview, refInputImg, setCover, setPreview } = useAddEditCardLogic({
@@ -108,4 +108,4 @@ export const DataFiller = (props: DataFillerProps) => {
       </div>
     </div>
   )
-}
+})
