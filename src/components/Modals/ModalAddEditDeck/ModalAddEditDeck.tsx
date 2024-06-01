@@ -82,7 +82,6 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
   return (
     <>
       {loadingStatus && <LoadingBar />}
-      <DevTool control={control} />
       <Modal
         className={s.customClass}
         onOpenChange={handleOnClose}
