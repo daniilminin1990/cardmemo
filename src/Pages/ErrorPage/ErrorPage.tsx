@@ -1,10 +1,12 @@
+import { memo } from 'react'
+
 import { Button } from '@/components/ui/button'
 import { path } from '@/router/path'
 
 import style from './ErrorPage.module.scss'
 
 import Error from '../../assets/img/404.png'
-const ErrorPage = () => {
+const ErrorPage = memo(() => {
   return (
     <div className={style.box}>
       <div>
@@ -18,6 +20,6 @@ const ErrorPage = () => {
       </div>
     </div>
   )
-}
+})
 
 export default ErrorPage

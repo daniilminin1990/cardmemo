@@ -56,9 +56,6 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const [updateCard, { isLoading: isLoadingUpdate }] = useUpdateCardMutation()
 
   const { control, handleSubmit } = useForm<FormValuesAddEditCard>({
-    // defaultValues: item
-    //   ? { answer: item.answer, question: item.question }
-    //   : { answer: '', question: '' },
     resolver: zodResolver(schemaAddEditCard),
   })
 
