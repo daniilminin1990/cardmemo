@@ -71,7 +71,7 @@
   },
   "modalOnEmpty": {
     "areYouSure": "Are you sure you want to leave this page?",
-    "reallyWant": "Do you really want to leave this page? You haven't created any cards !!!",
+    "reallyWant": "You haven't created any cards !!!",
     "no": "No",
     "yes": "Yes"
   },
