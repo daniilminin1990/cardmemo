@@ -12,10 +12,10 @@ import clsx from 'clsx'
 
 import s from './tableComponent.module.scss'
 
-type Item<T> = T extends Deck[] ? Deck : CardResponse
+// type Item<T> = T extends Deck[] ? Deck : CardResponse
 
 type Props<T extends CardResponse[] | Deck[]> = {
-  children: (item: Item<T>) => ReactNode
+  children: ReactNode
   data?: T
   isLoading?: boolean
   tableHeader: { key: string; title: string }[]
@@ -68,21 +68,21 @@ export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
           <Table.HeadCell className={s.emptyTableHeadCell}></Table.HeadCell>
         </Table.Row>
       </Table.Head>
-      {data && data?.length !== 0 ? (
-        data?.map(item => {
-          return <Table.Body key={item.id}>{children(item as Item<T>)}</Table.Body>
-        })
-      ) : (
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell className={s.empty} colSpan={header.length + 1}>
-              <Typography as={'span'} variant={'body1'}>
-                {message}
-              </Typography>
-            </Table.Cell>
-          </Table.Row>
-        </Table.Body>
-      )}
+      <>
+        {data && data?.length !== 0 ? (
+          <Table.Body>{children}</Table.Body>
+        ) : (
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell className={s.empty} colSpan={header.length + 1}>
+                <Typography as={'span'} variant={'body1'}>
+                  {message}
+                </Typography>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        )}
+      </>
     </Table.Root>
   )
 }
