@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
@@ -9,7 +11,7 @@ type Props = {
   setOpen: (value: boolean) => void
 }
 
-export const SuccessModal = ({ open, setOpen }: Props) => {
+export const SuccessModal = memo(({ open, setOpen }: Props) => {
   const handleOnClose = () => {
     router.navigate(path.login)
     setOpen(false)
@@ -31,4 +33,4 @@ export const SuccessModal = ({ open, setOpen }: Props) => {
       </Modal>
     </>
   )
-}
+})

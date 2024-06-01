@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
@@ -21,68 +21,65 @@ type Props<T extends CardResponse[] | Deck[]> = {
   tableHeader: { key: string; title: string }[]
 }
 
-export const TableComponentWithTypes = <T extends CardResponse[] | Deck[]>({
-  children,
-  data,
-  isLoading,
-  tableHeader,
-}: Props<T>) => {
-  const { currentOrderBy, setSortByQuery } = useQueryParams()
-  const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
-  const { search } = useQueryParams()
-  const { t } = useTranslation()
+export const TableComponentWithTypes = memo(
+  <T extends CardResponse[] | Deck[]>({ children, data, isLoading, tableHeader }: Props<T>) => {
+    const { currentOrderBy, setSortByQuery } = useQueryParams()
+    const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
+    const { search } = useQueryParams()
+    const { t } = useTranslation()
 
-  let message = ''
+    let message = ''
 
-  if (isLoading) {
-    message = 'Please wait, the data is loading'
-  } else if (search.length === 0) {
-    message = `${t('tableComponentWithTypes.pleaseAddAnyData')}`
-  } else {
-    message = `${t('tableComponentWithTypes.noContent')}...`
-  }
+    if (isLoading) {
+      message = 'Please wait, the data is loading'
+    } else if (search.length === 0) {
+      message = `${t('tableComponentWithTypes.pleaseAddAnyData')}`
+    } else {
+      message = `${t('tableComponentWithTypes.noContent')}...`
+    }
 
-  return (
-    <Table.Root className={s.tableRoot}>
-      <Table.Head>
-        <Table.Row>
-          {header.map(name => (
-            <Table.HeadCell
-              className={clsx(
-                tableHeader === headersNameDecks ? s.tableHeadCellDecks : s.tableHeadCellCards
-              )}
-              key={name.key}
-              onClick={() => setSortByQuery(name.key)}
-            >
-              <Typography as={'button'} className={s.nameSortBtn} variant={'subtitle2'}>
-                {/*{name.title}*/}
-                {t(`${name.locale}`)}
-                {currentOrderBy.includes(name.key) && (
-                  <ArrowIosDownOutline
-                    className={`${s.arrow} ${currentOrderBy.includes('asc') ? s.rotate : ''}`}
-                  />
+    return (
+      <Table.Root className={s.tableRoot}>
+        <Table.Head>
+          <Table.Row>
+            {header.map(name => (
+              <Table.HeadCell
+                className={clsx(
+                  tableHeader === headersNameDecks ? s.tableHeadCellDecks : s.tableHeadCellCards
                 )}
-              </Typography>
-            </Table.HeadCell>
-          ))}
-          <Table.HeadCell className={s.emptyTableHeadCell}></Table.HeadCell>
-        </Table.Row>
-      </Table.Head>
-      <>
-        {data && data?.length !== 0 ? (
-          <Table.Body>{children}</Table.Body>
-        ) : (
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell className={s.empty} colSpan={header.length + 1}>
-                <Typography as={'span'} variant={'body1'}>
-                  {message}
+                key={name.key}
+                onClick={() => setSortByQuery(name.key)}
+              >
+                <Typography as={'button'} className={s.nameSortBtn} variant={'subtitle2'}>
+                  {/*{name.title}*/}
+                  {t(`${name.locale}`)}
+                  {currentOrderBy.includes(name.key) && (
+                    <ArrowIosDownOutline
+                      className={`${s.arrow} ${currentOrderBy.includes('asc') ? s.rotate : ''}`}
+                    />
+                  )}
                 </Typography>
-              </Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        )}
-      </>
-    </Table.Root>
-  )
-}
+              </Table.HeadCell>
+            ))}
+            <Table.HeadCell className={s.emptyTableHeadCell}></Table.HeadCell>
+          </Table.Row>
+        </Table.Head>
+        <>
+          {data && data?.length !== 0 ? (
+            <Table.Body>{children}</Table.Body>
+          ) : (
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell className={s.empty} colSpan={header.length + 1}>
+                  <Typography as={'span'} variant={'body1'}>
+                    {message}
+                  </Typography>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          )}
+        </>
+      </Table.Root>
+    )
+  }
+)
