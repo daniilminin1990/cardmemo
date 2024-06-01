@@ -13,13 +13,11 @@ export const useAddEditDeckLogic = ({ item }: Props) => {
   const [preview, setPreview] = useState<null | string>(initPreview)
   const [cover, setCover] = useState<File | null | undefined>(undefined)
   const refInputImg = useRef<HTMLInputElement>(null)
-  const { control, handleSubmit } = useForm<FormValuesAddEditDeck>({
-    defaultValues: item
-      ? { isPrivate: item.isPrivate, name: item.name }
-      : { isPrivate: false, name: '' },
+  const { control, handleSubmit, setValue } = useForm<FormValuesAddEditDeck>({
     resolver: zodResolver(schemaAddEditDeck),
   })
 
+  setValue('isPrivate', item?.isPrivate)
   useEffect(() => {
     if (item?.cover) {
       setPreview(item?.cover)

@@ -165,9 +165,8 @@ export const decksService = flashCardsAPI.injectEndpoints({
           if (name) {
             formData.append('name', name)
           }
-          if (isPrivate) {
-            formData.append('isPrivate', isPrivate.toString())
-          }
+
+          formData.append('isPrivate', isPrivate ? isPrivate.toString() : 'false')
           if (cover) {
             formData.append('cover', cover)
           } else if (cover === null) {
