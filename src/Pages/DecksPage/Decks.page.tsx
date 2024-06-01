@@ -54,12 +54,9 @@ export function DecksPage() {
 
   const { authorId, setTabsValue, setTabsValueQuery, tabsValue, tabsValuesData } =
     useTabsValuesParams()
-  const [isCreateModal, setIsCreateModal] = useState(false)
-  const [isUpdateModal, setIsUpdateModal] = useState(false)
-  const [isDeleteModal, setIsDeleteModal] = useState(false)
-  const [deckItem, setDeckItem] = useState<Deck>()
-  const { data: meData, isLoading: meIsLoading } = useMeQuery()
 
+  const [deleteDeck] = useDeleteDeckMutation()
+  const { data: meData, isLoading: meIsLoading } = useMeQuery()
   const { currentData, data, isFetching, isLoading } = useGetDecksQuery(
     {
       authorId: authorId || '',
@@ -73,8 +70,13 @@ export function DecksPage() {
     { skip: !minMaxData && !meData }
   )
 
-  const [deleteDeck] = useDeleteDeckMutation()
   const { deckId } = useParams()
+
+  const [isCreateModal, setIsCreateModal] = useState(false)
+  const [isUpdateModal, setIsUpdateModal] = useState(false)
+  const [isDeleteModal, setIsDeleteModal] = useState(false)
+  const [deckItem, setDeckItem] = useState<Deck>()
+
   const onDeleteDeckHandler = () => {
     deleteDeck({ id: deckItem?.id ?? '' })
     setIsDeleteModal(true)

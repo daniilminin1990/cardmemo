@@ -50,6 +50,8 @@ export const CardsPage = () => {
     setSearchQuery,
   } = useQueryParams()
 
+  const [deleteCard] = useDeleteCardByIdMutation()
+  const [deleteDeck] = useDeleteDeckMutation()
   const { deckId = '' } = useParams()
   const { data: meData } = useMeQuery()
   const {
@@ -62,11 +64,7 @@ export const CardsPage = () => {
     args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
     id: deckId ?? '',
   })
-  const [deleteCard] = useDeleteCardByIdMutation()
-  const [deleteDeck] = useDeleteDeckMutation()
   const [cardItem, setCardItem] = useState<CardResponse>()
-
-  // Стэйты модалок
   const [isEmptyModal, setIsEmptyModal] = useState(false) // Переход назад с пустой таблицей
   const [isUpdateDeckModal, setIsUpdateDeckModal] = useState(false) // Изменение Deck
   const [isDeleteDeckModal, setIsDeleteDeckModal] = useState(false) // Удаление Deck
