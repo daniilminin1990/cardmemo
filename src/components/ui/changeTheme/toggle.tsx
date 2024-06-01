@@ -5,8 +5,8 @@ import * as RadixToggle from '@radix-ui/react-toggle'
 import styles from './Toggle.module.scss'
 
 type ToggleProps = {
-  moonIcon: string
-  sunIcon: string
+  moonIcon?: string
+  sunIcon?: string
 } & ComponentPropsWithoutRef<typeof RadixToggle.Root>
 
 const ThemeToggle = (props: ToggleProps) => {

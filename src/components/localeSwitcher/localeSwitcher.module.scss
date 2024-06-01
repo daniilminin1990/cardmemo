@@ -5,24 +5,29 @@
   @include focus-visible-default;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: left;
   gap: 10px;
   align-items: center;
-  justify-content: center;
 }
 
-.flag {
+.flag,
+.flagEng {
   cursor: pointer;
-  width: 40px;
-  height: 30px;
+  /*width: 40px;
+  height: 30px;*/
+  width: 30px;
+  height: 20px;
   object-fit: cover;
 }
 
-.flagEng {
+/*.flagEng {
   cursor: pointer;
-  width: 40px;
-  height: 30px;
-}
+  width: 30px;
+  height: 20px;
+  !*width: 40px;
+  height: 30px;*!
+}*/
 
 .DropdownMenuContent {
   display: flex;
@@ -30,6 +35,16 @@
   gap: 5px;
   align-items: center;
   justify-content: center;
+  padding: 10px;
+
+  background-color: var(--color-dark-700);
+  border-radius: 6px;
+  box-shadow:
+    0 10px 38px -10px rgb(22 23 24 / 35%),
+    0 10px 20px -15px rgb(22 23 24 / 20%);
+
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .IconButton {
@@ -44,28 +59,23 @@
   /*background-color: #0f9954;*/
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
-  &[data-state='pressed'] {
-    border-color: var(--color-dark-100);
-    border-radius: 2px 2px 0 0;
-    .selectIcon {
+  &[data-state='open'] {
+    .iconArrowDown {
       transform: rotate(180deg);
     }
   }
 }
 
-.IconButton:after {
-  content: '';
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-image: url('../../assets/icons/arrow-ios-Down-outline.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin-left: 1px;
+.iconArrowDown {
+  margin-left: 3px;
+  transition: 0.2s;
+  & path {
+    fill: var(--color-dark-100);
+  }
 }
 
-.IconButton:after svg path {
-  color: #ffffff;
+.DropdownMenuArrow {
+  fill: var(--color-dark-700);
 }
 
 .flagOwn {

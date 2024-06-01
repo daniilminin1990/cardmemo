@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next'
 
 import en from '@/assets/Lang/English.png'
 import ru from '@/assets/Lang/Russian.png'
+import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import style from './localeSwitcher.module.scss'
+import s from './localeSwitcher.module.scss'
 
 const LocaleSwitcherDrop = () => {
   const { i18n } = useTranslation()
@@ -30,34 +31,32 @@ const LocaleSwitcherDrop = () => {
       changeLanguage(lang)
     }
   }
+  const { t } = useTranslation()
 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <button aria-label={'Update dimensions'} className={style.IconButton}>
-          <img alt={''} className={style.flagOwn} height={30} src={iconFlag} width={40} />
+        <button aria-label={'Update dimensions'} className={s.IconButton}>
+          <img alt={''} className={s.flagOwn} height={30} src={iconFlag} width={40} />
+          <ArrowIosDownOutline className={s.iconArrowDown} />
         </button>
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content className={style.DropdownMenuContent} sideOffset={5}>
+        <DropdownMenu.Content className={s.DropdownMenuContent} sideOffset={3}>
           <DropdownMenu.Item asChild>
-            <div className={style.boxContent} onKeyDown={e => handleKeyDown(e, 'en')}>
-              <img
-                alt={''}
-                className={style.flagEng}
-                onClick={() => changeLanguage('en')}
-                src={en}
-              />
+            <div className={s.boxContent} onKeyDown={e => handleKeyDown(e, 'en')}>
+              <img alt={''} className={s.flagEng} onClick={() => changeLanguage('en')} src={en} />
+              {t('localeSwitcher.language.en')}
             </div>
           </DropdownMenu.Item>
           <DropdownMenu.Item asChild>
-            <div className={style.boxContent} onKeyDown={e => handleKeyDown(e, 'ru')}>
-              <img alt={''} className={style.flag} onClick={() => changeLanguage('ru')} src={ru} />
+            <div className={s.boxContent} onKeyDown={e => handleKeyDown(e, 'ru')}>
+              <img alt={''} className={s.flag} onClick={() => changeLanguage('ru')} src={ru} />
+              {t('localeSwitcher.language.ru')}
             </div>
           </DropdownMenu.Item>
-
-          <DropdownMenu.Arrow className={'DropdownMenuArrow'} />
+          <DropdownMenu.Arrow className={s.DropdownMenuArrow} />
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>

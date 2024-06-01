@@ -6,8 +6,8 @@ import ToggleDemo from '@/components/ui/changeTheme/toggle'
 
 import style from './ChangeTheme.module.scss'
 
-import moon from '../../../assets/ChangeTheme/moonIconv2.png'
-import sun from '../../../assets/ChangeTheme/sunIconv2.png'
+import moon from '../../../assets/ChangeTheme/moonIcon.png'
+import sun from '../../../assets/ChangeTheme/sunIcon.png'
 
 export type Theme = 'moon' | 'sun'
 

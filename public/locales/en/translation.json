@@ -1,6 +1,9 @@
 {
   "localeSwitcher": {
-    "language": "En"
+    "language": {
+      "en": "English",
+      "ru": "Russian"
+    }
   },
   "header": {
     "signIn": "Sign In",
