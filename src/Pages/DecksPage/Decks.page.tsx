@@ -1,10 +1,12 @@
 import { ChangeEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router-dom'
 
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { handleToastInfo } from '@/common/consts/toastVariants'
 import { headersNameDecks, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
+import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
 import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
 import Input from '@/components/ui/Input/Input'
@@ -19,8 +21,11 @@ import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { useSliderQueryParams } from '@/hooks/useSliderQueryParams'
 import { useTabsValuesParams } from '@/hooks/useTabsValuesParams'
+import { path } from '@/router/path'
+import { router } from '@/router/router'
 import { useMeQuery } from '@/services/auth/auth.service'
-import { useGetDecksQuery } from '@/services/decks/decks.service'
+import { Deck } from '@/services/decks/deck.types'
+import { useDeleteDeckMutation, useGetDecksQuery } from '@/services/decks/decks.service'
 
 import s from '@/Pages/DecksPage/decksPage.module.scss'
 
@@ -49,9 +54,9 @@ export function DecksPage() {
 
   const { authorId, setTabsValue, setTabsValueQuery, tabsValue, tabsValuesData } =
     useTabsValuesParams()
-  const [open, setOpen] = useState(false)
-  const { data: meData, isLoading: meIsLoading } = useMeQuery()
 
+  const [deleteDeck] = useDeleteDeckMutation()
+  const { data: meData, isLoading: meIsLoading } = useMeQuery()
   const { currentData, data, isFetching, isLoading } = useGetDecksQuery(
     {
       authorId: authorId || '',
@@ -64,6 +69,21 @@ export function DecksPage() {
     },
     { skip: !minMaxData && !meData }
   )
+
+  const { deckId } = useParams()
+
+  const [isCreateModal, setIsCreateModal] = useState(false)
+  const [isUpdateModal, setIsUpdateModal] = useState(false)
+  const [isDeleteModal, setIsDeleteModal] = useState(false)
+  const [deckItem, setDeckItem] = useState<Deck>()
+
+  const onDeleteDeckHandler = () => {
+    deleteDeck({ id: deckItem?.id ?? '' })
+    setIsDeleteModal(true)
+    if (deckId) {
+      router.navigate(path.decks)
+    }
+  }
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentPageQuery(Number(initCurrentPage))
@@ -98,14 +118,26 @@ export function DecksPage() {
   return (
     <>
       {isFetching && <LoadingBar />}
+      <ModalAddEditDeck item={deckItem} open={isUpdateModal} setOpen={setIsUpdateModal} />
+      <DeleteModal
+        deleteFn={onDeleteDeckHandler}
+        open={isDeleteModal}
+        setOpen={setIsDeleteModal}
+        title={'Delete Deck'}
+      >
+        <Typography variant={'h1'}>{deckItem?.name}</Typography>
+        <Typography variant={'body1'}>
+          Do you really want to delete deck? All cards will be deleted.
+        </Typography>
+      </DeleteModal>
+      <ModalAddEditDeck open={isCreateModal} setOpen={setIsCreateModal} />
       <Page className={s.common}>
-        <ModalAddEditDeck open={open} setOpen={setOpen} />
         <div className={s.heading}>
           <div className={s.headingFirstRow}>
             <Typography as={'h1'} variant={'h1'}>
               {t('decksPage.decksList')}
             </Typography>
-            <Button onClick={() => setOpen(true)} variant={'primary'}>
+            <Button onClick={() => setIsCreateModal(true)} variant={'primary'}>
               <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
             </Button>
           </div>
@@ -141,7 +173,17 @@ export function DecksPage() {
           </div>
         </div>
         <TableComponentWithTypes data={decksData} tableHeader={headersNameDecks}>
-          {item => <SingleRowDeck item={item} />}
+          {decksData?.map(deck => {
+            return (
+              <SingleRowDeck
+                item={deck}
+                key={deck.id}
+                openDeleteModalHandler={setIsDeleteModal}
+                openEditModalHandler={setIsUpdateModal}
+                retrieveDeckItem={setDeckItem}
+              />
+            )
+          })}
         </TableComponentWithTypes>
         <div className={s.footer}>
           <PaginationWithSelect

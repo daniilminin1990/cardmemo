@@ -29,7 +29,8 @@ import { useQueryParams } from '@/hooks/useQueryParams'
 import { path } from '@/router/path'
 import { router } from '@/router/router'
 import { useMeQuery } from '@/services/auth/auth.service'
-import { useGetCardsQuery } from '@/services/cards/cards.service'
+import { useDeleteCardByIdMutation, useGetCardsQuery } from '@/services/cards/cards.service'
+import { CardResponse } from '@/services/cards/cards.types'
 import { useDeleteDeckMutation, useGetDeckByIdQuery } from '@/services/decks/decks.service'
 import { clsx } from 'clsx'
 
@@ -49,8 +50,8 @@ export const CardsPage = () => {
     setSearchQuery,
   } = useQueryParams()
 
-  const [open, setOpen] = useState(false)
-
+  const [deleteCard] = useDeleteCardByIdMutation()
+  const [deleteDeck] = useDeleteDeckMutation()
   const { deckId = '' } = useParams()
   const { data: meData } = useMeQuery()
   const {
@@ -63,10 +64,14 @@ export const CardsPage = () => {
     args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
     id: deckId ?? '',
   })
-  const [openModal, setOpenModal] = useState(false)
-  const [openEditDeckModal, setOpenEditDeckModal] = useState(false)
-  const [isDeleteModal, setIsDeleteModal] = useState(false)
-  const [deleteDeck] = useDeleteDeckMutation()
+  const [cardItem, setCardItem] = useState<CardResponse>()
+  const [isEmptyModal, setIsEmptyModal] = useState(false) // Переход назад с пустой таблицей
+  const [isUpdateDeckModal, setIsUpdateDeckModal] = useState(false) // Изменение Deck
+  const [isDeleteDeckModal, setIsDeleteDeckModal] = useState(false) // Удаление Deck
+  const [isCreateCardModal, setIsCreateCardModal] = useState(false) // Добавление Card | Переход в Learn?
+  const [isUpdateCardModal, setIsUpdateCardModal] = useState(false) // Изменение Card | Переход в Learn
+  const [isDeleteCardModal, setIsDeleteCardModal] = useState(false) // Удаление Card
+
   const handleItemsPerPageChange = (value: number) => {
     setCurrentPageQuery(Number(initCurrentPage))
     setItemsPerPageQuery(value)
@@ -83,10 +88,13 @@ export const CardsPage = () => {
 
   const onDeleteDeckHandler = () => {
     deleteDeck({ id: deckId })
-    setIsDeleteModal(true)
+    setIsDeleteDeckModal(true)
     if (deckId) {
       router.navigate(path.decks)
     }
+  }
+  const onDeleteCardHandler = () => {
+    deleteCard({ id: cardItem?.id ?? '' })
   }
 
   const cardsData = currentData ?? data
@@ -107,7 +115,7 @@ export const CardsPage = () => {
       (isMineCards && cardsData?.items?.length === 0) ||
       (isMineCards && data?.items?.length === 0)
     ) {
-      setOpenModal(true)
+      setIsEmptyModal(true)
     } else {
       router.navigate(`${path.decks}`)
     }
@@ -123,22 +131,34 @@ export const CardsPage = () => {
     <>
       {loadingStatus && <LoadingBar />}
       <Page className={s.common} mt={'24px'}>
-        <ModalOnEmpty open={openModal} setIsOpenModal={setOpenModal} />
-        <ModalAddEditCard open={open} setOpen={setOpen} />
+        <ModalOnEmpty open={isEmptyModal} setIsOpenModal={setIsEmptyModal} />
         <ModalAddEditDeck
           item={currentDeckData}
-          open={openEditDeckModal}
-          setOpen={setOpenEditDeckModal}
+          open={isUpdateDeckModal}
+          setOpen={setIsUpdateDeckModal}
         />
+        <ModalAddEditCard item={cardItem} open={isUpdateCardModal} setOpen={setIsUpdateCardModal} />
+        <ModalAddEditCard open={isCreateCardModal} setOpen={setIsCreateCardModal} />
         <DeleteModal
           deleteFn={onDeleteDeckHandler}
-          open={isDeleteModal}
-          setOpen={setIsDeleteModal}
+          open={isDeleteDeckModal}
+          setOpen={setIsDeleteDeckModal}
           title={'Delete Deck'}
         >
           <Typography variant={'h1'}>{deck?.name}</Typography>
           <Typography variant={'body1'}>
             Do you really want to delete deck? All cards will be deleted.
+          </Typography>
+        </DeleteModal>
+        <DeleteModal
+          deleteFn={onDeleteCardHandler}
+          open={isDeleteCardModal}
+          setOpen={setIsDeleteCardModal}
+          title={'Delete Card'}
+        >
+          <Typography variant={'h1'}>{cardItem?.question}</Typography>
+          <Typography variant={'body1'}>
+            Do you really want to delete card? Cards will be deleted !!!
           </Typography>
         </DeleteModal>
         <div className={s.heading}>
@@ -172,12 +192,12 @@ export const CardsPage = () => {
                     )}
 
                     <DropDownItem
-                      handleOnClick={() => setOpenEditDeckModal(true)}
+                      handleOnClick={() => setIsUpdateDeckModal(true)}
                       icon={menuIcon2}
                       text={t('cardsPage.edit')}
                     />
                     <DropDownItem
-                      handleOnClick={() => setIsDeleteModal(true)}
+                      handleOnClick={() => setIsDeleteDeckModal(true)}
                       icon={menuIcon}
                       text={t('cardsPage.delete')}
                     />
@@ -191,14 +211,18 @@ export const CardsPage = () => {
             {isCardsCountFilled && (
               <div className={s.switchButton}>
                 {isMineCards ? (
-                  <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
+                  <Button
+                    className={s.addCard}
+                    onClick={() => setIsCreateCardModal(true)}
+                    type={'button'}
+                  >
                     <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
                   </Button>
                 ) : (
                   <Button
                     as={Link}
                     className={s.learnCards}
-                    onClick={() => setOpen(true)}
+                    onClick={() => setIsUpdateCardModal(true)}
                     to={`${path.decks}/${deckId}${path.learn}`}
                     type={'button'}
                   >
@@ -226,7 +250,11 @@ export const CardsPage = () => {
                 : `${t('cardsPage.unfortunatelyEmptyDeck')}`}
             </Typography>
             {isMineCards && (
-              <Button className={s.addCard} onClick={() => setOpen(true)} type={'button'}>
+              <Button
+                className={s.addCard}
+                onClick={() => setIsCreateCardModal(true)}
+                type={'button'}
+              >
                 <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
               </Button>
             )}
@@ -238,7 +266,17 @@ export const CardsPage = () => {
               isLoading={loadingStatus}
               tableHeader={headersNameCards}
             >
-              {item => <SingleRowCard item={item} />}
+              {cardsData?.items.map(card => {
+                return (
+                  <SingleRowCard
+                    item={card}
+                    key={card.id}
+                    openDeleteModalHandler={setIsDeleteCardModal}
+                    openEditModalHandler={setIsUpdateCardModal}
+                    retrieveCardItem={setCardItem}
+                  />
+                )
+              })}
             </TableComponentWithTypes>
             <div className={s.footer}>
               <PaginationWithSelect
