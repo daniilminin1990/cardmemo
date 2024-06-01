@@ -12,7 +12,12 @@
     "showDecksCards": "Отображать колоды",
     "decksList": "Список колод",
     "addNewDeck": "Новая колода",
-    "clearFilter": "Очистить"
+    "clearFilter": "Очистить",
+    "deleteDeck": "Удалить колоду",
+    "isDeleteDeck": "Вы уверены, что хотите удалить колоду? Все карты будут удалены."
+  },
+  "deleteModal": {
+    "cancel": "Отмена"
   },
   "useTabsValuesParams": {
     "allDecks": "Все",
@@ -90,7 +95,11 @@
     "delete": "Удалить",
     "emptyDeck": "Эта колода пуста. Нажмите кнопку добавить, чтобы заполнить эту колоду",
     "unfortunatelyEmptyDeck": "К сожалению, эта колода пуста.",
-    "addNewCard": "Добавить карту"
+    "addNewCard": "Добавить карту",
+    "deleteDeck": "Удалить колоду",
+    "isDeleteDeck": "Вы уверены, что хотите удалить колоду? Все карты будут удалены.",
+    "deleteCard": "Удалить карту",
+    "isDeleteCard": "Вы действительно хотите удалить карту? Все содержимое будет удалено."
   },
   "modalAddEditCard": {
     "updateCard": "Изменить карту",
@@ -103,7 +112,8 @@
   },
   "dataFiller": {
     "uploadImage": "Загрузить обложку",
-    "changeCover": "Изменить обложку"
+    "changeCover": "Изменить обложку",
+    "removeCover": "Удалить обложку"
   },
   "profilePage": {
     "personalInfo": "Личная информация",

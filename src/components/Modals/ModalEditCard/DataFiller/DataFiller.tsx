@@ -3,6 +3,7 @@ import { Control } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
+import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { useAddEditCardLogic } from '@/common/addEditCardsOrDecks/addEditCardLogic'
 import { FormValuesAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import Input from '@/components/ui/Input/Input'
@@ -84,7 +85,8 @@ export const DataFiller = (props: DataFillerProps) => {
       <div className={s.buttonsWrapper}>
         {preview && (
           <Button className={s.uploadImg} fullWidth onClick={handleRemoveImgs} type={'button'}>
-            <Typography variant={'subtitle2'}>Remove cover</Typography>
+            <TrashOutline className={s.icon} />
+            <Typography variant={'subtitle2'}>{t('dataFiller.removeCover')}</Typography>
           </Button>
         )}
         <Button className={s.uploadImg} fullWidth onClick={handleSubmitImg} type={'button'}>

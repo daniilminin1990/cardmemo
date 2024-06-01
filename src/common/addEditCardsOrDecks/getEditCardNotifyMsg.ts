@@ -1,5 +1,8 @@
 import { FormValuesAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import { CardResponse } from '@/services/cards/cards.types'
+
+export const defCardNotifyMsg = 'It is ok, just let you know 👌'
+
 export const getEditCardNotifyMsgCommon = ({
   data,
   item,
@@ -42,9 +45,5 @@ export const getEditCardNotifyMsgCommon = ({
     }
   }
 
-  if (message === '') {
-    message = 'Some changes were made. '
-  }
-
-  return `${message}It is ok, just let you know 👌`
+  return message + defCardNotifyMsg
 }

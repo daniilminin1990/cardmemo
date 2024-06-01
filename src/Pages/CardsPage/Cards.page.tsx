@@ -144,23 +144,19 @@ export const CardsPage = () => {
           deleteFn={onDeleteDeckHandler}
           open={isDeleteDeckModal}
           setOpen={setIsDeleteDeckModal}
-          title={'Delete Deck'}
+          title={t('cardsPage.deleteDeck')}
         >
           <Typography variant={'h1'}>{deck?.name}</Typography>
-          <Typography variant={'body1'}>
-            Do you really want to delete deck? All cards will be deleted.
-          </Typography>
+          <Typography variant={'body1'}>{t('cardsPage.isDeleteDeck')}</Typography>
         </DeleteModal>
         <DeleteModal
           deleteFn={onDeleteCardHandler}
           open={isDeleteCardModal}
           setOpen={setIsDeleteCardModal}
-          title={'Delete Card'}
+          title={t('cardsPage.deleteCard')}
         >
           <Typography variant={'h1'}>{cardItem?.question}</Typography>
-          <Typography variant={'body1'}>
-            Do you really want to delete card? Cards will be deleted !!!
-          </Typography>
+          <Typography variant={'body1'}>{t('cardsPage.isDeleteCard')}</Typography>
         </DeleteModal>
         <div className={s.heading}>
           <BackBtn onClick={handleOpenModal} to={'#'}>

@@ -12,7 +12,9 @@
     "showDecksCards": "Show decks cards",
     "decksList": "Decks list",
     "addNewDeck": "Add New Deck",
-    "clearFilter": "Clear Filter"
+    "clearFilter": "Clear Filter",
+    "deleteDeck": "Delete Deck",
+    "isDeleteDeck": "Do you really want to delete deck? All cards will be deleted."
   },
   "useTabsValuesParams": {
     "allDecks": "All decks",
@@ -39,6 +41,9 @@
     "cancel": "Cancel",
     "saveChanges": "Save changes",
     "createPack": "Create Deck"
+  },
+  "deleteModal": {
+    "cancel": "Cancel"
   },
   "signInPage": {
     "signIn": "Sign In",
@@ -89,7 +94,11 @@
     "delete": "Delete",
     "emptyDeck": "This deck is empty. Click add new card to fill this pack",
     "unfortunatelyEmptyDeck": "Unfortunately this deck is empty",
-    "addNewCard": "Add New Card"
+    "addNewCard": "Add New Card",
+    "deleteDeck": "Delete Deck",
+    "isDeleteDeck": "Do you really want to delete deck? All cards will be deleted.",
+    "deleteCard": "Delete Card",
+    "isDeleteCard": "Do you really want to delete card? All data will be deleted."
   },
   "modalAddEditCard": {
     "updateCard": "Update Card",
@@ -98,11 +107,13 @@
     "answer": "answer",
     "saveChanges": "Save changes",
     "createCard": "Create Card",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "removeCover": "Remove cover"
   },
   "dataFiller": {
     "uploadImage": "Upload Image",
-    "changeCover": "Change cover"
+    "changeCover": "Change cover",
+    "removeCover": "Remove cover"
   },
   "profilePage": {
     "personalInfo": "Personal Information",

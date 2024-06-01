@@ -3,6 +3,7 @@ import { SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
+import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { useAddEditDeckLogic } from '@/common/addEditCardsOrDecks/addEditDeckLogic'
 import { getEditDeckNotifyMsg } from '@/common/addEditCardsOrDecks/getEditDeckNotifyMsg'
 import { handleToastInfo } from '@/common/consts/toastVariants'
@@ -112,6 +113,7 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
                   }}
                   type={'button'}
                 >
+                  <TrashOutline className={s.icon} />
                   <Typography variant={'subtitle2'}>{t('modalAddEditDeck.removeCover')}</Typography>
                 </Button>
               )}
