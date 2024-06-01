@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { getEditCardNotifyMsg } from '@/common/addEditCardsOrDecks/getEditCardNotifyMsg'
+import { getEditCardNotifyMsgCommon } from '@/common/addEditCardsOrDecks/getEditCardNotifyMsg'
 import { handleToastInfo } from '@/common/consts/toastVariants'
 import { FormValuesAddEditCard, schemaAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import { DataFiller } from '@/components/Modals/ModalEditCard/DataFiller/DataFiller'
@@ -61,7 +61,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
 
   const onSubmit: SubmitHandler<FormValuesAddEditCard> = data => {
     if (item) {
-      const msg = getEditCardNotifyMsg({
+      const msg = getEditCardNotifyMsgCommon({
         data,
         item,
         previewAnswerImg,
