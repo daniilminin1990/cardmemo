@@ -96,11 +96,8 @@ export function DecksPage() {
   }
 
   const onClearFilter = () => {
-    console.log({ tabsValuseBefore: tabsValue })
     setTabsValue(tabsValuesData[1].value)
-    console.log({ tabsValuseAfter: tabsValue })
     clearQuery()
-    console.log({ currentOrderBy, currentPage, itemsPerPage, search })
     handleToastInfo('All filters reset!', 2000)
   }
 
