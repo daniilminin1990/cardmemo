@@ -1,6 +1,5 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
-import { cardsSlice } from '@/services/cardsSlice/cardsSlice'
 import { configureStore } from '@reduxjs/toolkit'
 
 import { flashCardsAPI } from './flashCardsAPI'
@@ -8,7 +7,7 @@ import { flashCardsAPI } from './flashCardsAPI'
 export const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(flashCardsAPI.middleware),
   reducer: {
-    [cardsSlice.name]: cardsSlice.reducer,
+    // [cardsSlice.name]: cardsSlice.reducer,
     [flashCardsAPI.reducerPath]: flashCardsAPI.reducer,
   },
 })

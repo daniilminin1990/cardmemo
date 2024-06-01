@@ -1,7 +1,6 @@
 import { FormValuesAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import { CardResponse } from '@/services/cards/cards.types'
-
-export const getEditCardNotifyMsg = ({
+export const getEditCardNotifyMsgCommon = ({
   data,
   item,
   previewAnswerImg,
@@ -13,32 +12,38 @@ export const getEditCardNotifyMsg = ({
   previewQuestionImg: null | string
 }) => {
   let message = ''
+  const { answer: dAnswer, question: dQuestion } = data
+  const {
+    answer: iAnswer,
+    answerImg: iAnswerImg,
+    question: iQuestion,
+    questionImg: iQuestionImg,
+  } = item || {}
 
-  const answersAndImgsCondition =
-    data.answer === item?.answer && previewAnswerImg === item?.answerImg
-  const questionAndImgsCondition =
-    data.question === item?.question && previewQuestionImg === item?.questionImg
+  const isAnswerUnchanged = dAnswer === iAnswer
+  const isQuestionUnchanged = dQuestion === iQuestion
+  const isAnswerImgUnchanged = previewAnswerImg === iAnswerImg
+  const isQuestionImgUnchanged = previewQuestionImg === iQuestionImg
 
-  if (answersAndImgsCondition || questionAndImgsCondition) {
-    if (answersAndImgsCondition) {
-      message += 'Answer and answer image are equal to previous. '
-    }
-    if (questionAndImgsCondition) {
-      message += 'Question and question image are equal to previous. '
-    }
+  if (isAnswerUnchanged && isQuestionUnchanged && isAnswerImgUnchanged && isQuestionImgUnchanged) {
+    message = 'Data remained unchanged. '
   } else {
-    if (data.answer === item?.answer) {
-      message += 'Answer is equal to previous. '
+    if (isAnswerUnchanged) {
+      message += 'Answer remained unchanged. '
     }
-    if (data.question === item?.question) {
-      message += 'Question is equal to previous. '
+    if (isQuestionUnchanged) {
+      message += 'Question remained unchanged. '
     }
-    if (previewAnswerImg === item?.answerImg) {
-      message += 'Answer image is equal to previous. '
+    if (isAnswerImgUnchanged) {
+      message += 'Answer image remained unchanged. '
     }
-    if (previewQuestionImg === item?.questionImg) {
-      message += 'Question image is equal to previous. '
+    if (isQuestionImgUnchanged) {
+      message += 'Question image remained unchanged. '
     }
+  }
+
+  if (message === '') {
+    message = 'Some changes were made. '
   }
 
   return `${message}It is ok, just let you know 👌`

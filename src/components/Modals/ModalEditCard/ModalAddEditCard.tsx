@@ -1,9 +1,9 @@
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import { getEditCardNotifyMsg } from '@/common/addEditCardsOrDecks/getEditCardNotifyMsg'
+import { getEditCardNotifyMsgCommon } from '@/common/addEditCardsOrDecks/getEditCardNotifyMsg'
 import { handleToastInfo } from '@/common/consts/toastVariants'
 import { FormValuesAddEditCard, schemaAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import { DataFiller } from '@/components/Modals/ModalEditCard/DataFiller/DataFiller'
@@ -14,8 +14,6 @@ import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { useCreateCardMutation, useUpdateCardMutation } from '@/services/cards/cards.service'
 import { CardResponse } from '@/services/cards/cards.types'
-import { cardsActions, cardsSelectors } from '@/services/cardsSlice/cardsSlice'
-import { useAppDispatch } from '@/services/store'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './modalEditCard.module.scss'
@@ -30,11 +28,24 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const { t } = useTranslation()
   const { item, open, setOpen } = props
   const { clearQuery } = useQueryParams()
-  const answerImg = useSelector(cardsSelectors.cardAnswerImg)
-  const questionImg = useSelector(cardsSelectors.cardQuestionImg)
-  const previewAnswerImg = useSelector(cardsSelectors.cardPreviewAnswer)
-  const previewQuestionImg = useSelector(cardsSelectors.cardPreviewQuestion)
-  const dispatch = useAppDispatch()
+
+  const [answerImg, setAnswerImg] = useState<File | null | undefined>(undefined)
+  const [questionImg, setQuestionImg] = useState<File | null | undefined>(undefined)
+  const [previewAnswerImg, setPreviewAnswerImg] = useState<null | string>('')
+  const [previewQuestionImg, setPreviewQuestionImg] = useState<null | string>('')
+
+  const getPreviewAnswerImg = (value: null | string) => {
+    setPreviewAnswerImg(value)
+  }
+  const getPreviewQuestionImg = (value: null | string) => {
+    setPreviewQuestionImg(value)
+  }
+  const getAnswerImg = (value: File | null | undefined) => {
+    setAnswerImg(value)
+  }
+  const getQuestionImg = (value: File | null | undefined) => {
+    setQuestionImg(value)
+  }
 
   const deckId = useParams().deckId
 
@@ -50,7 +61,7 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
 
   const onSubmit: SubmitHandler<FormValuesAddEditCard> = data => {
     if (item) {
-      const msg = getEditCardNotifyMsg({
+      const msg = getEditCardNotifyMsgCommon({
         data,
         item,
         previewAnswerImg,
@@ -70,15 +81,20 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
       })
     } else {
       createCard({
-        args: { answer: data.answer, answerImg, question: data.question, questionImg },
+        args: {
+          answer: data.answer,
+          answerImg,
+          question: data.question,
+          questionImg,
+        },
         deckId: deckId ?? '',
       })
     }
 
     clearQuery()
     setOpen(false)
-    dispatch(cardsActions.setAnswerImg({ answerImg: undefined }))
-    dispatch(cardsActions.setQuestionImg({ questionImg: undefined }))
+    setAnswerImg(undefined)
+    setQuestionImg(undefined)
   }
 
   const handleOnClose = () => {
@@ -100,6 +116,8 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
           <div className={s.body}>
             <DataFiller
               control={control}
+              getCoverHandler={getQuestionImg}
+              getPreviewHandler={getPreviewQuestionImg}
               img={item?.questionImg}
               item={item}
               label={t('modalAddEditCard.question')}
@@ -107,6 +125,8 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
             />
             <DataFiller
               control={control}
+              getCoverHandler={getAnswerImg}
+              getPreviewHandler={getPreviewAnswerImg}
               img={item?.answerImg}
               item={item}
               label={t('modalAddEditCard.answer')}

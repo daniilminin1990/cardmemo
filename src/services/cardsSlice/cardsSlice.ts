@@ -1,17 +1,17 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  answerImg: undefined as File | null | undefined,
+  answerImg: undefined as null | string | undefined,
   previewAnswer: '' as null | string,
   previewQuestion: '' as null | string,
-  questionImg: undefined as File | null | undefined,
+  questionImg: undefined as null | string | undefined,
 }
 
 export const cardsSlice = createSlice({
   initialState,
   name: 'cards',
   reducers: {
-    setAnswerImg: (state, action: PayloadAction<{ answerImg: File | null | undefined }>) => {
+    setAnswerImg: (state, action) => {
       state.answerImg = action.payload.answerImg
     },
     setPreviewAnswer: (state, action: PayloadAction<{ previewAnswer: null | string }>) => {
@@ -20,7 +20,7 @@ export const cardsSlice = createSlice({
     setPreviewQuestion: (state, action: PayloadAction<{ previewQuestion: null | string }>) => {
       state.previewQuestion = action.payload.previewQuestion
     },
-    setQuestionImg: (state, action: PayloadAction<{ questionImg: File | null | undefined }>) => {
+    setQuestionImg: (state, action) => {
       state.questionImg = action.payload.questionImg
     },
   },
