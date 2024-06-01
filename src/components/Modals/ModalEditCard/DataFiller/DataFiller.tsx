@@ -10,27 +10,25 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { CardResponse } from '@/services/cards/cards.types'
-import { cardsActions } from '@/services/cardsSlice/cardsSlice'
-import { useAppDispatch } from '@/services/store'
 
 import s from './dataFiller.module.scss'
 
 type DataFillerProps = {
   control: Control<FormValuesAddEditCard, any>
+  getCoverHandler: (cover: File | null | undefined) => void
+  getPreviewHandler: (preview: null | string) => void
   img: null | string | undefined
   item?: CardResponse
   label: keyof FormValuesAddEditCard
   questionOrAnswer: string | undefined
 }
 export const DataFiller = (props: DataFillerProps) => {
-  const { item, label, questionOrAnswer, ...rest } = props
-  const dispatch = useAppDispatch()
+  const { control, getCoverHandler, getPreviewHandler, img, item, label, questionOrAnswer } = props
 
-  const { control, cover, preview, refInputImg, setCover, setPreview } = useAddEditCardLogic({
-    control: rest.control,
-    img: rest.img,
+  const { cover, preview, refInputImg, setCover, setPreview } = useAddEditCardLogic({
+    getPreviewHandler,
+    img,
     item,
-    label,
   })
 
   const { t } = useTranslation()
@@ -48,20 +46,8 @@ export const DataFiller = (props: DataFillerProps) => {
         ? null
         : e.target.files?.[0] ?? undefined
 
-    // Переводим newCover в base64
-    if (newCover) {
-      const reader = new FileReader()
-
-      reader.onloadend = () => {
-        const base64String = reader.result
-
-        label === t('modalAddEditCard.question')
-          ? dispatch(cardsActions.setQuestionImg({ questionImg: base64String }))
-          : dispatch(cardsActions.setAnswerImg({ answerImg: base64String }))
-      }
-      reader.readAsDataURL(newCover)
-    }
     setCover(newCover)
+    getCoverHandler(newCover)
     e.target.value = ''
   }
   const handleSubmitImg = () => {
@@ -69,11 +55,8 @@ export const DataFiller = (props: DataFillerProps) => {
   }
 
   const handleRemoveImgs = () => {
-    label === t('modalAddEditCard.question')
-      ? dispatch(cardsActions.setPreviewQuestion({ previewQuestion: null })) &&
-        dispatch(cardsActions.setQuestionImg({ questionImg: null }))
-      : dispatch(cardsActions.setPreviewAnswer({ previewAnswer: null })) &&
-        dispatch(cardsActions.setAnswerImg({ answerImg: null }))
+    getPreviewHandler(null)
+    getCoverHandler(null)
     setPreview(null)
     setCover(null)
   }

@@ -1,4 +1,4 @@
-import { current } from '@reduxjs/toolkit'
+import { getCardsFormData } from '@/common/getCardsFormData'
 
 import { flashCardsAPI } from '../flashCardsAPI'
 import {
@@ -45,28 +45,8 @@ export const cardsService = flashCardsAPI.injectEndpoints({
           }
         },
         query: ({ args, deckId }) => {
-          const formData = new FormData()
-          const { answer, answerImg, question, questionImg } = args
-
-          if (answer) {
-            formData.append('answer', answer)
-          }
-          if (question) {
-            formData.append('question', question)
-          }
-          if (answerImg) {
-            formData.append('answerImg', answerImg)
-          } else if (answerImg === null) {
-            formData.append('answerImg', '')
-          }
-          if (questionImg) {
-            formData.append('questionImg', questionImg)
-          } else if (questionImg === null) {
-            formData.append('questionImg', '')
-          }
-
           return {
-            body: formData,
+            body: getCardsFormData(args),
             method: 'POST',
             url: `v1/decks/${deckId}/cards`,
           }
@@ -145,12 +125,10 @@ export const cardsService = flashCardsAPI.injectEndpoints({
                 cardsService.util.updateQueryData('getCards', originalArgs, draft => {
                   const itemToUpdateIndex = draft.items.findIndex(card => card.id === cardId)
 
-                  console.log('here', args, current(draft.items[itemToUpdateIndex]))
-
                   if (itemToUpdateIndex === -1) {
                     return
                   }
-                  Object.assign(draft.items[itemToUpdateIndex], args)
+                  Object.assign(draft.items[itemToUpdateIndex], getCardsFormData(args))
                 })
               )
             )
@@ -162,28 +140,8 @@ export const cardsService = flashCardsAPI.injectEndpoints({
           }
         },
         query: ({ args, cardId }) => {
-          const formData = new FormData()
-          const { answer, answerImg, question, questionImg } = args
-
-          if (answer) {
-            formData.append('answer', answer)
-          }
-          if (question) {
-            formData.append('question', question)
-          }
-          if (answerImg) {
-            formData.append('answerImg', answerImg)
-          } else if (answerImg === null) {
-            formData.append('answerImg', '')
-          }
-          if (questionImg) {
-            formData.append('questionImg', questionImg)
-          } else if (questionImg === null) {
-            formData.append('questionImg', '')
-          }
-
           return {
-            body: formData,
+            body: getCardsFormData(args),
             method: 'PATCH',
             url: `v1/cards/${cardId}`,
           }
