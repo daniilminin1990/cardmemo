@@ -46,10 +46,6 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
     setOpen(false)
   }
   const handleInputImg = (e: ChangeEvent<HTMLInputElement>) => {
-    // ! Этот коммент чтобы заменить первый useEffect
-    // if (e.target.files !== null && e.target.files.length > 0) {
-    //   setPreview(URL.createObjectURL(e.target.files[0]))
-    // }
     // ! Это условие чтобы не давать сэтать одинаковые картинки и вследствии не отправлять на сервер
     setCover(
       cover?.lastModified === e.target.files?.[0].lastModified ||

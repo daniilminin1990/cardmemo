@@ -59,7 +59,13 @@ export const useQueryParams = () => {
   }
 
   const clearQuery = () => {
-    setSearchParams(new URLSearchParams())
+    const itemsPerPageValue = searchParams.get('itemsPerPage')
+    const newSearchParams = new URLSearchParams()
+
+    if (itemsPerPageValue) {
+      newSearchParams.append('itemsPerPage', itemsPerPageValue)
+    }
+    setSearchParams(newSearchParams)
   }
 
   return {
