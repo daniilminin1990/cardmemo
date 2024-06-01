@@ -19,7 +19,6 @@ import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { Deck } from '@/services/decks/deck.types'
 import { useCreateDeckMutation, useUpdateDeckMutation } from '@/services/decks/decks.service'
-import { DevTool } from '@hookform/devtools'
 
 import s from './AddEditDeckModal.module.scss'
 
@@ -78,7 +77,6 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
   return (
     <>
       {loadingStatus && <LoadingBar />}
-      <DevTool control={control} />
       <Modal
         className={s.customClass}
         onOpenChange={handleOnClose}
