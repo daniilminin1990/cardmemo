@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, memo } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
@@ -18,6 +18,7 @@ import { Modal } from '@/components/ui/modal/modal'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { Deck } from '@/services/decks/deck.types'
 import { useCreateDeckMutation, useUpdateDeckMutation } from '@/services/decks/decks.service'
+import { DevTool } from '@hookform/devtools'
 
 import s from './AddEditDeckModal.module.scss'
 
@@ -27,7 +28,7 @@ type ModalAddEditProps = {
   setOpen: (value: boolean) => void
 }
 
-export const ModalAddEditDeck = (props: ModalAddEditProps) => {
+export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { t } = useTranslation()
   const { clearQuery, setCurrentPageQuery } = useQueryParams()
@@ -80,6 +81,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
   return (
     <>
       {loadingStatus && <LoadingBar />}
+      <DevTool control={control} />
       <Modal
         className={s.customClass}
         onOpenChange={handleOnClose}
@@ -133,6 +135,7 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
             </div>
             <FormCheckbox
               control={control}
+              defaultChecked={item?.isPrivate}
               label={t('modalAddEditDeck.private')}
               name={'isPrivate'}
             />
@@ -153,4 +156,4 @@ export const ModalAddEditDeck = (props: ModalAddEditProps) => {
       </Modal>
     </>
   )
-}
+})

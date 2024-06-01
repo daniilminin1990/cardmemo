@@ -117,6 +117,7 @@ export const CardsPage = () => {
     ) {
       setIsEmptyModal(true)
     } else {
+      console.log('baga')
       router.navigate(`${path.decks}`)
     }
   }
