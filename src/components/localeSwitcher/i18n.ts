@@ -2,8 +2,8 @@ import { initReactI18next } from 'react-i18next'
 
 import i18n, { InitOptions } from 'i18next'
 
-import enTranslations from '../public/locales/en/translation.json'
-import ruTranslations from '../public/locales/ru/translation.json'
+import enTranslations from '../../../public/locales/en/translation.json'
+import ruTranslations from '../../../public/locales/ru/translation.json'
 const loc = localStorage.getItem('locale') || 'en'
 
 const options: InitOptions = {
