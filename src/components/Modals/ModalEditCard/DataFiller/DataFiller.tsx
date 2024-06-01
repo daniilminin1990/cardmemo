@@ -32,6 +32,7 @@ export const DataFiller = memo((props: DataFillerProps) => {
     item,
   })
 
+  console.log('qwe')
   const { t } = useTranslation()
   const title = label.charAt(0).toUpperCase() + label.slice(1)
 
