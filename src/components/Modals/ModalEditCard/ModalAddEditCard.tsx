@@ -3,7 +3,10 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { getEditCardNotifyMsgCommon } from '@/common/addEditCardsOrDecks/getEditCardNotifyMsg'
+import {
+  defCardNotifyMsg,
+  getEditCardNotifyMsgCommon,
+} from '@/common/addEditCardsOrDecks/getEditCardNotifyMsg'
 import { handleToastInfo } from '@/common/consts/toastVariants'
 import { FormValuesAddEditCard, schemaAddEditCard } from '@/common/zodSchemas/cards/cards.schemas'
 import { DataFiller } from '@/components/Modals/ModalEditCard/DataFiller/DataFiller'
@@ -53,9 +56,9 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
   const [updateCard, { isLoading: isLoadingUpdate }] = useUpdateCardMutation()
 
   const { control, handleSubmit } = useForm<FormValuesAddEditCard>({
-    defaultValues: item
-      ? { answer: item.answer, question: item.question }
-      : { answer: '', question: '' },
+    // defaultValues: item
+    //   ? { answer: item.answer, question: item.question }
+    //   : { answer: '', question: '' },
     resolver: zodResolver(schemaAddEditCard),
   })
 
@@ -68,7 +71,9 @@ export const ModalAddEditCard = (props: ModalAddEditProps) => {
         previewQuestionImg,
       })
 
-      handleToastInfo(msg)
+      if (msg !== defCardNotifyMsg) {
+        handleToastInfo(msg)
+      }
 
       updateCard({
         args: {

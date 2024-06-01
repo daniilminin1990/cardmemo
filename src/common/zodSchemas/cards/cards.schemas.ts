@@ -18,8 +18,8 @@ export const LearnCardSchema = z.object({
 export type LearnCardFormValues = z.infer<typeof LearnCardSchema>
 
 export const schemaAddEditCard = z.object({
-  answer: z.string().min(3).max(500),
-  question: z.string().min(3).max(500),
+  answer: z.string().min(3).max(500).trim(),
+  question: z.string().min(3).max(500).trim(),
 })
 
 export type FormValuesAddEditCard = z.infer<typeof schemaAddEditCard>

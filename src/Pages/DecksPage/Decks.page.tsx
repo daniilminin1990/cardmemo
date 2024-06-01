@@ -123,12 +123,10 @@ export function DecksPage() {
         deleteFn={onDeleteDeckHandler}
         open={isDeleteModal}
         setOpen={setIsDeleteModal}
-        title={'Delete Deck'}
+        title={t('decksPage.deleteDeck')}
       >
         <Typography variant={'h1'}>{deckItem?.name}</Typography>
-        <Typography variant={'body1'}>
-          Do you really want to delete deck? All cards will be deleted.
-        </Typography>
+        <Typography variant={'body1'}>{t('decksPage.isDeleteDeck')}</Typography>
       </DeleteModal>
       <ModalAddEditDeck open={isCreateModal} setOpen={setIsCreateModal} />
       <Page className={s.common}>
