@@ -24,6 +24,10 @@
     }
   }
 
+  &:hover {
+    background-color: rgb(128 128 128 / 20%);
+  }
+
   &:focus {
     color: var(--color-light-100);
     background-color: transparent;
@@ -47,10 +51,6 @@
 
 .boxPadding {
   text-indent: 35px;
-}
-
-.boxInput:hover {
-  background-color: rgb(128 128 128 / 20%);
 }
 
 .active {
@@ -118,6 +118,8 @@
 }
 
 .Search {
+  cursor: pointer;
+
   position: absolute;
   top: 50%;
   left: 12px;
