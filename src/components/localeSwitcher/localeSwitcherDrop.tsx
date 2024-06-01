@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import en from '@/assets/Lang/English.png'
 import ru from '@/assets/Lang/Russian.png'
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
+import Typography from '@/components/ui/Typography/Typography'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import s from './localeSwitcher.module.scss'
@@ -45,15 +46,27 @@ const LocaleSwitcherDrop = () => {
       <DropdownMenu.Portal>
         <DropdownMenu.Content className={s.DropdownMenuContent} sideOffset={3}>
           <DropdownMenu.Item asChild>
-            <div className={s.boxContent} onKeyDown={e => handleKeyDown(e, 'en')}>
-              <img alt={''} className={s.flagEng} onClick={() => changeLanguage('en')} src={en} />
-              {t('localeSwitcher.language.en')}
+            <div
+              className={s.boxContent}
+              onClick={() => changeLanguage('en')}
+              onKeyDown={e => handleKeyDown(e, 'en')}
+            >
+              <img alt={''} className={s.flagEng} src={en} />
+              <Typography className={s.dropdownText} variant={'caption'}>
+                {t('localeSwitcher.language.en')}
+              </Typography>
             </div>
           </DropdownMenu.Item>
           <DropdownMenu.Item asChild>
-            <div className={s.boxContent} onKeyDown={e => handleKeyDown(e, 'ru')}>
-              <img alt={''} className={s.flag} onClick={() => changeLanguage('ru')} src={ru} />
-              {t('localeSwitcher.language.ru')}
+            <div
+              className={s.boxContent}
+              onClick={() => changeLanguage('ru')}
+              onKeyDown={e => handleKeyDown(e, 'ru')}
+            >
+              <img alt={''} className={s.flag} src={ru} />
+              <Typography className={s.dropdownText} variant={'caption'}>
+                {t('localeSwitcher.language.ru')}
+              </Typography>
             </div>
           </DropdownMenu.Item>
           <DropdownMenu.Arrow className={s.DropdownMenuArrow} />
