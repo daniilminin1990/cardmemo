@@ -38,26 +38,28 @@ export const SingleRowCard = ({
   return (
     <Table.Row>
       <Table.Cell>
-        <Typography className={s.imgWrapper}>
+        <div className={s.imgWrapper}>
           {item.questionImg && (
             <div className={s.wrapperCoverImg}>
               <img alt={'default card img'} className={s.coverImg} src={item.questionImg} />
             </div>
           )}
-          {item.question}
-        </Typography>
+          <Typography>{item.question}</Typography>
+        </div>
       </Table.Cell>
       <Table.Cell>
-        <Typography className={s.imgWrapper}>
+        <div className={s.imgWrapper}>
           {item.answerImg && (
             <div className={s.wrapperCoverImg}>
               <img alt={'default card img'} className={s.coverImg} src={item.answerImg} />
             </div>
           )}
-          {item.answer}
-        </Typography>
+          <Typography>{item.answer}</Typography>
+        </div>
       </Table.Cell>
-      <Table.Cell>{updatedAr}</Table.Cell>
+      <Table.Cell>
+        <Typography>{updatedAr}</Typography>
+      </Table.Cell>
       <Table.Cell className={s.grade}>
         {[...Array(5)].map((_, index) =>
           index < item.grade ? (

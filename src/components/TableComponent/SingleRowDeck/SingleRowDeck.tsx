@@ -26,19 +26,8 @@ export const SingleRowDeck = ({
   retrieveDeckItem,
 }: Props) => {
   const { data: meData } = useMeQuery()
-  // const [isUpdateModal, setIsUpdateModal] = useState(false)
-  // const [isDeleteModal, setIsDeleteModal] = useState(false)
 
   const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
-  // const [deleteDeck] = useDeleteDeckMutation()
-  // const { deckId } = useParams()
-  // const onDeleteDeckHandler = () => {
-  //   deleteDeck({ id: item.id })
-  //   setIsDeleteModal(true)
-  //   if (deckId) {
-  //     router.navigate(path.decks)
-  //   }
-  // }
 
   const onDeleteDeckHandler = () => {
     retrieveDeckItem(item)
@@ -61,9 +50,15 @@ export const SingleRowDeck = ({
           {item.name}
         </Typography>
       </Table.Cell>
-      <Table.Cell>{item.cardsCount}</Table.Cell>
-      <Table.Cell>{updatedAr}</Table.Cell>
-      <Table.Cell>{item.author.name}</Table.Cell>
+      <Table.Cell>
+        <Typography>{item.cardsCount}</Typography>
+      </Table.Cell>
+      <Table.Cell>
+        <Typography>{updatedAr}</Typography>
+      </Table.Cell>
+      <Table.Cell>
+        <Typography>{item.author.name}</Typography>
+      </Table.Cell>
       <Table.Cell>
         {item.userId === meData?.id ? (
           <div className={s.iconBtns}>
