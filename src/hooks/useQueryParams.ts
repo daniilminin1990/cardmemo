@@ -39,7 +39,6 @@ export const useQueryParams = () => {
   }
 
   const setSortByQuery = (sortByQuery: string) => {
-    // const currentOrderBy = searchParams.get('orderBy')
     let newOrderBy
 
     switch (currentOrderBy) {
