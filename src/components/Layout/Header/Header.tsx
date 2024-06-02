@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import ellipseIcon from '@/assets/icons/WhiteSVG/Ellipse 1.svg'
 import headerIcon1 from '@/assets/icons/WhiteSVG/Layer 2.svg'
 import headerIcon from '@/assets/icons/WhiteSVG/person-outline.svg'
-import FlashCardsLogo1 from '@/assets/icons/svg/FlashCardsLogo1'
+import CardsStoneLogo from '@/assets/icons/svg/CardsStoneLogo'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Typography from '@/components/ui/Typography/Typography'
@@ -33,7 +33,7 @@ const Header = ({ data }: HeaderProps) => {
       <div className={style.wrapper}>
         <div className={style.boxImg}>
           <Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>
-            <FlashCardsLogo1 className={style.img} />
+            <CardsStoneLogo className={style.img} />
           </Typography>
           <LocaleSwitcherDrop />
           <ChangeTheme />
