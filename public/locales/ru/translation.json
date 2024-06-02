@@ -21,7 +21,8 @@
   },
   "useTabsValuesParams": {
     "allDecks": "Все",
-    "myDecks": "Мои"
+    "myDecks": "Мои",
+    "favorites": "Избранные"
   },
   "paginationWithSelect": {
     "show": "Отображать",

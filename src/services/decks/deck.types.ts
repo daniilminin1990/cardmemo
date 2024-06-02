@@ -16,6 +16,7 @@ export interface Deck {
   cover?: string
   created: string
   id: string
+  isFavorite: boolean
   isPrivate: boolean
   name: string
   updated: string
@@ -30,6 +31,7 @@ export interface Author {
 export interface GetDecksArgs {
   authorId?: string
   currentPage?: number
+  favoritedBy: string
   itemsPerPage?: number
   maxCardsCount?: number
   minCardsCount?: number

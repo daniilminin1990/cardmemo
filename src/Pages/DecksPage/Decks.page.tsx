@@ -50,7 +50,7 @@ export function DecksPage() {
     sliderMin,
   } = useSliderQueryParams()
 
-  const { authorId, setTabsValue, setTabsValueQuery, tabsValue, tabsValuesData } =
+  const { authorId, favoritedBy, setTabsValue, setTabsValueQuery, tabsValue, tabsValuesData } =
     useTabsValuesParams()
   const [deleteDeck] = useDeleteDeckMutation()
   // const { data: meData, isLoading: meIsLoading } = useMeQuery()
@@ -58,6 +58,7 @@ export function DecksPage() {
     {
       authorId: authorId || '',
       currentPage,
+      favoritedBy: favoritedBy || '',
       itemsPerPage,
       maxCardsCount: debouncedEndValue,
       minCardsCount: debouncedStartValue,
@@ -136,7 +137,7 @@ export function DecksPage() {
               <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
             </Button>
           </div>
-          <div className={s.searchParams}>
+          <div className={s.filters}>
             <Input
               callback={setSearchQuery}
               className={s.input}
