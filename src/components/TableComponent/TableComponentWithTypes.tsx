@@ -81,7 +81,7 @@ export const TableComponentWithTypes = memo(
               <Table.Body>
                 <Table.Row>
                   <Table.Cell className={s.empty} colSpan={header.length + 1}>
-                    {isLoading ? (
+                    {!isLoading ? (
                       <Loading style={{ height: '50px' }} type={'small'} />
                     ) : (
                       <Typography>{message}</Typography>

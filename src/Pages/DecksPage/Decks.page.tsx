@@ -69,8 +69,6 @@ export function DecksPage() {
     { skip: !meData && !minMaxData }
   )
 
-  console.log({ debouncedEndValue, debouncedStartValue, minMaxData, sliderMax, sliderMin })
-
   const { deckId } = useParams()
 
   const [isCreateModal, setIsCreateModal] = useState(false)
