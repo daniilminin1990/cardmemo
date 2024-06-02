@@ -11,6 +11,10 @@
   cursor: pointer;
 }
 
+.boxContent:hover {
+
+}
+
 .flag,
 .flagEng {
   /*width: 40px;
@@ -18,11 +22,6 @@
   width: 30px;
   height: 20px;
   object-fit: cover;
-}
-
-.flag + p,
-.flagEng + p{
-
 }
 
 /*.flagEng {
@@ -87,7 +86,7 @@
   height: 20px;
   /*width: 37px;
   height: 27px;*/
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
 

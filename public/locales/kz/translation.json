@@ -1,0 +1,149 @@
+{
+  "localeSwitcher": {
+    "language": {
+      "en": "Ағылшын",
+      "ru": "Орыс",
+      "by": "Беларус",
+      "kz": "Қазақ",
+      "ua": "Украин"
+    }
+  },
+  "header": {
+    "signIn": "Кіру",
+    "signOut": "Шығу",
+    "myProfile": "Менің профилім"
+  },
+  "decksPage": {
+    "numberOfCards": "Карттар саны",
+    "showDecksCards": "Колодаларды көрсету",
+    "decksList": "Колодалар тізімі",
+    "addNewDeck": "Жаңа колода",
+    "clearFilter": "Тазарту",
+    "deleteDeck": "Колоданы жою",
+    "isDeleteDeck": "Сіз колоданы жоюдан сенімдісіз бе? Барлық карттар жойылады."
+  },
+  "deleteModal": {
+    "cancel": "Болдырмау"
+  },
+  "useTabsValuesParams": {
+    "allDecks": "Барлық",
+    "myDecks": "Менің"
+  },
+  "paginationWithSelect": {
+    "show": "Көрсету",
+    "onPage": "бет бетінше"
+  },
+  "checkEmail": {
+    "checkEmail": "Поштаны тексеру",
+    "instruction": "Біз өтініштермен электрондық хат жібердік",
+    "backToSignIn": "Кіру бетіне қайту"
+  },
+  "modalAddEditDeck": {
+    "addNewDeck": "Жаңа колода қосу",
+    "updateDeck": "Колоданы жаңарту",
+    "editTitle": "Атауын өзгерту",
+    "nameDeck": "Колоданың атауы",
+    "removeCover": "Мұқабаны алып тастау",
+    "uploadImage": "Мұқаба жүктеу",
+    "changeCover": "Мұқабаны өзгерту",
+    "private": "Жеке",
+    "namePack": "Колоданың атауы",
+    "cancel": "Болдырмау",
+    "saveChanges": "Өзгерістерді сақтау",
+    "createPack": "Жасау"
+  },
+  "signInPage": {
+    "signIn": "Кіру",
+    "email": "Пошта",
+    "password": "Құпия сөз",
+    "rememberMe": "Мені еске сақтау",
+    "forgotPassword": "Құпия сөзді ұмыттыңыз ба?",
+    "dontHaveAccount": "Тіркелгіңіз жоқ пе?",
+    "signUp": "Тіркелу"
+  },
+  "learnPage": {
+    "backCardsPage": "Карттар бетіне қайту",
+    "learn": "Үйрену",
+    "question": "Сұрақ",
+    "countAttempts": "Талпыныстар саны",
+    "answer": "Жауап",
+    "showAnswer": "Жауабын көрсету",
+    "rateYourself": "Өзіңізді бағалаңыз",
+    "nextQuestion": "Келесі сұрақ",
+    "didtKnow": "Білмедім",
+    "forgot": "Ұмыттым",
+    "aLotThought": "Ұзақ ойладым",
+    "confused": "Аздаған шақталдым",
+    "knewAnswer": "Жауабын білдім"
+  },
+  "modalOnEmpty": {
+    "areYouSure": "Сіз беттен шығуға сенімдісіз бе?",
+    "reallyWant": "Сіз ешқандай картаны жасамадыңыз!!!",
+    "no": "Жоқ",
+    "yes": "Иә"
+  },
+  "tableComponentWithTypes": {
+    "name": "Атауы",
+    "cards": "Карттар",
+    "lastUpdated": "Жаңартылды",
+    "createdBy": "Жазушы",
+    "pleaseAddAnyData": "Көрсету үшін деректер қосыңыз",
+    "noContent": "Бұл шарттармен деректер жоқ",
+    "question": "Сұрақ",
+    "answer": "Жауап",
+    "grade": "Баға"
+  },
+  "cardsPage": {
+    "backDeckList": "Колодалар бетіне қайту",
+    "learn": "Үйрену",
+    "learnCards": "Карттарды үйрену",
+    "edit": "Өзгерту",
+    "delete": "Жою",
+    "emptyDeck": "Бұл колода бос. Бұл колоданы толтыру үшін қосу түймешігін басыңыз",
+    "unfortunatelyEmptyDeck": "Қысқасы, бұл колода бос.",
+    "addNewCard": "Картаны қосу",
+    "deleteDeck": "Колоданы жою",
+    "isDeleteDeck": "Сіз колоданы жоюдан сенімдісіз бе? Барлық карттар жойылады.",
+    "deleteCard": "Картаны жою",
+    "isDeleteCard": "Сіз картаны жоюдан сенімдісіз бе? Барлық мазмұн жойылады."
+  },
+  "modalAddEditCard": {
+    "updateCard": "Картаны жаңарту",
+    "addNewCard": "Жаңа картаны қосу",
+    "question": "Сұрақ",
+    "answer": "Жауап",
+    "saveChanges": "Өзгерістерді сақтау",
+    "createCard": "Картаны жасау",
+    "cancel": "Болдырмау"
+  },
+  "dataFiller": {
+    "uploadImage": "Мұқабаны жүктеу",
+    "changeCover": "Мұқабаны өзгерту",
+    "removeCover": "Мұқабаны алып тастау"
+  },
+  "profilePage": {
+    "personalInfo": "Жеке мәлімет",
+    "signUp": "Тіркелу",
+    "backDeckList": "Колодалар бетіне қайту",
+    "saveChanges": "Өзгерістерді сақтау",
+    "logout": "Шығу",
+    "nickname": "Никнейм"
+  },
+  "forgotPassword": {
+    "forgotPassword": "Құпия сөзді ұмыттыңыз ба?",
+    "email": "Пошта",
+    "enterYourEmail": "Электрондық пошта мекенжайыңызды енгізіңіз, ардынан біз сізге артықшылық нұсқаулар жібереміз",
+    "rememberPassword": "Құпия сөзді еске алдыңыз ба?",
+    "tryLogIn": "Жүйеге кіруге тырысыңыз",
+    "sendInstructions": "Нұсқауларды жіберу"
+  },
+  "signUp": {
+    "signUp": "Тіркелу",
+    "email": "Пошта",
+    "password": "Құпия сөз",
+    "confirmPassword": "Құпия сөзді растау",
+    "haveAccount": "Тіркелгіңіз бар ма?",
+    "signIn": "Кіру",
+    "submit": "Растау"
+  }
+}

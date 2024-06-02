@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react'
 
 import { changeTheme } from '@/common/utillThemeChanger'
 import { UserContext } from '@/components/ui/changeTheme/Context'
-import ToggleDemo from '@/components/ui/changeTheme/toggle'
+import ToggleDemo from '@/components/ui/changeTheme/ThemeToggle'
 
 import style from './ChangeTheme.module.scss'
 

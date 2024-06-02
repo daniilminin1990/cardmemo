@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from 'react'
 
 import * as RadixToggle from '@radix-ui/react-toggle'
 
-import styles from './Toggle.module.scss'
+import styles from './ThemeToggle.module.scss'
 
 type ToggleProps = {
   moonIcon?: string

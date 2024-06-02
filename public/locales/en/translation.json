@@ -2,7 +2,10 @@
   "localeSwitcher": {
     "language": {
       "en": "English",
-      "ru": "Russian"
+      "ru": "Russian",
+      "by": "Belarusian",
+      "kz": "Kazakh",
+      "ua": "Ukrainian"
     }
   },
   "header": {
