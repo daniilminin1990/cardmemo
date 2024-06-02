@@ -11,8 +11,10 @@ import ErrorPage from '@/Pages/ErrorPage/ErrorPage'
 import { LearnPage } from '@/Pages/LearnPage/learnPage'
 import { ProfilePage } from '@/Pages/ProfilePage/ProfilePage'
 import { Layout } from '@/components/Layout/Layout'
+import Loading from '@/components/ui/Loading/Loading'
 import { path } from '@/router/path'
 import { useMeQuery } from '@/services/auth/auth.service'
+import { useGetDecksQuery, useGetMinMaxCardsCountQuery } from '@/services/decks/decks.service'
 
 export const publicRoutes: RouteObject[] = [
   {
@@ -70,7 +72,15 @@ const privateRoutes: RouteObject[] = [
 ]
 
 function PrivateRoutes() {
-  const { data: me, isSuccess } = useMeQuery()
+  const { data: me, isLoading, isSuccess } = useMeQuery()
+  const { data: minMaxData, isLoading: isMinMaxLoading } = useGetMinMaxCardsCountQuery()
+  const { isLoading: isDecksLoading } = useGetDecksQuery(undefined, {
+    skip: !minMaxData && !me,
+  })
+
+  if (isLoading || isDecksLoading || isMinMaxLoading) {
+    return <Loading />
+  }
 
   return isSuccess && me?.id ? <Outlet /> : <Navigate to={`${path.login}`} />
 }
