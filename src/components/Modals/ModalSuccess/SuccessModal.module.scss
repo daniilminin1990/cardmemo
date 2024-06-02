@@ -1,0 +1,15 @@
+@import 'src/styles/mixins';
+
+.modal {
+  @include animation-appearance;
+
+  width: 420px;
+}
+
+.container {
+  padding: 20px 24px;
+}
+
+.btn {
+  text-decoration-line: none;
+}

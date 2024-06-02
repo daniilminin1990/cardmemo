@@ -1,4 +1,8 @@
+@import 'src/styles/mixins';
+
 .box {
+  @include animation-appearance;
+
   display: grid;
   align-items: center;
   justify-content: center;

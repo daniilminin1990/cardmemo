@@ -22,6 +22,7 @@ const ModalOnEmpty = memo((props: Props) => {
 
   return (
     <Modal
+      className={s.modal}
       onOpenChange={() => setIsOpenModal(false)}
       open={open}
       title={`${t('modalOnEmpty.areYouSure')}`}

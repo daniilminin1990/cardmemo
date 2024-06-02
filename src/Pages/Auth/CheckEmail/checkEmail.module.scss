@@ -1,4 +1,8 @@
+@import 'src/styles/mixins';
+
 .container {
+  @include animation-appearance(0.4s);
+
   width: 420px;
   height: 408px;
   margin: 0 auto;
