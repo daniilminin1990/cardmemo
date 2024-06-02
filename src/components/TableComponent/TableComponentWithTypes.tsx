@@ -21,12 +21,19 @@ type Props<T extends CardResponse[] | Deck[]> = {
   children: ReactNode
   data?: T
   deckId?: string
+  isFetching?: boolean
   isLoading?: boolean
   tableHeader: { key: string; title: string }[]
 }
 
 export const TableComponentWithTypes = memo(
-  <T extends CardResponse[] | Deck[]>({ children, data, isLoading, tableHeader }: Props<T>) => {
+  <T extends CardResponse[] | Deck[]>({
+    children,
+    data,
+    isFetching,
+    isLoading,
+    tableHeader,
+  }: Props<T>) => {
     const { currentOrderBy, setSortByQuery } = useQueryParams()
     const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
     const { t } = useTranslation()
@@ -46,6 +53,8 @@ export const TableComponentWithTypes = memo(
     } else {
       message = `${t('tableComponentWithTypes.unknownCondition')}`
     }
+
+    const loadingStatus = isLoading || isFetching
 
     return (
       <>
@@ -75,20 +84,20 @@ export const TableComponentWithTypes = memo(
             </Table.Row>
           </Table.Head>
           <>
-            {data && data?.length !== 0 ? (
-              <Table.Body>{children}</Table.Body>
+            {loadingStatus ? (
+              <EmptyTable header={header}>
+                <Loading style={{ height: '50px' }} type={'small'} />
+              </EmptyTable>
             ) : (
-              <Table.Body>
-                <Table.Row>
-                  <Table.Cell className={s.empty} colSpan={header.length + 1}>
-                    {!isLoading ? (
-                      <Loading style={{ height: '50px' }} type={'small'} />
-                    ) : (
-                      <Typography>{message}</Typography>
-                    )}
-                  </Table.Cell>
-                </Table.Row>
-              </Table.Body>
+              <>
+                {data && data?.length !== 0 ? (
+                  <Table.Body>{children}</Table.Body>
+                ) : (
+                  <EmptyTable header={header}>
+                    <Typography>{message}</Typography>
+                  </EmptyTable>
+                )}
+              </>
             )}
           </>
         </Table.Root>
@@ -96,3 +105,15 @@ export const TableComponentWithTypes = memo(
     )
   }
 )
+
+const EmptyTable = ({ children, header }: { children: ReactNode; header: any }) => {
+  return (
+    <Table.Body>
+      <Table.Row>
+        <Table.Cell className={s.empty} colSpan={header.length + 1}>
+          {children}
+        </Table.Cell>
+      </Table.Row>
+    </Table.Body>
+  )
+}

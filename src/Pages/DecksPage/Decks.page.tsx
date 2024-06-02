@@ -10,7 +10,6 @@ import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
 import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
 import Input from '@/components/ui/Input/Input'
-import Loading from '@/components/ui/Loading/Loading'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
@@ -23,7 +22,6 @@ import { useSliderQueryParams } from '@/hooks/useSliderQueryParams'
 import { useTabsValuesParams } from '@/hooks/useTabsValuesParams'
 import { path } from '@/router/path'
 import { router } from '@/router/router'
-import { useMeQuery } from '@/services/auth/auth.service'
 import { Deck } from '@/services/decks/deck.types'
 import { useDeleteDeckMutation, useGetDecksQuery } from '@/services/decks/decks.service'
 
@@ -55,7 +53,7 @@ export function DecksPage() {
   const { authorId, setTabsValue, setTabsValueQuery, tabsValue, tabsValuesData } =
     useTabsValuesParams()
   const [deleteDeck] = useDeleteDeckMutation()
-  const { data: meData, isLoading: meIsLoading } = useMeQuery()
+  // const { data: meData, isLoading: meIsLoading } = useMeQuery()
   const { currentData, data, isFetching, isLoading } = useGetDecksQuery(
     {
       authorId: authorId || '',
@@ -65,8 +63,8 @@ export function DecksPage() {
       minCardsCount: debouncedStartValue,
       name: debouncedSearchValue,
       orderBy: currentOrderBy,
-    },
-    { skip: !meData && !minMaxData }
+    }
+    // { skip: !meData && !minMaxData }
   )
 
   const { deckId } = useParams()
@@ -110,11 +108,9 @@ export function DecksPage() {
 
   const decksData = currentData?.items ?? data?.items
 
-  const loadingStatus = isLoading || meIsLoading
-
-  if (loadingStatus) {
-    return <Loading />
-  }
+  // if (loadingStatus) {
+  //   return <Loading />
+  // }
 
   return (
     <>
@@ -173,7 +169,8 @@ export function DecksPage() {
         </div>
         <TableComponentWithTypes
           data={decksData}
-          isLoading={loadingStatus}
+          isFetching={isFetching}
+          isLoading={isLoading}
           tableHeader={headersNameDecks}
         >
           {decksData?.map(deck => {
