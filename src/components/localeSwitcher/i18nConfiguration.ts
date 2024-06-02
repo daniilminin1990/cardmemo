@@ -7,7 +7,8 @@ import enTranslations from '../../../public/locales/en/translation.json'
 import kzTranslations from '../../../public/locales/kz/translation.json'
 import ruTranslations from '../../../public/locales/ru/translation.json'
 import uaTranslations from '../../../public/locales/ua/translation.json'
-const loc = localStorage.getItem('locale') || 'en'
+
+const defaultLanguage = localStorage.getItem('locale') || 'en'
 
 const options: InitOptions = {
   debug: true,
@@ -15,25 +16,25 @@ const options: InitOptions = {
     cache: ['cookie'],
     order: ['queryString', 'cookie'],
   },
-  fallbackLng: loc,
+  fallbackLng: defaultLanguage,
   interpolation: {
     escapeValue: false,
   },
   resources: {
     by: {
-      translation: byTranslations as typeof byTranslations,
+      translation: byTranslations,
     },
     en: {
-      translation: enTranslations as typeof enTranslations,
+      translation: enTranslations,
     },
     kz: {
-      translation: kzTranslations as typeof kzTranslations,
+      translation: kzTranslations,
     },
     ru: {
-      translation: ruTranslations as typeof ruTranslations,
+      translation: ruTranslations,
     },
     ua: {
-      translation: uaTranslations as typeof uaTranslations,
+      translation: uaTranslations,
     },
   },
 }

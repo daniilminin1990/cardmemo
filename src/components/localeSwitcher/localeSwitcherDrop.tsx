@@ -21,7 +21,8 @@ const LocaleSwitcherDrop = () => {
     ru: ruIcon,
     ua: uaIcon,
   }
-  const [iconFlag, setIconFlag] = useState(i18n.language === 'en' ? enIcon : ruIcon)
+  const test = i18n.language
+  const [iconFlag, setIconFlag] = useState(icons[test])
 
   useEffect(() => {
     const storedLocale = localStorage.getItem('locale')

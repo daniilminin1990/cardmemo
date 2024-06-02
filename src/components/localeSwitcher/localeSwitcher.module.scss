@@ -2,17 +2,22 @@
 @import '../../../node_modules/@radix-ui/colors/mauve.css';
 
 .boxContent {
-  @include focus-visible-default;
-
+  /*@include focus-visible-default;*/
   display: flex;
   flex-direction: row;
   gap: 10px;
   align-items: center;
   cursor: pointer;
-}
 
-.boxContent:hover {
-
+  &:focus-visible {
+    outline: none;
+  }
+  &:hover {
+    color: var(--color-accent-500);
+  }
+  &:focus-visible .dropdownText{
+    color: var(--color-accent-500);
+  }
 }
 
 .flag,
