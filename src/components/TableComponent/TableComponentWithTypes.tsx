@@ -30,7 +30,7 @@ export const TableComponentWithTypes = memo(
   <T extends CardResponse[] | Deck[]>({
     children,
     data,
-    isFetching,
+    // isFetching,
     isLoading,
     tableHeader,
   }: Props<T>) => {
@@ -39,7 +39,7 @@ export const TableComponentWithTypes = memo(
     const { t } = useTranslation()
 
     const { search: queryParameters } = useLocation()
-    let message = ''
+    let message
     const { data: dataFromGetDecksQuery } = useGetDecksQuery()
 
     const conditionOfZeroData = dataFromGetDecksQuery?.items.length === 0 || data?.length === 0
@@ -54,7 +54,7 @@ export const TableComponentWithTypes = memo(
       message = `${t('tableComponentWithTypes.unknownCondition')}`
     }
 
-    const loadingStatus = isLoading || isFetching
+    // const loadingStatus = isLoading || isFetching
 
     return (
       <>
@@ -84,7 +84,7 @@ export const TableComponentWithTypes = memo(
             </Table.Row>
           </Table.Head>
           <>
-            {loadingStatus ? (
+            {isLoading ? (
               <EmptyTable header={header}>
                 <Loading style={{ height: '50px' }} type={'small'} />
               </EmptyTable>
