@@ -1,3 +1,5 @@
+@import 'src/styles/mixins';
+
 .button {
   width: 100px;
   text-align: center;
@@ -5,7 +7,7 @@
 }
 
 .modal {
-  margin-left: 10px;
+  @include animation-appearance;
 }
 
 .body {
