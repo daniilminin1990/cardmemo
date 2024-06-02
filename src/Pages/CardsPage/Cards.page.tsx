@@ -107,11 +107,7 @@ export const CardsPage = () => {
   const isMineCards = currentDeckData?.userId === meData?.id
 
   const handleOpenModal = () => {
-    if (
-      (isMineCards && isCardsCountZero) ||
-      (isMineCards && cardsData?.items?.length === 0) ||
-      (isMineCards && data?.items?.length === 0)
-    ) {
+    if (isMineCards && isCardsCountZero) {
       setIsEmptyModal(true)
     } else {
       console.log('baga')
