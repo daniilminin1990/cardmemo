@@ -18,7 +18,8 @@
   },
   "useTabsValuesParams": {
     "allDecks": "All decks",
-    "myDecks": "My decks"
+    "myDecks": "My decks",
+    "favorites": "Favorites"
   },
   "paginationWithSelect": {
     "show": "Show",

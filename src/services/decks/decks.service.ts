@@ -99,6 +99,14 @@ export const decksService = flashCardsAPI.injectEndpoints({
           url: `v1/decks/${id}`,
         }),
       }),
+      deleteFavoriteDeckStatus: builder.mutation<void, { id: string }>({
+        invalidatesTags: ['Decks'],
+
+        query: ({ id }) => ({
+          method: 'DELETE',
+          url: `/v1/decks/${id}/favorite`,
+        }),
+      }),
       getDeckById: builder.query<Deck, { id: string }>({
         providesTags: ['Deck'],
         query: ({ id }) => ({
@@ -128,6 +136,17 @@ export const decksService = flashCardsAPI.injectEndpoints({
           method: 'GET',
           url: '/v2/decks/min-max-cards',
         }),
+      }),
+      setFavoriteDeck: builder.mutation<void, { id: string }>({
+        invalidatesTags: ['Decks'],
+
+        query: ({ id }) => {
+          return {
+            body: id,
+            method: 'POST',
+            url: `/v1/decks/${id}/favorite`,
+          }
+        },
       }),
       updateDeck: builder.mutation<Deck, UpdateDeckArgs>({
         invalidatesTags: ['Decks', 'Deck'],
@@ -187,8 +206,10 @@ export const decksService = flashCardsAPI.injectEndpoints({
 export const {
   useCreateDeckMutation,
   useDeleteDeckMutation,
+  useDeleteFavoriteDeckStatusMutation,
   useGetDeckByIdQuery,
   useGetDecksQuery,
   useGetMinMaxCardsCountQuery,
+  useSetFavoriteDeckMutation,
   useUpdateDeckMutation,
 } = decksService
