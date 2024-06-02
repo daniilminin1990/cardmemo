@@ -25,12 +25,14 @@
       outline: none;
       fill: var(--color-success-100);
     }
+  }
+}
 
-    &:focus-visible {
-      @include focus-visible-default;
+.logo:focus-visible {
+  @include focus-visible-default;
 
-      fill: var(--color-success-100);
-    }
+  & .img {
+    fill: var(--color-success-100);
   }
 }
 

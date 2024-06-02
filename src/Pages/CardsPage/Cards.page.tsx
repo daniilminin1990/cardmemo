@@ -128,9 +128,12 @@ export const CardsPage = () => {
 
   const loadingStatus = isLoading || isFetching || isDeckLoading
 
+  if (loadingStatus) {
+    return <LoadingBar />
+  }
+
   return (
     <>
-      {loadingStatus && <LoadingBar />}
       <Page className={s.common} mt={'24px'}>
         <ModalOnEmpty open={isEmptyModal} setIsOpenModal={setIsEmptyModal} />
         <ModalAddEditDeck

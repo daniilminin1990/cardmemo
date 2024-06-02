@@ -32,14 +32,8 @@ const Header = ({ data }: HeaderProps) => {
     <div className={style.box}>
       <div className={style.wrapper}>
         <div className={style.boxImg}>
-          <Typography
-            as={'a'}
-            className={style.logo}
-            href={`${path.decks}`}
-            tabIndex={-1}
-            variant={'body2'}
-          >
-            <FlashCardsLogo1 className={style.img} tabIndex={0} />
+          <Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>
+            <FlashCardsLogo1 className={style.img} />
           </Typography>
           <LocaleSwitcherDrop />
           <ChangeTheme />

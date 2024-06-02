@@ -98,7 +98,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
           type={type === 'password' ? styleForType : type}
           value={inputValue}
         />
-        {type === 'password' && inputValue.length > 1 && (
+        {type === 'password' && inputValue.length > 0 && (
           <Button className={s.Eye} onClick={isShowChangeHandler} type={'button'}>
             <EyeIcon viewBox={'0 0 24 24'} />
           </Button>
@@ -108,7 +108,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
         )}
 
         <div>
-          {type === 'search' && inputValue.length > 1 && (
+          {type === 'search' && inputValue.length > 0 && (
             <Button className={s.Close} onClick={clearInput}>
               <Close viewBox={'0 0 24 24'} />
             </Button>
