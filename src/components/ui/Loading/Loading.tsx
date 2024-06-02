@@ -12,12 +12,15 @@ const Loading = memo(
     isLoading,
     type = 'pageLoader',
     ...props
-  }: { isLoading?: boolean; type?: 'pageLoader' | 'preloader' } & ComponentProps<'div'>) => {
+  }: {
+    isLoading?: boolean
+    type?: 'pageLoader' | 'preloader' | 'small'
+  } & ComponentProps<'div'>) => {
     const classNameLoading = clsx(type === 'preloader' ? s.preloader : s.pageLoader, className)
 
     return (
       <div className={classNameLoading} {...props}>
-        <img alt={''} src={img} />
+        <img alt={''} src={img} style={{ height: `${type === 'small' ? '90px' : '200px'}` }} />
       </div>
     )
   }

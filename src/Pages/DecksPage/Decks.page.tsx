@@ -54,7 +54,6 @@ export function DecksPage() {
 
   const { authorId, setTabsValue, setTabsValueQuery, tabsValue, tabsValuesData } =
     useTabsValuesParams()
-
   const [deleteDeck] = useDeleteDeckMutation()
   const { data: meData, isLoading: meIsLoading } = useMeQuery()
   const { currentData, data, isFetching, isLoading } = useGetDecksQuery(
@@ -67,8 +66,10 @@ export function DecksPage() {
       name: debouncedSearchValue,
       orderBy: currentOrderBy,
     },
-    { skip: !minMaxData && !meData }
+    { skip: !meData && !minMaxData }
   )
+
+  console.log({ debouncedEndValue, debouncedStartValue, minMaxData, sliderMax, sliderMin })
 
   const { deckId } = useParams()
 
@@ -111,7 +112,9 @@ export function DecksPage() {
 
   const decksData = currentData?.items ?? data?.items
 
-  if (isLoading || meIsLoading) {
+  const loadingStatus = isLoading || meIsLoading
+
+  if (loadingStatus) {
     return <Loading />
   }
 
@@ -170,7 +173,11 @@ export function DecksPage() {
             </Button>
           </div>
         </div>
-        <TableComponentWithTypes data={decksData} tableHeader={headersNameDecks}>
+        <TableComponentWithTypes
+          data={decksData}
+          isLoading={loadingStatus}
+          tableHeader={headersNameDecks}
+        >
           {decksData?.map(deck => {
             return (
               <SingleRowDeck
