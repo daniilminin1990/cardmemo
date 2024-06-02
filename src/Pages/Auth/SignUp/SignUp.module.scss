@@ -1,9 +1,11 @@
 @import 'src/styles/mixins';
 
 .card {
+  @include animation-appearance(0.4s);
+
   display: grid;
   width: 420px;
-  margin: 0 auto;
+  margin: 36px auto 0;
   padding: 33px 36px 25px;
 }
 
@@ -44,6 +46,7 @@
   font-size: var(--font-size-m);
   font-weight: var(--font-weight-bold);
   color: var(--color-accent-500);
+  text-decoration-line: none;
 
   &:hover {
     text-decoration-line: underline;

@@ -1,20 +1,19 @@
-.form {
-  //overflow-y: scroll;
-  max-height: 70vh;
-  //padding: 0;
-  //padding: 15px;
+.customClass {
+  width: 542px;
 }
+
+.form {
+  max-height: 70vh;
+}
+
 .body {
-  margin-bottom: 45px;
   position: relative;
   z-index: 1;
+  margin-bottom: 45px;
+
   & > :first-child {
     margin-bottom: 24px;
   }
-}
-
-.customClass {
-  width: 542px;
 }
 
 .footer {

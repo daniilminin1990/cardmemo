@@ -1,4 +1,8 @@
+@import 'src/styles/mixins';
+
 .card {
+  @include animation-appearance;
+
   width: 420px;
   padding: 33px 36px 0;
 }
