@@ -51,7 +51,7 @@
   &:focus,
   &:first-child:focus {
     outline: unset;
-    box-shadow: 0 0 0 2px inset var(--color-info-700);
+    box-shadow: 0 0 0 2px inset var(--color-success-100);
   }
 }
 

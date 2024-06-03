@@ -1,4 +1,4 @@
-import { handleToastSuccess } from '@/common/consts/toastVariants'
+import { handleToastInfo, handleToastSuccess } from '@/common/consts/toastVariants'
 import { isCard, isDeck, isProfile, isSignUp } from '@/common/predicateTypes'
 import { MeResponse, SignUpResponse } from '@/services/auth/auth.types'
 import { CardResponse } from '@/services/cards/cards.types'
@@ -25,7 +25,7 @@ export const successApiResponse = (result: any) => {
     } else if (method === 'POST') {
       if (status === 200 && statusText === 'OK') {
         if (`refreshToken` in data) {
-          handleToastSuccess(`Loggined!`)
+          handleToastInfo(`Loggined!`)
         }
       }
       if (status === 201 && statusText === 'Created') {
@@ -42,7 +42,7 @@ export const successApiResponse = (result: any) => {
       if (status === 204 && statusText === 'No Content') {
         if (url.endsWith('/logout')) {
           const kostilb = setTimeout(() => {
-            handleToastSuccess(`Logout - successful!`)
+            handleToastInfo(`Logout - successful!`)
 
             return () => {
               clearTimeout(kostilb)
@@ -50,7 +50,7 @@ export const successApiResponse = (result: any) => {
           }, 1)
         }
         if (url.endsWith('/favorite')) {
-          handleToastSuccess(`Add in favorites!`)
+          handleToastSuccess(`In favorites!`)
         }
       }
     } else if (method === 'DELETE') {

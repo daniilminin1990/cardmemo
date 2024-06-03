@@ -61,10 +61,11 @@
   .btn {
     position: relative;
 
-    display: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     width: 16px;
-    height: 16px;
     padding: 0;
 
     background-color: transparent;
@@ -91,11 +92,20 @@
       transition: 0.5s;
     }
 
+    &:focus-visible {
+      outline: none;
+    }
+
     &:hover::before,
     &:active::before,
     &:focus-visible::before {
       transform: translate(-50%, -50%) scale(1);
       background-color: var(--color-dark-100);
+      outline: none;
+    }
+
+    &:focus-visible::before {
+      outline: 2px solid #71ff7a;
     }
 
     &:active::before {
