@@ -234,7 +234,7 @@ export const CardsPage = () => {
             />
           )}
         </div>
-        {currentData?.items.length === 0 ? (
+        {isCardsCountZero ? (
           <div className={s.emptyContent}>
             <Typography variant={'body1'}>
               {isMineCards
