@@ -32,7 +32,8 @@
   },
   "useTabsValuesParams": {
     "allDecks": "All decks",
-    "myDecks": "My decks"
+    "myDecks": "My decks",
+    "favorites": "Favorites"
   },
   "paginationWithSelect": {
     "show": "Show",
@@ -95,10 +96,12 @@
     "lastUpdated": "Last Updated",
     "createdBy": "Created by",
     "pleaseAddAnyData": "Please add any data to show",
-    "noContent": "No content with these terms",
+    "noContent": "No content with these terms. Try to change filters or click another page",
     "question": "Question",
     "answer": "Answer",
-    "grade": "Grade"
+    "grade": "Grade",
+    "noResultsFound": "No results found",
+    "unknownCondition": "Unknown condition"
   },
   "cardsPage": {
     "backDeckList": "Back to Deck List",

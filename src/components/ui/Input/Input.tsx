@@ -42,6 +42,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
       callback('')
     }
   }
+  const focusOnInput = () => {
+    const inputElement = document.getElementById(id ?? generatedId)
+
+    inputElement?.focus()
+  }
 
   //! ВОТ ЭТОТ useEffect добавил!
   // Для зачистки инпута с кнопки ClearFilter или делать через useContext
@@ -83,21 +88,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
         {type !== 'search' && label}
       </Typography>
       <div className={s.searchClose}>
-        {type === 'password' && (
-          <Button className={s.Eye} onClick={isShowChangeHandler} type={'button'}>
-            <EyeIcon viewBox={'0 0 24 24'} />
-          </Button>
-        )}
-        {type === 'search' && <Search className={s.Search} viewBox={'0 0 24 24'} />}
-
-        <div>
-          {type === 'search' && (
-            <Button className={s.Close} onClick={clearInput}>
-              <Close viewBox={'0 0 24 24'} />
-            </Button>
-          )}
-        </div>
-
         <input
           {...restProps}
           className={classNameForInput}
@@ -108,6 +98,22 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
           type={type === 'password' ? styleForType : type}
           value={inputValue}
         />
+        {type === 'password' && inputValue.length > 0 && (
+          <Button className={s.Eye} onClick={isShowChangeHandler} type={'button'}>
+            <EyeIcon viewBox={'0 0 24 24'} />
+          </Button>
+        )}
+        {type === 'search' && (
+          <Search className={s.Search} onClick={focusOnInput} viewBox={'0 0 24 24'} />
+        )}
+
+        <div>
+          {type === 'search' && inputValue.length > 0 && (
+            <Button className={s.Close} onClick={clearInput}>
+              <Close viewBox={'0 0 24 24'} />
+            </Button>
+          )}
+        </div>
       </div>
       {error && <div className={s.errorText}>{error}</div>}
     </div>

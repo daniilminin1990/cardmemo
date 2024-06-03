@@ -1,4 +1,4 @@
-import { ComponentProps, ElementType, ReactNode } from 'react'
+import { ComponentProps, ElementType, ReactNode, memo } from 'react'
 
 import clsx from 'clsx'
 
@@ -31,13 +31,13 @@ type TextProps<E extends ElementType> = Omit<ComponentProps<E>, keyof TextOwnPro
 
 const defaultElement = 'div'
 
-export default function Typography<E extends ElementType = typeof defaultElement>({
+const Typography = <E extends ElementType = typeof defaultElement>({
   as,
   children,
   className,
   variant = 'body1',
   ...otherProps
-}: TextProps<E>) {
+}: TextProps<E>) => {
   const classNames = clsx(s.text, s[variant], className)
   const Component = as || 'p'
 
@@ -47,3 +47,5 @@ export default function Typography<E extends ElementType = typeof defaultElement
     </Component>
   )
 }
+
+export default memo(Typography)

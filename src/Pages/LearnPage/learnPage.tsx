@@ -68,7 +68,7 @@ export const LearnPage = () => {
       <BackBtn to={`${path.decks}/${deckId}`}>{t('learnPage.backCardsPage')}</BackBtn>
       {randomCard && (
         <Card className={s.card}>
-          <div className={s.container}>
+          <div className={`${s.container} ${!isShowAnswer ? s.animNext : ''}`}>
             <Typography as={'h1'} className={s.title} variant={'h1'}>
               {`${t('learnPage.learn')}: "${deckData?.name}"`}
             </Typography>

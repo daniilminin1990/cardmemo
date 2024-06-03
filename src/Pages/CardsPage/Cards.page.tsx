@@ -19,6 +19,7 @@ import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Input from '@/components/ui/Input/Input'
+import Loading from '@/components/ui/Loading/Loading'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
@@ -99,22 +100,14 @@ export const CardsPage = () => {
 
   const cardsData = currentData ?? data
 
-  const isCardsCountFilled = currentDeckData?.cardsCount !== 0
+  const isCardsCountFilled = currentData?.items.length !== 0
 
-  const isCardsCountZero =
-    currentDeckData?.cardsCount === 0 &&
-    deck?.cardsCount === 0 &&
-    currentData?.items?.length === 0 &&
-    data?.items?.length === 0
+  const isCardsCountZero = currentData?.items.length === 0
 
   const isMineCards = currentDeckData?.userId === meData?.id
 
   const handleOpenModal = () => {
-    if (
-      (isMineCards && isCardsCountZero) ||
-      (isMineCards && cardsData?.items?.length === 0) ||
-      (isMineCards && data?.items?.length === 0)
-    ) {
+    if (isMineCards && isCardsCountZero) {
       setIsEmptyModal(true)
     } else {
       console.log('baga')
@@ -126,7 +119,11 @@ export const CardsPage = () => {
     handleToastInfo(`Add card before learning!`)
   }
 
-  const loadingStatus = isLoading || isFetching || isDeckLoading
+  const loadingStatus = isFetching || isDeckLoading
+
+  if (isLoading) {
+    return <Loading type={'pageLoader'} />
+  }
 
   return (
     <>
@@ -201,9 +198,7 @@ export const CardsPage = () => {
                   </DropdownMenuDemo>
                 )}
               </div>
-              {isCardsCountFilled && deck?.cover && (
-                <img alt={'img'} src={deck?.cover} width={'120px'} />
-              )}
+              {deck?.cover && <img alt={'img'} src={deck?.cover} width={'120px'} />}
             </div>
             {isCardsCountFilled && (
               <div className={s.switchButton}>
@@ -239,7 +234,7 @@ export const CardsPage = () => {
             />
           )}
         </div>
-        {isCardsCountZero ? (
+        {currentData?.items.length === 0 ? (
           <div className={s.emptyContent}>
             <Typography variant={'body1'}>
               {isMineCards

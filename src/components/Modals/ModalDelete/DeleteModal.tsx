@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components/ui/button'
@@ -13,7 +13,7 @@ type Props = {
   setOpen: (open: boolean) => void
   title: string
 }
-export const DeleteModal = ({ children, deleteFn, open, setOpen, title }: Props) => {
+export const DeleteModal = memo(({ children, deleteFn, open, setOpen, title }: Props) => {
   const { t } = useTranslation()
   const deleteHandler = () => {
     deleteFn()
@@ -36,4 +36,4 @@ export const DeleteModal = ({ children, deleteFn, open, setOpen, title }: Props)
       </div>
     </Modal>
   )
-}
+})

@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
@@ -12,7 +13,7 @@ type Props = {
   open: boolean
   setIsOpenModal: (value: boolean) => void
 }
-const ModalOnEmpty = (props: Props) => {
+const ModalOnEmpty = memo((props: Props) => {
   const { open, setIsOpenModal } = props
   const onDeleteDeckHandler = () => {
     setIsOpenModal(false)
@@ -21,6 +22,7 @@ const ModalOnEmpty = (props: Props) => {
 
   return (
     <Modal
+      className={s.modal}
       onOpenChange={() => setIsOpenModal(false)}
       open={open}
       title={`${t('modalOnEmpty.areYouSure')}`}
@@ -38,6 +40,6 @@ const ModalOnEmpty = (props: Props) => {
       </div>
     </Modal>
   )
-}
+})
 
 export default ModalOnEmpty

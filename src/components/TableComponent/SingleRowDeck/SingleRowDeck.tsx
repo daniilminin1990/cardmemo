@@ -1,10 +1,7 @@
 import { Link } from 'react-router-dom'
 
-import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
-import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
-import TrashOutline from '@/assets/icons/svg/TrashOutline'
+import { RowDeckBtns } from '@/components/TableComponent/SingleRowDeck/btns/RowDeckBtns'
 import Typography from '@/components/ui/Typography/Typography'
-import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
 import { path } from '@/router/path'
 import { useMeQuery } from '@/services/auth/auth.service'
@@ -29,15 +26,6 @@ export const SingleRowDeck = ({
 
   const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
 
-  const onDeleteDeckHandler = () => {
-    retrieveDeckItem(item)
-    openDeleteModalHandler(true)
-  }
-  const onEditDeckHandler = () => {
-    retrieveDeckItem(item)
-    openEditModalHandler(true)
-  }
-
   return (
     <Table.Row key={item.id}>
       <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
@@ -60,38 +48,13 @@ export const SingleRowDeck = ({
         <Typography>{item.author.name}</Typography>
       </Table.Cell>
       <Table.Cell>
-        {item.userId === meData?.id ? (
-          <div className={s.iconBtns}>
-            <Button className={s.btn} onClick={onEditDeckHandler}>
-              <Edit2Outline className={s.Edit2Outline} />
-            </Button>
-            {item.cardsCount === 0 ? (
-              <Button className={s.btn} disabled={item.cardsCount === 0}>
-                <PlayCircleOutline className={`${s.playCircleOutline} ${s.disabled}`} />
-              </Button>
-            ) : (
-              <Button as={'a'} className={s.btn} href={`${path.decks}/${item.id}${path.learn}`}>
-                <PlayCircleOutline className={s.playCircleOutline} />
-              </Button>
-            )}
-
-            <Button className={s.btn} onClick={onDeleteDeckHandler}>
-              <TrashOutline className={s.TrashOutline} />
-            </Button>
-          </div>
-        ) : (
-          <div className={s.iconBtns}>
-            {item.cardsCount === 0 ? (
-              <Button className={s.btn} disabled={item.cardsCount === 0}>
-                <PlayCircleOutline className={`${s.playCircleOutline} ${s.disabled}`} />
-              </Button>
-            ) : (
-              <Button as={'a'} className={s.btn} href={`${path.decks}/${item.id}${path.learn}`}>
-                <PlayCircleOutline className={s.playCircleOutline} />
-              </Button>
-            )}
-          </div>
-        )}
+        <RowDeckBtns
+          item={item}
+          meData={meData}
+          openDeleteModalHandler={openDeleteModalHandler}
+          openEditModalHandler={openEditModalHandler}
+          retrieveDeckItem={retrieveDeckItem}
+        />
       </Table.Cell>
     </Table.Row>
   )
