@@ -2,6 +2,7 @@
 @import '@radix-ui/colors/green.css';
 @import '@radix-ui/colors/mauve.css';
 @import '@radix-ui/colors/violet.css';
+@import 'src/styles/mixins';
 
 /* reset */
 button,
@@ -79,6 +80,8 @@ input {
 }
 
 .closeBtn {
+  @include focus-visible-default;
+
   cursor: pointer;
 
   display: inline-flex;
@@ -99,14 +102,14 @@ input {
     width: 25px;
     height: 25px;
   }
-}
 
-.closeBtn:hover {
-  opacity: 0.7;
-}
+  &:hover {
+    opacity: 0.7;
+  }
 
-.closeBtn:focus {
-  opacity: 0.7;
+  &:focus {
+    opacity: 0.7;
+  }
 }
 
 @keyframes overlayShow {

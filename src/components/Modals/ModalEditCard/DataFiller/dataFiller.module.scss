@@ -1,48 +1,59 @@
 * p {
   margin: 0;
 }
+
 .preview {
   margin-top: 8px;
   margin-bottom: 16px;
 }
+
 .uploadImg {
+  cursor: pointer;
+
   position: relative;
   z-index: 1;
+
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
+  padding: 8px 0;
+
   background-color: var(--color-dark-300);
   border-radius: 4px;
-  padding: 8px 0 8px 0;
-  transition: background-color 0.2s ease-in-out;
-  cursor: pointer;
   box-shadow: none;
+
+  transition: background-color 0.2s ease-in-out;
+
   &.removeImg {
     margin-bottom: 14px;
   }
+
   &:hover {
     background-color: var(--color-dark-100);
   }
+
   &:active {
     background-color: var(--color-light-900);
   }
+
   &:focus,
   &:first-child:focus {
     outline: unset;
-    box-shadow: 0 0 0 2px inset var(--color-info-700);
+    box-shadow: 0 0 0 2px inset var(--color-success-100);
   }
 }
 
 .inputImg {
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
   //position: absolute;
   //z-index: -1;
   //opacity: 0;
   //width: 100%;
   opacity: 0;
-  width: 0;
-  height: 0;
-  padding: 0;
-  margin: 0;
 }
 
 .icon {
@@ -66,14 +77,16 @@
   display: flex;
   justify-content: center;
 }
+
 .img {
-  margin-bottom: 24px;
   max-width: 100%;
+  margin-bottom: 24px;
   object-fit: cover;
 }
+
 .buttonsWrapper {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
   gap: 16px;
+  align-items: center;
+  justify-content: space-evenly;
 }
