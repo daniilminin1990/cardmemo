@@ -58,6 +58,8 @@ export const cardsService = flashCardsAPI.injectEndpoints({
           const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), [
             { type: 'Cards' },
           ])
+
+          console.log(invalidateBy)
           const patchResults: any[] = []
 
           invalidateBy.forEach(({ originalArgs }) => {

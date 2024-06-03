@@ -65,6 +65,10 @@
         background-color: var(--color-dark-700);
         border-color: var(--color-dark-300);
       }
+
+      @media (max-width: 1279px) {
+        padding: 6px 18px;
+      }
     }
   }
 }
