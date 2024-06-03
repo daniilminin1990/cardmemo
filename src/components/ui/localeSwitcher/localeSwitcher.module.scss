@@ -2,7 +2,6 @@
 @import '../../../../node_modules/@radix-ui/colors/mauve.css';
 
 .boxContent {
-  /*@include focus-visible-default;*/
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -20,22 +19,12 @@
   }
 }
 
-.flag,
-.flagEng {
-  /*width: 40px;
-  height: 30px;*/
+
+.dropItemFlag {
   width: 30px;
   height: 20px;
   object-fit: cover;
 }
-
-/*.flagEng {
-  cursor: pointer;
-  width: 30px;
-  height: 20px;
-  !*width: 40px;
-  height: 30px;*!
-}*/
 
 .DropdownMenuContent {
   display: flex;
@@ -86,15 +75,10 @@
   fill: var(--color-dark-700);
 }
 
-.flagOwn {
+.flag {
   width: 30px;
   height: 20px;
-  /*width: 37px;
-  height: 27px;*/
-  /*border: 1px solid black;*/
 }
-
-
 
 /*.IconButton[data-state='open'] img,
 .IconButton:focus-visible img {

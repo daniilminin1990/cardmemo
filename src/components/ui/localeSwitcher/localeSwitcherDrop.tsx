@@ -56,7 +56,7 @@ const LocaleSwitcherDrop = () => {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button aria-label={'Update dimensions'} className={s.IconButton}>
-          <img alt={'Country flag'} className={s.flagOwn} height={30} src={iconFlag} width={40} />
+          <img alt={'Country flag'} className={s.flag} height={30} src={iconFlag} width={40} />
           <ArrowIosDownOutline className={s.iconArrowDown} />
         </button>
       </DropdownMenu.Trigger>
@@ -98,7 +98,7 @@ const DropdownMenuItem = (props: DropdownMenuItemProps) => {
           }
         }}
       >
-        <img alt={`${isoCode} flag`} className={s.flagEng} src={icon} />
+        <img alt={`${isoCode} flag`} className={s.dropItemFlag} src={icon} />
         <Typography className={s.dropdownText} variant={'caption'}>
           {t(`localeSwitcher.ownLanguages.${isoCode}`)}
         </Typography>
