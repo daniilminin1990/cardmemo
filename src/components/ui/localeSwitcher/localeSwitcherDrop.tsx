@@ -39,7 +39,7 @@ const LocaleSwitcherDrop = () => {
     const storedLocale = localStorage.getItem('locale')
 
     if (storedLocale) {
-      setIconFlag(storedLocale ? `${langData[storedLocale as LangType].icon}` : 'en')
+      setIconFlag(`${langData[storedLocale as LangType].icon}`)
     }
   }, [])
 
