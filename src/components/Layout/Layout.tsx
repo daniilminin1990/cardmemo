@@ -1,8 +1,10 @@
+import { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 
 import Header from '@/components/Layout/Header/Header'
 import Loading from '@/components/ui/Loading/Loading'
+import { UserContext } from '@/components/ui/changeTheme/Context'
 import { useMeQuery } from '@/services/auth/auth.service'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -10,6 +12,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import s from './layout.module.scss'
 
 export const Layout = () => {
+  const context = useContext(UserContext)
+
   const { data: meData, isLoading } = useMeQuery()
 
   if (isLoading) {
@@ -29,7 +33,7 @@ export const Layout = () => {
         hideProgressBar={false}
         pauseOnHover
         position={'bottom-left'}
-        theme={'dark'}
+        theme={context?.theme === 'moon' ? 'dark' : 'light'}
         transition={Bounce}
       />
     </>
