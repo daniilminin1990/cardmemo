@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 
+import defaultAvatar from '@/assets/img/defaultAvatar.png'
 import Typography from '@/components/ui/Typography/Typography'
 import { MeResponse } from '@/services/auth/auth.types'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
@@ -17,7 +18,7 @@ type DropdownMenuDemoProps = {
 }
 
 const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
-  const { children, className, data, icon, type } = props
+  const { children, className, data, type } = props
 
   return (
     <DropdownMenu.Root>
@@ -26,7 +27,7 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
           <img
             alt={''}
             className={clsx(type === 'head' && s.dropdownHeaderImg, className)}
-            src={data?.avatar ?? icon}
+            src={data?.avatar ?? defaultAvatar}
           />
         </button>
       </DropdownMenu.Trigger>
@@ -38,7 +39,7 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
         >
           {type === 'head' && (
             <div className={s.header}>
-              <img alt={''} src={data?.avatar ?? icon} />
+              <img alt={''} src={data?.avatar ?? defaultAvatar} />
               <div>
                 <Typography className={s.dropdownTextHeader} variant={'subtitle1'}>
                   {data?.name ?? 'JohnDoe'}
