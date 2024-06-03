@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import ellipseIcon from '@/assets/icons/WhiteSVG/Ellipse 1.svg'
 import headerIcon1 from '@/assets/icons/WhiteSVG/Layer 2.svg'
 import headerIcon from '@/assets/icons/WhiteSVG/person-outline.svg'
-import CardMemoLogo from '@/assets/icons/svg/CardMemoLogo'
+import CardMemoLogoGolden from '@/assets/icons/svg/CardMemo/CardMemoLogoGolden'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Typography from '@/components/ui/Typography/Typography'
@@ -32,9 +32,35 @@ const Header = ({ data }: HeaderProps) => {
     <div className={style.box}>
       <div className={style.wrapper}>
         <div className={style.boxImg}>
+          {/*! Фиолетовые*/}
+          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
+          {/*  <CardsMemoizeLogo className={style.img} />*/}
+          {/*</Typography>*/}
+          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
+          {/*  <CardsMemoizeLogoMinimalisticDolzhenkov className={style.img} />*/}
+          {/*</Typography>*/}
+          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
+          {/*  <CardMemoLogo className={style.img} />*/}
+          {/*</Typography>*/}
+          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
+          {/*  <CardMemoLogoMinimalisticGolden className={style.img} />*/}
+          {/*</Typography>*/}
+          {/*! Золотые*/}
           <Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>
-            <CardMemoLogo className={style.img} />
+            <CardMemoLogoGolden className={style.img} />
           </Typography>
+          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
+          {/*  <CardMemoLogoMinimalisticGolden className={style.img} />*/}
+          {/*</Typography>*/}
+          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
+          {/*  <CardsMemoizeLogoGolden className={style.img} />*/}
+          {/*</Typography>*/}
+          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
+          {/*  <CardsMemoizeLogoMinimalisticGolden className={style.img} />*/}
+          {/*</Typography>*/}
+          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
+          {/*  <CardsMemoizeLogoMinimalisticDolzhenkovGolden className={style.img} />*/}
+          {/*</Typography>*/}
           <LocaleSwitcherDrop />
           <ChangeTheme />
         </div>

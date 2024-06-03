@@ -1,7 +1,7 @@
 import type { SVGProps } from 'react'
 import { Ref, forwardRef, memo } from 'react'
 const SvgCardsStoneLogo = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
-  <svg viewBox={'0 0 475.2 84.44'} xmlns={'http://www.w3.org/2000/svg'} {...props}>
+  <svg ref={ref} viewBox={'0 0 475.2 84.44'} xmlns={'http://www.w3.org/2000/svg'} {...props}>
     <title>{'carddsStone'}</title>
     <path
       d={
