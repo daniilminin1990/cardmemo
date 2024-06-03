@@ -100,7 +100,12 @@ export function DecksPage() {
   }
 
   const handleItemsPerPageChange = (value: number) => {
-    setCurrentPageQuery(Number(initCurrentPage))
+    // setCurrentPageQuery(Number(initCurrentPage))
+    const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 0) / value)
+
+    if (maxNumberOfPages < currentPage) {
+      setCurrentPageQuery(maxNumberOfPages)
+    }
     setItemsPerPageQuery(value)
   }
   const handleCurrentPageChange = (value: number) => {

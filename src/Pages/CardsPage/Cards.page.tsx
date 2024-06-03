@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { HeadingOfPage } from '@/Pages/CardsPage/HeadingSecondRow/HeadingOfPage'
-import { headersNameCards, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
+import { headersNameCards, selectOptionPagination } from '@/common/globalVariables'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { ModalAddEditCard } from '@/components/Modals/ModalEditCard/ModalAddEditCard'
@@ -60,7 +60,12 @@ export const CardsPage = () => {
   const [isDeleteCardModal, setIsDeleteCardModal] = useState(false) // Удаление Card
 
   const handleItemsPerPageChange = (value: number) => {
-    setCurrentPageQuery(Number(initCurrentPage))
+    // setCurrentPageQuery(Number(initCurrentPage))
+    const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 0) / value)
+
+    if (maxNumberOfPages < currentPage) {
+      setCurrentPageQuery(maxNumberOfPages)
+    }
     setItemsPerPageQuery(value)
   }
 
