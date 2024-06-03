@@ -3,38 +3,9 @@
 @import '@radix-ui/colors/violet.css';
 @import 'src/styles/mixins.scss';
 
-/* ------------ VARIABLES ------------ */
-:root {
-  /* COLORS */
-  --color: #9176ff;
-  --dark-color: #2b2b2b;
-  --dark-icon-color: #fff;
-  --light-color: #f7f7f7;
-  --light-icon-color: #ffde59;
-}
-
-.toggleContainer {
-}
-
-/* ------------ BASE ------------ */
-/** {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}*/
-
-/*body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: var(--light-color);
-}*/
-
 /* -------------- BUTTON -------------- */
 .btn {
-  /*border: 2px solid blueviolet;*/
-  /*background-color: #fff;*/
+  @include focus-visible-default;
   background-color: rgba(255, 255, 255, 0.1);
   width: 55px;
   height: 30px;
@@ -46,9 +17,7 @@
     inset 0 8px 8px rgba(0, 0, 0, 0.1),
     inset 0 -4px 4px rgba(0, 0, 0, 0.1);
 */
-  /*
   position: relative;
-  */
 
   display: flex;
   align-items: center;
@@ -57,13 +26,8 @@
 }
 
 .btnIndicator {
-  /*border: 2px solid red;*/
   background-color: #fff;
-  /* width: 7em;
-  height: 7em;*/
   border-radius: 50%;
-
-  /*position: absolute;*/
 
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
 
@@ -79,13 +43,12 @@
   align-items: center;
 }
 
-.btn__icon {
-  color: var(--light-icon-color);
-  font-size: 3rem;
-}
-
 /* -------------- ANIMATION ------------ */
-.btn__icon.animated {
+/*.btn__icon.animated {
+  animation: spin 0.5s;
+}*/
+.sunImg.animated,
+.moonImg.animated {
   animation: spin 0.5s;
 }
 
@@ -107,7 +70,7 @@ body.darkmode {
     inset 0 -4px 4px rgba(0, 0, 0, 0.3);*/
 }
 
-.darkmode .btn__indicator {
+.darkmode .btnIndicator {
   transform: translateX(30px);
   background-color: var(--dark-color);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
@@ -115,31 +78,6 @@ body.darkmode {
 
 .darkmode .btn__icon {
   color: var(--dark-icon-color);
-}
-
-/* ------------ TOGGLE ------------ */
-.Toggle {
-  background-color: white;
-  color: var(--mauve-11);
-  height: 35px;
-  width: 35px;
-  border-radius: 4px;
-  display: flex;
-  font-size: 15px;
-  line-height: 1;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 10px var(--black-a7);
-}
-.Toggle:hover {
-  background-color: var(--violet-3);
-}
-.Toggle[data-state='on'] {
-  background-color: var(--violet-6);
-  color: var(--violet-12);
-}
-.Toggle:focus {
-  box-shadow: 0 0 0 2px black;
 }
 
 /*------------*/

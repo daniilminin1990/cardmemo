@@ -1,11 +1,19 @@
 {
   "localeSwitcher": {
-    "language": {
+    "currentLanguage": "Русский",
+    "languages": {
       "en": "Английский",
       "ru": "Русский",
       "by": "Белорусский",
       "kz": "Казахский",
       "ua": "Украинский"
+    },
+    "ownLanguages": {
+      "en": "English",
+      "ru": "Русский",
+      "by": "Беларуская",
+      "kz": "Қазақ",
+      "ua": "Українська"
     }
   },
   "header": {

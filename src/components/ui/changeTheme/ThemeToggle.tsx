@@ -24,9 +24,9 @@ const ThemeToggle = (props: ToggleProps) => {
         <div className={`${s.btnIndicator}`}>
           <div className={s.btnIconContainer}>
             {pressed ? (
-              <img alt={'moon'} className={s['moonImg']} src={moonIcon} tabIndex={0} />
+              <img alt={'moon'} className={s.moonImg} src={moonIcon} />
             ) : (
-              <img alt={'sun'} className={s['sunImg']} src={sunIcon} tabIndex={0} />
+              <img alt={'sun'} className={s.sunImg} src={sunIcon} />
             )}
           </div>
         </div>
