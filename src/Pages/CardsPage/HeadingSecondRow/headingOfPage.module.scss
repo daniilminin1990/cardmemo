@@ -1,0 +1,44 @@
+.heading {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  width: 100%;
+  margin-bottom: 24px;
+}
+.headingSecondRow {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  & .isWithImage > h1 {
+    margin-bottom: 15px;
+  }
+}
+.info {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.dropdown {
+  display: flex;
+  align-items: center;
+  width: 24px !important;
+  height: 24px !important;
+}
+.switchButton {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+
+  & > button:first-child > p {
+    margin: 0;
+  }
+}
+
+.learnCards {
+  text-decoration: none;
+}
+.input {
+  width: 100%;
+}

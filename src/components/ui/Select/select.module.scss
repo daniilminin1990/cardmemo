@@ -1,44 +1,55 @@
 .selectRoot {
-  color: var(--color-dark-100);
   margin-right: 10px;
+  color: var(--color-dark-100);
 
   &.rootDisabled {
     color: var(--color-dark-300);
   }
 }
+
 .selectTrigger {
   cursor: pointer;
-  width: 100%;
+
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 2px;
-  border: 1px solid var(--color-dark-100);
-  color: var(--color-light-100);
-  background-color: var(--color-dark-500);
-  padding: 6px 12px;
-  height: 35px;
   gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 35px;
+  padding: 6px 12px;
+
+  color: var(--color-light-100);
+
+  background-color: var(--color-dark-500);
+  border: 1px solid var(--color-dark-100);
+  border-radius: 2px;
+
   &.className {
-    height: 24px;
-    padding: 0 4px 0 4px;
     justify-content: space-evenly;
+    height: 24px;
+    padding: 0 4px;
   }
+
   &[data-state='open'] {
     border-color: var(--color-dark-100);
     border-radius: 2px 2px 0 0;
+
     .selectIcon {
       transform: rotate(180deg);
     }
   }
+
   &:focus:not([data-disabled]) {
-    border-color: var(--color-info-700);
-    outline: 1px solid var(--color-info-700);
+    border-color: var(--color-success-100);
+    outline: 1px solid var(--color-success-100);
   }
+
   &:hover:not([data-disabled]) {
     cursor: pointer;
     background-color: var(--color-dark-500);
   }
+
   &[data-disabled] {
     cursor: initial;
     color: var(--color-dark-300);
@@ -49,31 +60,39 @@
 .selectTriggerDisabled {
   cursor: auto;
   border: 1px solid var(--color-dark-300);
+
   .selectIconDisabled {
-    fill: var(--color-dark-300);
     color: var(--color-dark-100);
+    fill: var(--color-dark-300);
   }
 }
+
 .selectIcon {
   fill: var(--color-light-100);
   transition: 0.2s;
 }
+
 .selectContent {
   overflow: hidden;
-  width: var(--radix-select-trigger-width);
-  background-color: var(--color-dark-500);
-  border-radius: 0 0 2px 2px;
-  border: 1px solid var(--color-dark-100);
   justify-content: start;
+
+  width: var(--radix-select-trigger-width);
+
+  background-color: var(--color-dark-500);
+  border: 1px solid var(--color-dark-100);
+  border-radius: 0 0 2px 2px;
+
   .selectItem {
     cursor: pointer;
     padding: 6px 12px;
     outline: none;
     transition: 0.2s ease-out;
+
     &.className {
-      padding: 0 0 0 6px;
       height: 24px;
+      padding: 0 0 0 6px;
     }
+
     &:hover,
     &:focus,
     &[data-state='checked'] {

@@ -4,12 +4,18 @@
   @include animation-appearance;
 
   width: 420px;
-}
 
-.container {
-  padding: 20px 24px;
+  div {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  button {
+    display: none;
+  }
 }
 
 .btn {
+  width: 100%;
   text-decoration-line: none;
 }

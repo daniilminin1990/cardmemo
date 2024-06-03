@@ -47,7 +47,7 @@
 }
 
 .profile {
-  @include focus-visible-green;
+  @include focus-visible-default;
 
   display: flex;
   gap: 14px;
