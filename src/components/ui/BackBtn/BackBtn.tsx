@@ -8,7 +8,7 @@ import s from './BackBtn.module.scss'
 
 type Props = {
   children: ReactNode
-  onClick?: () => void
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
   to: string
 }
 
