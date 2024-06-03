@@ -49,14 +49,20 @@ export const successApiResponse = (result: any) => {
             }
           }, 1)
         }
+        if (url.endsWith('/favorite')) {
+          handleToastSuccess(`Add in favorites!`)
+        }
       }
     } else if (method === 'DELETE') {
       if (status === 200 && statusText === 'OK') {
         handleToastSuccess(`Deletion deck ${(data as Deck).name} - successful!`)
-      } else if (status === 204 && statusText === 'No Content') {
-        handleToastSuccess(`Deletion card - successful!`)
-      } else {
-        handleToastSuccess('Deletion - successful!')
+      }
+      if (status === 204 && statusText === 'No Content') {
+        if (url.endsWith('/favorite')) {
+          handleToastSuccess(`Removed from favorites!`)
+        } else {
+          handleToastSuccess('Deletion - successful!')
+        }
       }
     }
   }
