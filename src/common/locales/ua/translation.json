@@ -1,0 +1,157 @@
+{
+  "localeSwitcher": {
+    "currentLanguage": "Українська",
+    "languages": {
+      "en": "Англійська",
+      "ru": "Російська",
+      "by": "Білоруська",
+      "kz": "Казахська",
+      "ua": "Українська"
+    },
+    "ownLanguages": {
+      "en": "English",
+      "ru": "Русский",
+      "by": "Беларуская",
+      "kz": "Қазақ",
+      "ua": "Українська"
+    }
+  },
+  "header": {
+    "signIn": "Увійти",
+    "signOut": "Вийти",
+    "myProfile": "Мій профіль"
+  },
+  "decksPage": {
+    "numberOfCards": "Кількість карт",
+    "showDecksCards": "Показувати колоди",
+    "decksList": "Список колод",
+    "addNewDeck": "Нова колода",
+    "clearFilter": "Очистити",
+    "deleteDeck": "Видалити колоду",
+    "isDeleteDeck": "Ви впевнені, що хочете видалити колоду? Всі карти будуть видалені."
+  },
+  "deleteModal": {
+    "cancel": "Скасувати"
+  },
+  "useTabsValuesParams": {
+    "allDecks": "Всі",
+    "myDecks": "Мої"
+  },
+  "paginationWithSelect": {
+    "show": "Показувати",
+    "onPage": "на сторінці"
+  },
+  "checkEmail": {
+    "checkEmail": "Перевірити пошту",
+    "instruction": "Ми відправили електронного листа з інструкціями на",
+    "backToSignIn": "Повернутися до сторінки входу"
+  },
+  "modalAddEditDeck": {
+    "addNewDeck": "Додати нову колоду",
+    "updateDeck": "Редагувати колоду",
+    "editTitle": "Змінити ім'я",
+    "nameDeck": "Назва колоди",
+    "removeCover": "Видалити обкладинку",
+    "uploadImage": "Завантажити обкладинку",
+    "changeCover": "Змінити обкладинку",
+    "private": "Приватний",
+    "namePack": "Ім'я колоди",
+    "cancel": "Скасувати",
+    "saveChanges": "Зберегти зміни",
+    "createPack": "Створити"
+  },
+  "signInPage": {
+    "signIn": "Увійти",
+    "email": "Електронна пошта",
+    "password": "Пароль",
+    "rememberMe": "Запам'ятати мене",
+    "forgotPassword": "Забули пароль?",
+    "dontHaveAccount": "Не маєте облікового запису?",
+    "signUp": "Реєстрація"
+  },
+  "learnPage": {
+    "backCardsPage": "Повернутися на сторінку карток",
+    "learn": "Вивчити",
+    "question": "Питання",
+    "countAttempts": "Кількість спроб",
+    "answer": "Відповідь",
+    "showAnswer": "Показати відповідь",
+    "rateYourself": "Оцініть себе",
+    "nextQuestion": "Наступне питання",
+    "didtKnow": "Не знав",
+    "forgotten": "Забув",
+    "aLotThought": "Багато думав",
+    "confused": "Трохи збентежений",
+    "knewAnswer": "Знав відповідь"
+  },
+  "modalOnEmpty": {
+    "areYouSure": "Ви впевнені, що хочете залишити цю сторінку?",
+    "reallyWant": "Ви не створили жодної картки!!!",
+    "no": "Ні",
+    "yes": "Так"
+  },
+  "tableComponentWithTypes": {
+    "name": "Ім'я",
+    "cards": "Картки",
+    "lastUpdated": "Оновлено",
+    "createdBy": "Автор",
+    "pleaseAddAnyData": "Будь ласка, додайте дані для відображення",
+    "noContent": "Немає даних з такими умовами",
+    "question": "Питання",
+    "answer": "Відповідь",
+    "grade": "Оцінка"
+  },
+  "cardsPage": {
+    "backDeckList": "Повернутися на сторінку з колодами",
+    "learn": "Вивчити",
+    "learnCards": "Вчити картки",
+    "edit": "Змінити",
+    "delete": "Видалити",
+    "emptyDeck": "Ця колода порожня. Натисніть кнопку додати, щоб заповнити цю колоду",
+    "unfortunatelyEmptyDeck": "На жаль, ця колода порожня.",
+    "addNewCard": "Додати картку",
+    "deleteDeck": "Видалити колоду",
+    "isDeleteDeck": "Ви впевнені, що хочете видалити колоду? Всі картки будуть видалені.",
+    "deleteCard": "Видалити картку",
+    "isDeleteCard": "Ви дійсно хочете видалити картку? Весь вміст буде видалено."
+  },
+  "modalAddEditCard": {
+    "updateCard": "Змінити картку",
+    "addNewCard": "Додати нову картку",
+    "question": "Питання",
+    "answer": "Відповідь",
+    "saveChanges": "Зберегти",
+    "createCard": "Створити",
+    "cancel": "Скасувати"
+  },
+  "dataFiller": {
+    "uploadImage": "Завантажити обкладинку",
+    "changeCover": "Змінити обкладинку",
+    "removeCover": "Видалити обкладинку"
+  },
+  "profilePage": {
+    "personalInfo": "Особиста інформація",
+    "signUp": "Реєстрація",
+    "backDeckList": "Повернутися до списку колод",
+    "saveChanges": "Зберегти зміни",
+    "logout": "Вихід",
+    "nickname": "Нікнейм"
+  },
+  "forgotPassword": {
+    "forgotPassword": "Забули пароль?",
+    "email": "Електронна пошта",
+    "enterYourEmail": "Введіть свою адресу електронної пошти, і ми відправимо вам подальші інструкції",
+    "rememberPassword": "Пам'ятаєте пароль?",
+    "tryLogIn": "Спробуйте увійти в систему",
+    "sendInstructions": "Відправити інструкції"
+  },
+  "signUp": {
+    "signUp": "Реєстрація",
+    "email": "Електронна пошта",
+    "password": "Пароль",
+    "confirmPassword": "Підтвердити пароль",
+    "haveAccount": "Вже є аккаунт?",
+    "signIn": "Увійти",
+    "submit": "Підтвердити"
+  }
+}

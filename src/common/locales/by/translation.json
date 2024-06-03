@@ -1,0 +1,157 @@
+{
+  "localeSwitcher": {
+    "currentLanguage": "Беларуская",
+    "languages": {
+      "en": "Англійская",
+      "ru": "Руская",
+      "by": "Беларуская",
+      "kz": "Казахская",
+      "ua": "Украінская"
+    },
+    "ownLanguages": {
+      "en": "English",
+      "ru": "Русский",
+      "by": "Беларуская",
+      "kz": "Қазақ",
+      "ua": "Українська"
+    }
+  },
+  "header": {
+    "signIn": "Увайсці",
+    "signOut": "Выйсці",
+    "myProfile": "Мой профіль"
+  },
+  "decksPage": {
+    "numberOfCards": "Колькасць карт",
+    "showDecksCards": "Паказаць калоды",
+    "decksList": "Спіс калод",
+    "addNewDeck": "Новая калода",
+    "clearFilter": "Ачысціць",
+    "deleteDeck": "Выдаліць калоду",
+    "isDeleteDeck": "Вы ўпэўнены, што хочаце выдаліць калоду? Усе карты будуць выдалены."
+  },
+  "deleteModal": {
+    "cancel": "Адмена"
+  },
+  "useTabsValuesParams": {
+    "allDecks": "Усе",
+    "myDecks": "Мае"
+  },
+  "paginationWithSelect": {
+    "show": "Паказаць",
+    "onPage": "на старонцы"
+  },
+  "checkEmail": {
+    "checkEmail": "Праверыць пошту",
+    "instruction": "Мы адправілі ліст з інструкцыямі на",
+    "backToSignIn": "Вярнуцца на старонку ўваходу"
+  },
+  "modalAddEditDeck": {
+    "addNewDeck": "Дадаць новую калоду",
+    "updateDeck": "Рэдагаваць калоду",
+    "editTitle": "Змяніць назву",
+    "nameDeck": "Назва калоды",
+    "removeCover": "Выдаліць абкладзінку",
+    "uploadImage": "Загрузіць абкладзінку",
+    "changeCover": "Змяніць абкладзінку",
+    "private": "Прыватная",
+    "namePack": "Імя калоды",
+    "cancel": "Адмена",
+    "saveChanges": "Захаваць",
+    "createPack": "Стварыць"
+  },
+  "signInPage": {
+    "signIn": "Увайсці",
+    "email": "Пошта",
+    "password": "Пароль",
+    "rememberMe": "Запомніць мяне",
+    "forgotPassword": "Забылі пароль?",
+    "dontHaveAccount": "Няма рахунку?",
+    "signUp": "Рэгістрацыя"
+  },
+  "learnPage": {
+    "backCardsPage": "Вярнуцца на старонку карт",
+    "learn": "Вывучаць",
+    "question": "Пытанне",
+    "countAttempts": "Колькасць спроб",
+    "answer": "Адказ",
+    "showAnswer": "Паказаць адказ",
+    "rateYourself": "Ацаніце сябе",
+    "nextQuestion": "Наступнае пытанне",
+    "didtKnow": "Не ведаў",
+    "forgot": "Забыў",
+    "aLotThought": "Доўга думаў",
+    "confused": "Трохі збіты з панталіку",
+    "knewAnswer": "Знаў адказ"
+  },
+  "modalOnEmpty": {
+    "areYouSure": "Вы ўпэўнены, што хочаце пакінуць гэтую старонку?",
+    "reallyWant": "Вы не стварылі ні адной карты!",
+    "no": "Не",
+    "yes": "Так"
+  },
+  "tableComponentWithTypes": {
+    "name": "Імя",
+    "cards": "Карты",
+    "lastUpdated": "Абноўлена",
+    "createdBy": "Аўтар",
+    "pleaseAddAnyData": "Калі ласка, дадайце дадзеныя для адлюстравання",
+    "noContent": "Няма дадзеных з такімі ўмовамі",
+    "question": "Пытанне",
+    "answer": "Адказ",
+    "grade": "Ацэнка"
+  },
+  "cardsPage": {
+    "backDeckList": "Вярнуцца на старонку з калодамі",
+    "learn": "Вывучаць",
+    "learnCards": "Вывучаць карты",
+    "edit": "Рэдагаваць",
+    "delete": "Выдаліць",
+    "emptyDeck": "Гэтая калода пустая. Націсніце кнопку дадаць, каб запоўніць гэтую калоду",
+    "unfortunatelyEmptyDeck": "На жаль, гэтая калода пустая.",
+    "addNewCard": "Дадаць карту",
+    "deleteDeck": "Выдаліць калоду",
+    "isDeleteDeck": "Вы сапраўды хочаце выдаліць калоду? Усе карты будуць выдалены.",
+    "deleteCard": "Выдаліць карту",
+    "isDeleteCard": "Вы сапраўды хочаце выдаліць карту? Усе змест будзе выдалены."
+  },
+  "modalAddEditCard": {
+    "updateCard": "Абнавіць карту",
+    "addNewCard": "Дадаць новую карту",
+    "question": "Пытанне",
+    "answer": "Адказ",
+    "saveChanges": "Захаваць змены",
+    "createCard": "Стварыць карту",
+    "cancel": "Адмена"
+  },
+  "dataFiller": {
+    "uploadImage": "Загрузіць абкладзінку",
+    "changeCover": "Змяніць абкладзінку",
+    "removeCover": "Выдаліць абкладзінку"
+  },
+  "profilePage": {
+    "personalInfo": "Асабістая інфармацыя",
+    "signUp": "Рэгістрацыя",
+    "backDeckList": "Вярнуцца на старонку з калодамі",
+    "saveChanges": "Захаваць змены",
+    "logout": "Выйсці",
+    "nickname": "Нікнейм"
+  },
+  "forgotPassword": {
+    "forgotPassword": "Забылі пароль?",
+    "email": "Пошта",
+    "enterYourEmail": "Увядзіце свой адрас электроннай пошты, і мы адпраўлім вам далейшыя інструкцыі",
+    "rememberPassword": "Памятаеце пароль?",
+    "tryLogIn": "Паспрабуйце ўвайсці ў сістэму",
+    "sendInstructions": "Адправіць інструкцыі"
+  },
+  "signUp": {
+    "signUp": "Рэгістрацыя",
+    "email": "Пошта",
+    "password": "Пароль",
+    "confirmPassword": "Пацвердзіць пароль",
+    "haveAccount": "Ужо ёсць рахунак?",
+    "signIn": "Увайсці",
+    "submit": "Падцвердзіць"
+  }
+}

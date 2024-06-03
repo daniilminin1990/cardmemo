@@ -1,6 +1,20 @@
 {
   "localeSwitcher": {
-    "language": "En"
+    "currentLanguage": "English",
+    "language": {
+      "en": "English",
+      "ru": "Russian",
+      "by": "Belarusian",
+      "kz": "Kazakh",
+      "ua": "Ukrainian"
+    },
+    "ownLanguages": {
+      "en": "English",
+      "ru": "Русский",
+      "by": "Беларуская",
+      "kz": "Қазақ",
+      "ua": "Українська"
+    }
   },
   "header": {
     "signIn": "Sign In",

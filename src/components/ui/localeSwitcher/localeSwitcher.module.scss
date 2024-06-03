@@ -1,0 +1,91 @@
+@import '../../../styles/mixins';
+@import '../../../../node_modules/@radix-ui/colors/mauve.css';
+
+.boxContent {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+  }
+  &:hover {
+    color: var(--color-accent-500);
+  }
+  &:focus-visible .dropdownText{
+    color: var(--color-accent-500);
+  }
+}
+
+
+.dropItemFlag {
+  width: 30px;
+  height: 20px;
+  object-fit: cover;
+}
+
+.DropdownMenuContent {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  gap: 5px;
+  justify-content: center;
+  padding: 10px;
+
+  background-color: var(--color-dark-700);
+  border-radius: 6px;
+  box-shadow:
+    0 10px 38px -10px rgb(22 23 24 / 35%),
+    0 10px 20px -15px rgb(22 23 24 / 20%);
+
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.IconButton {
+  @include focus-visible-default;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px;
+  /*background-color: #0f9954;*/
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  &[data-state='open'] {
+    .iconArrowDown {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.iconArrowDown {
+  margin-left: 3px;
+  transition: 0.2s;
+  & path {
+    fill: var(--color-dark-100);
+  }
+}
+
+.DropdownMenuArrow {
+  fill: var(--color-dark-700);
+}
+
+.flag {
+  width: 30px;
+  height: 20px;
+}
+
+/*.IconButton[data-state='open'] img,
+.IconButton:focus-visible img {
+  box-shadow: 0 0 10px 8px rgb(137 74 255 / 50%);
+}*/
+
+.IconButton[data-state='open'],
+.IconButton:focus-visible {
+  /*box-shadow: 0 0 10px 8px rgb(137 74 255 / 50%);*/
+}

@@ -1,7 +1,8 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 
 import { changeTheme } from '@/common/utillThemeChanger'
 import { UserContext } from '@/components/ui/changeTheme/Context'
+import ToggleDemo from '@/components/ui/changeTheme/ThemeToggle'
 
 import style from './ChangeTheme.module.scss'
 
@@ -77,33 +78,15 @@ const ChangeTheme = () => {
 
     changeTheme(newThemeColors)
   }
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLAnchorElement | HTMLDivElement>) => {
-    if (event.key === 'Enter') {
-      onChangeThemeHandler?.()
-    }
-  }
 
   return (
     <div className={style.box}>
-      {context?.theme === 'moon' ? (
-        <img
-          alt={'moon'}
-          className={style.moonImg}
-          onClick={onChangeThemeHandler}
-          onKeyDown={handleKeyDown}
-          src={moon}
-          tabIndex={0}
-        />
-      ) : (
-        <img
-          alt={'sun'}
-          className={style.sunImg}
-          onClick={onChangeThemeHandler}
-          onKeyDown={handleKeyDown}
-          src={sun}
-          tabIndex={0}
-        />
-      )}
+      <ToggleDemo
+        moonIcon={moon}
+        onPressedChange={onChangeThemeHandler}
+        pressed={context?.theme === 'moon'}
+        sunIcon={sun}
+      />
     </div>
   )
 }

@@ -1,0 +1,101 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/violet.css';
+@import 'src/styles/mixins.scss';
+
+/* -------------- BUTTON -------------- */
+.btn {
+  @include focus-visible-default;
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 55px;
+  height: 30px;
+  border-radius: 60px;
+  padding: 0 5px;
+
+  /*box-shadow:
+    inset 0 8px 60px rgba(0, 0, 0, 0.1),
+    inset 0 8px 8px rgba(0, 0, 0, 0.1),
+    inset 0 -4px 4px rgba(0, 0, 0, 0.1);
+*/
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.btnIndicator {
+  background-color: #fff;
+  border-radius: 50%;
+
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+
+  transition: transform 0.3s ease;
+}
+
+.btnIconContainer {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* -------------- ANIMATION ------------ */
+/*.btn__icon.animated {
+  animation: spin 0.5s;
+}*/
+.sunImg.animated,
+.moonImg.animated {
+  animation: spin 0.5s;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* -------------- DARKMODE -------------- */
+body.darkmode {
+  background-color: var(--dark-color);
+}
+
+.darkmode .btn {
+  /*box-shadow:
+    inset 0 8px 60px rgba(0, 0, 0, 0.3),
+    inset 8px 0 8px rgba(0, 0, 0, 0.3),
+    inset 0 -4px 4px rgba(0, 0, 0, 0.3);*/
+}
+
+.darkmode .btnIndicator {
+  transform: translateX(30px);
+  background-color: var(--dark-color);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+}
+
+.darkmode .btn__icon {
+  color: var(--dark-icon-color);
+}
+
+/*------------*/
+
+.sunImg,
+.moonImg {
+  @include focus-visible-default;
+
+  cursor: pointer;
+  min-width: 25px;
+  max-width: 25px;
+  min-height: 20px;
+}
+
+.sunImg {
+  filter: drop-shadow(0 0 10px rgb(241 172 0 / 100%));
+}
+
+.moonImg {
+  filter: drop-shadow(0 0 10px rgb(0 117 244));
+}
