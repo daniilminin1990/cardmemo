@@ -1,6 +1,5 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useMediaQuery } from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
@@ -10,7 +9,6 @@ import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddE
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
 import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
-import { TableDeckMobile } from '@/components/TableComponent/mobile/TableDeckMobile/TableDeckMobile'
 import Input from '@/components/ui/Input/Input'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
@@ -70,6 +68,17 @@ export function DecksPage() {
     // { skip: !meData && !minMaxData }
   )
 
+  // ! Определение максимальной возможной страницы
+  useEffect(() => {
+    if (currentData) {
+      const maxNumberOfPages = Math.ceil((currentData.pagination.totalItems ?? 0) / itemsPerPage)
+
+      if (maxNumberOfPages < currentPage) {
+        setCurrentPageQuery(maxNumberOfPages)
+      }
+    }
+  }, [currentData, itemsPerPage, currentPage])
+
   const { deckId } = useParams()
 
   const [isCreateModal, setIsCreateModal] = useState(false)
@@ -102,7 +111,13 @@ export function DecksPage() {
   }
 
   const handleItemsPerPageChange = (value: number) => {
-    setCurrentPageQuery(Number(initCurrentPage))
+    //! Убрал установку на 1, изменил на определение последней возможной страницы
+    // setCurrentPageQuery(Number(initCurrentPage))
+    // const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 0) / value)
+    //
+    // if (maxNumberOfPages < currentPage) {
+    //   setCurrentPageQuery(maxNumberOfPages)
+    // }
     setItemsPerPageQuery(value)
   }
   const handleCurrentPageChange = (value: number) => {
@@ -110,12 +125,6 @@ export function DecksPage() {
   }
 
   const decksData = currentData?.items ?? data?.items
-
-  // if (loadingStatus) {
-  //   return <Loading />
-  // }
-
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1279px)' })
 
   return (
     <>
@@ -172,40 +181,24 @@ export function DecksPage() {
             </Button>
           </div>
         </div>
-        {isTabletOrMobile ? (
-          <>
-            {decksData?.map(deck => {
-              return (
-                <TableDeckMobile
-                  item={deck}
-                  key={deck.id}
-                  openDeleteModalHandler={setIsDeleteModal}
-                  openEditModalHandler={setIsUpdateModal}
-                  retrieveDeckItem={setDeckItem}
-                />
-              )
-            })}
-          </>
-        ) : (
-          <TableComponentWithTypes
-            data={decksData}
-            isFetching={isFetching}
-            isLoading={isLoading}
-            tableHeader={headersNameDecks}
-          >
-            {decksData?.map(deck => {
-              return (
-                <SingleRowDeck
-                  item={deck}
-                  key={deck.id}
-                  openDeleteModalHandler={setIsDeleteModal}
-                  openEditModalHandler={setIsUpdateModal}
-                  retrieveDeckItem={setDeckItem}
-                />
-              )
-            })}
-          </TableComponentWithTypes>
-        )}
+        <TableComponentWithTypes
+          data={decksData}
+          isFetching={isFetching}
+          isLoading={isLoading}
+          tableHeader={headersNameDecks}
+        >
+          {decksData?.map(deck => {
+            return (
+              <SingleRowDeck
+                item={deck}
+                key={deck.id}
+                openDeleteModalHandler={setIsDeleteModal}
+                openEditModalHandler={setIsUpdateModal}
+                retrieveDeckItem={setDeckItem}
+              />
+            )
+          })}
+        </TableComponentWithTypes>
         <div className={s.footer}>
           <PaginationWithSelect
             currentPage={currentPage}

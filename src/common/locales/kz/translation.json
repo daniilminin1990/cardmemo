@@ -35,7 +35,8 @@
   },
   "useTabsValuesParams": {
     "allDecks": "Барлық",
-    "myDecks": "Менің"
+    "myDecks": "Менің",
+    "favorites": "Тандалгандар"
   },
   "paginationWithSelect": {
     "show": "Көрсету",

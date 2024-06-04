@@ -1,0 +1,43 @@
+/// info ///
+.info {
+  svg {
+    fill: var(--color-info-500);
+  }
+}
+
+.progressInfo {
+  background: var(--color-accent-500) !important;
+}
+
+/// success ///
+.success {
+  svg {
+    fill: var(--color-success-500);
+  }
+}
+
+.progressSuccess {
+  background: var(--color-success-500) !important;
+}
+
+/// error ///
+.error {
+  svg {
+    fill: var(--color-danger-500);
+  }
+}
+
+.progressError {
+  background: var(--color-danger-500) !important;
+}
+
+/// warning ///
+.warning {
+  svg {
+    fill: var(--color-warning-300);
+  }
+}
+
+.progressWarning {
+  background: var(--color-warning-300) !important;
+}

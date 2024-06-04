@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { RowDeckBtns } from '@/components/TableComponent/SingleRowDeck/btns/RowDeckBtns'
 import Typography from '@/components/ui/Typography/Typography'
@@ -25,11 +25,21 @@ export const SingleRowDeck = ({
   const { data: meData } = useMeQuery()
 
   const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
+  // Сэтаем в локальное хранилище параметры поиска
+  const location = useLocation()
+  const setDeckQueryHandler = () => {
+    localStorage.setItem('deckQuery', location.search)
+  }
 
   return (
     <Table.Row key={item.id}>
       <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
-        <Typography as={Link} className={s.imgWrapper} to={`${path.decks}/${item.id}`}>
+        <Typography
+          as={Link}
+          className={s.imgWrapper}
+          onClick={setDeckQueryHandler}
+          to={`${path.decks}/${item.id}`}
+        >
           {item.cover && (
             <div className={s.wrapperCoverImg}>
               <img alt={'default card img'} className={s.coverImg} src={item.cover} />
