@@ -35,7 +35,8 @@
   },
   "useTabsValuesParams": {
     "allDecks": "Усе",
-    "myDecks": "Мае"
+    "myDecks": "Мае",
+    "favorites": "Улюбленыя"
   },
   "paginationWithSelect": {
     "show": "Паказаць",
