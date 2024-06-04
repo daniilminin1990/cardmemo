@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { HeadingOfPage } from '@/Pages/CardsPage/HeadingSecondRow/HeadingOfPage'
-import { deckQuery, headersNameCards, selectOptionPagination } from '@/common/globalVariables'
+import { headersNameCards, selectOptionPagination } from '@/common/globalVariables'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { ModalAddEditCard } from '@/components/Modals/ModalEditCard/ModalAddEditCard'
@@ -28,6 +28,7 @@ import s from './cardsPage.module.scss'
 
 export const CardsPage = () => {
   const { t } = useTranslation()
+  const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
   const {
     currentOrderBy,
     currentPage,

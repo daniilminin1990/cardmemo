@@ -21,7 +21,3 @@ export const selectOptionPagination = [
 ]
 
 export const initCurrentPage = '1'
-
-export const deckQuery = localStorage.getItem('deckQuery')
-  ? `/${localStorage.getItem('deckQuery')}`
-  : ''
