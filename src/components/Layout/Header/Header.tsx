@@ -22,7 +22,6 @@ type HeaderProps = {
   data?: MeResponse
 }
 const Header = ({ data }: HeaderProps) => {
-  const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
   const [logout] = useLogoutMutation()
   const { t } = useTranslation()
   const logoutHandler = () => {
@@ -33,8 +32,6 @@ const Header = ({ data }: HeaderProps) => {
   const setDeckQueryHandler = () => {
     localStorage.setItem('deckQuery', location.search)
   }
-
-  console.log(deckQuery)
 
   return (
     <div className={style.box}>
