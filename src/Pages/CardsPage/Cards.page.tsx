@@ -37,6 +37,9 @@ export const CardsPage = () => {
     setItemsPerPageQuery,
   } = useQueryParams()
 
+  // Определяем путь к дек листу
+  const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
+
   const [deleteCard] = useDeleteCardByIdMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const { deckId = '' } = useParams()
@@ -77,7 +80,7 @@ export const CardsPage = () => {
     deleteDeck({ id: deckId })
     setIsDeleteDeckModal(true)
     if (deckId) {
-      router.navigate(path.decks)
+      router.navigate(`${path.decks}${deckQuery}`)
     }
   }
   const onDeleteCardHandler = () => {

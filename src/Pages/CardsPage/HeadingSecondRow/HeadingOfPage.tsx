@@ -47,6 +47,7 @@ export const HeadingOfPage = ({
   openModalHandler,
 }: HeadingSecondRowProps) => {
   const context = useContext(UserContext)
+  const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
   const { t } = useTranslation()
   const notifyLearnHandler = () => {
     handleToastInfo(`Add card before learning!`)
@@ -57,8 +58,7 @@ export const HeadingOfPage = ({
       e.preventDefault()
       openEmptyDeckModalHandler(true)
     } else {
-      console.log('baga')
-      router.navigate(`${path.decks}`)
+      router.navigate(`${path.decks}${deckQuery}`)
     }
   }
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +70,7 @@ export const HeadingOfPage = ({
 
   return (
     <div className={s.heading}>
-      <BackBtn onClick={handleOpenModal} to={path.decks}>
+      <BackBtn onClick={handleOpenModal} to={path.decks + deckQuery}>
         {t('cardsPage.backDeckList')}
       </BackBtn>
       <div className={s.headingSecondRow}>

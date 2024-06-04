@@ -31,6 +31,8 @@ export const ProfilePage = () => {
     resolver: zodResolver(PersonalInfoScheme),
   })
 
+  const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
+
   const { data: me, isFetching, isLoading } = useMeQuery()
   const [logout] = useLogoutMutation()
   const [updateUserData, { isLoading: isUpdateLoading }] = useUpdateUserDataMutation()
@@ -111,7 +113,7 @@ export const ProfilePage = () => {
                 </Typography>
 
                 <div className={s.backBtn}>
-                  <BackBtn to={path.decks}>{t('profilePage.backDeckList')}</BackBtn>
+                  <BackBtn to={path.decks + deckQuery}>{t('profilePage.backDeckList')}</BackBtn>
                 </div>
 
                 <Button
