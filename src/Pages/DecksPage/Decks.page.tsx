@@ -76,15 +76,15 @@ export function DecksPage() {
   const [deckItem, setDeckItem] = useState<Deck>()
 
   // Это для обновления currentPage при изменении tabsValue кроме All decks
-  useEffect(() => {
-    const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 1) / itemsPerPage)
-
-    if (maxNumberOfPages < currentPage) {
-      setCurrentPageQuery(maxNumberOfPages)
-    } else {
-      setCurrentPageQuery(currentPage)
-    }
-  }, [authorId, favoritedBy])
+  // useEffect(() => {
+  //   const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 1) / itemsPerPage)
+  //
+  //   if (maxNumberOfPages < currentPage) {
+  //     setCurrentPageQuery(maxNumberOfPages)
+  //   } else {
+  //     setCurrentPageQuery(currentPage)
+  //   }
+  // }, [authorId, favoritedBy])
 
   const onDeleteDeckHandler = () => {
     deleteDeck({ id: deckItem?.id ?? '' })
