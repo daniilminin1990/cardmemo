@@ -2,17 +2,13 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
-import { useQueryParams } from '@/hooks/useQueryParams'
 import { useMeQuery } from '@/services/auth/auth.service'
-import { useGetDecksQuery } from '@/services/decks/decks.service'
 
 export const useTabsValuesParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const { t } = useTranslation()
-  const { currentPage, itemsPerPage, setCurrentPageQuery } = useQueryParams()
 
   const { data: meData } = useMeQuery()
-  const { currentData, data, isFetching, isLoading } = useGetDecksQuery()
   const tabsValuesData = [
     { text: `${t('useTabsValuesParams.myDecks')}`, value: 'My Decks' },
     { text: `${t('useTabsValuesParams.allDecks')}`, value: 'All decks' },
@@ -32,14 +28,7 @@ export const useTabsValuesParams = () => {
     if (favoritedBy == myId) {
       setTabsValue('Favorites')
     }
-    const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 1) / itemsPerPage)
-
-    if (maxNumberOfPages < currentPage) {
-      setCurrentPageQuery(maxNumberOfPages)
-    } else {
-      setCurrentPageQuery(currentPage)
-    }
-  }, [authorId, favoritedBy, currentData])
+  }, [authorId, favoritedBy])
 
   const setTabsValueQuery = (value: string) => {
     value === 'My Decks' ? searchParams.set('authorId', myId) : searchParams.delete('authorId')
