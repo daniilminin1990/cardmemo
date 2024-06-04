@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
@@ -88,6 +88,17 @@ export function DecksPage() {
     setSearchQuery(e.currentTarget.value)
   }
 
+  // ! Определение максимальной возможной страницы
+  useEffect(() => {
+    if (currentData) {
+      const maxNumberOfPages = Math.ceil((currentData.pagination.totalItems ?? 0) / itemsPerPage)
+
+      if (maxNumberOfPages < currentPage) {
+        setCurrentPageQuery(maxNumberOfPages)
+      }
+    }
+  }, [currentData, itemsPerPage, currentPage])
+
   const handleTabsSwitch = (value: string) => {
     setTabsValueQuery(value)
     setTabsValue(value)
@@ -100,12 +111,13 @@ export function DecksPage() {
   }
 
   const handleItemsPerPageChange = (value: number) => {
+    //! Убрал установку на 1, изменил на определение последней возможной страницы
     // setCurrentPageQuery(Number(initCurrentPage))
-    const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 0) / value)
-
-    if (maxNumberOfPages < currentPage) {
-      setCurrentPageQuery(maxNumberOfPages)
-    }
+    // const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 0) / value)
+    //
+    // if (maxNumberOfPages < currentPage) {
+    //   setCurrentPageQuery(maxNumberOfPages)
+    // }
     setItemsPerPageQuery(value)
   }
   const handleCurrentPageChange = (value: number) => {
@@ -113,10 +125,6 @@ export function DecksPage() {
   }
 
   const decksData = currentData?.items ?? data?.items
-
-  // if (loadingStatus) {
-  //   return <Loading />
-  // }
 
   return (
     <>
