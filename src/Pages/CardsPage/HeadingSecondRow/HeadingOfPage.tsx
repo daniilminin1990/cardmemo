@@ -8,7 +8,7 @@ import menuIcon2 from '@/assets/icons/WhiteSVG/edit-2-outline.svg'
 import playIcon from '@/assets/icons/WhiteSVG/play-circle-outline.svg'
 import menuIcon from '@/assets/icons/WhiteSVG/trash-outline.svg'
 import { handleToastInfo } from '@/common/consts/toastVariants'
-import { initCurrentPage } from '@/common/globalVariables'
+import { deckQuery, initCurrentPage } from '@/common/globalVariables'
 import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
@@ -57,8 +57,7 @@ export const HeadingOfPage = ({
       e.preventDefault()
       openEmptyDeckModalHandler(true)
     } else {
-      console.log('baga')
-      router.navigate(`${path.decks}`)
+      router.navigate(`${path.decks}${deckQuery}`)
     }
   }
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +69,7 @@ export const HeadingOfPage = ({
 
   return (
     <div className={s.heading}>
-      <BackBtn onClick={handleOpenModal} to={path.decks}>
+      <BackBtn onClick={handleOpenModal} to={path.decks + deckQuery}>
         {t('cardsPage.backDeckList')}
       </BackBtn>
       <div className={s.headingSecondRow}>

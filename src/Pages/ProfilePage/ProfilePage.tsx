@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import LogOut from '@/assets/icons/svg/LogOut'
+import { deckQuery } from '@/common/globalVariables'
 import { PersonalInfoFormValue, PersonalInfoScheme } from '@/common/zodSchemas/auth/auth.schemas'
 import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
@@ -38,6 +39,7 @@ export const ProfilePage = () => {
   const [isEditNickName, setEditNickName] = useState(false)
 
   const logoutHandler = async () => {
+    localStorage.removeItem('deckQuery')
     await logout()
   }
   const onSubmit: SubmitHandler<FieldValues> = data => {
@@ -111,7 +113,7 @@ export const ProfilePage = () => {
                 </Typography>
 
                 <div className={s.backBtn}>
-                  <BackBtn to={path.decks}>{t('profilePage.backDeckList')}</BackBtn>
+                  <BackBtn to={path.decks + deckQuery}>{t('profilePage.backDeckList')}</BackBtn>
                 </div>
 
                 <Button

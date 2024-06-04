@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { HeadingOfPage } from '@/Pages/CardsPage/HeadingSecondRow/HeadingOfPage'
-import { headersNameCards, selectOptionPagination } from '@/common/globalVariables'
+import { deckQuery, headersNameCards, selectOptionPagination } from '@/common/globalVariables'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { ModalAddEditCard } from '@/components/Modals/ModalEditCard/ModalAddEditCard'
@@ -77,7 +77,7 @@ export const CardsPage = () => {
     deleteDeck({ id: deckId })
     setIsDeleteDeckModal(true)
     if (deckId) {
-      router.navigate(path.decks)
+      router.navigate(`${path.decks}${deckQuery}`)
     }
   }
   const onDeleteCardHandler = () => {
