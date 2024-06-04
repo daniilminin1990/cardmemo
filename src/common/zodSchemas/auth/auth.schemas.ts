@@ -1,5 +1,10 @@
 import { z } from 'zod'
 
+export const RefreshTokenResponseSchema = z.object({
+  accessToken: z.string(),
+  refreshToken: z.string(),
+})
+
 export const PersonalInfoScheme = z.object({
   avatar: z.unknown().optional().nullable(),
   nickName: z
@@ -41,3 +46,16 @@ export const SignUpSchema = z
   })
 
 export type SignUpFormValues = z.infer<typeof SignUpSchema>
+
+export const ForgotPasswordSchema = z.object({
+  email: z.string().nonempty('Required').email(),
+})
+export type ForgotPasswordFormValues = z.infer<typeof ForgotPasswordSchema>
+
+export const SignInSchema = z.object({
+  email: z.string().email('Invalid email address').min(1, 'Enter email'),
+  password: z.string().min(1, 'Enter password'),
+  rememberMe: z.boolean(),
+})
+
+export type SignInFormValues = z.infer<typeof SignInSchema>

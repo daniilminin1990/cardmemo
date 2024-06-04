@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate } from 'react-router-dom'
 
+import { SignInFormValues, SignInSchema } from '@/common/zodSchemas/auth/auth.schemas'
 import { Page } from '@/components/ui/Page/Page'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -11,31 +12,22 @@ import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { path } from '@/router/path'
 import { useLoginMutation, useMeQuery } from '@/services/auth/auth.service'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 
 import s from './signInPage.module.scss'
 
-const signInSchema = z.object({
-  email: z.string().email('Invalid email address').min(1, 'Enter email'),
-  password: z.string().min(1, 'Enter password'),
-  rememberMe: z.boolean(),
-})
-
-type FormValues = z.infer<typeof signInSchema>
-
 export const SignInPage = () => {
   const { t } = useTranslation()
-  const { control, handleSubmit } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<SignInFormValues>({
     defaultValues: {
       email: '',
       password: '',
       rememberMe: true,
     },
     mode: 'onSubmit',
-    resolver: zodResolver(signInSchema),
+    resolver: zodResolver(SignInSchema),
   })
   const [signIn] = useLoginMutation()
-  const onSubmit: SubmitHandler<FormValues> = data => {
+  const onSubmit: SubmitHandler<SignInFormValues> = data => {
     signIn(data)
   }
   const { data: me } = useMeQuery()
