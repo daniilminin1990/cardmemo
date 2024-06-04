@@ -41,6 +41,7 @@
     "react-hook-form": "^7.51.4",
     "react-i18next": "^14.1.2",
     "react-redux": "^9.1.2",
+    "react-responsive": "^10.0.0",
     "react-router-dom": "^6.23.0",
     "react-toastify": "^10.0.5",
     "react-toggle": "^4.1.3",
