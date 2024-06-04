@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
@@ -75,6 +75,17 @@ export function DecksPage() {
   const [isDeleteModal, setIsDeleteModal] = useState(false)
   const [deckItem, setDeckItem] = useState<Deck>()
 
+  // Это для обновления currentPage при изменении tabsValue кроме All decks
+  useEffect(() => {
+    const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 1) / itemsPerPage)
+
+    if (maxNumberOfPages < currentPage) {
+      setCurrentPageQuery(maxNumberOfPages)
+    } else {
+      setCurrentPageQuery(currentPage)
+    }
+  }, [authorId, favoritedBy])
+
   const onDeleteDeckHandler = () => {
     deleteDeck({ id: deckItem?.id ?? '' })
     setIsDeleteModal(true)
@@ -113,10 +124,6 @@ export function DecksPage() {
   }
 
   const decksData = currentData?.items ?? data?.items
-
-  // if (loadingStatus) {
-  //   return <Loading />
-  // }
 
   return (
     <>
