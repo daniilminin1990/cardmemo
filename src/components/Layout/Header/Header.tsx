@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import ellipseIcon from '@/assets/icons/WhiteSVG/Ellipse 1.svg'
 import headerIcon1 from '@/assets/icons/WhiteSVG/Layer 2.svg'
@@ -25,7 +25,12 @@ const Header = ({ data }: HeaderProps) => {
   const [logout] = useLogoutMutation()
   const { t } = useTranslation()
   const logoutHandler = () => {
+    localStorage.removeItem('deckQuery')
     logout()
+  }
+  const location = useLocation()
+  const setDeckQueryHandler = () => {
+    localStorage.setItem('deckQuery', location.search)
   }
 
   return (
@@ -77,6 +82,7 @@ const Header = ({ data }: HeaderProps) => {
               type={'head'}
             >
               <DropDownItem
+                handleOnClick={setDeckQueryHandler}
                 href={`${path.profile}`}
                 icon={headerIcon}
                 text={t('header.myProfile')}

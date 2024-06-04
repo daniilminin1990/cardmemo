@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import LogOut from '@/assets/icons/svg/LogOut'
+import { deckQuery } from '@/common/globalVariables'
 import { PersonalInfoFormValue, PersonalInfoScheme } from '@/common/zodSchemas/auth/auth.schemas'
 import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
@@ -31,8 +32,6 @@ export const ProfilePage = () => {
     resolver: zodResolver(PersonalInfoScheme),
   })
 
-  const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
-
   const { data: me, isFetching, isLoading } = useMeQuery()
   const [logout] = useLogoutMutation()
   const [updateUserData, { isLoading: isUpdateLoading }] = useUpdateUserDataMutation()
@@ -40,6 +39,7 @@ export const ProfilePage = () => {
   const [isEditNickName, setEditNickName] = useState(false)
 
   const logoutHandler = async () => {
+    localStorage.removeItem('deckQuery')
     await logout()
   }
   const onSubmit: SubmitHandler<FieldValues> = data => {
