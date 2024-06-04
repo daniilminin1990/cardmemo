@@ -68,6 +68,17 @@ export function DecksPage() {
     // { skip: !meData && !minMaxData }
   )
 
+  // ! Определение максимальной возможной страницы
+  useEffect(() => {
+    if (currentData) {
+      const maxNumberOfPages = Math.ceil((currentData.pagination.totalItems ?? 0) / itemsPerPage)
+
+      if (maxNumberOfPages < currentPage) {
+        setCurrentPageQuery(maxNumberOfPages)
+      }
+    }
+  }, [currentData, itemsPerPage, currentPage])
+
   const { deckId } = useParams()
 
   const [isCreateModal, setIsCreateModal] = useState(false)
@@ -87,17 +98,6 @@ export function DecksPage() {
     setCurrentPageQuery(Number(initCurrentPage))
     setSearchQuery(e.currentTarget.value)
   }
-
-  // ! Определение максимальной возможной страницы
-  useEffect(() => {
-    if (currentData) {
-      const maxNumberOfPages = Math.ceil((currentData.pagination.totalItems ?? 0) / itemsPerPage)
-
-      if (maxNumberOfPages < currentPage) {
-        setCurrentPageQuery(maxNumberOfPages)
-      }
-    }
-  }, [currentData, itemsPerPage, currentPage])
 
   const handleTabsSwitch = (value: string) => {
     setTabsValueQuery(value)
