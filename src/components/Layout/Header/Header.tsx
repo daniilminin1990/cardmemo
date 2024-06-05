@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 
-import headerIcon1 from '@/assets/icons/WhiteSVG/Layer 2.svg'
-import headerIcon from '@/assets/icons/WhiteSVG/person-outline.svg'
 import CardMemoLogoGolden from '@/assets/icons/svg/CardMemo/CardMemoLogoGolden'
+import LogOut from '@/assets/icons/svg/LogOut'
+import PersonOutline from '@/assets/icons/svg/PersonOutline'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Typography from '@/components/ui/Typography/Typography'
@@ -77,13 +77,13 @@ const Header = ({ data }: HeaderProps) => {
               <DropDownItem
                 handleOnClick={setDeckQueryHandler}
                 href={`${path.profile}`}
-                icon={headerIcon}
+                icon={<PersonOutline />}
                 text={t('header.myProfile')}
               />
               <DropDownItem
                 handleOnClick={logoutHandler}
                 href={`${path.login}`}
-                icon={headerIcon1}
+                icon={<LogOut />}
                 text={t('header.signOut')}
               />
             </DropdownMenuDemo>

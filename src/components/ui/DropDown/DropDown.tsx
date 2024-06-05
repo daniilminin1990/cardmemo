@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react'
 
+import MoreVerticalOutline from '@/assets/icons/svg/MoreVerticalOutline'
 import defaultAvatar from '@/assets/img/defaultAvatar.png'
 import Typography from '@/components/ui/Typography/Typography'
 import { MeResponse } from '@/services/auth/auth.types'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { clsx } from 'clsx'
 
+// ! Изменил стили на module scss
 import s from './DropDown.module.scss'
 
 type DropdownMenuDemoProps = {
@@ -23,11 +25,18 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button aria-label={'Customise options'} className={s.IconButton}>
-          <img
-            alt={''}
-            className={clsx(type === 'head' && s.dropdownHeaderImg, className)}
-            src={icon ? icon : data?.avatar || defaultAvatar}
-          />
+          {type === 'head' ? (
+            <img
+              alt={''}
+              className={clsx(s.dropdownHeaderImg, className)}
+              src={icon ? icon : data?.avatar || defaultAvatar}
+            />
+          ) : (
+            <MoreVerticalOutline
+              className={s.dropdownHeaderImg}
+              style={{ height: '25px', width: '25px' }}
+            />
+          )}
         </button>
       </DropdownMenu.Trigger>
 
