@@ -40,15 +40,11 @@ export const Disabled = () => {
 }
 
 export const Controlled = () => {
-  const { control, handleSubmit } = useForm()
-
-  const onSubmit = (data: any) => {
-    console.log(data)
-  }
+  const { control } = useForm()
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         <Controller
           control={control}
           name={'grade'}

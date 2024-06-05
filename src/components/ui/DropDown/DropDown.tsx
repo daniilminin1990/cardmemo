@@ -19,7 +19,7 @@ type DropdownMenuDemoProps = {
 }
 
 const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
-  const { children, className, data, type } = props
+  const { children, className, data, icon, type } = props
 
   return (
     <DropdownMenu.Root>
@@ -29,7 +29,7 @@ const DropdownMenuDemo = (props: DropdownMenuDemoProps) => {
             <img
               alt={''}
               className={clsx(s.dropdownHeaderImg, className)}
-              src={data?.avatar ?? defaultAvatar}
+              src={icon ? icon : data?.avatar || defaultAvatar}
             />
           ) : (
             <MoreVerticalOutline
