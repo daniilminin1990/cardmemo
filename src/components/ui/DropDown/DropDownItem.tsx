@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { ReactSVG } from 'react-svg'
 
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -7,13 +8,12 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { clsx } from 'clsx'
 
 import s from './DropDown.module.scss'
-import style from '@/components/Layout/Header/Header.module.scss'
 
 type DropDownItemProps = {
   //! Добавил handleClick, href
   handleOnClick?: () => void
   href?: string
-  icon: string
+  icon: ReactNode | string
   text: string
 }
 
@@ -28,7 +28,7 @@ const DropDownItem = (props: DropDownItemProps) => {
   return (
     <DropdownMenu.Item asChild className={s.DropdownMenuItem}>
       {href ? (
-        <Link className={style.Link} onKeyDown={handleKeyDown} to={href}>
+        <Link className={s.Link} onKeyDown={handleKeyDown} to={href}>
           <DDButton handleOnClick={handleOnClick} icon={icon} text={text} />
         </Link>
       ) : (
@@ -42,13 +42,21 @@ const DropDownItem = (props: DropDownItemProps) => {
 
 type DropDownButtonProps = {
   handleOnClick?: () => void
-  icon: string
+  icon: ReactNode | string
   text: string
 }
 export const DDButton = ({ handleOnClick, icon, text }: DropDownButtonProps) => {
   return (
     <Button className={clsx(s.button, s.noHover)} onClick={handleOnClick} variant={'outlined'}>
-      <img alt={''} className={style.DDButtonImg} src={icon} />
+      {/*<img alt={''} className={style.DDButtonImg} src={icon} />*/}
+      {typeof icon === 'string' ? (
+        <ReactSVG className={s.DDButtonImg} src={icon} />
+      ) : (
+        React.cloneElement(icon as ReactElement, {
+          className: s.DDButtonImg,
+        })
+      )}
+      {/*<ReactSVG className={s.DDButtonImg} src={icon} />*/}
       <Typography className={s.dropdownText} variant={'caption'}>
         {text}
       </Typography>
