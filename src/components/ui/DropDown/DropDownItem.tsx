@@ -1,6 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { ReactSVG } from 'react-svg'
 
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -48,9 +47,9 @@ type DropDownButtonProps = {
 export const DDButton = ({ handleOnClick, icon, text }: DropDownButtonProps) => {
   return (
     <Button className={clsx(s.button, s.noHover)} onClick={handleOnClick} variant={'outlined'}>
-      {/*<img alt={''} className={style.DDButtonImg} src={icon} />*/}
       {typeof icon === 'string' ? (
-        <ReactSVG className={s.DDButtonImg} src={icon} />
+        // <ReactSVG className={s.DDButtonImg} src={icon} />
+        <img alt={''} className={s.DDButtonImg} src={icon} />
       ) : (
         React.cloneElement(icon as ReactElement, {
           className: s.DDButtonImg,
