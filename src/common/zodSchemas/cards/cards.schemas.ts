@@ -1,4 +1,4 @@
-import z from 'zod'
+import { z } from 'zod'
 
 export const AddUpdateCardSchema = z.object({
   answer: z.string().min(3, { message: 'Answer is required' }),

@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 
-import ellipseIcon from '@/assets/icons/WhiteSVG/Ellipse 1.svg'
 import headerIcon1 from '@/assets/icons/WhiteSVG/Layer 2.svg'
 import headerIcon from '@/assets/icons/WhiteSVG/person-outline.svg'
 import CardMemoLogoGolden from '@/assets/icons/svg/CardMemo/CardMemoLogoGolden'
@@ -17,7 +16,6 @@ import { MeResponse } from '@/services/auth/auth.types'
 
 import style from './Header.module.scss'
 
-//! Прокинул data
 type HeaderProps = {
   data?: MeResponse
 }
@@ -75,12 +73,7 @@ const Header = ({ data }: HeaderProps) => {
               {data.name}
             </Typography>
 
-            <DropdownMenuDemo
-              className={style.dropDown}
-              data={data}
-              icon={ellipseIcon}
-              type={'head'}
-            >
+            <DropdownMenuDemo className={style.dropDown} data={data} type={'head'}>
               <DropDownItem
                 handleOnClick={setDeckQueryHandler}
                 href={`${path.profile}`}
