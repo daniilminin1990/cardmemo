@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { RowDeckBtns } from '@/components/TableComponent/SingleRowDeck/btns/RowDeckBtns'
@@ -33,17 +32,15 @@ export const TableDeckMobile = ({
         <Table.Body>
           <Table.Row>
             <Table.HeadCell scope={'row'}>Name</Table.HeadCell>
-            <Table.Cell>
-              <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
-                <Typography as={Link} className={s.imgWrapper} to={`${path.decks}/${item.id}`}>
-                  {item.cover && (
-                    <div className={s.wrapperCoverImg}>
-                      <img alt={'default card img'} className={s.coverImg} src={item.cover} />
-                    </div>
-                  )}
-                  {item.name}
-                </Typography>
-              </Table.Cell>
+            <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
+              <Typography as={Link} className={s.imgWrapper} to={`${path.decks}/${item.id}`}>
+                {item.cover && (
+                  <div className={s.wrapperCoverImg}>
+                    <img alt={'default card img'} className={s.coverImg} src={item.cover} />
+                  </div>
+                )}
+                {item.name}
+              </Typography>
             </Table.Cell>
           </Table.Row>
           <Table.Row>
