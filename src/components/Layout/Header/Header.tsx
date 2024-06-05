@@ -13,6 +13,7 @@ import LocaleSwitcherDrop from '@/components/ui/localeSwitcher/localeSwitcherDro
 import { path } from '@/router/path'
 import { useLogoutMutation } from '@/services/auth/auth.service'
 import { MeResponse } from '@/services/auth/auth.types'
+import clsx from 'clsx'
 
 import style from './Header.module.scss'
 
@@ -30,9 +31,10 @@ const Header = ({ data }: HeaderProps) => {
   const setDeckQueryHandler = () => {
     localStorage.setItem('deckQuery', location.search)
   }
+  const theme = localStorage.getItem('theme')
 
   return (
-    <div className={style.box}>
+    <div className={clsx(style.box, theme === 'sun' ? style.sun : '')}>
       <div className={style.wrapper}>
         <div className={style.boxImg}>
           {/*! Фиолетовые*/}
