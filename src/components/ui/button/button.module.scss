@@ -15,12 +15,16 @@
   border-radius: 0.25rem;
 }
 
+.primary.sun p {
+  color: var(--color-dark-900);
+}
+
 .primary {
   background-color: var(--color-accent-500);
   box-shadow: 0 4px 18px rgb(140 97 255 / 35%);
-  &.sun p {
-    color: var(--color-dark-900);
-  }
+  //&.sun p {
+  //  color: var(--color-dark-900);
+  //}
 
   &:focus-visible {
     @include focus-visible-default;
