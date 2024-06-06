@@ -10,7 +10,7 @@ type Props<T extends FieldValues> = Omit<
 
 function FormCheckbox<T extends FieldValues>({ control, name, ...rest }: Props<T>) {
   const {
-    field: { onChange, value, ...field },
+    field: { onChange, value = rest.defaultChecked, ...field },
   } = useController({
     control,
     name,

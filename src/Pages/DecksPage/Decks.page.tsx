@@ -4,7 +4,12 @@ import { useParams } from 'react-router-dom'
 
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { handleToastInfo } from '@/common/consts/toastVariants'
-import { headersNameDecks, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
+import {
+  headersNameDecks,
+  initCurrentPage,
+  selectOptionPagination,
+  tabsValuesData,
+} from '@/common/globalVariables'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
@@ -50,7 +55,7 @@ export function DecksPage() {
     sliderMin,
   } = useSliderQueryParams()
 
-  const { authorId, favoritedBy, setTabsValue, setTabsValueQuery, tabsValue, tabsValuesData } =
+  const { authorId, favoritedBy, setTabsValue, setTabsValueQuery, tabsValue } =
     useTabsValuesParams()
   const [deleteDeck] = useDeleteDeckMutation()
   // const { data: meData, isLoading: meIsLoading } = useMeQuery()
