@@ -42,9 +42,6 @@ export const TableComponentWithTypes = memo(
     const { t } = useTranslation()
     const context = useContext(UserContext)
 
-    if (!context) {
-      return
-    }
     const { search: queryParameters } = useLocation()
     let message
     const { data: dataFromGetDecksQuery } = useGetDecksQuery()
@@ -65,7 +62,7 @@ export const TableComponentWithTypes = memo(
       context?.setBlur(!context?.blur)
     }
     // const loadingStatus = isLoading || isFetching
-    const changeEye = context.blur ? (
+    const changeEye = context?.blur ? (
       <div className={s.boxEye} onClick={onClickEyeHandler}>
         <CloseEye height={'100%'} width={20} />
       </div>
@@ -74,6 +71,10 @@ export const TableComponentWithTypes = memo(
         <Eye height={'100%'} width={20} />
       </div>
     )
+
+    if (!context) {
+      return
+    }
 
     return (
       <>

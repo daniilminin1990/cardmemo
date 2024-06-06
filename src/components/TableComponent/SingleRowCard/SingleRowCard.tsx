@@ -4,13 +4,14 @@ import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import Star from '@/assets/icons/svg/Star'
 import StarOutline from '@/assets/icons/svg/StarOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
+import defaultCard from '@/assets/img/defaultCard.jpg'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { UserContext } from '@/components/ui/changeTheme/Context'
 import { Table } from '@/components/ui/table'
 import { useMeQuery } from '@/services/auth/auth.service'
 import { CardResponse } from '@/services/cards/cards.types'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import s from './SingleRowCard.module.scss'
 
@@ -53,16 +54,22 @@ export const SingleRowCard = ({
   const onMouseUp = () => {
     setBlur(true) // При отпускании мыши снимаем эффект "блюра"
   }
+  const fragmetWithBlur = context.blur && blur ? s.coverImg + ' ' + s.blur : s.coverImg
 
   return (
     <Table.Row>
       <Table.Cell>
         <div className={s.imgWrapper}>
-          {item.questionImg && (
-            <div className={s.wrapperCoverImg}>
-              <img alt={'default card img'} className={s.coverImg} src={item.questionImg} />
-            </div>
-          )}
+          <div className={s.wrapperCoverImg}>
+            <img
+              alt={'default card img'}
+              className={clsx(
+                s.coverImg,
+                !item?.questionImg && s.wrapperCoverImg + ' ' + s.withImg
+              )}
+              src={item.questionImg ? item.questionImg : defaultCard}
+            />
+          </div>
           <Typography>{item.question}</Typography>
         </div>
       </Table.Cell>
@@ -73,15 +80,16 @@ export const SingleRowCard = ({
           onMouseLeave={onMouseUp}
           onMouseUp={onHandleBlur}
         >
-          {item.answerImg && (
+          <div className={s.imgWrapper}>
             <div className={s.wrapperCoverImg}>
               <img
                 alt={'default card img'}
-                className={context.blur && blur ? s.coverImg + ' ' + s.blur : s.coverImg}
-                src={item.answerImg}
+                className={item.answerImg ? fragmetWithBlur : s.wrapperCoverImg + ' ' + s.withImg}
+                src={item.answerImg ? item.answerImg : defaultCard}
               />
             </div>
-          )}
+          </div>
+
           <Typography>{item.answer}</Typography>
         </div>
       </Table.Cell>
