@@ -24,7 +24,7 @@
 
     transition: transform 0.2s;
 
-    &:hover {
+    &.withImg:hover {
       transform: scale(1.6);
       height: auto;
       object-fit: cover;

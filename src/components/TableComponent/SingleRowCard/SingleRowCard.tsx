@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
 import { useMeQuery } from '@/services/auth/auth.service'
 import { CardResponse } from '@/services/cards/cards.types'
+import clsx from 'clsx'
 
 import s from './SingleRowCard.module.scss'
 
@@ -48,7 +49,7 @@ export const SingleRowCard = ({
           <div className={s.wrapperCoverImg}>
             <img
               alt={'default card img'}
-              className={s.coverImg}
+              className={clsx(s.coverImg, item?.questionImg && s.withImg)}
               src={item.questionImg ? item.questionImg : defaultCard}
             />
           </div>
@@ -65,7 +66,7 @@ export const SingleRowCard = ({
           <div className={s.wrapperCoverImg}>
             <img
               alt={'default card img'}
-              className={s.coverImg}
+              className={clsx(s.coverImg, item?.answerImg && s.withImg)}
               src={item.answerImg ? item.answerImg : defaultCard}
             />
           </div>
