@@ -3,12 +3,15 @@ import Star from '@/assets/icons/svg/Star'
 import StarOutline from '@/assets/icons/svg/StarOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import Typography from '@/components/ui/Typography/Typography'
-import { Button } from '@/components/ui/button'
-import { Table } from '@/components/ui/table'
-import { useMeQuery } from '@/services/auth/auth.service'
-import { CardResponse } from '@/services/cards/cards.types'
+import {Button} from '@/components/ui/button'
+import {Table} from '@/components/ui/table'
+import {useMeQuery} from '@/services/auth/auth.service'
+import {CardResponse} from '@/services/cards/cards.types'
 
 import s from './SingleRowCard.module.scss'
+import clsx from "clsx";
+import {useContext, useState} from "react";
+import {UserContext} from "@/components/ui/changeTheme/Context";
 
 type Props = {
   item: CardResponse
@@ -21,11 +24,15 @@ export const SingleRowCard = ({
   openDeleteModalHandler,
   openEditModalHandler,
   retrieveCardItem,
+
 }: Props) => {
   const { data: meData } = useMeQuery()
-
   const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
-
+  const [blur, setBlur] = useState(true);
+    const context = useContext(UserContext);
+    if (!context){
+        return
+    }
   const onDeleteCardHandler = () => {
     retrieveCardItem(item)
     openDeleteModalHandler(true)
@@ -34,10 +41,21 @@ export const SingleRowCard = ({
     retrieveCardItem(item)
     openEditModalHandler(true)
   }
+    const onHandleBlur = () => {
+        setBlur(!blur);
+    };
+
+    const onMouseDown = () => {
+        setBlur(!blur); // При зажатии мыши устанавливаем эффект "блюра"
+    };
+
+    const onMouseUp = () => {
+        setBlur(true); // При отпускании мыши снимаем эффект "блюра"
+    };
 
   return (
     <Table.Row>
-      <Table.Cell>
+      <Table.Cell >
         <div className={s.imgWrapper}>
           {item.questionImg && (
             <div className={s.wrapperCoverImg}>
@@ -47,14 +65,14 @@ export const SingleRowCard = ({
           <Typography>{item.question}</Typography>
         </div>
       </Table.Cell>
-      <Table.Cell>
-        <div className={s.imgWrapper}>
+      <Table.Cell style={{userSelect: 'none'}}>
+        <div className={clsx(s.imgWrapper, context.blur && blur ?  s.blur : s.unBlur)} onMouseUp={onHandleBlur} onMouseDown={onMouseDown} onMouseLeave={onMouseUp}>
           {item.answerImg && (
             <div className={s.wrapperCoverImg}>
-              <img alt={'default card img'} className={s.coverImg} src={item.answerImg} />
+              <img alt={'default card img'} className={context.blur && blur ? s.coverImg  + ' ' +   s.blur : s.coverImg} src={item.answerImg} />
             </div>
           )}
-          <Typography>{item.answer}</Typography>
+          <Typography >{item.answer}</Typography>
         </div>
       </Table.Cell>
       <Table.Cell>
