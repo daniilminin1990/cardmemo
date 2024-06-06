@@ -131,7 +131,7 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
             </div>
             <FormCheckbox
               control={control}
-              defaultChecked={item?.isPrivate}
+              defaultChecked={item ? item?.isPrivate : false}
               label={t('modalAddEditDeck.private')}
               name={'isPrivate'}
             />

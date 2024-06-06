@@ -20,4 +20,10 @@ export const selectOptionPagination = [
   { text: '50', value: '50' },
 ]
 
+export const tabsValuesData = [
+  { locale: 'useTabsValuesParams.myDecks', text: `myDecks`, value: 'My Decks' },
+  { locale: 'useTabsValuesParams.allDecks', text: `allDecks`, value: 'All decks' },
+  { locale: 'useTabsValuesParams.favorites', text: `favorites`, value: 'Favorites' },
+]
+
 export const initCurrentPage = '1'
