@@ -6,14 +6,14 @@ import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import Loading from '@/components/ui/Loading/Loading'
 import Typography from '@/components/ui/Typography/Typography'
 import { useQueryParams } from '@/hooks/useQueryParams'
+import { CardResponse } from '@/services/cards/cards.types'
 import { Deck } from '@/services/decks/deck.types'
-import { useGetDecksQuery } from '@/services/decks/decks.service'
 
 import s from './tableHeadMobile.module.scss'
 
 type Props = {
   children: ReactNode
-  data?: Deck[]
+  data?: CardResponse[] | Deck[]
   isFetching?: boolean
   isLoading?: boolean
   tableHeader: { key: string; title: string }[]
@@ -26,9 +26,8 @@ export const TableHeadMobile = ({ children, data, isLoading, tableHeader }: Prop
 
   const { search: queryParameters } = useLocation()
   let message
-  const { data: dataFromGetDecksQuery } = useGetDecksQuery()
 
-  const conditionOfZeroData = dataFromGetDecksQuery?.items.length === 0 || data?.length === 0
+  const conditionOfZeroData = data?.length === 0
 
   if (conditionOfZeroData) {
     if (queryParameters) {
@@ -66,7 +65,6 @@ export const TableHeadMobile = ({ children, data, isLoading, tableHeader }: Prop
       ) : (
         <>{data && data?.length !== 0 ? children : message}</>
       )}
-      <Typography as={'p'}></Typography>
     </>
   )
 }

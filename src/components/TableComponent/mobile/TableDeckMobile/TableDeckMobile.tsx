@@ -8,7 +8,7 @@ import { useMeQuery } from '@/services/auth/auth.service'
 import { Deck } from '@/services/decks/deck.types'
 import clsx from 'clsx'
 
-import s from './table-deck-mobile.module.scss'
+import s from './tableDeckMobile.module.scss'
 
 type Props = {
   item: Deck
