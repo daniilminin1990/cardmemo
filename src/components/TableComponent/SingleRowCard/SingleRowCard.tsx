@@ -1,3 +1,5 @@
+import { useContext, useState } from 'react'
+
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import Star from '@/assets/icons/svg/Star'
 import StarOutline from '@/assets/icons/svg/StarOutline'
@@ -5,10 +7,11 @@ import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import defaultCard from '@/assets/img/defaultCard.jpg'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
+import { UserContext } from '@/components/ui/changeTheme/Context'
 import { Table } from '@/components/ui/table'
 import { useMeQuery } from '@/services/auth/auth.service'
 import { CardResponse } from '@/services/cards/cards.types'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import s from './SingleRowCard.module.scss'
 
@@ -25,9 +28,13 @@ export const SingleRowCard = ({
   retrieveCardItem,
 }: Props) => {
   const { data: meData } = useMeQuery()
-
   const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
+  const [blur, setBlur] = useState(true)
+  const context = useContext(UserContext)
 
+  if (!context) {
+    return
+  }
   const onDeleteCardHandler = () => {
     retrieveCardItem(item)
     openDeleteModalHandler(true)
@@ -36,40 +43,53 @@ export const SingleRowCard = ({
     retrieveCardItem(item)
     openEditModalHandler(true)
   }
+  const onHandleBlur = () => {
+    setBlur(!blur)
+  }
+
+  const onMouseDown = () => {
+    setBlur(!blur) // При зажатии мыши устанавливаем эффект "блюра"
+  }
+
+  const onMouseUp = () => {
+    setBlur(true) // При отпускании мыши снимаем эффект "блюра"
+  }
+  const fragmetWithBlur = context.blur && blur ? s.coverImg + ' ' + s.blur : s.coverImg
 
   return (
     <Table.Row>
       <Table.Cell>
         <div className={s.imgWrapper}>
-          {/*{item.questionImg && (*/}
-          {/*  <div className={s.wrapperCoverImg}>*/}
-          {/*    <img alt={'default card img'} className={s.coverImg} src={item.questionImg} />*/}
-          {/*  </div>*/}
-          {/*)}*/}
           <div className={s.wrapperCoverImg}>
             <img
               alt={'default card img'}
-              className={clsx(s.coverImg, item?.questionImg && s.withImg)}
+              className={clsx(
+                s.coverImg,
+                !item?.questionImg && s.wrapperCoverImg + ' ' + s.withImg
+              )}
               src={item.questionImg ? item.questionImg : defaultCard}
             />
           </div>
           <Typography>{item.question}</Typography>
         </div>
       </Table.Cell>
-      <Table.Cell>
-        <div className={s.imgWrapper}>
-          {/*{item.answerImg && (*/}
-          {/*  <div className={s.wrapperCoverImg}>*/}
-          {/*    <img alt={'default card img'} className={s.coverImg} src={item.answerImg} />*/}
-          {/*  </div>*/}
-          {/*)}*/}
-          <div className={s.wrapperCoverImg}>
-            <img
-              alt={'default card img'}
-              className={clsx(s.coverImg, item?.answerImg && s.withImg)}
-              src={item.answerImg ? item.answerImg : defaultCard}
-            />
+      <Table.Cell style={{ userSelect: 'none' }}>
+        <div
+          className={clsx(s.imgWrapper, context.blur && blur ? s.blur : s.unBlur)}
+          onMouseDown={onMouseDown}
+          onMouseLeave={onMouseUp}
+          onMouseUp={onHandleBlur}
+        >
+          <div className={s.imgWrapper}>
+            <div className={s.wrapperCoverImg}>
+              <img
+                alt={'default card img'}
+                className={item.answerImg ? fragmetWithBlur : s.wrapperCoverImg + ' ' + s.withImg}
+                src={item.answerImg ? item.answerImg : defaultCard}
+              />
+            </div>
           </div>
+
           <Typography>{item.answer}</Typography>
         </div>
       </Table.Cell>
