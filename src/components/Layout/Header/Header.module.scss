@@ -10,6 +10,9 @@
   margin-bottom: 36px;
 
   background-color: var(--color-dark-700);
+  &.sun {
+    background-color: var(--color-dark-500);
+  }
 
   .img {
     display: block;
@@ -17,13 +20,13 @@
     width: 100%;
     height: 40px;
 
-    fill: var(--color-accent-100);
+    fill: var(--color-accent-500);
 
     transition: fill 0.3s;
 
     &:hover {
       outline: none;
-      fill: var(--color-success-100);
+      fill: var(--color-success-300);
     }
   }
 }

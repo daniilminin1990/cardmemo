@@ -73,8 +73,11 @@ export function DecksPage() {
     if (currentData) {
       const maxNumberOfPages = Math.ceil((currentData.pagination.totalItems ?? 0) / itemsPerPage)
 
-      if (maxNumberOfPages < currentPage) {
+      if (maxNumberOfPages < currentPage && maxNumberOfPages !== 0) {
         setCurrentPageQuery(maxNumberOfPages)
+      }
+      if (currentData?.items.length === 0) {
+        setCurrentPageQuery(Number(initCurrentPage))
       }
     }
   }, [currentData, itemsPerPage, currentPage])
