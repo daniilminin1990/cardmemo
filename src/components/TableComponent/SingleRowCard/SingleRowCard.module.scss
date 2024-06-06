@@ -4,11 +4,12 @@
   @include focus-visible-default;
 
   display: flex;
-  gap: 10px;
+
   align-items: center;
   justify-content: start;
 
   text-decoration: none;
+  gap: 10px;
 }
 
 .wrapperCoverImg {

@@ -1,29 +1,34 @@
-import {ChangeEvent, useEffect, useState} from 'react'
-import {useTranslation} from 'react-i18next'
-import {useParams} from 'react-router-dom'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router-dom'
 
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
-import {handleToastInfo} from '@/common/consts/toastVariants'
-import {headersNameDecks, initCurrentPage, selectOptionPagination, tabsValuesData,} from '@/common/globalVariables'
-import {ModalAddEditDeck} from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
-import {DeleteModal} from '@/components/Modals/ModalDelete/DeleteModal'
-import {SingleRowDeck} from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
-import {TableComponentWithTypes} from '@/components/TableComponent/TableComponentWithTypes'
+import { handleToastInfo } from '@/common/consts/toastVariants'
+import {
+  headersNameDecks,
+  initCurrentPage,
+  selectOptionPagination,
+  tabsValuesData,
+} from '@/common/globalVariables'
+import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
+import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
+import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
+import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
 import Input from '@/components/ui/Input/Input'
-import {LoadingBar} from '@/components/ui/LoadingBar/LoadingBar'
-import {Page} from '@/components/ui/Page/Page'
-import {PaginationWithSelect} from '@/components/ui/Pagination/PaginationWithSelect'
+import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
+import { Page } from '@/components/ui/Page/Page'
+import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Slider from '@/components/ui/Slider/Slider'
 import Typography from '@/components/ui/Typography/Typography'
-import {Button} from '@/components/ui/button'
-import {TabSwitcher} from '@/components/ui/tabs-switcher/TabSwitcher'
-import {useQueryParams} from '@/hooks/useQueryParams'
-import {useSliderQueryParams} from '@/hooks/useSliderQueryParams'
-import {useTabsValuesParams} from '@/hooks/useTabsValuesParams'
-import {path} from '@/router/path'
-import {router} from '@/router/router'
-import {Deck} from '@/services/decks/deck.types'
-import {useDeleteDeckMutation, useGetDecksQuery} from '@/services/decks/decks.service'
+import { Button } from '@/components/ui/button'
+import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
+import { useQueryParams } from '@/hooks/useQueryParams'
+import { useSliderQueryParams } from '@/hooks/useSliderQueryParams'
+import { useTabsValuesParams } from '@/hooks/useTabsValuesParams'
+import { path } from '@/router/path'
+import { router } from '@/router/router'
+import { Deck } from '@/services/decks/deck.types'
+import { useDeleteDeckMutation, useGetDecksQuery } from '@/services/decks/decks.service'
 
 import s from '@/Pages/DecksPage/decksPage.module.scss'
 
@@ -88,7 +93,6 @@ export function DecksPage() {
   const [isUpdateModal, setIsUpdateModal] = useState(false)
   const [isDeleteModal, setIsDeleteModal] = useState(false)
   const [deckItem, setDeckItem] = useState<Deck>()
-
 
   const onDeleteDeckHandler = () => {
     deleteDeck({ id: deckItem?.id ?? '' })
