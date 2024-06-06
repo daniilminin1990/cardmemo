@@ -54,7 +54,7 @@ const LocaleSwitcherDrop = () => {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
+      <DropdownMenu.Trigger>
         <button aria-label={'Update dimensions'} className={s.IconButton}>
           <img alt={'Country flag'} className={s.flag} height={30} src={iconFlag} width={40} />
           <ArrowIosDownOutline className={s.iconArrowDown} />
