@@ -2,6 +2,7 @@ import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import Star from '@/assets/icons/svg/Star'
 import StarOutline from '@/assets/icons/svg/StarOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
+import defaultCard from '@/assets/img/defaultCard.jpg'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
@@ -39,21 +40,35 @@ export const SingleRowCard = ({
     <Table.Row>
       <Table.Cell>
         <div className={s.imgWrapper}>
-          {item.questionImg && (
-            <div className={s.wrapperCoverImg}>
-              <img alt={'default card img'} className={s.coverImg} src={item.questionImg} />
-            </div>
-          )}
+          {/*{item.questionImg && (*/}
+          {/*  <div className={s.wrapperCoverImg}>*/}
+          {/*    <img alt={'default card img'} className={s.coverImg} src={item.questionImg} />*/}
+          {/*  </div>*/}
+          {/*)}*/}
+          <div className={s.wrapperCoverImg}>
+            <img
+              alt={'default card img'}
+              className={s.coverImg}
+              src={item.questionImg ? item.questionImg : defaultCard}
+            />
+          </div>
           <Typography>{item.question}</Typography>
         </div>
       </Table.Cell>
       <Table.Cell>
         <div className={s.imgWrapper}>
-          {item.answerImg && (
-            <div className={s.wrapperCoverImg}>
-              <img alt={'default card img'} className={s.coverImg} src={item.answerImg} />
-            </div>
-          )}
+          {/*{item.answerImg && (*/}
+          {/*  <div className={s.wrapperCoverImg}>*/}
+          {/*    <img alt={'default card img'} className={s.coverImg} src={item.answerImg} />*/}
+          {/*  </div>*/}
+          {/*)}*/}
+          <div className={s.wrapperCoverImg}>
+            <img
+              alt={'default card img'}
+              className={s.coverImg}
+              src={item.answerImg ? item.answerImg : defaultCard}
+            />
+          </div>
           <Typography>{item.answer}</Typography>
         </div>
       </Table.Cell>
