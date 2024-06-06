@@ -1,5 +1,7 @@
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { headersNameDecks } from '@/common/globalVariables'
 import { RowDeckBtns } from '@/components/TableComponent/SingleRowDeck/btns/RowDeckBtns'
 import Typography from '@/components/ui/Typography/Typography'
 import { Table } from '@/components/ui/table'
@@ -26,12 +28,18 @@ export const TableDeckMobile = ({
   const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
   const { data: meData } = useMeQuery()
 
+  const { t } = useTranslation()
+  const name = t(`${headersNameDecks[0].locale}`)
+  const cards = t(`${headersNameDecks[1].locale}`)
+  const lastUpdated = t(`${headersNameDecks[2].locale}`)
+  const createdBy = t(`${headersNameDecks[3].locale}`)
+
   return (
     <div className={s.root}>
       <Table.Root>
         <Table.Body>
           <Table.Row>
-            <Table.HeadCell scope={'row'}>Name</Table.HeadCell>
+            <Table.HeadCell scope={'row'}>{name}</Table.HeadCell>
             <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
               <Typography as={Link} className={s.imgWrapper} to={`${path.decks}/${item.id}`}>
                 {item.cover && (
@@ -44,19 +52,19 @@ export const TableDeckMobile = ({
             </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.HeadCell scope={'row'}>Cards</Table.HeadCell>
+            <Table.HeadCell scope={'row'}>{cards}</Table.HeadCell>
             <Table.Cell>
               <Typography>{item.cardsCount}</Typography>
             </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.HeadCell scope={'row'}>Last Updated</Table.HeadCell>
+            <Table.HeadCell scope={'row'}>{lastUpdated}</Table.HeadCell>
             <Table.Cell>
               <Typography>{updatedAr}</Typography>
             </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.HeadCell scope={'row'}>Created by</Table.HeadCell>
+            <Table.HeadCell scope={'row'}>{createdBy}</Table.HeadCell>
             <Table.Cell>
               <Typography>{item.author.name}</Typography>
             </Table.Cell>

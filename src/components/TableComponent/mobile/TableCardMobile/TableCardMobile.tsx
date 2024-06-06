@@ -1,7 +1,10 @@
+import { useTranslation } from 'react-i18next'
+
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import Star from '@/assets/icons/svg/Star'
 import StarOutline from '@/assets/icons/svg/StarOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
+import { headersNameCards } from '@/common/globalVariables'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
@@ -36,12 +39,18 @@ export const TableCardMobile = ({
     openEditModalHandler(true)
   }
 
+  const { t } = useTranslation()
+  const question = t(`${headersNameCards[0].locale}`)
+  const answer = t(`${headersNameCards[1].locale}`)
+  const updated = t(`${headersNameCards[2].locale}`)
+  const grade = t(`${headersNameCards[3].locale}`)
+
   return (
     <div className={s.root}>
       <Table.Root>
         <Table.Body>
           <Table.Row>
-            <Table.HeadCell scope={'row'}>Question</Table.HeadCell>
+            <Table.HeadCell scope={'row'}>{question}</Table.HeadCell>
             <Table.Cell>
               <div className={s.imgWrapper}>
                 {item.questionImg && (
@@ -54,7 +63,7 @@ export const TableCardMobile = ({
             </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.HeadCell scope={'row'}>Answer</Table.HeadCell>
+            <Table.HeadCell scope={'row'}>{answer}</Table.HeadCell>
             <Table.Cell>
               <div className={s.imgWrapper}>
                 {item.answerImg && (
@@ -67,13 +76,13 @@ export const TableCardMobile = ({
             </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.HeadCell scope={'row'}>Updated</Table.HeadCell>
+            <Table.HeadCell scope={'row'}>{updated}</Table.HeadCell>
             <Table.Cell>
               <Typography>{updatedAr}</Typography>
             </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.HeadCell scope={'row'}>Grade</Table.HeadCell>
+            <Table.HeadCell scope={'row'}>{grade}</Table.HeadCell>
             <Table.Cell className={s.grade}>
               {[...Array(5)].map((_, index) =>
                 index < item.grade ? (

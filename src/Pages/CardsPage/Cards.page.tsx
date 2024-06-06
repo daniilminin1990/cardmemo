@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useMediaQuery } from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
 import { HeadingOfPage } from '@/Pages/CardsPage/HeadingSecondRow/HeadingOfPage'
@@ -10,6 +11,8 @@ import { ModalAddEditCard } from '@/components/Modals/ModalEditCard/ModalAddEdit
 import ModalOnEmpty from '@/components/Modals/ModalOnEmpty/ModalOnEmpty'
 import { SingleRowCard } from '@/components/TableComponent/SingleRowCard/SingleRowCard'
 import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
+import { TableCardMobile } from '@/components/TableComponent/mobile/TableCardMobile/TableCardMobile'
+import { TableHeadMobile } from '@/components/TableComponent/mobile/TableHeadMobile/TableHeadMobile'
 import Loading from '@/components/ui/Loading/Loading'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
@@ -93,6 +96,8 @@ export const CardsPage = () => {
 
   const loadingStatus = isFetching || isDeckLoading
 
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1279px)' })
+
   if (isLoading) {
     return <Loading type={'pageLoader'} />
   }
@@ -156,23 +161,45 @@ export const CardsPage = () => {
           </div>
         ) : (
           <>
-            <TableComponentWithTypes
-              data={cardsData?.items}
-              isLoading={loadingStatus}
-              tableHeader={headersNameCards}
-            >
-              {cardsData?.items.map(card => {
-                return (
-                  <SingleRowCard
-                    item={card}
-                    key={card.id}
-                    openDeleteModalHandler={setIsDeleteCardModal}
-                    openEditModalHandler={setIsUpdateCardModal}
-                    retrieveCardItem={setCardItem}
-                  />
-                )
-              })}
-            </TableComponentWithTypes>
+            {isTabletOrMobile ? (
+              <TableHeadMobile
+                data={cardsData?.items}
+                isFetching={isFetching}
+                isLoading={isLoading}
+                tableHeader={headersNameCards}
+              >
+                {cardsData?.items.map(card => {
+                  return (
+                    <TableCardMobile
+                      item={card}
+                      key={card.id}
+                      openDeleteModalHandler={setIsDeleteCardModal}
+                      openEditModalHandler={setIsUpdateCardModal}
+                      retrieveCardItem={setCardItem}
+                    />
+                  )
+                })}
+              </TableHeadMobile>
+            ) : (
+              <TableComponentWithTypes
+                data={cardsData?.items}
+                isLoading={loadingStatus}
+                tableHeader={headersNameCards}
+              >
+                {cardsData?.items.map(card => {
+                  return (
+                    <SingleRowCard
+                      item={card}
+                      key={card.id}
+                      openDeleteModalHandler={setIsDeleteCardModal}
+                      openEditModalHandler={setIsUpdateCardModal}
+                      retrieveCardItem={setCardItem}
+                    />
+                  )
+                })}
+              </TableComponentWithTypes>
+            )}
+
             <div className={s.footer}>
               <PaginationWithSelect
                 currentPage={currentPage}

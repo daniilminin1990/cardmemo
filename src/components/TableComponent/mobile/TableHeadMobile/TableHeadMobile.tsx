@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
+import { headersNameCards, headersNameDecks } from '@/common/globalVariables'
 import Loading from '@/components/ui/Loading/Loading'
 import Typography from '@/components/ui/Typography/Typography'
 import { useQueryParams } from '@/hooks/useQueryParams'
@@ -39,10 +40,12 @@ export const TableHeadMobile = ({ children, data, isLoading, tableHeader }: Prop
     message = `${t('tableComponentWithTypes.unknownCondition')}`
   }
 
+  const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
+
   return (
     <>
       <div className={s.box}>
-        {tableHeader.map(name => {
+        {header.map(name => {
           return (
             <Typography
               as={'button'}
@@ -50,7 +53,7 @@ export const TableHeadMobile = ({ children, data, isLoading, tableHeader }: Prop
               key={name.key}
               onClick={() => setSortByQuery(name.key)}
             >
-              {name.title}
+              {t(`${name.locale}`)}
               {currentOrderBy.includes(name.key) && (
                 <ArrowIosDownOutline
                   className={`${s.arrow} ${currentOrderBy.includes('asc') ? s.rotate : ''}`}

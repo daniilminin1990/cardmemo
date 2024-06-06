@@ -97,4 +97,9 @@
   text-decoration-line: none;
   background-color: var(--color-dark-300);
   box-shadow: none;
+
+  @media (max-width: 1023px) {
+    padding: 0.1rem 0.5rem;
+    text-align: center;
+  }
 }
