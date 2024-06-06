@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 // import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
@@ -8,11 +7,10 @@ import { useMeQuery } from '@/services/auth/auth.service'
 
 export const useTabsValuesParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const { t } = useTranslation()
 
   const { data: meData } = useMeQuery()
 
-  const [tabsValue, setTabsValue] = useState(t('useTabsValuesParams.allDecks'))
+  const [tabsValue, setTabsValue] = useState(tabsValuesData[1].locale)
 
   const myId = meData?.id || ''
   const authorId = searchParams.get('authorId')
@@ -20,18 +18,18 @@ export const useTabsValuesParams = () => {
 
   useEffect(() => {
     if (authorId === myId) {
-      setTabsValue(t('useTabsValuesParams.myDecks'))
+      setTabsValue(tabsValuesData[0].locale)
     }
     if (favoritedBy == myId) {
-      setTabsValue(t('useTabsValuesParams.favorites'))
+      setTabsValue(tabsValuesData[2].locale)
     }
   }, [authorId, favoritedBy])
 
   const setTabsValueQuery = (value: string) => {
-    value === tabsValuesData[0].value
+    value === tabsValuesData[0].locale
       ? searchParams.set('authorId', myId)
       : searchParams.delete('authorId')
-    value === tabsValuesData[2].value
+    value === tabsValuesData[2].locale
       ? searchParams.set('favoritedBy', myId)
       : searchParams.delete('favoritedBy')
 

@@ -23,14 +23,28 @@ type Props = {
 
 export const TabSwitcher = ({ className, label, onValueChange, tabs, value }: Props) => {
   const { t: tab } = useTranslation()
+  const theme = localStorage.getItem('theme')
 
   return (
     <div className={clsx(s.div, className)}>
       <Typography variant={'body2'}>{label}</Typography>
-      <Tabs.Root className={s.root} onValueChange={onValueChange} value={value}>
+      <Tabs.Root
+        activationMode={'manual'}
+        className={s.root}
+        onValueChange={onValueChange}
+        value={value}
+      >
         <Tabs.List className={s.tabList}>
           {tabs.map(t => (
-            <Tabs.Trigger className={s.trigger} disabled={t.disabled} key={t.value} value={t.value}>
+            <Tabs.Trigger
+              // asChild
+              className={clsx(s.trigger, theme === 'sun' ? s.sun : '')}
+              disabled={t.disabled}
+              key={t.value}
+              // value={t.value}
+              value={t.locale}
+            >
+              {/*<Typography variant={'subtitle2'}>{t.value}</Typography>*/}
               <Typography variant={'subtitle2'}>{tab(`${t.locale}`)}</Typography>
             </Tabs.Trigger>
           ))}

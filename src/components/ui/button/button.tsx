@@ -7,6 +7,8 @@ import {
   forwardRef,
 } from 'react'
 
+import clsx from 'clsx'
+
 import s from './button.module.scss'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
@@ -21,11 +23,19 @@ export const ButtonPolymorph = <T extends ElementType = 'button'>(
   props: ButtonProps<T>,
   ref: any
 ) => {
+  const theme = localStorage.getItem('theme')
   const { as: Component = 'button', className, fullWidth, variant = 'primary', ...rest } = props
 
   return (
     <Component
-      className={`${s.button} ${s[variant]} ${fullWidth ? s.fullWidth : ''} ${className}`}
+      // className={`${s.button} ${s[variant]} ${fullWidth ? s.fullWidth : ''} ${className}`}
+      className={clsx(
+        s.button,
+        s[variant],
+        theme === 'sun' ? s.sun : '',
+        fullWidth && s.fullWidth,
+        className
+      )}
       ref={ref}
       {...rest}
     />
