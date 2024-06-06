@@ -132,7 +132,7 @@ export function DecksPage() {
 
   const decksData = currentData?.items ?? data?.items
 
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1279px)' })
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
 
   return (
     <>

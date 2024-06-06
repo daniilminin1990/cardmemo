@@ -96,7 +96,7 @@ export const CardsPage = () => {
 
   const loadingStatus = isFetching || isDeckLoading
 
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1279px)' })
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
 
   if (isLoading) {
     return <Loading type={'pageLoader'} />
