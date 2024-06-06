@@ -8,6 +8,10 @@
 
 .modal {
   @include animation-appearance;
+
+  @media (max-width: 767px) {
+    width: 100vw;
+  }
 }
 
 .body {

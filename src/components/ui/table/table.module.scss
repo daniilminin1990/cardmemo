@@ -23,6 +23,10 @@
   padding: 6px 24px;
   white-space: normal;
 
+  @media (max-width: 1279px) {
+    padding: 6px 10px;
+  }
+
   &:not(:last-child):hover {
     cursor: pointer;
     background-color: var(--color-dark-300);
@@ -44,6 +48,11 @@
   padding: 6px 24px;
   text-align: left;
   word-break: break-word;
+
+
+  @media (max-width: 1279px) {
+    padding: 6px 10px;
+  }
 }
 
 .empty {

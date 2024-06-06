@@ -6,7 +6,7 @@
   justify-content: space-between;
 
   width: 100%;
-  height: 60px;
+  min-height: 60px;
   margin-bottom: 36px;
 
   background-color: var(--color-dark-700);
@@ -47,6 +47,11 @@
   max-width: 1280px;
   margin: 0 auto;
   padding-inline: 24px;
+
+  @media (max-width: 1023px) {
+    gap: 20px;
+    padding-inline: 10px;
+  }
 }
 
 .profile {
@@ -59,6 +64,10 @@
 
 .name {
   text-decoration: none;
+
+  @media (max-width: 1023px) {
+    display: none;
+  }
 
   &:focus-visible {
     @include focus-visible-default;
@@ -88,4 +97,9 @@
   text-decoration-line: none;
   background-color: var(--color-dark-300);
   box-shadow: none;
+
+  @media (max-width: 1023px) {
+    padding: 0.1rem 0.5rem;
+    text-align: center;
+  }
 }
