@@ -7,7 +7,6 @@ import PersonOutline from '@/assets/icons/svg/PersonOutline'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Typography from '@/components/ui/Typography/Typography'
-import { Button } from '@/components/ui/button'
 import ChangeTheme from '@/components/ui/changeTheme/ChangeTheme'
 import LocaleSwitcherDrop from '@/components/ui/localeSwitcher/localeSwitcherDrop'
 import { path } from '@/router/path'
@@ -69,7 +68,7 @@ const Header = ({ data }: HeaderProps) => {
           <LocaleSwitcherDrop />
           <ChangeTheme />
         </div>
-        {data ? (
+        {data && (
           <div className={style.profile}>
             <Typography as={Link} className={style.name} to={`${path.profile}`} variant={'h2'}>
               {data.name}
@@ -90,13 +89,35 @@ const Header = ({ data }: HeaderProps) => {
               />
             </DropdownMenuDemo>
           </div>
-        ) : (
-          <div className={style.buttonBox}>
-            <Button as={Link} className={style.button} to={`${path.login}`}>
-              {t('header.signIn')}
-            </Button>
-          </div>
         )}
+        {/*{data ? (*/}
+        {/*  <div className={style.profile}>*/}
+        {/*    <Typography as={Link} className={style.name} to={`${path.profile}`} variant={'h2'}>*/}
+        {/*      {data.name}*/}
+        {/*    </Typography>*/}
+
+        {/*    <DropdownMenuDemo className={style.dropDown} data={data} type={'head'}>*/}
+        {/*      <DropDownItem*/}
+        {/*        handleOnClick={setDeckQueryHandler}*/}
+        {/*        href={`${path.profile}`}*/}
+        {/*        icon={<PersonOutline />}*/}
+        {/*        text={t('header.myProfile')}*/}
+        {/*      />*/}
+        {/*      <DropDownItem*/}
+        {/*        handleOnClick={logoutHandler}*/}
+        {/*        href={`${path.login}`}*/}
+        {/*        icon={<LogOut />}*/}
+        {/*        text={t('header.signOut')}*/}
+        {/*      />*/}
+        {/*    </DropdownMenuDemo>*/}
+        {/*  </div>*/}
+        {/*) : (*/}
+        {/*  <div className={style.buttonBox}>*/}
+        {/*    <Button as={Link} className={style.button} to={`${path.login}`}>*/}
+        {/*      {t('header.signIn')}*/}
+        {/*    </Button>*/}
+        {/*  </div>*/}
+        {/*)}*/}
       </div>
     </div>
   )

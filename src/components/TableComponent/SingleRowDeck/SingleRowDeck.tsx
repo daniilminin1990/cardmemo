@@ -49,7 +49,7 @@ export const SingleRowDeck = ({
           <div className={s.wrapperCoverImg}>
             <img
               alt={'default card img'}
-              className={s.coverImg}
+              className={clsx(s.coverImg, item?.cover && s.withImg)}
               src={item.cover ? item.cover : defaultCard}
             />
           </div>
