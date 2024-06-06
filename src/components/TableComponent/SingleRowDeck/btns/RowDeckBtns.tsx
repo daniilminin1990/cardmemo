@@ -4,10 +4,12 @@ import { FavoriteBtn } from '@/components/TableComponent/SingleRowDeck/btns/Favo
 import { LearnBtn } from '@/components/TableComponent/SingleRowDeck/btns/LearnBtn'
 import { Button } from '@/components/ui/button'
 import { Deck } from '@/services/decks/deck.types'
+import clsx from 'clsx'
 
 import s from './RowDeckBtns.module.scss'
 
 type Props = {
+  className?: string
   item: Deck
   meData: any
   openDeleteModalHandler: (value: boolean) => void
@@ -16,6 +18,7 @@ type Props = {
 }
 
 export const RowDeckBtns = ({
+  className,
   item,
   meData,
   openDeleteModalHandler,
@@ -34,7 +37,7 @@ export const RowDeckBtns = ({
   return (
     <>
       {item.userId === meData.id ? (
-        <div className={s.iconBtns}>
+        <div className={clsx(s.iconBtns, className)}>
           <FavoriteBtn item={item} />
 
           <Button className={s.btn} onClick={onEditDeckHandler}>
@@ -48,7 +51,7 @@ export const RowDeckBtns = ({
           </Button>
         </div>
       ) : (
-        <div className={s.iconBtns}>
+        <div className={clsx(s.iconBtns, className)}>
           <FavoriteBtn item={item} />
           <LearnBtn item={item} />
         </div>

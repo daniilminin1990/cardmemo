@@ -7,6 +7,10 @@
   max-width: 1280px;
   margin: 0 auto;
   padding-inline: 24px;
+
+  @media (max-width: 1023px) {
+    padding-inline: 10px;
+  }
 }
 
 .loader {

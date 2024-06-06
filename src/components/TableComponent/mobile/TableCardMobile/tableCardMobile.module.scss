@@ -1,69 +1,59 @@
 @import 'src/styles/mixins';
 
+
+.root {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 30px;
+
+  td {
+    text-align: right;
+  }
+}
+
+
 .imgWrapper {
   @include focus-visible-default;
 
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  align-items: center;
+  align-items: flex-end;
   justify-content: start;
 
   text-decoration: none;
-
-  @media (max-width: 1200px) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-  }
 }
 
 .wrapperCoverImg {
-  width: 118px;
+  max-width: 118px;
   height: 48px;
 
-}
+  .coverImg {
+    max-width: 118px;
+    height: 48px;
 
-.wrapperCoverImg .coverImg {
-  width: 118px;
-  height: 48px;
+    object-fit: cover;
+    object-position: center;
 
-  object-fit: cover;
-  object-position: center;
+    transition: transform 0.2s;
 
-  transition: transform 0.2s;
-}
-
-.wrapperCoverImg .coverImg:not(.blur):hover {
-  position: relative;
-  z-index: 2;
-  transform: scale(1.6);
-  height: auto;
-  object-fit: cover;
-}
-
-.wrapperCoverImg .coverImg:not(.blur):hover ~ .blur {
-  transform: none;
-  filter: blur(3px);
-}
-.wrapperCoverImg .withImg:not(.blur):hover {
-
-  transform: none;
-  filter: none;
-  height: 48px;
+    &:hover {
+      transform: scale(1.6);
+      height: auto;
+      object-fit: cover;
+    }
+  }
 }
 
 .grade {
   display: flex;
   flex-flow: row nowrap;
   gap: 10px;
+  justify-content: flex-end;
   align-items: center;
 
   width: 100%;
   height: 100%;
-
-  @media (max-width: 1200px) {
-    gap: 1px;
-  }
 
   .star {
     width: 16px;
@@ -77,8 +67,14 @@
 
   display: flex;
   flex-flow: row nowrap;
-  gap: 10px;
   justify-content: center;
+
+  width: 100%;
+  gap: 40px;
+  padding: 20px;
+  border-left: 1px solid var(--color-dark-300);
+  border-right: 1px solid var(--color-dark-300);
+  border-bottom: 1px solid var(--color-dark-300);
 
   .btn {
     position: relative;
@@ -140,8 +136,7 @@
   }
 }
 
-.Edit2Outline,
-.TrashOutline {
+.img{
   cursor: pointer;
 
   position: absolute;
@@ -156,15 +151,7 @@
   }
 }
 
-.blur,
-.unBlur {
-  filter: blur(5px);
-  cursor: pointer;
-}
-.unBlur {
-  filter: none;
-}
-
-.sell {
-  user-select: none;
+.disabled {
+  cursor: default;
+  opacity: 0.5;
 }

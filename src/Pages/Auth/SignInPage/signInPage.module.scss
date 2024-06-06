@@ -8,6 +8,12 @@
 
   width: 420px;
   padding: 33px 36px 25px;
+
+  @media (max-width: 767px) {
+    display: block;
+    width: 360px;
+    padding: 33px 15px 25px;
+  }
 }
 
 .box {
@@ -34,6 +40,10 @@
 
 .inputStyle {
   width: 348px;
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 }
 
 .typographyForgotTitle {

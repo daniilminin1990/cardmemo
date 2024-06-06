@@ -55,27 +55,23 @@ export const PaginationWithSelect = ({
   const { t } = useTranslation()
 
   return (
-    <div
-      style={{
-        alignItems: 'center',
-        display: 'flex',
-        justifyContent: 'start',
-      }}
-    >
+    <div className={s.box}>
       <Pagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
       />
-      <Typography className={s.firstText}>{t('paginationWithSelect.show')} </Typography>
-      <SelectUI
-        className={'select'}
-        disabled={disabled}
-        onValueChange={onValueChange}
-        selectOptions={selectOptions}
-        value={itemsPerPage.toString()}
-      />
-      <Typography className={s.lastText}>{t('paginationWithSelect.onPage')}</Typography>
+      <div className={s.boxItem}>
+        <Typography className={s.firstText}>{t('paginationWithSelect.show')} </Typography>
+        <SelectUI
+          className={'select'}
+          disabled={disabled}
+          onValueChange={onValueChange}
+          selectOptions={selectOptions}
+          value={itemsPerPage.toString()}
+        />
+        <Typography className={s.lastText}>{t('paginationWithSelect.onPage')}</Typography>
+      </div>
     </div>
   )
 }
