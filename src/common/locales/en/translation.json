@@ -158,24 +158,40 @@
     "signIn": "Sign In",
     "submit": "Submit"
   },
-  "successApiResopnse": {
-    "successful": " successful!",
+  "successApiResponse": {
     "update": {
-      "deck": "Update deck",
-      "card": "Update card",
-      "profile": "Update profile"
+      "deck": "Deck updated!",
+      "card": "Card updated",
+      "profile": "Profile updated"
     },
     "loggedIn": "Logged in!",
-    "loggOut": "Logout",
+    "logOut": "Logged out!",
     "creation": {
-      "deck": "Creation deck",
-      "card": "Creation card"
+      "deck": "Deck created",
+      "card": "Card created"
     },
     "deletion": {
-      "deck": "Deletion deck",
-      "card": "Deletion card"
+      "deck": "Deck deleted",
+      "card": "Card deleted"
     },
+    "deleted": "Deleted!",
     "favorites": "In favorites!",
-    "registrationSuccessful": "Registration"
+    "deleteFavorites": "Removed from favorites!",
+    "registrationSuccessful": "Registered",
+    "commonInfo": {
+      "equal": {
+        "deckName": "Deck name is equal to previous.",
+        "deckImg": "Image is equal to previous.",
+        "common": "Deck name and cover image are equal to previous.",
+        "success": "It is ok, just let you know 👌"
+      },
+      "clearFilters": "All filters reset!",
+      "setGrade": "Set Grade!",
+      "nothingLearn": "Add card before learning!"
+    }
+  },
+  "failedApiResponse": {
+    "network": "Please check the network and try again or later!",
+    "unknown": "Try again later"
   }
 }

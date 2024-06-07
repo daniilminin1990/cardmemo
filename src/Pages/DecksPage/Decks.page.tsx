@@ -123,7 +123,7 @@ export function DecksPage() {
   const onClearFilter = () => {
     setTabsValue(tabsValuesData[1].locale)
     clearQuery()
-    handleToastInfo('All filters reset!', 2000)
+    handleToastInfo(`${t('successApiResponse.commonInfo.clearFilters')}`, 2000)
   }
 
   const handleItemsPerPageChange = (value: number) => {

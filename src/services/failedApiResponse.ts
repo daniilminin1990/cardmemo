@@ -1,4 +1,5 @@
 import { handleToastError, throttledToastError } from '@/common/consts/toastVariants'
+import i18n from 'i18next'
 
 export type ErrorDataType = {
   data: ErrorMessages
@@ -12,6 +13,8 @@ export type ErrorMessages = [
 ]
 
 export const failedApiResponse = (result: any) => {
+  const t = i18n.t
+
   const { url } = result.meta.request
   const { method } = result.meta.request
 
@@ -33,7 +36,7 @@ export const failedApiResponse = (result: any) => {
             }
           }
         } else {
-          handleToastError(`Try again later`)
+          handleToastError(`${t('failedApiResponse.network')}`)
         }
       }
 
@@ -52,7 +55,7 @@ export const failedApiResponse = (result: any) => {
               handleToastError(errorMessage)
             }
           } else {
-            handleToastError(`Try again later`)
+            handleToastError(`${t('failedApiResponse.network')}`)
           }
         }
       }

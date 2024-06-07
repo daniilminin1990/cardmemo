@@ -1,5 +1,8 @@
+import { useTranslation } from 'react-i18next'
+
 import { FormValuesAddEditDeck } from '@/common/zodSchemas/decks/decks.schemas'
 import { Deck } from '@/services/decks/deck.types'
+import i18n from 'i18next'
 
 export const getEditDeckNotifyMsg = ({
   data,
@@ -10,17 +13,18 @@ export const getEditDeckNotifyMsg = ({
   item?: Deck
   preview: null | string
 }) => {
+  const t = i18n.t
   let message = ''
 
   if (data.name === item?.name) {
-    message += 'Deck name is equal to previous. '
+    message += `${t(`successApiResponse.commonInfo.equal.deckName`)}`
   }
   if (preview === item?.cover) {
-    message = 'Image is equal to previous. '
+    message = `${t(`successApiResponse.commonInfo.equal.deckImg`)}`
   }
   if (data.name === item?.name && preview === item?.cover) {
-    message = 'Deck name and cover image are equal to previous. '
+    message = `${t(`successApiResponse.commonInfo.equal.common`)}`
   }
 
-  return `${message}It is ok, just let you know 👌`
+  return `${message} ${t(`successApiResponse.commonInfo.equal.success`)}`
 }
