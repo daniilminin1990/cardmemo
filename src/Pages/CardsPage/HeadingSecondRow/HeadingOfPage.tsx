@@ -17,18 +17,13 @@ import { Button } from '@/components/ui/button'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { path } from '@/router/path'
 import { router } from '@/router/router'
-import { CardsListResponse } from '@/services/cards/cards.types'
-import { Deck } from '@/services/decks/deck.types'
+import { useGetCardsQuery } from '@/services/cards/cards.service'
+import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 import { clsx } from 'clsx'
 
 import s from '@/Pages/CardsPage/HeadingSecondRow/headingOfPage.module.scss'
 
 type HeadingSecondRowProps = {
-  cardsData?: CardsListResponse
-  currentData?: CardsListResponse
-  currentDeckData?: Deck
-  data?: CardsListResponse
-  deck?: Deck
   deckId: string
   isCardsCountZero: boolean
   isMineCards: boolean
@@ -37,11 +32,8 @@ type HeadingSecondRowProps = {
   openDeleteDeckModalHandler: (value: boolean) => void
   openEditDeckModalHandler: (value: boolean) => void
   openEmptyDeckModalHandler: (value: boolean) => void
-  openModalHandler?: (value: boolean) => void
 }
 export const HeadingOfPage = ({
-  currentData,
-  deck,
   deckId,
   isCardsCountZero,
   isMineCards,
@@ -50,10 +42,11 @@ export const HeadingOfPage = ({
   openDeleteDeckModalHandler,
   openEditDeckModalHandler,
   openEmptyDeckModalHandler,
-  openModalHandler,
 }: HeadingSecondRowProps) => {
   const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
   const { t } = useTranslation()
+  const { data: deck } = useGetDeckByIdQuery({ id: deckId })
+  const { currentData } = useGetCardsQuery({ args: {}, id: deckId ?? '' })
   const notifyLearnHandler = () => {
     handleToastInfo(`Add card before learning!`)
   }
@@ -131,7 +124,6 @@ export const HeadingOfPage = ({
             <Button
               as={Link}
               className={s.learnCards}
-              onClick={() => openModalHandler?.(true)}
               to={`${path.decks}/${deckId}${path.learn}`}
               type={'button'}
             >

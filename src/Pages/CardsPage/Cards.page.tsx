@@ -111,11 +111,6 @@ export const CardsPage = () => {
     return <Loading type={'pageLoader'} />
   }
 
-  console.log({
-    condition:
-      search === '' && isMineCards && deck?.cardsCount === 0 && currentData?.items.length === 0,
-  })
-
   return (
     <>
       {loadingStatus && <LoadingBar />}
@@ -147,11 +142,6 @@ export const CardsPage = () => {
           <Typography variant={'body1'}>{t('cardsPage.isDeleteCard')}</Typography>
         </DeleteModal>
         <HeadingOfPage
-          cardsData={cardsData}
-          currentData={currentData}
-          currentDeckData={currentDeckData}
-          data={data}
-          deck={deck}
           deckId={deckId}
           isCardsCountZero={isCardsCountZero}
           isMineCards={isMineCards}
