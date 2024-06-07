@@ -42,6 +42,8 @@ import { clsx } from 'clsx'
 
 import s from '@/Pages/DecksPage/decksPage.module.scss'
 
+import helpImg from '../../assets/icons/informationIcon.svg'
+
 export function DecksPage() {
   const { t } = useTranslation()
   const [run, setRun] = useState(false)
@@ -156,18 +158,23 @@ export function DecksPage() {
       <Page className={s.common}>
         <div className={s.heading}>
           <div className={s.headingFirstRow}>
-            <Typography as={'h1'} variant={'h1'}>
-              {t('decksPage.decksList')}
-            </Typography>
+            <div className={s.headingName}>
+              <Typography as={'h1'} variant={'h1'}>
+                {t('decksPage.decksList')}
+              </Typography>
+              <Button className={s.buttonHelp} onClick={() => setRun(!run)}>
+                {/*{t('help.help')}*/}
+                <img alt={''} src={helpImg} />
+              </Button>
+            </div>
+
             <div className={'my-nine-step'}>
               <Button onClick={() => setIsCreateModal(true)} variant={'primary'}>
                 <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
               </Button>
             </div>
           </div>
-          <Button className={s.buttonHelp} onClick={() => setRun(!run)}>
-            {t('help.help')}
-          </Button>
+
           <div className={s.filters}>
             <div className={clsx(s.boxForInput, 'my-five-step')}>
               <Input
