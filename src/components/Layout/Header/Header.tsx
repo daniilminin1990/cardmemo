@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 
 import CardMemoLogoGolden from '@/assets/icons/svg/CardMemo/CardMemoLogoGolden'
+import CardMemoLogoGoldenPng from '@/assets/img/cardMemoLogo.png'
 import LogOut from '@/assets/icons/svg/LogOut'
 import PersonOutline from '@/assets/icons/svg/PersonOutline'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
@@ -52,6 +53,7 @@ const Header = ({ data }: HeaderProps) => {
           {/*! Золотые*/}
           <Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>
             <CardMemoLogoGolden className={style.img} />
+            <img src={CardMemoLogoGoldenPng} className={style.imgHidden} alt={'cardMemoLogoGoldenPng'}/>
           </Typography>
           {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
           {/*  <CardMemoLogoMinimalisticGolden className={style.img} />*/}
