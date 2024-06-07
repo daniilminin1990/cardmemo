@@ -1,20 +1,16 @@
 .boxInput {
+  box-sizing: border-box;
   height: 36px;
-
-  text-indent: 12px;
+  padding: 0 3%;
 
   background-color: transparent;
-
-  // End
   border: none;
-
-  // Region
-  // ! Серега ПРИМЕНИ ЭТИ СТИЛИ!!!
-  //outline: 2px solid var(--color-dark-300);
   outline: none;
   box-shadow: inset 0 0 0 1px var(--color-dark-300);
 
   &[type='search'] {
+    padding: 0 30px 0 34px;
+
     &::-webkit-search-cancel-button {
       appearance: none;
     }
@@ -22,6 +18,11 @@
     &::-ms-clear {
       display: none;
     }
+  }
+
+  &[name='password'],
+  &[name='confirmPassword'] {
+    padding-right: 30px;
   }
 
   &:hover {
@@ -40,6 +41,11 @@
   }
 }
 
+.placeholder {
+  padding-left: 0;
+  text-indent: 12px;
+}
+
 .box {
   width: 200px;
 }
@@ -47,10 +53,6 @@
 .boxImg {
   position: relative;
   transform: translate(1000%, 20%);
-}
-
-.boxPadding {
-  text-indent: 35px;
 }
 
 .active {
