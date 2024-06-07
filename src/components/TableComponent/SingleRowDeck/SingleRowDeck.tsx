@@ -41,11 +41,6 @@ export const SingleRowDeck = ({
           onClick={setDeckQueryHandler}
           to={`${path.decks}/${item.id}`}
         >
-          {/*{item.cover && (*/}
-          {/*  <div className={s.wrapperCoverImg}>*/}
-          {/*    <img alt={'default card img'} className={s.coverImg} src={item.cover} />*/}
-          {/*  </div>*/}
-          {/*)}*/}
           <div className={s.wrapperCoverImg}>
             <img
               alt={'default card img'}

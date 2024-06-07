@@ -21,7 +21,7 @@ export const Layout = () => {
   }
 
   return (
-    <>
+    <div>
       <Header data={meData} />
       <main className={s.main}>
         <Outlet />
@@ -36,6 +36,6 @@ export const Layout = () => {
         theme={context?.theme === 'moon' ? 'dark' : 'light'}
         transition={Bounce}
       />
-    </>
+    </div>
   )
 }

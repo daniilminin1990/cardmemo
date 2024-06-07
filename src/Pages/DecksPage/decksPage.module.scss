@@ -37,7 +37,6 @@
   display: flex;
   flex-flow: row nowrap;
 
-  //grid-template-columns: 1fr 240px 250px 144px;
   gap: 25px;
   align-items: end;
 
@@ -56,7 +55,7 @@
   position: absolute;
   top: 20px;
   right: -10px;
-
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,4 +135,13 @@
 
 .empty {
   text-align: center;
+}
+.boxForInput{
+  width: 100%;
+}
+.boxForSlider{
+  width: 100%;
+}
+.buttonHelp{
+  width: max-content;
 }
