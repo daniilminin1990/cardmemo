@@ -5,6 +5,12 @@
 
   width: 420px;
   padding: 33px 36px 0;
+
+  @media (max-width: 767px) {
+    display: block;
+    width: 360px;
+    padding: 33px 15px 25px;
+  }
 }
 
 .title {
