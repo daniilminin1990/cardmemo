@@ -3,7 +3,6 @@
 @import '@radix-ui/colors/mauve.css';
 @import '@radix-ui/colors/violet.css';
 @import 'src/styles/mixins';
-
 /* reset */
 button,
 fieldset,
@@ -55,6 +54,8 @@ input {
     left: 0;
     bottom: 0 ;
     transform: translate(0);
+    animation: none;
+    border-radius: 6px 6px 0 0;
   }
 }
 
@@ -69,6 +70,7 @@ input {
   border-bottom: 1px solid var(--color-dark-500);
 
   @media (max-width: 767px) {
+    margin-left: 0;
     padding: 10px;
   }
 }
@@ -90,6 +92,7 @@ input {
 
   @media (max-width: 767px) {
     padding: 10px;
+    margin-bottom: 50px;
   }
 }
 
