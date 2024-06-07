@@ -54,7 +54,7 @@ export const SingleRowCard = ({
   const onMouseUp = () => {
     setBlur(true) // При отпускании мыши снимаем эффект "блюра"
   }
-  const fragmetWithBlur = context.blur && blur ? s.coverImg + ' ' + s.blur : s.coverImg
+  const fragmentWithBlur = context.blur && blur ? s.coverImg + ' ' + s.blur : s.coverImg
 
   return (
     <Table.Row>
@@ -84,7 +84,7 @@ export const SingleRowCard = ({
             <div className={s.wrapperCoverImg}>
               <img
                 alt={'default card img'}
-                className={item.answerImg ? fragmetWithBlur : s.wrapperCoverImg + ' ' + s.withImg}
+                className={item.answerImg ? fragmentWithBlur : s.wrapperCoverImg + ' ' + s.withImg}
                 src={item.answerImg ? item.answerImg : defaultCard}
               />
             </div>
