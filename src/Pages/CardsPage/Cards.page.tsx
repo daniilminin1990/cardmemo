@@ -64,10 +64,7 @@ export const CardsPage = () => {
   const [isUpdateCardModal, setIsUpdateCardModal] = useState(false) // Изменение Card | Переход в Learn
   const [isDeleteCardModal, setIsDeleteCardModal] = useState(false) // Удаление Card
 
-  console.log({ cardsData: data, currentCardsData: currentData, currentDeckData, deckData: deck })
-
   const handleItemsPerPageChange = (value: number) => {
-    // setCurrentPageQuery(Number(initCurrentPage))
     const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 0) / value)
 
     if (maxNumberOfPages < currentPage) {
