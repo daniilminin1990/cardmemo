@@ -33,7 +33,7 @@ export const SingleRowCard = ({
   const context = useContext(UserContext)
 
   if (!context) {
-    return
+    return null
   }
   const onDeleteCardHandler = () => {
     retrieveCardItem(item)
@@ -54,12 +54,17 @@ export const SingleRowCard = ({
   const onMouseUp = () => {
     setBlur(true) // При отпускании мыши снимаем эффект "блюра"
   }
-  const fragmentWithBlur = context.blur && blur ? s.coverImg + ' ' + s.blur : s.coverImg
+  const fragmetWithBlur = context.blur && blur ? s.coverImg + ' ' + s.blur : s.coverImg
 
   return (
     <Table.Row>
       <Table.Cell>
         <div className={s.imgWrapper}>
+          {/*{item.questionImg && (*/}
+          {/*  <div className={s.wrapperCoverImg}>*/}
+          {/*    <img alt={'default card img'} className={s.coverImg} src={item.questionImg} />*/}
+          {/*  </div>*/}
+          {/*)}*/}
           <div className={s.wrapperCoverImg}>
             <img
               alt={'default card img'}
@@ -84,12 +89,11 @@ export const SingleRowCard = ({
             <div className={s.wrapperCoverImg}>
               <img
                 alt={'default card img'}
-                className={item.answerImg ? fragmentWithBlur : s.wrapperCoverImg + ' ' + s.withImg}
+                className={item.answerImg ? fragmetWithBlur : s.wrapperCoverImg + ' ' + s.withImg}
                 src={item.answerImg ? item.answerImg : defaultCard}
               />
             </div>
           </div>
-
           <Typography>{item.answer}</Typography>
         </div>
       </Table.Cell>

@@ -193,5 +193,28 @@
   "failedApiResponse": {
     "network": "Please check the network and try again or later!",
     "unknown": "Try again later"
+  },
+  "help": {
+    "help": "Help",
+    "my-first-step":"Click here to go home.",
+    "my-two-step":"Click here and select the display language on the page.",
+    "my-three-step":"Click here to change the theme (light or dark).",
+    "my-four-step":"Click here to open the menu, in the drop-down menu you can view your profile or log out of your account.",
+    "my-five-step":"You can search for decks by name.",
+    "my-six-step":"Filter for displaying table decks",
+    "my-seven-step":"You can move slider to choose how many cards will be displayed in the table.",
+    "my-eight-step":"Click here to clear filters.",
+    "my-nine-step":"Click here to add new deck.",
+    "my-ten-step":"This is a table in which you can see your cards, pay attention at the top in the header you can see the names of the columns when you click on which your cards will be sorted.",
+    "my-eleven-step":"Here you can edit your deck (change name, add card, delete card, learn. ).",
+    "my-twelve-step":"Here you can move between page and set quantity сards per page."
+  },
+  "controlButtons": {
+    "back": "Back",
+    "close": "Close",
+    "last": "Last",
+    "next": "Next",
+    "open": "Open",
+    "skip": "Skip"
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useMediaQuery } from 'react-responsive'
 import { useParams } from 'react-router-dom'
@@ -24,6 +24,7 @@ import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithS
 import Slider from '@/components/ui/Slider/Slider'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
+import { UserContext } from '@/components/ui/changeTheme/Context'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { useSliderQueryParams } from '@/hooks/useSliderQueryParams'
@@ -36,11 +37,17 @@ import {
   useGetDecksQuery,
   useGetFavoritesDecksCountQuery,
 } from '@/services/decks/decks.service'
+import MyJoyRide from '@/stepsForHelp/myJoyRide'
+import { clsx } from 'clsx'
 
 import s from '@/Pages/DecksPage/decksPage.module.scss'
 
+import helpImg from '../../assets/icons/informationIcon.svg'
+
 export function DecksPage() {
   const { t } = useTranslation()
+  const [run, setRun] = useState(false)
+  const context = useContext(UserContext)
   const {
     clearQuery,
     currentOrderBy,
@@ -66,22 +73,18 @@ export function DecksPage() {
     useTabsValuesParams()
   const [deleteDeck] = useDeleteDeckMutation()
   // const { data: meData, isLoading: meIsLoading } = useMeQuery()
-  const { currentData, data, isFetching, isLoading } = useGetDecksQuery(
-    {
-      authorId: authorId || '',
-      currentPage,
-      favoritedBy: favoritedBy || '',
-      itemsPerPage,
-      maxCardsCount: debouncedEndValue,
-      minCardsCount: debouncedStartValue,
-      name: debouncedSearchValue,
-      orderBy: currentOrderBy,
-    }
-    // { skip: !meData && !minMaxData }
-  )
+  const { currentData, data, isFetching, isLoading } = useGetDecksQuery({
+    authorId: authorId || '',
+    currentPage,
+    favoritedBy: favoritedBy || '',
+    itemsPerPage,
+    maxCardsCount: debouncedEndValue,
+    minCardsCount: debouncedStartValue,
+    name: debouncedSearchValue,
+    orderBy: currentOrderBy,
+  })
   const { data: favoriteCounts } = useGetFavoritesDecksCountQuery()
 
-  // ! Определение максимальной возможной страницы
   useEffect(() => {
     if (currentData) {
       const maxNumberOfPages = Math.ceil((currentData.pagination.totalItems ?? 0) / itemsPerPage)
@@ -139,6 +142,7 @@ export function DecksPage() {
 
   return (
     <>
+      <MyJoyRide run={run} setRun={setRun} />
       {isFetching && <LoadingBar />}
       <ModalAddEditDeck item={deckItem} open={isUpdateModal} setOpen={setIsUpdateModal} />
       <DeleteModal
@@ -154,33 +158,48 @@ export function DecksPage() {
       <Page className={s.common}>
         <div className={s.heading}>
           <div className={s.headingFirstRow}>
-            <Typography as={'h1'} variant={'h1'}>
-              {t('decksPage.decksList')}
-            </Typography>
-            <Button onClick={() => setIsCreateModal(true)} variant={'primary'}>
-              <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
-            </Button>
-          </div>
-          <div className={s.filters}>
-            <Input
-              callback={setSearchQuery}
-              className={s.input}
-              currentValue={search}
-              onChange={handleSearchChange}
-              type={'search'}
-            />
-            <div className={s.tabsContainer}>
-              <TabSwitcher
-                className={s.tabsSwitcher}
-                label={t('decksPage.showDecksCards')}
-                onValueChange={handleTabsSwitch}
-                tabs={tabsValuesData}
-                value={tabsValue}
-              />
-              <div className={s.countsFav}>{favoriteCounts}</div>
+            <div className={s.headingName}>
+              <Typography as={'h1'} variant={'h1'}>
+                {t('decksPage.decksList')}
+              </Typography>
+              <Button className={s.buttonHelp} onClick={() => setRun(!run)}>
+                <img alt={'help button'} src={helpImg} />
+              </Button>
             </div>
 
-            <div className={s.sliderBox}>
+            <div className={'my-nine-step'}>
+              <Button onClick={() => setIsCreateModal(true)} variant={'primary'}>
+                <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
+              </Button>
+            </div>
+          </div>
+
+          <div className={s.filters}>
+            <div className={clsx(s.boxForInput, 'my-five-step')}>
+              <Input
+                callback={setSearchQuery}
+                className={s.input}
+                currentValue={search}
+                onChange={handleSearchChange}
+                type={'search'}
+              />
+            </div>
+            <div className={'my-six-step'}>
+              <div className={s.tabsContainer}>
+                <TabSwitcher
+                  className={s.tabsSwitcher}
+                  label={t('decksPage.showDecksCards')}
+                  onValueChange={handleTabsSwitch}
+                  tabs={tabsValuesData}
+                  value={tabsValue}
+                />
+                <div className={clsx(s.countsFav, context?.theme === 'sun' ? s.sun : '')}>
+                  {favoriteCounts}
+                </div>
+              </div>
+            </div>
+
+            <div className={clsx(s.boxForSlider, 'my-seven-step')}>
               <Slider
                 className={s.slider}
                 label={t('decksPage.numberOfCards')}
@@ -190,10 +209,12 @@ export function DecksPage() {
                 value={[sliderMin, sliderMax]}
               />
             </div>
-            <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
-              <TrashOutline />
-              <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
-            </Button>
+            <div className={'my-eight-step'}>
+              <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
+                <TrashOutline />
+                <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
+              </Button>
+            </div>
           </div>
         </div>
         {isTabletOrMobile ? (
@@ -216,27 +237,29 @@ export function DecksPage() {
             })}
           </TableHeadMobile>
         ) : (
-          <TableComponentWithTypes
-            data={decksData}
-            isFetching={isFetching}
-            isLoading={isLoading}
-            tableHeader={headersNameDecks}
-          >
-            {decksData?.map(deck => {
-              return (
-                <SingleRowDeck
-                  item={deck}
-                  key={deck.id}
-                  openDeleteModalHandler={setIsDeleteModal}
-                  openEditModalHandler={setIsUpdateModal}
-                  retrieveDeckItem={setDeckItem}
-                />
-              )
-            })}
-          </TableComponentWithTypes>
+          <div className={'my-ten-step'}>
+            <TableComponentWithTypes
+              data={decksData}
+              isFetching={isFetching}
+              isLoading={isLoading}
+              tableHeader={headersNameDecks}
+            >
+              {decksData?.map(deck => {
+                return (
+                  <SingleRowDeck
+                    item={deck}
+                    key={deck.id}
+                    openDeleteModalHandler={setIsDeleteModal}
+                    openEditModalHandler={setIsUpdateModal}
+                    retrieveDeckItem={setDeckItem}
+                  />
+                )
+              })}
+            </TableComponentWithTypes>
+          </div>
         )}
 
-        <div className={s.footer}>
+        <div className={clsx(s.footer, 'my-twelve-step')}>
           <PaginationWithSelect
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}
