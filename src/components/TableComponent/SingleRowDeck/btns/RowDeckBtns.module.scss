@@ -21,6 +21,15 @@
     outline: none;
     box-shadow: none;
 
+    &.private {
+      width: 20px;
+
+      .privateIcon {
+        fill: var(--color-light-900);
+        width: 100%;
+      }
+    }
+
     &::before {
       content: '';
 

@@ -1,9 +1,13 @@
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
+import PrivacyMask from '@/assets/icons/svg/PrivacyMask'
+import PrivacyMaskCrossed from '@/assets/icons/svg/PrivacyMaskCrossed'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { FavoriteBtn } from '@/components/TableComponent/SingleRowDeck/btns/FavoriteBtn'
 import { LearnBtn } from '@/components/TableComponent/SingleRowDeck/btns/LearnBtn'
 import { Button } from '@/components/ui/button'
 import { Deck } from '@/services/decks/deck.types'
+import { useUpdateDeckMutation } from '@/services/decks/decks.service'
+import clsx from 'clsx'
 
 import s from './RowDeckBtns.module.scss'
 
@@ -22,6 +26,11 @@ export const RowDeckBtns = ({
   openEditModalHandler,
   retrieveDeckItem,
 }: Props) => {
+  const [updateDeck] = useUpdateDeckMutation()
+
+  const updateDeckHandler = () => {
+    updateDeck({ id: item.id, isPrivate: !item.isPrivate })
+  }
   const onDeleteDeckHandler = () => {
     retrieveDeckItem(item)
     openDeleteModalHandler(true)
@@ -35,6 +44,13 @@ export const RowDeckBtns = ({
     <>
       {item.userId === meData.id ? (
         <div className={s.iconBtns}>
+          <Button className={clsx(s.btn, s.private)} onClick={updateDeckHandler}>
+            {item?.isPrivate ? (
+              <PrivacyMask className={s.privateIcon} />
+            ) : (
+              <PrivacyMaskCrossed className={s.privateIcon} />
+            )}
+          </Button>
           <FavoriteBtn item={item} />
 
           <Button className={s.btn} onClick={onEditDeckHandler}>
