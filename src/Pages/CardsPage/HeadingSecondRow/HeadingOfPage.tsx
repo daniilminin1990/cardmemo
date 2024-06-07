@@ -48,7 +48,7 @@ export const HeadingOfPage = ({
   const { data: deck } = useGetDeckByIdQuery({ id: deckId })
   const { currentData } = useGetCardsQuery({ args: {}, id: deckId ?? '' })
   const notifyLearnHandler = () => {
-    handleToastInfo(`Add card before learning!`)
+    handleToastInfo(`${t(`successApiResponse.commonInfo.nothingLearn`)}`)
   }
   const { debouncedSearchValue, search, setCurrentPageQuery, setSearchQuery } = useQueryParams()
   const handleOpenModal = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
