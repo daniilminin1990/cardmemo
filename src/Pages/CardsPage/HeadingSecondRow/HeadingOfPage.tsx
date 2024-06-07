@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom'
 import groupIcon from '@/assets/icons/WhiteSVG/Group 1399.svg'
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
+import PrivacyMask from '@/assets/icons/svg/PrivacyMask'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
+import defaultCard from '@/assets/img/defaultCard.jpg'
 import { handleToastInfo } from '@/common/consts/toastVariants'
 import { initCurrentPage } from '@/common/globalVariables'
 import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
@@ -112,7 +114,15 @@ export const HeadingOfPage = ({
               </DropdownMenuDemo>
             )}
           </div>
-          {deck?.cover && <img alt={'img'} src={deck?.cover} width={'120px'} />}
+          {/*{deck?.cover && <img alt={'img'} src={deck?.cover} width={'120px'} />}*/}
+          <div className={s.wrapperCoverImg}>
+            {deck?.isPrivate && (
+              <div className={s.privacyWrapper}>
+                <PrivacyMask className={s.privacyIcon} />
+              </div>
+            )}
+            <img alt={'img'} className={s.coverImg} src={deck?.cover ? deck?.cover : defaultCard} />
+          </div>
         </div>
         <div className={s.switchButton}>
           {isMineCards && !loadingStatus && currentData?.items.length !== 0 && (

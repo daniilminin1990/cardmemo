@@ -3,6 +3,7 @@ import { SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
+import PrivacyMask from '@/assets/icons/svg/PrivacyMask'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { useAddEditDeckLogic } from '@/common/addEditCardsOrDecks/addEditDeckLogic'
 import { getEditDeckNotifyMsg } from '@/common/addEditCardsOrDecks/getEditDeckNotifyMsg'
@@ -32,7 +33,7 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { t } = useTranslation()
   const { clearQuery, setCurrentPageQuery } = useQueryParams()
-  const { control, cover, handleSubmit, preview, refInputImg, setCover, setPreview } =
+  const { control, cover, handleSubmit, preview, refInputImg, setCover, setPreview, watch } =
     useAddEditDeckLogic({
       item,
     })
@@ -54,6 +55,7 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
     )
     e.target.value = ''
   }
+
   const onSubmit: SubmitHandler<FormValuesAddEditDeck> = data => {
     if (item) {
       const msg = getEditDeckNotifyMsg({ data, item, preview })
@@ -74,6 +76,8 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
 
   const loadingStatus = isLoadingCreate || isLoadingUpdate
 
+  console.log({ isPr: watch('isPrivate') })
+
   return (
     <>
       {loadingStatus && <LoadingBar />}
@@ -86,7 +90,14 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
         <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={s.body}>
             {item?.name && <Typography variant={'h1'}>{item.name}</Typography>}
-            {preview && <img alt={'cover'} src={preview} width={'100%'} />}
+            <div className={s.wrapperCoverImg}>
+              {preview && <img alt={'cover'} src={preview} width={'100%'} />}
+              {preview && watch('isPrivate') && (
+                <div className={s.privacyWrapper}>
+                  <PrivacyMask className={s.privacyIcon} />
+                </div>
+              )}
+            </div>
             <FormTextfield
               className={s.input}
               control={control}
