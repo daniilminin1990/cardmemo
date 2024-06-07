@@ -25,8 +25,11 @@
       width: 20px;
 
       .privateIcon {
-        fill: var(--color-light-900);
+        position: absolute;
         width: 100%;
+        &:disabled {
+          background-color: transparent;
+        }
       }
     }
 
@@ -63,6 +66,7 @@
 
     &:focus-visible::before {
       outline: 2px solid #71ff7a;
+      //outline: 2px solid var(--color-success-100);
     }
 
     &:active::before {
