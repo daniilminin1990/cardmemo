@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next'
-
 import { FormValuesAddEditDeck } from '@/common/zodSchemas/decks/decks.schemas'
 import { Deck } from '@/services/decks/deck.types'
 import i18n from 'i18next'
