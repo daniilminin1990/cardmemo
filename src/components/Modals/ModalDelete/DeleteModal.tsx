@@ -1,6 +1,7 @@
 import { ReactNode, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
 
@@ -28,10 +29,10 @@ export const DeleteModal = memo(({ children, deleteFn, open, setOpen, title }: P
       <div className={s.text}>{children}</div>
       <div className={s.btns}>
         <Button onClick={hideModal} variant={'secondary'}>
-          {t('deleteModal.cancel')}
+          <Typography>{t('deleteModal.cancel')}</Typography>
         </Button>
         <Button onClick={deleteHandler} type={'submit'} variant={'primary'}>
-          {title}
+          <Typography>{title}</Typography>
         </Button>
       </div>
     </Modal>

@@ -17,41 +17,42 @@ import { Button } from '@/components/ui/button'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { path } from '@/router/path'
 import { router } from '@/router/router'
-import { Deck } from '@/services/decks/deck.types'
+import { useGetCardsQuery } from '@/services/cards/cards.service'
+import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 import { clsx } from 'clsx'
 
 import s from '@/Pages/CardsPage/HeadingSecondRow/headingOfPage.module.scss'
 
 type HeadingSecondRowProps = {
-  deck?: Deck
   deckId: string
   isCardsCountZero: boolean
   isMineCards: boolean
+  loadingStatus: boolean
   openCreateCardModalHandler: (value: boolean) => void
   openDeleteDeckModalHandler: (value: boolean) => void
   openEditDeckModalHandler: (value: boolean) => void
   openEmptyDeckModalHandler: (value: boolean) => void
-  openModalHandler?: (value: boolean) => void
 }
 export const HeadingOfPage = ({
-  deck,
   deckId,
   isCardsCountZero,
   isMineCards,
+  loadingStatus,
   openCreateCardModalHandler,
   openDeleteDeckModalHandler,
   openEditDeckModalHandler,
   openEmptyDeckModalHandler,
-  openModalHandler,
 }: HeadingSecondRowProps) => {
   const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
   const { t } = useTranslation()
+  const { data: deck } = useGetDeckByIdQuery({ id: deckId })
+  const { currentData } = useGetCardsQuery({ args: {}, id: deckId ?? '' })
   const notifyLearnHandler = () => {
     handleToastInfo(`Add card before learning!`)
   }
-  const { search, setCurrentPageQuery, setSearchQuery } = useQueryParams()
+  const { debouncedSearchValue, search, setCurrentPageQuery, setSearchQuery } = useQueryParams()
   const handleOpenModal = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    if (isMineCards && isCardsCountZero) {
+    if (isMineCards && isCardsCountZero && deck?.cardsCount === 0) {
       e.preventDefault()
       openEmptyDeckModalHandler(true)
     } else {
@@ -63,7 +64,14 @@ export const HeadingOfPage = ({
     setSearchQuery(e.currentTarget.value)
   }
 
-  const isCardsCountFilled = !isCardsCountZero
+  const condition = deck?.cardsCount !== 0 || currentData?.items.length !== 0
+
+  console.log({
+    curDataLengthNotZero: currentData?.items.length !== 0,
+    deckCardCountNotZero: deck?.cardsCount !== 0,
+    isMineCards,
+    searchZero: search === '',
+  })
 
   return (
     <div className={s.heading}>
@@ -77,12 +85,7 @@ export const HeadingOfPage = ({
               {deck?.name}
             </Typography>
             {isMineCards && (
-              <DropdownMenuDemo
-                className={s.dropdown}
-                // icon={context?.theme === 'moon' ? groupIcon : groupIconBlack}
-                icon={groupIcon}
-                type={'menu'}
-              >
+              <DropdownMenuDemo className={s.dropdown} icon={groupIcon} type={'menu'}>
                 {isCardsCountZero ? (
                   <DropDownItem
                     handleOnClick={notifyLearnHandler}
@@ -111,31 +114,29 @@ export const HeadingOfPage = ({
           </div>
           {deck?.cover && <img alt={'img'} src={deck?.cover} width={'120px'} />}
         </div>
-        {isCardsCountFilled && (
-          <div className={s.switchButton}>
-            {isMineCards ? (
-              <Button onClick={() => openCreateCardModalHandler(true)} type={'button'}>
-                <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
-              </Button>
-            ) : (
-              <Button
-                as={Link}
-                className={s.learnCards}
-                onClick={() => openModalHandler?.(true)}
-                to={`${path.decks}/${deckId}${path.learn}`}
-                type={'button'}
-              >
-                <Typography variant={'subtitle2'}>{t('cardsPage.learnCards')}</Typography>
-              </Button>
-            )}
-          </div>
-        )}
+        <div className={s.switchButton}>
+          {isMineCards && !loadingStatus && currentData?.items.length !== 0 && (
+            <Button onClick={() => openCreateCardModalHandler(true)} type={'button'}>
+              <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
+            </Button>
+          )}
+          {!isMineCards && (
+            <Button
+              as={Link}
+              className={s.learnCards}
+              to={`${path.decks}/${deckId}${path.learn}`}
+              type={'button'}
+            >
+              <Typography variant={'subtitle2'}>{t('cardsPage.learnCards')}</Typography>
+            </Button>
+          )}
+        </div>
       </div>
-      {isCardsCountFilled && (
+      {condition && (
         <Input
           callback={setSearchQuery}
           className={s.input}
-          currentValue={search}
+          currentValue={debouncedSearchValue}
           onChange={handleSearch}
           type={'search'}
         />

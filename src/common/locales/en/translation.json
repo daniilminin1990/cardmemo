@@ -115,7 +115,8 @@
     "deleteDeck": "Delete Deck",
     "isDeleteDeck": "Do you really want to delete deck? All cards will be deleted.",
     "deleteCard": "Delete Card",
-    "isDeleteCard": "Do you really want to delete card? All data will be deleted."
+    "isDeleteCard": "Do you really want to delete card? All data will be deleted.",
+    "noResultsFound": "No results found with this terms. Try to change filters."
   },
   "modalAddEditCard": {
     "updateCard": "Update Card",
@@ -156,5 +157,25 @@
     "haveAccount": "Already have an account?",
     "signIn": "Sign In",
     "submit": "Submit"
+  },
+  "successApiResopnse": {
+    "successful": " successful!",
+    "update": {
+      "deck": "Update deck",
+      "card": "Update card",
+      "profile": "Update profile"
+    },
+    "loggedIn": "Logged in!",
+    "loggOut": "Logout",
+    "creation": {
+      "deck": "Creation deck",
+      "card": "Creation card"
+    },
+    "deletion": {
+      "deck": "Deletion deck",
+      "card": "Deletion card"
+    },
+    "favorites": "In favorites!",
+    "registrationSuccessful": "Registration"
   }
 }
