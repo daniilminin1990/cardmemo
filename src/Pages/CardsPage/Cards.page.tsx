@@ -37,6 +37,7 @@ export const CardsPage = () => {
     currentPage,
     debouncedSearchValue,
     itemsPerPage,
+    search,
     setCurrentPageQuery,
     setItemsPerPageQuery,
   } = useQueryParams()
@@ -62,6 +63,8 @@ export const CardsPage = () => {
   const [isCreateCardModal, setIsCreateCardModal] = useState(false) // Добавление Card | Переход в Learn?
   const [isUpdateCardModal, setIsUpdateCardModal] = useState(false) // Изменение Card | Переход в Learn
   const [isDeleteCardModal, setIsDeleteCardModal] = useState(false) // Удаление Card
+
+  console.log({ cardsData: data, currentCardsData: currentData, currentDeckData, deckData: deck })
 
   const handleItemsPerPageChange = (value: number) => {
     // setCurrentPageQuery(Number(initCurrentPage))
@@ -98,9 +101,20 @@ export const CardsPage = () => {
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
 
+  const conditionIsMineMessage = isMineCards
+    ? `${t('cardsPage.emptyDeck')}`
+    : `${t('cardsPage.unfortunatelyEmptyDeck')}`
+  const conditionMessage =
+    search !== '' ? `${t('cardsPage.noResultsFound')}` : conditionIsMineMessage
+
   if (isLoading) {
     return <Loading type={'pageLoader'} />
   }
+
+  console.log({
+    condition:
+      search === '' && isMineCards && deck?.cardsCount === 0 && currentData?.items.length === 0,
+  })
 
   return (
     <>
@@ -133,10 +147,15 @@ export const CardsPage = () => {
           <Typography variant={'body1'}>{t('cardsPage.isDeleteCard')}</Typography>
         </DeleteModal>
         <HeadingOfPage
+          cardsData={cardsData}
+          currentData={currentData}
+          currentDeckData={currentDeckData}
+          data={data}
           deck={deck}
           deckId={deckId}
           isCardsCountZero={isCardsCountZero}
           isMineCards={isMineCards}
+          loadingStatus={loadingStatus}
           openCreateCardModalHandler={setIsCreateCardModal}
           openDeleteDeckModalHandler={setIsDeleteDeckModal}
           openEditDeckModalHandler={setIsUpdateDeckModal}
@@ -144,20 +163,19 @@ export const CardsPage = () => {
         />
         {isCardsCountZero ? (
           <div className={s.emptyContent}>
-            <Typography variant={'body1'}>
-              {isMineCards
-                ? `${t('cardsPage.emptyDeck')}`
-                : `${t('cardsPage.unfortunatelyEmptyDeck')}`}
-            </Typography>
-            {isMineCards && (
-              <Button
-                className={s.addCard}
-                onClick={() => setIsCreateCardModal(true)}
-                type={'button'}
-              >
-                <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
-              </Button>
-            )}
+            <Typography variant={'body1'}>{conditionMessage}</Typography>
+            {search === '' &&
+              isMineCards &&
+              deck?.cardsCount === 0 &&
+              currentData?.items.length === 0 && (
+                <Button
+                  className={s.addCard}
+                  onClick={() => setIsCreateCardModal(true)}
+                  type={'button'}
+                >
+                  <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
+                </Button>
+              )}
           </div>
         ) : (
           <>

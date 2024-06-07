@@ -25,10 +25,14 @@ const ChangeTheme = () => {
 
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
+      if (!context) {
+        return
+      } // Add this line to check if context is undefined
+
       if (event.key === 'theme') {
         const newTheme = localStorage.getItem('theme') as Theme
 
-        context?.setTheme(newTheme)
+        context.setTheme(newTheme)
         updateThemeColors(newTheme)
       }
     }
@@ -38,9 +42,12 @@ const ChangeTheme = () => {
     return () => {
       window.removeEventListener('storage', handleStorageChange)
     }
-  }, [context])
+  }, [context]) // Make sure to include context in the dependency array
 
   const onChangeThemeHandler = () => {
+    if (!context) {
+      return
+    } // Add this line to check if context is undefined
     const newTheme = context?.theme === 'moon' ? 'sun' : 'moon'
 
     context?.setTheme(newTheme)

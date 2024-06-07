@@ -121,7 +121,7 @@ export function DecksPage() {
   }
 
   const onClearFilter = () => {
-    setTabsValue(tabsValuesData[1].value)
+    setTabsValue(tabsValuesData[1].locale)
     clearQuery()
     handleToastInfo('All filters reset!', 2000)
   }
