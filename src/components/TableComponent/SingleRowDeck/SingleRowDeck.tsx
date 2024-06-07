@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 
+import PrivacyMask from '@/assets/icons/svg/PrivacyMask'
 import defaultCard from '@/assets/img/defaultCard.jpg'
 import { RowDeckBtns } from '@/components/TableComponent/SingleRowDeck/btns/RowDeckBtns'
 import Typography from '@/components/ui/Typography/Typography'
@@ -41,12 +42,12 @@ export const SingleRowDeck = ({
           onClick={setDeckQueryHandler}
           to={`${path.decks}/${item.id}`}
         >
-          {/*{item.cover && (*/}
-          {/*  <div className={s.wrapperCoverImg}>*/}
-          {/*    <img alt={'default card img'} className={s.coverImg} src={item.cover} />*/}
-          {/*  </div>*/}
-          {/*)}*/}
           <div className={s.wrapperCoverImg}>
+            {item?.isPrivate && (
+              <div className={s.privacyWrapper}>
+                <PrivacyMask className={s.privacyIcon} />
+              </div>
+            )}
             <img
               alt={'default card img'}
               className={clsx(s.coverImg, item?.cover && s.withImg)}
