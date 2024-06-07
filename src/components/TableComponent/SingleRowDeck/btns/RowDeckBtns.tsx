@@ -12,6 +12,7 @@ import clsx from 'clsx'
 import s from './RowDeckBtns.module.scss'
 
 type Props = {
+  className?: string
   item: Deck
   meData: any
   openDeleteModalHandler: (value: boolean) => void
@@ -20,6 +21,7 @@ type Props = {
 }
 
 export const RowDeckBtns = ({
+  className,
   item,
   meData,
   openDeleteModalHandler,
@@ -43,7 +45,7 @@ export const RowDeckBtns = ({
   return (
     <>
       {item.userId === meData.id ? (
-        <div className={s.iconBtns}>
+        <div className={clsx(s.iconBtns, className)}>
           <Button className={clsx(s.btn, s.private)} onClick={updateDeckHandler}>
             {item?.isPrivate ? (
               <PrivacyMask className={s.privateIcon} />
@@ -64,7 +66,7 @@ export const RowDeckBtns = ({
           </Button>
         </div>
       ) : (
-        <div className={s.iconBtns}>
+        <div className={clsx(s.iconBtns, className)}>
           <FavoriteBtn item={item} />
           <LearnBtn item={item} />
         </div>
