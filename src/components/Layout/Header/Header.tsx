@@ -36,88 +36,42 @@ const Header = ({ data }: HeaderProps) => {
     <div className={clsx(style.box, theme === 'sun' ? style.sun : '')}>
       <div className={style.wrapper}>
         <div className={style.boxImg}>
-          {/*! Фиолетовые*/}
-          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
-          {/*  <CardsMemoizeLogo className={style.img} />*/}
-          {/*</Typography>*/}
-          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
-          {/*  <CardsMemoizeLogoMinimalisticDolzhenkov className={style.img} />*/}
-          {/*</Typography>*/}
-          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
-          {/*  <CardMemoLogo className={style.img} />*/}
-          {/*</Typography>*/}
-          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
-          {/*  <CardMemoLogoMinimalisticGolden className={style.img} />*/}
-          {/*</Typography>*/}
-          {/*! Золотые*/}
           <Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>
-            <CardMemoLogoGolden className={style.img} />
+            <div className={'my-first-step'}>
+              <CardMemoLogoGolden className={style.img} />
+            </div>
           </Typography>
-          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
-          {/*  <CardMemoLogoMinimalisticGolden className={style.img} />*/}
-          {/*</Typography>*/}
-          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
-          {/*  <CardsMemoizeLogoGolden className={style.img} />*/}
-          {/*</Typography>*/}
-          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
-          {/*  <CardsMemoizeLogoMinimalisticGolden className={style.img} />*/}
-          {/*</Typography>*/}
-          {/*<Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>*/}
-          {/*  <CardsMemoizeLogoMinimalisticDolzhenkovGolden className={style.img} />*/}
-          {/*</Typography>*/}
-          <LocaleSwitcherDrop />
-          <ChangeTheme />
+          <div className={'my-two-step'}>
+            <LocaleSwitcherDrop />
+          </div>
+
+          <div className={'my-three-step'}>
+            <ChangeTheme />
+          </div>
         </div>
         {data && (
           <div className={style.profile}>
             <Typography as={Link} className={style.name} to={`${path.profile}`} variant={'h2'}>
               {data.name}
             </Typography>
-
-            <DropdownMenuDemo className={style.dropDown} data={data} type={'head'}>
-              <DropDownItem
-                handleOnClick={setDeckQueryHandler}
-                href={`${path.profile}`}
-                icon={<PersonOutline />}
-                text={t('header.myProfile')}
-              />
-              <DropDownItem
-                handleOnClick={logoutHandler}
-                href={`${path.login}`}
-                icon={<LogOut />}
-                text={t('header.signOut')}
-              />
-            </DropdownMenuDemo>
+            <div className={'my-four-step'}>
+              <DropdownMenuDemo className={style.dropDown} data={data} type={'head'}>
+                <DropDownItem
+                  handleOnClick={setDeckQueryHandler}
+                  href={`${path.profile}`}
+                  icon={<PersonOutline />}
+                  text={t('header.myProfile')}
+                />
+                <DropDownItem
+                  handleOnClick={logoutHandler}
+                  href={`${path.login}`}
+                  icon={<LogOut />}
+                  text={t('header.signOut')}
+                />
+              </DropdownMenuDemo>
+            </div>
           </div>
         )}
-        {/*{data ? (*/}
-        {/*  <div className={style.profile}>*/}
-        {/*    <Typography as={Link} className={style.name} to={`${path.profile}`} variant={'h2'}>*/}
-        {/*      {data.name}*/}
-        {/*    </Typography>*/}
-
-        {/*    <DropdownMenuDemo className={style.dropDown} data={data} type={'head'}>*/}
-        {/*      <DropDownItem*/}
-        {/*        handleOnClick={setDeckQueryHandler}*/}
-        {/*        href={`${path.profile}`}*/}
-        {/*        icon={<PersonOutline />}*/}
-        {/*        text={t('header.myProfile')}*/}
-        {/*      />*/}
-        {/*      <DropDownItem*/}
-        {/*        handleOnClick={logoutHandler}*/}
-        {/*        href={`${path.login}`}*/}
-        {/*        icon={<LogOut />}*/}
-        {/*        text={t('header.signOut')}*/}
-        {/*      />*/}
-        {/*    </DropdownMenuDemo>*/}
-        {/*  </div>*/}
-        {/*) : (*/}
-        {/*  <div className={style.buttonBox}>*/}
-        {/*    <Button as={Link} className={style.button} to={`${path.login}`}>*/}
-        {/*      {t('header.signIn')}*/}
-        {/*    </Button>*/}
-        {/*  </div>*/}
-        {/*)}*/}
       </div>
     </div>
   )

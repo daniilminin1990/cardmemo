@@ -32,11 +32,14 @@ import { path } from '@/router/path'
 import { router } from '@/router/router'
 import { Deck } from '@/services/decks/deck.types'
 import { useDeleteDeckMutation, useGetDecksQuery } from '@/services/decks/decks.service'
+import MyJoyRide from '@/stepsForHelp/myJoyRide'
+import { clsx } from 'clsx'
 
 import s from '@/Pages/DecksPage/decksPage.module.scss'
 
 export function DecksPage() {
   const { t } = useTranslation()
+  const [run, setRun] = useState(false)
   const {
     clearQuery,
     currentOrderBy,
@@ -61,22 +64,17 @@ export function DecksPage() {
   const { authorId, favoritedBy, setTabsValue, setTabsValueQuery, tabsValue } =
     useTabsValuesParams()
   const [deleteDeck] = useDeleteDeckMutation()
-  // const { data: meData, isLoading: meIsLoading } = useMeQuery()
-  const { currentData, data, isFetching, isLoading } = useGetDecksQuery(
-    {
-      authorId: authorId || '',
-      currentPage,
-      favoritedBy: favoritedBy || '',
-      itemsPerPage,
-      maxCardsCount: debouncedEndValue,
-      minCardsCount: debouncedStartValue,
-      name: debouncedSearchValue,
-      orderBy: currentOrderBy,
-    }
-    // { skip: !meData && !minMaxData }
-  )
+  const { currentData, data, isFetching, isLoading } = useGetDecksQuery({
+    authorId: authorId || '',
+    currentPage,
+    favoritedBy: favoritedBy || '',
+    itemsPerPage,
+    maxCardsCount: debouncedEndValue,
+    minCardsCount: debouncedStartValue,
+    name: debouncedSearchValue,
+    orderBy: currentOrderBy,
+  })
 
-  // ! Определение максимальной возможной страницы
   useEffect(() => {
     if (currentData) {
       const maxNumberOfPages = Math.ceil((currentData.pagination.totalItems ?? 0) / itemsPerPage)
@@ -122,13 +120,6 @@ export function DecksPage() {
   }
 
   const handleItemsPerPageChange = (value: number) => {
-    //! Убрал установку на 1, изменил на определение последней возможной страницы
-    // setCurrentPageQuery(Number(initCurrentPage))
-    // const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 0) / value)
-    //
-    // if (maxNumberOfPages < currentPage) {
-    //   setCurrentPageQuery(maxNumberOfPages)
-    // }
     setItemsPerPageQuery(value)
   }
   const handleCurrentPageChange = (value: number) => {
@@ -141,6 +132,7 @@ export function DecksPage() {
 
   return (
     <>
+      <MyJoyRide run={run} setRun={setRun} />
       {isFetching && <LoadingBar />}
       <ModalAddEditDeck item={deckItem} open={isUpdateModal} setOpen={setIsUpdateModal} />
       <DeleteModal
@@ -159,26 +151,36 @@ export function DecksPage() {
             <Typography as={'h1'} variant={'h1'}>
               {t('decksPage.decksList')}
             </Typography>
-            <Button onClick={() => setIsCreateModal(true)} variant={'primary'}>
-              <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
-            </Button>
+            <div className={'my-nine-step'}>
+              <Button onClick={() => setIsCreateModal(true)} variant={'primary'}>
+                <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
+              </Button>
+            </div>
           </div>
+          <Button className={s.buttonHelp} onClick={() => setRun(!run)}>
+            {t('help.help')}
+          </Button>
           <div className={s.filters}>
-            <Input
-              callback={setSearchQuery}
-              className={s.input}
-              currentValue={search}
-              onChange={handleSearchChange}
-              type={'search'}
-            />
-            <TabSwitcher
-              className={s.tabsSwitcher}
-              label={t('decksPage.showDecksCards')}
-              onValueChange={handleTabsSwitch}
-              tabs={tabsValuesData}
-              value={tabsValue}
-            />
-            <div className={s.sliderBox}>
+            <div className={clsx(s.boxForInput, 'my-five-step')}>
+              <Input
+                callback={setSearchQuery}
+                className={s.input}
+                currentValue={search}
+                onChange={handleSearchChange}
+                type={'search'}
+              />
+            </div>
+            <div className={'my-six-step'}>
+              <TabSwitcher
+                className={s.tabsSwitcher}
+                label={t('decksPage.showDecksCards')}
+                onValueChange={handleTabsSwitch}
+                tabs={tabsValuesData}
+                value={tabsValue}
+              />
+            </div>
+
+            <div className={clsx(s.boxForSlider, 'my-seven-step')}>
               <Slider
                 className={s.slider}
                 label={t('decksPage.numberOfCards')}
@@ -188,10 +190,12 @@ export function DecksPage() {
                 value={[sliderMin, sliderMax]}
               />
             </div>
-            <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
-              <TrashOutline />
-              <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
-            </Button>
+            <div className={'my-eight-step'}>
+              <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
+                <TrashOutline />
+                <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
+              </Button>
+            </div>
           </div>
         </div>
         {isTabletOrMobile ? (
@@ -214,27 +218,29 @@ export function DecksPage() {
             })}
           </TableHeadMobile>
         ) : (
-          <TableComponentWithTypes
-            data={decksData}
-            isFetching={isFetching}
-            isLoading={isLoading}
-            tableHeader={headersNameDecks}
-          >
-            {decksData?.map(deck => {
-              return (
-                <SingleRowDeck
-                  item={deck}
-                  key={deck.id}
-                  openDeleteModalHandler={setIsDeleteModal}
-                  openEditModalHandler={setIsUpdateModal}
-                  retrieveDeckItem={setDeckItem}
-                />
-              )
-            })}
-          </TableComponentWithTypes>
+          <div className={'my-ten-step'}>
+            <TableComponentWithTypes
+              data={decksData}
+              isFetching={isFetching}
+              isLoading={isLoading}
+              tableHeader={headersNameDecks}
+            >
+              {decksData?.map(deck => {
+                return (
+                  <SingleRowDeck
+                    item={deck}
+                    key={deck.id}
+                    openDeleteModalHandler={setIsDeleteModal}
+                    openEditModalHandler={setIsUpdateModal}
+                    retrieveDeckItem={setDeckItem}
+                  />
+                )
+              })}
+            </TableComponentWithTypes>
+          </div>
         )}
 
-        <div className={s.footer}>
+        <div className={clsx(s.footer, 'my-twelve-step')}>
           <PaginationWithSelect
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}

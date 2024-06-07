@@ -35,7 +35,7 @@ export const RowDeckBtns = ({
   }
 
   return (
-    <>
+    <div className={'my-eleven-step'}>
       {item.userId === meData.id ? (
         <div className={clsx(s.iconBtns, className)}>
           <FavoriteBtn item={item} />
@@ -56,6 +56,6 @@ export const RowDeckBtns = ({
           <LearnBtn item={item} />
         </div>
       )}
-    </>
+    </div>
   )
 }

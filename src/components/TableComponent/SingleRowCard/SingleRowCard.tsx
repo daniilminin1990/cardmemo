@@ -33,7 +33,7 @@ export const SingleRowCard = ({
   const context = useContext(UserContext)
 
   if (!context) {
-    return
+    return null
   }
   const onDeleteCardHandler = () => {
     retrieveCardItem(item)
