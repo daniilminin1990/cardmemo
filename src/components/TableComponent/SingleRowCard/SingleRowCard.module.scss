@@ -21,35 +21,34 @@
   width: 118px;
   height: 48px;
 
-}
+  .coverImg {
+    width: 118px;
+    height: 48px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.2s;
 
-.wrapperCoverImg .coverImg {
-  width: 118px;
-  height: 48px;
+    &:not(.blur) {
+      &:hover {
+        position: relative;
+        z-index: 2;
+        transform: scale(1.6);
+        height: auto;
+        object-fit: cover;
 
-  object-fit: cover;
-  object-position: center;
+        ~ .blur {
+          transform: none;
+          filter: blur(3px);
+        }
+      }
+    }
+  }
 
-  transition: transform 0.2s;
-}
-
-.wrapperCoverImg .coverImg:not(.blur):hover {
-  position: relative;
-  z-index: 2;
-  transform: scale(1.6);
-  height: auto;
-  object-fit: cover;
-}
-
-.wrapperCoverImg .coverImg:not(.blur):hover ~ .blur {
-  transform: none;
-  filter: blur(3px);
-}
-.wrapperCoverImg .withImg:not(.blur):hover {
-
-  transform: none;
-  filter: none;
-  height: 48px;
+  .withImg:not(.blur):hover {
+    transform: none;
+    filter: none;
+    height: 48px;
+  }
 }
 
 .grade {
