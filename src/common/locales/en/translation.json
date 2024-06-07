@@ -115,7 +115,8 @@
     "deleteDeck": "Delete Deck",
     "isDeleteDeck": "Do you really want to delete deck? All cards will be deleted.",
     "deleteCard": "Delete Card",
-    "isDeleteCard": "Do you really want to delete card? All data will be deleted."
+    "isDeleteCard": "Do you really want to delete card? All data will be deleted.",
+    "noResultsFound": "No results found with this terms. Try to change filters."
   },
   "modalAddEditCard": {
     "updateCard": "Update Card",
@@ -156,6 +157,42 @@
     "haveAccount": "Already have an account?",
     "signIn": "Sign In",
     "submit": "Submit"
+  },
+  "successApiResponse": {
+    "update": {
+      "deck": "Deck updated!",
+      "card": "Card updated",
+      "profile": "Profile updated"
+    },
+    "loggedIn": "Logged in!",
+    "logOut": "Logged out!",
+    "creation": {
+      "deck": "Deck created",
+      "card": "Card created"
+    },
+    "deletion": {
+      "deck": "Deck deleted",
+      "card": "Card deleted"
+    },
+    "deleted": "Deleted!",
+    "favorites": "In favorites!",
+    "deleteFavorites": "Removed from favorites!",
+    "registrationSuccessful": "Registered",
+    "commonInfo": {
+      "equal": {
+        "deckName": "Deck name is equal to previous.",
+        "deckImg": "Image is equal to previous.",
+        "common": "Deck name and cover image are equal to previous.",
+        "success": "It is ok, just let you know 👌"
+      },
+      "clearFilters": "All filters reset!",
+      "setGrade": "Set Grade!",
+      "nothingLearn": "Add card before learning!"
+    }
+  },
+  "failedApiResponse": {
+    "network": "Please check the network and try again or later!",
+    "unknown": "Try again later"
   },
   "help": {
     "help": "Help",

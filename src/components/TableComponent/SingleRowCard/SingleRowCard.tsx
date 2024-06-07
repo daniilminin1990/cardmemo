@@ -60,6 +60,11 @@ export const SingleRowCard = ({
     <Table.Row>
       <Table.Cell>
         <div className={s.imgWrapper}>
+          {/*{item.questionImg && (*/}
+          {/*  <div className={s.wrapperCoverImg}>*/}
+          {/*    <img alt={'default card img'} className={s.coverImg} src={item.questionImg} />*/}
+          {/*  </div>*/}
+          {/*)}*/}
           <div className={s.wrapperCoverImg}>
             <img
               alt={'default card img'}
@@ -89,7 +94,6 @@ export const SingleRowCard = ({
               />
             </div>
           </div>
-
           <Typography>{item.answer}</Typography>
         </div>
       </Table.Cell>

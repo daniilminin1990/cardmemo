@@ -29,6 +29,10 @@
       fill: var(--color-success-300);
     }
   }
+
+  .imgHidden {
+    display: none;
+  }
 }
 
 .logo:focus-visible {

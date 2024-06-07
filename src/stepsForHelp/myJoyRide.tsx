@@ -26,7 +26,7 @@ const MyJoyRide = (props: MyJoyRideProps) => {
   return (
     <Joyride
       callback={handleJoyrideCallback}
-      debug
+      continuous
       locale={{
         back: t('controlButtons.back'),
         close: t('controlButtons.close'),

@@ -303,7 +303,7 @@ export const emailRecoveringTemplate = `
 <div dir="ltr" class="es-wrapper-color" lang="und" style="background-color:#F4F4F4; padding-bottom: 100px"><!--[if gte mso 9]>
   <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
     <v:fill type="tile" color="#f4f4f4"></v:fill>
-  </v:background> 
+  </v:background>
   <![endif]-->
   <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0"
          style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#F4F4F4">
@@ -324,11 +324,11 @@ export const emailRecoveringTemplate = `
     <tr>
       <td valign="top" style="padding:0;Margin:0">
         <table class="es-header" cellspacing="0" cellpadding="0" align="center"
-               style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%;table-layout:fixed !important;background-color:#7C72DC;background-repeat:repeat;background-position:center top">
+               style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%;table-layout:fixed !important;background-color:#171717;background-repeat:repeat;background-position:center top">
           <tr>
-            <td style="padding:0;Margin:0;background-color:#7c72dc" bgcolor="#7c72dc" align="center">
+            <td style="padding:0;Margin:0;background-color:#171717" bgcolor="#171717" align="center">
               <table class="es-header-body" cellspacing="0" cellpadding="0" align="center"
-                     style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#7C72DC;width:600px">
+                     style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#171717;width:600px">
                 <tr>
                   <td align="left"
                       style="Margin:0;padding-top:20px;padding-right:10px;padding-bottom:10px;padding-left:10px">
@@ -342,7 +342,7 @@ export const emailRecoveringTemplate = `
                               <td align="center"
                                   style="Margin:0;padding-right:10px;padding-left:10px;padding-top:25px;padding-bottom:25px;font-size:0px">
                                 <img
-                                  src="https://eblzyfl.stripocdn.email/content/guids/CABINET_d16ad340a4e02f6f2bd727ea1c9a00393184673ff05a401b551d56cd4fe2a909/images/logo.png"
+                                  src="${appDeploy}/assets/cardMemoLogoGolden-BlBNefYi.png"
                                   alt="" style="display:block;font-size:18px;border:0;outline:none;text-decoration:none"
                                   height="84"></td>
                             </tr>
@@ -359,7 +359,7 @@ export const emailRecoveringTemplate = `
         <table class="es-content" cellspacing="0" cellpadding="0" align="center"
                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%;table-layout:fixed !important">
           <tr>
-            <td style="padding:0;Margin:0;background-color:#7c72dc" bgcolor="#7c72dc" align="center">
+            <td style="padding:0;Margin:0;background-color:#171717" bgcolor="#171717" align="center">
               <table class="es-content-body"
                      style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px"
                      cellspacing="0" cellpadding="0" align="center">
@@ -443,11 +443,11 @@ export const emailRecoveringTemplate = `
                               <td align="center"
                                   style="Margin:0;padding-right:10px;padding-left:10px;padding-top:40px;padding-bottom:40px">
                                 <span class="es-button-border"
-                                      style="border-style:solid;border-color:#7C72DC;background:#7C72DC;border-width:1px;display:block;border-radius:6px;width:auto"><a
-        
+                                      style="border-style:solid;border-color:#171717;background:#171717;border-width:1px;display:block;border-radius:6px;width:auto"><a
+
                                   href="${appDeploy}${path.createNewPassword}/##token##"
                                   class="es-button" target="_blank"
-                                  style="mso-style-priority:100 !important;text-decoration:none !important;mso-line-height-rule:exactly;color:#FFFFFF;font-size:20px;padding:15px 5px 10px;display:block;background:#7C72DC;border-radius:6px;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center;letter-spacing:0;mso-padding-alt:0;mso-border-alt:10px solid #7C72DC">Reset Password</a></span>
+                                  style="mso-style-priority:100 !important;text-decoration:none !important;mso-line-height-rule:exactly;color:#FFFFFF;font-size:20px;padding:15px 5px 10px;display:block;background:#171717;border-radius:6px;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center;letter-spacing:0;mso-padding-alt:0;mso-border-alt:10px solid #171717">Reset Password</a></span>
                               </td>
                             </tr>
                           </table>

@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify'
 
 import { useThrottle } from '@/hooks/useThrottle'
+import i18n from 'i18next'
 
 import s from '../../styles/toastStyles.module.scss'
 
@@ -27,5 +28,7 @@ export const handleToastInfo = (message: string, autoClose: number = 3000) => {
 
 // eslint-disable-next-line react-hooks/rules-of-hooks
 export const throttledToastError = useThrottle(() => {
-  handleToastError(`Please check the network and try again or later!`)
+  const t = i18n.t
+
+  handleToastError(`${t('failedApiResponse.network')}`)
 }, 3000)

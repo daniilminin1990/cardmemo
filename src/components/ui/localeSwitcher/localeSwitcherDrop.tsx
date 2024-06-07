@@ -54,11 +54,11 @@ const LocaleSwitcherDrop = () => {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <button aria-label={'Update dimensions'} className={s.IconButton}>
+      <DropdownMenu.Trigger asChild>
+        <div aria-label={'Update dimensions'} className={s.IconButton} tabIndex={0}>
           <img alt={'Country flag'} className={s.flag} height={30} src={iconFlag} width={40} />
           <ArrowIosDownOutline className={s.iconArrowDown} />
-        </button>
+        </div>
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content className={s.DropdownMenuContent} sideOffset={3}>

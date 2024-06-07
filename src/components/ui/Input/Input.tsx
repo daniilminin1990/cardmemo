@@ -72,7 +72,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
     case 'password':
       classNameForInput = error
         ? clsx(s.boxInput, s.boxPadding, s.errorTextAndPassword)
-        : s.boxInput
+        : clsx(s.boxInput, inputValue.length === 0 && s.placeholder)
       break
     default:
       classNameForInput = s.boxInput
@@ -88,6 +88,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
         {type !== 'search' && label}
       </Typography>
       <div className={s.searchClose}>
+        {type === 'search' && (
+          <div>
+            <Search className={s.Search} onClick={focusOnInput} viewBox={'0 0 24 24'} />
+          </div>
+        )}
         <input
           {...restProps}
           className={classNameForInput}
@@ -102,9 +107,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) 
           <Button className={s.Eye} onClick={isShowChangeHandler} type={'button'}>
             <EyeIcon viewBox={'0 0 24 24'} />
           </Button>
-        )}
-        {type === 'search' && (
-          <Search className={s.Search} onClick={focusOnInput} viewBox={'0 0 24 24'} />
         )}
 
         <div>

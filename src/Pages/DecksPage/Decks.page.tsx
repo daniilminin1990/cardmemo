@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useMediaQuery } from 'react-responsive'
 import { useParams } from 'react-router-dom'
@@ -24,6 +24,7 @@ import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithS
 import Slider from '@/components/ui/Slider/Slider'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
+import { UserContext } from '@/components/ui/changeTheme/Context'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { useSliderQueryParams } from '@/hooks/useSliderQueryParams'
@@ -31,7 +32,11 @@ import { useTabsValuesParams } from '@/hooks/useTabsValuesParams'
 import { path } from '@/router/path'
 import { router } from '@/router/router'
 import { Deck } from '@/services/decks/deck.types'
-import { useDeleteDeckMutation, useGetDecksQuery } from '@/services/decks/decks.service'
+import {
+  useDeleteDeckMutation,
+  useGetDecksQuery,
+  useGetFavoritesDecksCountQuery,
+} from '@/services/decks/decks.service'
 import MyJoyRide from '@/stepsForHelp/myJoyRide'
 import { clsx } from 'clsx'
 
@@ -40,6 +45,7 @@ import s from '@/Pages/DecksPage/decksPage.module.scss'
 export function DecksPage() {
   const { t } = useTranslation()
   const [run, setRun] = useState(false)
+  const context = useContext(UserContext)
   const {
     clearQuery,
     currentOrderBy,
@@ -64,6 +70,7 @@ export function DecksPage() {
   const { authorId, favoritedBy, setTabsValue, setTabsValueQuery, tabsValue } =
     useTabsValuesParams()
   const [deleteDeck] = useDeleteDeckMutation()
+  // const { data: meData, isLoading: meIsLoading } = useMeQuery()
   const { currentData, data, isFetching, isLoading } = useGetDecksQuery({
     authorId: authorId || '',
     currentPage,
@@ -74,6 +81,7 @@ export function DecksPage() {
     name: debouncedSearchValue,
     orderBy: currentOrderBy,
   })
+  const { data: favoriteCounts } = useGetFavoritesDecksCountQuery()
 
   useEffect(() => {
     if (currentData) {
@@ -114,9 +122,9 @@ export function DecksPage() {
   }
 
   const onClearFilter = () => {
-    setTabsValue(tabsValuesData[1].value)
+    setTabsValue(tabsValuesData[1].locale)
     clearQuery()
-    handleToastInfo('All filters reset!', 2000)
+    handleToastInfo(`${t('successApiResponse.commonInfo.clearFilters')}`, 2000)
   }
 
   const handleItemsPerPageChange = (value: number) => {
@@ -171,13 +179,18 @@ export function DecksPage() {
               />
             </div>
             <div className={'my-six-step'}>
-              <TabSwitcher
-                className={s.tabsSwitcher}
-                label={t('decksPage.showDecksCards')}
-                onValueChange={handleTabsSwitch}
-                tabs={tabsValuesData}
-                value={tabsValue}
-              />
+              <div className={s.tabsContainer}>
+                <TabSwitcher
+                  className={s.tabsSwitcher}
+                  label={t('decksPage.showDecksCards')}
+                  onValueChange={handleTabsSwitch}
+                  tabs={tabsValuesData}
+                  value={tabsValue}
+                />
+                <div className={clsx(s.countsFav, context?.theme === 'sun' ? s.sun : '')}>
+                  {favoriteCounts}
+                </div>
+              </div>
             </div>
 
             <div className={clsx(s.boxForSlider, 'my-seven-step')}>

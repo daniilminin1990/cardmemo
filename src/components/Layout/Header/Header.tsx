@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import CardMemoLogoGolden from '@/assets/icons/svg/CardMemo/CardMemoLogoGolden'
 import LogOut from '@/assets/icons/svg/LogOut'
 import PersonOutline from '@/assets/icons/svg/PersonOutline'
+import CardMemoLogoGoldenPng from '@/assets/img/cardMemoLogoGolden.png'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Typography from '@/components/ui/Typography/Typography'
@@ -39,6 +40,11 @@ const Header = ({ data }: HeaderProps) => {
           <Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>
             <div className={'my-first-step'}>
               <CardMemoLogoGolden className={style.img} />
+              <img
+                alt={'cardMemoLogoGoldenPng'}
+                className={style.imgHidden}
+                src={CardMemoLogoGoldenPng}
+              />
             </div>
           </Typography>
           <div className={'my-two-step'}>

@@ -52,7 +52,8 @@ export const LearnPage = () => {
           setValue('grade', null)
         })
         .catch(() => {
-          data.grade === null && handleToastWarning(`Set grade!`)
+          data.grade === null &&
+            handleToastWarning(`${t(`successApiResponse.commonInfo.setGrade`)}`)
         }))
   }
   const showAnswerHandler = () => {
