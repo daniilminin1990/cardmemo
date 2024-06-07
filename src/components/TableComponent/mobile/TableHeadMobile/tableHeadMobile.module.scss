@@ -1,0 +1,40 @@
+@import 'src/styles/mixins';
+
+.title {
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+  padding-left: 5px;
+}
+
+.box {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.btn {
+  padding: 0;
+  outline: 0;
+  border: 0;
+}
+
+.boxItem {
+  @include focus-visible-default;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--color-dark-300);
+  cursor: pointer;
+}
+
+.arrow {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.5s;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}

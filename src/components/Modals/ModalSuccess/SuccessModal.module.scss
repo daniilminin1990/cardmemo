@@ -5,6 +5,10 @@
 
   width: 420px;
 
+  @media (max-width: 767px) {
+    width: 100vw;
+  }
+
   div {
     display: flex;
     flex-flow: column nowrap;

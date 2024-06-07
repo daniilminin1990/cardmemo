@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useMediaQuery } from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
@@ -14,6 +15,8 @@ import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddE
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
 import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
+import { TableDeckMobile } from '@/components/TableComponent/mobile/TableDeckMobile/TableDeckMobile'
+import { TableHeadMobile } from '@/components/TableComponent/mobile/TableHeadMobile/TableHeadMobile'
 import Input from '@/components/ui/Input/Input'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
@@ -134,6 +137,8 @@ export function DecksPage() {
 
   const decksData = currentData?.items ?? data?.items
 
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
+
   return (
     <>
       {isFetching && <LoadingBar />}
@@ -189,24 +194,46 @@ export function DecksPage() {
             </Button>
           </div>
         </div>
-        <TableComponentWithTypes
-          data={decksData}
-          isFetching={isFetching}
-          isLoading={isLoading}
-          tableHeader={headersNameDecks}
-        >
-          {decksData?.map(deck => {
-            return (
-              <SingleRowDeck
-                item={deck}
-                key={deck.id}
-                openDeleteModalHandler={setIsDeleteModal}
-                openEditModalHandler={setIsUpdateModal}
-                retrieveDeckItem={setDeckItem}
-              />
-            )
-          })}
-        </TableComponentWithTypes>
+        {isTabletOrMobile ? (
+          <TableHeadMobile
+            data={decksData}
+            isFetching={isFetching}
+            isLoading={isLoading}
+            tableHeader={headersNameDecks}
+          >
+            {decksData?.map(deck => {
+              return (
+                <TableDeckMobile
+                  item={deck}
+                  key={deck.id}
+                  openDeleteModalHandler={setIsDeleteModal}
+                  openEditModalHandler={setIsUpdateModal}
+                  retrieveDeckItem={setDeckItem}
+                />
+              )
+            })}
+          </TableHeadMobile>
+        ) : (
+          <TableComponentWithTypes
+            data={decksData}
+            isFetching={isFetching}
+            isLoading={isLoading}
+            tableHeader={headersNameDecks}
+          >
+            {decksData?.map(deck => {
+              return (
+                <SingleRowDeck
+                  item={deck}
+                  key={deck.id}
+                  openDeleteModalHandler={setIsDeleteModal}
+                  openEditModalHandler={setIsUpdateModal}
+                  retrieveDeckItem={setDeckItem}
+                />
+              )
+            })}
+          </TableComponentWithTypes>
+        )}
+
         <div className={s.footer}>
           <PaginationWithSelect
             currentPage={currentPage}

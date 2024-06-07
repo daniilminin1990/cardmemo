@@ -4,3 +4,16 @@
 .firstText {
   margin-right: 1rem;
 }
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 10px;
+}
+
+.boxItem {
+  display: flex;
+  align-items: center;
+}
