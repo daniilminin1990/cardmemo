@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 
+import defaultCard from '@/assets/img/defaultCard.jpg'
 import { RowDeckBtns } from '@/components/TableComponent/SingleRowDeck/btns/RowDeckBtns'
 import Typography from '@/components/ui/Typography/Typography'
 import { Table } from '@/components/ui/table'
@@ -40,11 +41,18 @@ export const SingleRowDeck = ({
           onClick={setDeckQueryHandler}
           to={`${path.decks}/${item.id}`}
         >
-          {item.cover && (
-            <div className={s.wrapperCoverImg}>
-              <img alt={'default card img'} className={s.coverImg} src={item.cover} />
-            </div>
-          )}
+          {/*{item.cover && (*/}
+          {/*  <div className={s.wrapperCoverImg}>*/}
+          {/*    <img alt={'default card img'} className={s.coverImg} src={item.cover} />*/}
+          {/*  </div>*/}
+          {/*)}*/}
+          <div className={s.wrapperCoverImg}>
+            <img
+              alt={'default card img'}
+              className={clsx(s.coverImg, item?.cover && s.withImg)}
+              src={item.cover ? item.cover : defaultCard}
+            />
+          </div>
           {item.name}
         </Typography>
       </Table.Cell>

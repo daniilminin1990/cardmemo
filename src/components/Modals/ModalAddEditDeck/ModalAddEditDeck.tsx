@@ -111,7 +111,13 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
                   <Typography variant={'subtitle2'}>{t('modalAddEditDeck.removeCover')}</Typography>
                 </Button>
               )}
-              <Button className={s.uploadImg} fullWidth onClick={handleSubmitImg} type={'button'}>
+              <Button
+                className={s.uploadImg}
+                fullWidth
+                onClick={handleSubmitImg}
+                type={'button'}
+                variant={'secondary'}
+              >
                 <ImageOutline className={s.icon} />
                 <Typography variant={'subtitle2'}>
                   {preview
@@ -131,7 +137,7 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
             </div>
             <FormCheckbox
               control={control}
-              defaultChecked={item?.isPrivate}
+              defaultChecked={item ? item?.isPrivate : false}
               label={t('modalAddEditDeck.private')}
               name={'isPrivate'}
             />

@@ -84,12 +84,24 @@ export const DataFiller = memo((props: DataFillerProps) => {
       )}
       <div className={s.buttonsWrapper}>
         {preview && (
-          <Button className={s.uploadImg} fullWidth onClick={handleRemoveImgs} type={'button'}>
+          <Button
+            className={s.uploadImg}
+            fullWidth
+            onClick={handleRemoveImgs}
+            type={'button'}
+            variant={'secondary'}
+          >
             <TrashOutline className={s.icon} />
             <Typography variant={'subtitle2'}>{t('dataFiller.removeCover')}</Typography>
           </Button>
         )}
-        <Button className={s.uploadImg} fullWidth onClick={handleSubmitImg} type={'button'}>
+        <Button
+          className={s.uploadImg}
+          fullWidth
+          onClick={handleSubmitImg}
+          type={'button'}
+          variant={'secondary'}
+        >
           <ImageOutline className={s.icon} />
           <Typography variant={'subtitle2'}>
             {preview ? `${t('dataFiller.changeCover')}` : `${t('dataFiller.uploadImage')}`}
