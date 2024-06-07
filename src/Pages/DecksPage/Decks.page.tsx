@@ -31,7 +31,11 @@ import { useTabsValuesParams } from '@/hooks/useTabsValuesParams'
 import { path } from '@/router/path'
 import { router } from '@/router/router'
 import { Deck } from '@/services/decks/deck.types'
-import { useDeleteDeckMutation, useGetDecksQuery } from '@/services/decks/decks.service'
+import {
+  useDeleteDeckMutation,
+  useGetDecksQuery,
+  useGetFavoritesDecksCountQuery,
+} from '@/services/decks/decks.service'
 
 import s from '@/Pages/DecksPage/decksPage.module.scss'
 
@@ -75,6 +79,7 @@ export function DecksPage() {
     }
     // { skip: !meData && !minMaxData }
   )
+  const { data: favoriteCounts } = useGetFavoritesDecksCountQuery()
 
   // ! Определение максимальной возможной страницы
   useEffect(() => {
@@ -122,13 +127,6 @@ export function DecksPage() {
   }
 
   const handleItemsPerPageChange = (value: number) => {
-    //! Убрал установку на 1, изменил на определение последней возможной страницы
-    // setCurrentPageQuery(Number(initCurrentPage))
-    // const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 0) / value)
-    //
-    // if (maxNumberOfPages < currentPage) {
-    //   setCurrentPageQuery(maxNumberOfPages)
-    // }
     setItemsPerPageQuery(value)
   }
   const handleCurrentPageChange = (value: number) => {
@@ -171,13 +169,17 @@ export function DecksPage() {
               onChange={handleSearchChange}
               type={'search'}
             />
-            <TabSwitcher
-              className={s.tabsSwitcher}
-              label={t('decksPage.showDecksCards')}
-              onValueChange={handleTabsSwitch}
-              tabs={tabsValuesData}
-              value={tabsValue}
-            />
+            <div className={s.tabsContainer}>
+              <TabSwitcher
+                className={s.tabsSwitcher}
+                label={t('decksPage.showDecksCards')}
+                onValueChange={handleTabsSwitch}
+                tabs={tabsValuesData}
+                value={tabsValue}
+              />
+              <div className={s.countsFav}>{favoriteCounts}</div>
+            </div>
+
             <div className={s.sliderBox}>
               <Slider
                 className={s.slider}
