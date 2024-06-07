@@ -32,6 +32,8 @@
 }
 
 .filters {
+  position: relative;
+
   display: flex;
   flex-flow: row nowrap;
 
@@ -46,7 +48,24 @@
   }
 }
 
-.tabsSwitcher {
+.tabsContainer {
+  position: relative;
+}
+
+.countsFav {
+  position: absolute;
+  top: 20px;
+  right: -10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  background-color: var(--color-accent-500);
+  border-radius: 50%;
 }
 
 .sliderBox {
@@ -72,9 +91,10 @@
 
 .clearFilter {
   display: flex;
+  gap: 5px;
   align-items: center;
   justify-content: space-between;
-  gap: 5px;
+
   height: 36px;
 
   white-space: nowrap;
@@ -107,7 +127,6 @@
 }
 
 .tabsSwitcher {
-
 }
 
 .footer {
