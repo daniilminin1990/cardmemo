@@ -1,6 +1,8 @@
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Typography from '@/components/ui/Typography/Typography'
+import { UserContext } from '@/components/ui/changeTheme/Context'
 import * as Tabs from '@radix-ui/react-tabs'
 import { clsx } from 'clsx'
 
@@ -23,7 +25,7 @@ type Props = {
 
 export const TabSwitcher = ({ className, label, onValueChange, tabs, value }: Props) => {
   const { t: tab } = useTranslation()
-  const theme = localStorage.getItem('theme')
+  const context = useContext(UserContext)
 
   return (
     <div className={clsx(s.div, className)}>
@@ -37,8 +39,7 @@ export const TabSwitcher = ({ className, label, onValueChange, tabs, value }: Pr
         <Tabs.List className={s.tabList}>
           {tabs.map(t => (
             <Tabs.Trigger
-              // asChild
-              className={clsx(s.trigger, theme === 'sun' ? s.sun : '')}
+              className={clsx(s.trigger, context?.theme === 'sun' ? s.sun : '')}
               disabled={t.disabled}
               key={t.value}
               // value={t.value}

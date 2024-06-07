@@ -106,6 +106,7 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
                     setCover(null)
                   }}
                   type={'button'}
+                  variant={'secondary'}
                 >
                   <TrashOutline className={s.icon} />
                   <Typography variant={'subtitle2'}>{t('modalAddEditDeck.removeCover')}</Typography>

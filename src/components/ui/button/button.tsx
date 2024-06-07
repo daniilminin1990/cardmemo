@@ -5,8 +5,10 @@ import {
   ForwardedRef,
   ReactNode,
   forwardRef,
+  useContext,
 } from 'react'
 
+import { UserContext } from '@/components/ui/changeTheme/Context'
 import clsx from 'clsx'
 
 import s from './button.module.scss'
@@ -23,7 +25,7 @@ export const ButtonPolymorph = <T extends ElementType = 'button'>(
   props: ButtonProps<T>,
   ref: any
 ) => {
-  const theme = localStorage.getItem('theme')
+  const context = useContext(UserContext)
   const { as: Component = 'button', className, fullWidth, variant = 'primary', ...rest } = props
 
   return (
@@ -32,7 +34,7 @@ export const ButtonPolymorph = <T extends ElementType = 'button'>(
       className={clsx(
         s.button,
         s[variant],
-        theme === 'sun' ? s.sun : '',
+        context?.theme === 'sun' ? s.sun : '',
         fullWidth && s.fullWidth,
         className
       )}
