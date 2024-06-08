@@ -60,7 +60,8 @@
 .wrapperCoverImg {
   position: relative;
   .coverImg {
-    width: 120px;
+    max-width: 200px;
+    width: 100%;
     position: relative;
 
     object-fit: cover;
