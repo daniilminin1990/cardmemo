@@ -38,7 +38,7 @@ const Header = ({ data }: HeaderProps) => {
       <div className={style.wrapper}>
         <div className={style.boxImg}>
           <Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>
-            <div className={'my-first-step'}>
+            <div className={'step-go-home'}>
               <CardMemoLogoGolden className={style.img} />
               <img
                 alt={'cardMemoLogoGoldenPng'}
@@ -47,11 +47,11 @@ const Header = ({ data }: HeaderProps) => {
               />
             </div>
           </Typography>
-          <div className={'my-two-step'}>
+          <div className={'step-select-language'}>
             <LocaleSwitcherDrop />
           </div>
 
-          <div className={'my-three-step'}>
+          <div className={'step-change-theme'}>
             <ChangeTheme />
           </div>
         </div>
@@ -60,7 +60,7 @@ const Header = ({ data }: HeaderProps) => {
             <Typography as={Link} className={style.name} to={`${path.profile}`} variant={'h2'}>
               {data.name}
             </Typography>
-            <div className={'my-four-step'}>
+            <div className={'step-profile-drop-down'}>
               <DropdownMenuDemo className={style.dropDown} data={data} type={'head'}>
                 <DropDownItem
                   handleOnClick={setDeckQueryHandler}

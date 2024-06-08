@@ -35,7 +35,7 @@ export const RowDeckBtns = ({
   }
 
   return (
-    <div className={'my-eleven-step'}>
+    <div className={'step-edit-table-deck-btns'}>
       {item.userId === meData.id ? (
         <div className={clsx(s.iconBtns, className)}>
           <FavoriteBtn item={item} />

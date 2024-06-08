@@ -69,10 +69,11 @@
   width: 20px;
   height: 20px;
 
-  color: white;
-
   background-color: var(--color-accent-500);
   border-radius: 50%;
+  p {
+    color: white;
+  }
 }
 
 .sliderBox {

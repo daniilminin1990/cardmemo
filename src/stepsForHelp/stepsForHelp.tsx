@@ -5,56 +5,56 @@ export const useStepsForHelp = () => {
 
   const steps = [
     {
-      content: t('help.my-first-step'),
-      target: '.my-first-step',
+      content: t('help.step-go-home'),
+      target: '.step-go-home',
     },
     {
-      content: t('help.my-two-step'),
-      target: '.my-two-step',
+      content: t('help.step-select-language'),
+      target: '.step-select-language',
     },
     {
-      content: t('help.my-three-step'),
-      target: '.my-three-step',
+      content: t('help.step-change-theme'),
+      target: '.step-change-theme',
     },
     {
-      content: t('help.my-four-step'),
-      target: '.my-four-step',
+      content: t('help.step-profile-drop-down'),
+      target: '.step-profile-drop-down',
     },
     {
-      content: t('help.my-five-step'),
-      target: '.my-five-step',
+      content: t('help.step-add-new-deck'),
+      target: '.step-add-new-deck',
     },
     {
-      content: t('help.my-six-step'),
-      target: '.my-six-step',
+      content: t('help.step-search'),
+      target: '.step-search',
     },
     {
-      content: t('help.my-seven-step'),
-      target: '.my-seven-step',
+      content: t('help.step-tab-filter'),
+      target: '.step-tab-filter',
     },
     {
-      content: t('help.my-eight-step'),
-      target: '.my-eight-step',
+      content: t('help.step-slider-filter'),
+      target: '.step-slider-filter',
     },
     {
-      content: t('help.my-nine-step'),
-      target: '.my-nine-step',
+      content: t('help.step-clear-filter'),
+      target: '.step-clear-filter',
     },
     {
-      content: t('help.my-ten-step'),
-      target: '.my-ten-step',
+      content: t('help.step-this-is-table'),
+      target: '.step-this-is-table',
     },
     {
-      content: t('help.my-eleven-step'),
-      target: '.my-eleven-step',
+      content: t('help.step-edit-table-deck-btns'),
+      target: '.step-edit-table-deck-btns',
     },
     {
-      content: t('help.my-twelve-step'),
-      target: '.my-twelve-step',
+      content: t('help.step-private-deck'),
+      target: '.step-private-deck',
     },
     {
-      content: t('help.my-fourteen-step'),
-      target: '.my-fourteen-step',
+      content: t('help.step-pagination'),
+      target: '.step-pagination',
     },
   ]
 

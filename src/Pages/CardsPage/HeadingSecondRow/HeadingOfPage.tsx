@@ -52,7 +52,7 @@ export const HeadingOfPage = ({
   const notifyLearnHandler = () => {
     handleToastInfo(`${t(`successApiResponse.commonInfo.nothingLearn`)}`)
   }
-  const { debouncedSearchValue, search, setCurrentPageQuery, setSearchQuery } = useQueryParams()
+  const { debouncedSearchValue, setCurrentPageQuery, setSearchQuery } = useQueryParams()
   const handleOpenModal = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (isMineCards && isCardsCountZero && deck?.cardsCount === 0) {
       e.preventDefault()
@@ -67,13 +67,6 @@ export const HeadingOfPage = ({
   }
 
   const condition = deck?.cardsCount !== 0 || currentData?.items.length !== 0
-
-  console.log({
-    curDataLengthNotZero: currentData?.items.length !== 0,
-    deckCardCountNotZero: deck?.cardsCount !== 0,
-    isMineCards,
-    searchZero: search === '',
-  })
 
   return (
     <div className={s.heading}>
@@ -113,14 +106,12 @@ export const HeadingOfPage = ({
                 />
               </DropdownMenuDemo>
             )}
+            {deck?.isPrivate && <PrivacyMask className={s.privacyIcon} />}
           </div>
-          {/*{deck?.cover && <img alt={'img'} src={deck?.cover} width={'120px'} />}*/}
+          {/*{deck?.cover && (*/}
+          {/*  <img alt={'img'} className={s.coverImg} src={deck?.cover ? deck?.cover : defaultCard} />*/}
+          {/*)}*/}
           <div className={s.wrapperCoverImg}>
-            {deck?.isPrivate && (
-              <div className={s.privacyWrapper}>
-                <PrivacyMask className={s.privacyIcon} />
-              </div>
-            )}
             <img alt={'img'} className={s.coverImg} src={deck?.cover ? deck?.cover : defaultCard} />
           </div>
         </div>
