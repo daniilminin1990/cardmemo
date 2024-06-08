@@ -29,7 +29,6 @@ type HeadingSecondRowProps = {
   deckId: string
   isCardsCountZero: boolean
   isMineCards: boolean
-  loadingStatus: boolean
   openCreateCardModalHandler: (value: boolean) => void
   openDeleteDeckModalHandler: (value: boolean) => void
   openEditDeckModalHandler: (value: boolean) => void
@@ -39,7 +38,6 @@ export const HeadingOfPage = ({
   deckId,
   isCardsCountZero,
   isMineCards,
-  loadingStatus,
   openCreateCardModalHandler,
   openDeleteDeckModalHandler,
   openEditDeckModalHandler,
@@ -48,10 +46,11 @@ export const HeadingOfPage = ({
   const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
   const { t } = useTranslation()
   const { data: deck } = useGetDeckByIdQuery({ id: deckId })
-  const { currentData } = useGetCardsQuery({ args: {}, id: deckId ?? '' })
+  const { currentData, isLoading } = useGetCardsQuery({ args: {}, id: deckId ?? '' })
   const notifyLearnHandler = () => {
     handleToastInfo(`${t(`successApiResponse.commonInfo.nothingLearn`)}`)
   }
+
   const { debouncedSearchValue, setCurrentPageQuery, setSearchQuery } = useQueryParams()
   const handleOpenModal = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (isMineCards && isCardsCountZero && deck?.cardsCount === 0) {
@@ -116,7 +115,7 @@ export const HeadingOfPage = ({
           </div>
         </div>
         <div className={s.switchButton}>
-          {isMineCards && !loadingStatus && currentData?.items.length !== 0 && (
+          {isMineCards && !isLoading && currentData?.items.length !== 0 && (
             <Button onClick={() => openCreateCardModalHandler(true)} type={'button'}>
               <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
             </Button>
@@ -133,7 +132,7 @@ export const HeadingOfPage = ({
           )}
         </div>
       </div>
-      {condition && (
+      {condition && !isLoading && (
         <Input
           callback={setSearchQuery}
           className={s.input}

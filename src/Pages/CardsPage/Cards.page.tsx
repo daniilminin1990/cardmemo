@@ -46,16 +46,21 @@ export const CardsPage = () => {
   const [deleteDeck] = useDeleteDeckMutation()
   const { deckId = '' } = useParams()
   const { data: meData } = useMeQuery()
+
   const {
     currentData: currentDeckData,
     data: deck,
+    isFetching: isDeckFetching,
     isLoading: isDeckLoading,
   } = useGetDeckByIdQuery({ id: deckId })
+  const { currentData, data, isFetching, isLoading } = useGetCardsQuery(
+    {
+      args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
+      id: deckId ?? '',
+    },
+    { skip: !currentDeckData }
+  )
 
-  const { currentData, data, isFetching, isLoading } = useGetCardsQuery({
-    args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
-    id: deckId ?? '',
-  })
   const [cardItem, setCardItem] = useState<CardResponse>()
   const [isEmptyModal, setIsEmptyModal] = useState(false) // Переход назад с пустой таблицей
   const [isUpdateDeckModal, setIsUpdateDeckModal] = useState(false) // Изменение Deck
@@ -104,7 +109,7 @@ export const CardsPage = () => {
   const conditionMessage =
     search !== '' ? `${t('cardsPage.noResultsFound')}` : conditionIsMineMessage
 
-  if (isLoading) {
+  if (isLoading || isDeckLoading || isDeckFetching) {
     return <Loading type={'pageLoader'} />
   }
 
@@ -142,7 +147,6 @@ export const CardsPage = () => {
           deckId={deckId}
           isCardsCountZero={isCardsCountZero}
           isMineCards={isMineCards}
-          loadingStatus={loadingStatus}
           openCreateCardModalHandler={setIsCreateCardModal}
           openDeleteDeckModalHandler={setIsDeleteDeckModal}
           openEditDeckModalHandler={setIsUpdateDeckModal}
