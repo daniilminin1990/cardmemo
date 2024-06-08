@@ -51,7 +51,9 @@ export const SingleRowDeck = ({
           </div>
           <Typography>{item.name}</Typography>
         </Typography>
-        {item?.isPrivate && <PrivacyMask className={clsx(s.privacyIcon, 'step-private-deck')} />}
+        <div className={clsx(s.privacyStep, 'step-private-deck')}>
+          {item?.isPrivate && <PrivacyMask className={s.privacyIcon} />}
+        </div>
       </Table.Cell>
       <Table.Cell>
         <Typography>{item.cardsCount}</Typography>
