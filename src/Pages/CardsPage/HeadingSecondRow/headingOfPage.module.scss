@@ -25,6 +25,11 @@
   display: flex;
   gap: 6px;
   align-items: center;
+  .privacyIcon {
+    opacity: 0.6;
+    width: 25px;
+    color: var(--color-accent-300);
+  }
 }
 
 .dropdown {
@@ -54,24 +59,6 @@
 
 .wrapperCoverImg {
   position: relative;
-
-  .privacyWrapper {
-    align-items: center;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    opacity: 0.6;
-    position: absolute;
-    right: 5%;
-    top: 5%;
-    width: 25px;
-    z-index: 999;
-    & .privacyIcon {
-      width: 100%;
-      color: var(--color-accent-300);
-    }
-  }
-
   .coverImg {
     width: 120px;
     position: relative;

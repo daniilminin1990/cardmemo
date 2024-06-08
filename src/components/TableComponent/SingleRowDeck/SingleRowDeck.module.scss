@@ -1,5 +1,19 @@
 @import 'src/styles/mixins';
 
+.deckRowCell {
+  position: relative;
+  .privacyIcon {
+    color: var(--color-accent-100);
+    height: 20px;
+    opacity: 0.6;
+    position: absolute;
+    right: 0;
+    transform: translateY(-50%);
+    top: 50%;
+    width: 20px;
+  }
+}
+
 .imgWrapper {
   @include focus-visible-default;
 
@@ -9,6 +23,7 @@
   justify-content: start;
 
   text-decoration: none;
+  //position: relative;
 }
 
 .wrapperCoverImg {
@@ -16,29 +31,10 @@
   height: 48px;
   position: relative;
 
-  .privacyWrapper {
-    align-items: center;
-    //background-color: var(--color-accent-300);
-    border-radius: 50%;
-    display: flex;
-    height: 20px;
-    justify-content: center;
-    opacity: 0.7;
-    position: absolute;
-    right: 10%;
-    top: 10%;
-    width: 20px;
-    z-index: 1;
-    & .privacyIcon {
-      width: 100%;
-      color: var(--color-accent-300);
-    }
-  }
-
   .coverImg {
     width: 100%;
     height: 100%;
-    position: relative;
+    //position: relative;
 
     object-fit: cover;
     object-position: center;
@@ -50,7 +46,7 @@
       height: auto;
       object-fit: cover;
       position: absolute;
-      z-index: 2;
+      z-index: 1;
     }
   }
 }

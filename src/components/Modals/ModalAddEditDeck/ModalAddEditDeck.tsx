@@ -76,8 +76,6 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
 
   const loadingStatus = isLoadingCreate || isLoadingUpdate
 
-  console.log({ isPr: watch('isPrivate') })
-
   return (
     <>
       {loadingStatus && <LoadingBar />}
@@ -92,11 +90,6 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
             {item?.name && <Typography variant={'h1'}>{item.name}</Typography>}
             <div className={s.wrapperCoverImg}>
               {preview && <img alt={'cover'} src={preview} width={'100%'} />}
-              {preview && watch('isPrivate') && (
-                <div className={s.privacyWrapper}>
-                  <PrivacyMask className={s.privacyIcon} />
-                </div>
-              )}
             </div>
             <FormTextfield
               className={s.input}
@@ -147,12 +140,15 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
                 />
               </Button>
             </div>
-            <FormCheckbox
-              control={control}
-              defaultChecked={item ? item?.isPrivate : false}
-              label={t('modalAddEditDeck.private')}
-              name={'isPrivate'}
-            />
+            <div className={s.checkboxWrapper}>
+              <FormCheckbox
+                control={control}
+                defaultChecked={item ? item?.isPrivate : false}
+                label={t('modalAddEditDeck.private')}
+                name={'isPrivate'}
+              />
+              {watch('isPrivate') && <PrivacyMask className={s.privacyIcon} />}
+            </div>
           </div>
           <div className={s.footer}>
             <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>

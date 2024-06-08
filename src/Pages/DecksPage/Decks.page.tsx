@@ -167,7 +167,7 @@ export function DecksPage() {
               </Button>
             </div>
 
-            <div className={'my-nine-step'}>
+            <div className={'step-add-new-deck'}>
               <Button onClick={() => setIsCreateModal(true)} variant={'primary'}>
                 <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
               </Button>
@@ -175,7 +175,7 @@ export function DecksPage() {
           </div>
 
           <div className={s.filters}>
-            <div className={clsx(s.boxForInput, 'my-five-step')}>
+            <div className={clsx(s.boxForInput, 'step-search')}>
               <Input
                 callback={setSearchQuery}
                 className={s.input}
@@ -184,7 +184,7 @@ export function DecksPage() {
                 type={'search'}
               />
             </div>
-            <div className={'my-six-step'}>
+            <div className={'step-tab-filter'}>
               <div className={s.tabsContainer}>
                 <TabSwitcher
                   className={s.tabsSwitcher}
@@ -194,12 +194,12 @@ export function DecksPage() {
                   value={tabsValue}
                 />
                 <div className={clsx(s.countsFav, context?.theme === 'sun' ? s.sun : '')}>
-                  {favoriteCounts}
+                  <Typography variant={'caption'}>{favoriteCounts}</Typography>
                 </div>
               </div>
             </div>
 
-            <div className={clsx(s.boxForSlider, 'my-seven-step')}>
+            <div className={clsx(s.boxForSlider, 'step-slider-filter')}>
               <Slider
                 className={s.slider}
                 label={t('decksPage.numberOfCards')}
@@ -209,7 +209,7 @@ export function DecksPage() {
                 value={[sliderMin, sliderMax]}
               />
             </div>
-            <div className={'my-eight-step'}>
+            <div className={'step-clear-filter'}>
               <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
                 <TrashOutline />
                 <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
@@ -237,7 +237,7 @@ export function DecksPage() {
             })}
           </TableHeadMobile>
         ) : (
-          <div className={'my-ten-step'}>
+          <div className={'step-this-is-table'}>
             <TableComponentWithTypes
               data={decksData}
               isFetching={isFetching}
@@ -259,7 +259,7 @@ export function DecksPage() {
           </div>
         )}
 
-        <div className={clsx(s.footer, 'my-twelve-step')}>
+        <div className={clsx(s.footer, 'step-pagination')}>
           <PaginationWithSelect
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}

@@ -35,7 +35,7 @@ export const SingleRowDeck = ({
 
   return (
     <Table.Row key={item.id}>
-      <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
+      <Table.Cell className={clsx(s.deckRowCell, item?.cardsCount === 0 && s.disabledCell)}>
         <Typography
           as={Link}
           className={s.imgWrapper}
@@ -43,19 +43,15 @@ export const SingleRowDeck = ({
           to={`${path.decks}/${item.id}`}
         >
           <div className={s.wrapperCoverImg}>
-            {item?.isPrivate && (
-              <div className={s.privacyWrapper}>
-                <PrivacyMask className={s.privacyIcon} />
-              </div>
-            )}
             <img
               alt={'default card img'}
               className={clsx(s.coverImg, item?.cover && s.withImg)}
               src={item.cover ? item.cover : defaultCard}
             />
           </div>
-          {item.name}
+          <Typography>{item.name}</Typography>
         </Typography>
+        {item?.isPrivate && <PrivacyMask className={clsx(s.privacyIcon, 'step-private-deck')} />}
       </Table.Cell>
       <Table.Cell>
         <Typography>{item.cardsCount}</Typography>
