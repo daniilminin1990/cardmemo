@@ -20,6 +20,8 @@ React + TypeScript SPA 🚀
 
 In this application you can create a set of cards on absolutely any topic and use them for memorization. You can also look at decks of other users. The main page contains filtering, navigation and sorting elements, while the decks themselves are presented in table form. The application implements authorization, registration and password recovery.
 
+![mock-up](./src/assets/img/mockup.png)
+
 Register or use the test account:
 
 login: __test.account.cards@gmail.com__
