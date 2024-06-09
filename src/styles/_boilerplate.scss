@@ -58,3 +58,13 @@ body {
     background-color: var(--color-accent-100);
   }
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+  -webkit-text-fill-color: var(--color-light-900) !important;
+  -webkit-box-shadow: 0 0 0 1px var(--color-dark-300) inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+  border: 1px solid var(--color-dark-300) !important;
+}
