@@ -17,16 +17,19 @@
 // Для Decks
 .tableHeadCellDecks:nth-child(1) {
   width: 35%;
+  position: relative;
 }
 
 .tableHeadCellDecks:nth-child(2) {
   width: 12%;
+  position: relative;
 }
 
 // Для Cards
 .tableHeadCellCards:nth-child(1),
 .tableHeadCellCards:nth-child(2) {
   width: 27%;
+  position: relative;
 }
 
 .arrow {
@@ -42,4 +45,19 @@
 .empty {
   padding: 60px 0;
   text-align: center;
+}
+.answer{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.boxEye{
+  display: flex;
+  justify-content: center;
+  width: 17%;
+  height: 100%;
+  transform: translate(0,0);
+  position: absolute;
+  right: 0;
+  align-items: center;
 }

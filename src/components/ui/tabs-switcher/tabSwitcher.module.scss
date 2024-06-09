@@ -47,16 +47,22 @@
         border-color: var(--color-dark-100);
       }
 
-      &:active {
-        color: var(--color-light-100);
-        background-color: var(--color-accent-500);
-        border-color: var(--color-accent-500);
-      }
+      //&:active {
+      //  color: var(--color-light-100);
+      //  background-color: var(--color-accent-500);
+      //  border-color: var(--color-accent-500);
+      //  //.sun {
+      //  //  color: var(--color-dark-100);
+      //  //}
+      //}
 
       &[data-state='active'] {
         color: var(--color-light-100);
         background-color: var(--color-accent-500);
         border-color: var(--color-accent-500);
+        &.sun p {
+          color: var(--color-dark-900);
+        }
       }
 
       &[data-disabled] {
@@ -64,6 +70,10 @@
         color: var(--color-dark-300);
         background-color: var(--color-dark-700);
         border-color: var(--color-dark-300);
+      }
+
+      @media (max-width: 1279px) {
+        padding: 6px 18px;
       }
     }
   }

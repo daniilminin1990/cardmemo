@@ -13,16 +13,23 @@ export const useAddEditDeckLogic = ({ item }: Props) => {
   const [preview, setPreview] = useState<null | string>(initPreview)
   const [cover, setCover] = useState<File | null | undefined>(undefined)
   const refInputImg = useRef<HTMLInputElement>(null)
-  const { control, handleSubmit, setValue } = useForm<FormValuesAddEditDeck>({
+  const { control, handleSubmit, setValue, watch } = useForm<FormValuesAddEditDeck>({
     resolver: zodResolver(schemaAddEditDeck),
   })
 
-  setValue('isPrivate', item?.isPrivate)
+  // setValue('isPrivate', item?.isPrivate)
+  // getValues('isPrivate')
   useEffect(() => {
     if (item?.cover) {
       setPreview(item?.cover)
     }
   }, [item?.cover])
+
+  useEffect(() => {
+    if (item?.isPrivate) {
+      setValue('isPrivate', item?.isPrivate)
+    }
+  }, [item?.isPrivate])
   useEffect(() => {
     if (cover) {
       const newPreview = URL.createObjectURL(cover)
@@ -45,5 +52,7 @@ export const useAddEditDeckLogic = ({ item }: Props) => {
     refInputImg,
     setCover,
     setPreview,
+    setValue,
+    watch,
   }
 }

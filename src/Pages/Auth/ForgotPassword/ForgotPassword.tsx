@@ -3,6 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { emailRecoveringTemplate as html } from '@/common/consts/email-recovering-template'
+import {
+  ForgotPasswordFormValues,
+  ForgotPasswordSchema,
+} from '@/common/zodSchemas/auth/auth.schemas'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
@@ -11,25 +15,18 @@ import { FormTextfield } from '@/components/ui/form/form-textfield'
 import { path } from '@/router/path'
 import { useRecoverPasswordMutation } from '@/services/auth/auth.service'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 
 import s from './forgotPassword.module.scss'
 
-const forgotPasswordSchema = z.object({
-  email: z.string().nonempty('Required').email(),
-})
-
-export type ForgotPasswordFormType = z.infer<typeof forgotPasswordSchema>
-
 export const ForgotPassword = () => {
-  const { control, handleSubmit } = useForm<ForgotPasswordFormType>({
+  const { control, handleSubmit } = useForm<ForgotPasswordFormValues>({
     defaultValues: { email: '' },
-    resolver: zodResolver(forgotPasswordSchema),
+    resolver: zodResolver(ForgotPasswordSchema),
   })
 
   const navigate = useNavigate()
   const [recoverPassword, { isLoading }] = useRecoverPasswordMutation()
-  const onSubmit = async ({ email }: ForgotPasswordFormType) => {
+  const onSubmit = async ({ email }: ForgotPasswordFormValues) => {
     await recoverPassword({ email, html }).unwrap()
     navigate(`${path.checkEmail}/${email}`)
   }

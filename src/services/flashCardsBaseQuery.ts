@@ -1,17 +1,12 @@
 import { matchPath } from 'react-router-dom'
 
 import { throttledToastError } from '@/common/consts/toastVariants'
+import { RefreshTokenResponseSchema } from '@/common/zodSchemas/auth/auth.schemas'
 import { publicRoutes, router } from '@/router/router'
 import { failedApiResponse } from '@/services/failedApiResponse'
 import { successApiResponse } from '@/services/successApiResponse'
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQuery } from '@reduxjs/toolkit/query'
 import { Mutex } from 'async-mutex'
-import { z } from 'zod'
-
-const refreshTokenResponseSchema = z.object({
-  accessToken: z.string(),
-  refreshToken: z.string(),
-})
 
 // create a new mutex
 const mutex = new Mutex()
@@ -62,7 +57,7 @@ export const baseQueryWithReauth: BaseQueryFn<
           )
 
           if (refreshResult.data) {
-            const refreshResultParsed = refreshTokenResponseSchema.parse(refreshResult.data)
+            const refreshResultParsed = RefreshTokenResponseSchema.parse(refreshResult.data)
 
             localStorage.setItem('accessToken', refreshResultParsed.accessToken)
             localStorage.setItem('refreshToken', refreshResultParsed.refreshToken)

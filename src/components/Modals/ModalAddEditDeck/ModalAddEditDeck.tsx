@@ -3,6 +3,7 @@ import { SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import ImageOutline from '@/assets/icons/svg/ImageOutline'
+import PrivacyMask from '@/assets/icons/svg/PrivacyMask'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { useAddEditDeckLogic } from '@/common/addEditCardsOrDecks/addEditDeckLogic'
 import { getEditDeckNotifyMsg } from '@/common/addEditCardsOrDecks/getEditDeckNotifyMsg'
@@ -32,7 +33,7 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
   const { item, open, setOpen } = props
   const { t } = useTranslation()
   const { clearQuery, setCurrentPageQuery } = useQueryParams()
-  const { control, cover, handleSubmit, preview, refInputImg, setCover, setPreview } =
+  const { control, cover, handleSubmit, preview, refInputImg, setCover, setPreview, watch } =
     useAddEditDeckLogic({
       item,
     })
@@ -54,6 +55,7 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
     )
     e.target.value = ''
   }
+
   const onSubmit: SubmitHandler<FormValuesAddEditDeck> = data => {
     if (item) {
       const msg = getEditDeckNotifyMsg({ data, item, preview })
@@ -86,7 +88,9 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
         <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={s.body}>
             {item?.name && <Typography variant={'h1'}>{item.name}</Typography>}
-            {preview && <img alt={'cover'} src={preview} width={'100%'} />}
+            <div className={s.wrapperCoverImg}>
+              {preview && <img alt={'cover'} src={preview} width={'100%'} />}
+            </div>
             <FormTextfield
               className={s.input}
               control={control}
@@ -106,12 +110,19 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
                     setCover(null)
                   }}
                   type={'button'}
+                  variant={'secondary'}
                 >
                   <TrashOutline className={s.icon} />
                   <Typography variant={'subtitle2'}>{t('modalAddEditDeck.removeCover')}</Typography>
                 </Button>
               )}
-              <Button className={s.uploadImg} fullWidth onClick={handleSubmitImg} type={'button'}>
+              <Button
+                className={s.uploadImg}
+                fullWidth
+                onClick={handleSubmitImg}
+                type={'button'}
+                variant={'secondary'}
+              >
                 <ImageOutline className={s.icon} />
                 <Typography variant={'subtitle2'}>
                   {preview
@@ -129,12 +140,15 @@ export const ModalAddEditDeck = memo((props: ModalAddEditProps) => {
                 />
               </Button>
             </div>
-            <FormCheckbox
-              control={control}
-              defaultChecked={item?.isPrivate}
-              label={t('modalAddEditDeck.private')}
-              name={'isPrivate'}
-            />
+            <div className={s.checkboxWrapper}>
+              <FormCheckbox
+                control={control}
+                defaultChecked={item ? item?.isPrivate : false}
+                label={t('modalAddEditDeck.private')}
+                name={'isPrivate'}
+              />
+              {watch('isPrivate') && <PrivacyMask className={s.privacyIcon} />}
+            </div>
           </div>
           <div className={s.footer}>
             <Button onClick={handleOnClose} type={'button'} variant={'secondary'}>

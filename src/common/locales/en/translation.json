@@ -115,7 +115,8 @@
     "deleteDeck": "Delete Deck",
     "isDeleteDeck": "Do you really want to delete deck? All cards will be deleted.",
     "deleteCard": "Delete Card",
-    "isDeleteCard": "Do you really want to delete card? All data will be deleted."
+    "isDeleteCard": "Do you really want to delete card? All data will be deleted.",
+    "noResultsFound": "No results found with this terms. Try to change filters."
   },
   "modalAddEditCard": {
     "updateCard": "Update Card",
@@ -156,5 +157,65 @@
     "haveAccount": "Already have an account?",
     "signIn": "Sign In",
     "submit": "Submit"
+  },
+  "successApiResponse": {
+    "update": {
+      "deck": "Deck updated!",
+      "card": "Card updated",
+      "profile": "Profile updated"
+    },
+    "loggedIn": "Logged in!",
+    "logOut": "Logged out!",
+    "creation": {
+      "deck": "Deck created",
+      "card": "Card created"
+    },
+    "deletion": {
+      "deck": "Deck deleted",
+      "card": "Card deleted"
+    },
+    "deleted": "Deleted!",
+    "favorites": "In favorites!",
+    "deleteFavorites": "Removed from favorites!",
+    "registrationSuccessful": "Registered",
+    "commonInfo": {
+      "equal": {
+        "deckName": "Deck name is equal to previous.",
+        "deckImg": "Image is equal to previous.",
+        "common": "Deck name and cover image are equal to previous.",
+        "success": "It is ok, just let you know 👌"
+      },
+      "clearFilters": "All filters reset!",
+      "setGrade": "Set Grade!",
+      "nothingLearn": "Add card before learning!"
+    }
+  },
+  "failedApiResponse": {
+    "network": "Please check the network and try again or later!",
+    "unknown": "Try again later"
+  },
+  "help": {
+    "help": "Help",
+    "step-go-home": "Click here to go home.",
+    "step-select-language": "Click here and select the display language on the page.",
+    "step-change-theme": "Click here to change the theme (light or dark).",
+    "step-profile-drop-down": "Click here to open the menu, in the drop-down menu you can view your profile or log out of your account.",
+    "step-search": "You can search for decks by name.",
+    "step-tab-filter": "Filter for displaying table decks",
+    "step-slider-filter": "You can filter the decks in the table by the number of cards. To do this, move these sliders.",
+    "step-clear-filter": "Click here to clear filters.",
+    "step-add-new-deck": "Click here to add new deck.",
+    "step-this-is-table": "This is a table in which you can see your cards, pay attention at the top in the header you can see the names of the columns when you click on which your cards will be sorted.",
+    "step-edit-table-deck-btns": "Here you can edit your deck (change title, make it private, add card, remove card, study deck).",
+    "step-pagination": "Here you can move between page and set quantity сards per page.",
+    "step-private-deck": "Here you can find mask-icon indicating this deck is private and only you can see this deck."
+  },
+  "controlButtons": {
+    "back": "Back",
+    "close": "Close",
+    "last": "Last",
+    "next": "Next",
+    "open": "Open",
+    "skip": "Skip"
   }
 }

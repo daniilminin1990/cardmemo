@@ -1,15 +1,18 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useMediaQuery } from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
 import { HeadingOfPage } from '@/Pages/CardsPage/HeadingSecondRow/HeadingOfPage'
-import { headersNameCards, initCurrentPage, selectOptionPagination } from '@/common/globalVariables'
+import { headersNameCards, selectOptionPagination } from '@/common/globalVariables'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { ModalAddEditCard } from '@/components/Modals/ModalEditCard/ModalAddEditCard'
 import ModalOnEmpty from '@/components/Modals/ModalOnEmpty/ModalOnEmpty'
 import { SingleRowCard } from '@/components/TableComponent/SingleRowCard/SingleRowCard'
 import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
+import { TableCardMobile } from '@/components/TableComponent/mobile/TableCardMobile/TableCardMobile'
+import { TableHeadMobile } from '@/components/TableComponent/mobile/TableHeadMobile/TableHeadMobile'
 import Loading from '@/components/ui/Loading/Loading'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
@@ -28,11 +31,13 @@ import s from './cardsPage.module.scss'
 
 export const CardsPage = () => {
   const { t } = useTranslation()
+  const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
   const {
     currentOrderBy,
     currentPage,
     debouncedSearchValue,
     itemsPerPage,
+    search,
     setCurrentPageQuery,
     setItemsPerPageQuery,
   } = useQueryParams()
@@ -41,16 +46,21 @@ export const CardsPage = () => {
   const [deleteDeck] = useDeleteDeckMutation()
   const { deckId = '' } = useParams()
   const { data: meData } = useMeQuery()
+
   const {
     currentData: currentDeckData,
     data: deck,
+    isFetching: isDeckFetching,
     isLoading: isDeckLoading,
   } = useGetDeckByIdQuery({ id: deckId })
+  const { currentData, data, isFetching, isLoading } = useGetCardsQuery(
+    {
+      args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
+      id: deckId ?? '',
+    },
+    { skip: !currentDeckData }
+  )
 
-  const { currentData, data, isFetching, isLoading } = useGetCardsQuery({
-    args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
-    id: deckId ?? '',
-  })
   const [cardItem, setCardItem] = useState<CardResponse>()
   const [isEmptyModal, setIsEmptyModal] = useState(false) // Переход назад с пустой таблицей
   const [isUpdateDeckModal, setIsUpdateDeckModal] = useState(false) // Изменение Deck
@@ -60,7 +70,11 @@ export const CardsPage = () => {
   const [isDeleteCardModal, setIsDeleteCardModal] = useState(false) // Удаление Card
 
   const handleItemsPerPageChange = (value: number) => {
-    setCurrentPageQuery(Number(initCurrentPage))
+    const maxNumberOfPages = Math.ceil((currentData?.pagination?.totalItems ?? 0) / value)
+
+    if (maxNumberOfPages < currentPage) {
+      setCurrentPageQuery(maxNumberOfPages)
+    }
     setItemsPerPageQuery(value)
   }
 
@@ -72,7 +86,7 @@ export const CardsPage = () => {
     deleteDeck({ id: deckId })
     setIsDeleteDeckModal(true)
     if (deckId) {
-      router.navigate(path.decks)
+      router.navigate(`${path.decks}${deckQuery}`)
     }
   }
   const onDeleteCardHandler = () => {
@@ -87,7 +101,15 @@ export const CardsPage = () => {
 
   const loadingStatus = isFetching || isDeckLoading
 
-  if (isLoading) {
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
+
+  const conditionIsMineMessage = isMineCards
+    ? `${t('cardsPage.emptyDeck')}`
+    : `${t('cardsPage.unfortunatelyEmptyDeck')}`
+  const conditionMessage =
+    search !== '' ? `${t('cardsPage.noResultsFound')}` : conditionIsMineMessage
+
+  if (isLoading || isDeckLoading || isDeckFetching) {
     return <Loading type={'pageLoader'} />
   }
 
@@ -122,7 +144,6 @@ export const CardsPage = () => {
           <Typography variant={'body1'}>{t('cardsPage.isDeleteCard')}</Typography>
         </DeleteModal>
         <HeadingOfPage
-          deck={deck}
           deckId={deckId}
           isCardsCountZero={isCardsCountZero}
           isMineCards={isMineCards}
@@ -133,40 +154,61 @@ export const CardsPage = () => {
         />
         {isCardsCountZero ? (
           <div className={s.emptyContent}>
-            <Typography variant={'body1'}>
-              {isMineCards
-                ? `${t('cardsPage.emptyDeck')}`
-                : `${t('cardsPage.unfortunatelyEmptyDeck')}`}
-            </Typography>
-            {isMineCards && (
-              <Button
-                className={s.addCard}
-                onClick={() => setIsCreateCardModal(true)}
-                type={'button'}
-              >
-                <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
-              </Button>
-            )}
+            <Typography variant={'body1'}>{conditionMessage}</Typography>
+            {search === '' &&
+              isMineCards &&
+              deck?.cardsCount === 0 &&
+              currentData?.items.length === 0 && (
+                <Button
+                  className={s.addCard}
+                  onClick={() => setIsCreateCardModal(true)}
+                  type={'button'}
+                >
+                  <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
+                </Button>
+              )}
           </div>
         ) : (
           <>
-            <TableComponentWithTypes
-              data={cardsData?.items}
-              isLoading={loadingStatus}
-              tableHeader={headersNameCards}
-            >
-              {cardsData?.items.map(card => {
-                return (
-                  <SingleRowCard
-                    item={card}
-                    key={card.id}
-                    openDeleteModalHandler={setIsDeleteCardModal}
-                    openEditModalHandler={setIsUpdateCardModal}
-                    retrieveCardItem={setCardItem}
-                  />
-                )
-              })}
-            </TableComponentWithTypes>
+            {isTabletOrMobile ? (
+              <TableHeadMobile
+                data={cardsData?.items}
+                isFetching={isFetching}
+                isLoading={isLoading}
+                tableHeader={headersNameCards}
+              >
+                {cardsData?.items.map(card => {
+                  return (
+                    <TableCardMobile
+                      item={card}
+                      key={card.id}
+                      openDeleteModalHandler={setIsDeleteCardModal}
+                      openEditModalHandler={setIsUpdateCardModal}
+                      retrieveCardItem={setCardItem}
+                    />
+                  )
+                })}
+              </TableHeadMobile>
+            ) : (
+              <TableComponentWithTypes
+                data={cardsData?.items}
+                isLoading={loadingStatus}
+                tableHeader={headersNameCards}
+              >
+                {cardsData?.items.map(card => {
+                  return (
+                    <SingleRowCard
+                      item={card}
+                      key={card.id}
+                      openDeleteModalHandler={setIsDeleteCardModal}
+                      openEditModalHandler={setIsUpdateCardModal}
+                      retrieveCardItem={setCardItem}
+                    />
+                  )
+                })}
+              </TableComponentWithTypes>
+            )}
+
             <div className={s.footer}>
               <PaginationWithSelect
                 currentPage={currentPage}

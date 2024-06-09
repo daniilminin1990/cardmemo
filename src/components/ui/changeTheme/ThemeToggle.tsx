@@ -13,25 +13,25 @@ const ThemeToggle = (props: ToggleProps) => {
   const { moonIcon, onPressedChange, pressed, sunIcon, ...rest } = props
 
   return (
-    <div className={s.toggleContainer}>
-      <RadixToggle.Root
-        {...rest}
-        aria-label={'Toggle theme'}
-        className={`${s.btn} ${pressed ? s.darkmode : ''}`}
-        data-state={pressed ? 'on' : 'off'}
-        onPressedChange={onPressedChange}
-      >
-        <div className={`${s.btnIndicator}`}>
-          <div className={s.btnIconContainer}>
-            {pressed ? (
-              <img alt={'moon'} className={s.moonImg} src={moonIcon} />
-            ) : (
-              <img alt={'sun'} className={s.sunImg} src={sunIcon} />
-            )}
-          </div>
+    <RadixToggle.Root
+      {...rest}
+      aria-label={'Toggle theme'}
+      className={`${s.btn} ${pressed ? s.darkmode : ''}`}
+      data-state={pressed ? 'on' : 'off'}
+      onPressedChange={onPressedChange}
+    >
+      {/*<div className={s.toggleContainer}>*/}
+      <div className={`${s.btnIndicator}`}>
+        <div className={s.btnIconContainer}>
+          {pressed ? (
+            <img alt={'moon'} className={s.moonImg} src={moonIcon} />
+          ) : (
+            <img alt={'sun'} className={s.sunImg} src={sunIcon} />
+          )}
         </div>
-      </RadixToggle.Root>
-    </div>
+      </div>
+      {/*</div>*/}
+    </RadixToggle.Root>
   )
 }
 

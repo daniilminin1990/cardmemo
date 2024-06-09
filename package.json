@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --open",
+    "dev": "vite --host --open",
     "build": "tsc && vite build",
     "format": "prettier --write src",
     "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input",
@@ -40,7 +40,9 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.4",
     "react-i18next": "^14.1.2",
+    "react-joyride": "^2.8.2",
     "react-redux": "^9.1.2",
+    "react-responsive": "^10.0.0",
     "react-router-dom": "^6.23.0",
     "react-toastify": "^10.0.5",
     "react-toggle": "^4.1.3",

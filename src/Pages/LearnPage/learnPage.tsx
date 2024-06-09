@@ -29,7 +29,7 @@ export const LearnPage = () => {
   const [isShowAnswer, setIsShowAnswer] = useState(false)
 
   const { data: deckData } = useGetDeckByIdQuery({ id: deckId })
-  const { data: randomCard, isLoading } = useGetRandomCardByIdQuery({
+  const { data: randomCard } = useGetRandomCardByIdQuery({
     id: deckId,
   })
 
@@ -52,15 +52,12 @@ export const LearnPage = () => {
           setValue('grade', null)
         })
         .catch(() => {
-          data.grade === null && handleToastWarning(`Set grade!`)
+          data.grade === null &&
+            handleToastWarning(`${t(`successApiResponse.commonInfo.setGrade`)}`)
         }))
   }
   const showAnswerHandler = () => {
     setIsShowAnswer(true)
-  }
-
-  if (isLoading && randomCard) {
-    return <div>Loading</div>
   }
 
   return (

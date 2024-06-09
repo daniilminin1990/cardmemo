@@ -3,8 +3,11 @@ import { isCard, isDeck, isProfile, isSignUp } from '@/common/predicateTypes'
 import { MeResponse, SignUpResponse } from '@/services/auth/auth.types'
 import { CardResponse } from '@/services/cards/cards.types'
 import { Deck } from '@/services/decks/deck.types'
+import i18n from 'i18next'
 
 export const successApiResponse = (result: any) => {
+  const t = i18n.t
+
   if (result && result.meta && result.meta.response) {
     const { status, statusText, url } = result.meta.response
     const { method } = result.meta.request
@@ -13,36 +16,56 @@ export const successApiResponse = (result: any) => {
     if (method === 'PATCH') {
       if (status === 200 && statusText === 'OK') {
         if (isDeck(data as Deck)) {
-          handleToastSuccess(`Update deck ${(data as Deck).name} - successful!`)
+          const message = `${(data as Deck).name} - ${t('successApiResponse.update.deck')}  `
+
+          handleToastSuccess(message)
         }
         if (isCard(data as CardResponse)) {
-          handleToastSuccess(`Update card ${(data as CardResponse).question} - successful!`)
+          const message = `${(data as CardResponse).question} - ${t(
+            'successApiResponse.update.card'
+          )} `
+
+          handleToastSuccess(message)
         }
         if (isProfile(data as MeResponse)) {
-          handleToastSuccess(`Update profile - successful!`)
+          const message = `${t('successApiResponse.update.profile')}`
+
+          handleToastSuccess(message)
         }
       }
     } else if (method === 'POST') {
       if (status === 200 && statusText === 'OK') {
         if (`refreshToken` in data) {
-          handleToastInfo(`Loggined!`)
+          const message = `${t('successApiResponse.loggedIn')}`
+
+          handleToastInfo(message)
         }
       }
       if (status === 201 && statusText === 'Created') {
         if (isDeck(data as Deck)) {
-          handleToastSuccess(`Creation deck ${(data as Deck).name} - successful!`)
+          const message = `${(data as Deck).name}  - ${t('successApiResponse.creation.deck')}  `
+
+          handleToastSuccess(message)
         }
         if (isCard(data as CardResponse)) {
-          handleToastSuccess(`Creation card ${(data as CardResponse).question} - successful!`)
+          const message = `${(data as CardResponse).question}  - ${t(
+            'successApiResponse.creation.card'
+          )}  `
+
+          handleToastSuccess(message)
         }
         if (isSignUp(data as SignUpResponse)) {
-          handleToastSuccess(`Registration successful!`)
+          const message = t('successApiResponse.registrationSuccessful')
+
+          handleToastSuccess(message)
         }
       }
       if (status === 204 && statusText === 'No Content') {
         if (url.endsWith('/logout')) {
           const kostilb = setTimeout(() => {
-            handleToastInfo(`Logout - successful!`)
+            const message = t('successApiResponse.logOut')
+
+            handleToastInfo(message)
 
             return () => {
               clearTimeout(kostilb)
@@ -50,18 +73,26 @@ export const successApiResponse = (result: any) => {
           }, 1)
         }
         if (url.endsWith('/favorite')) {
-          handleToastSuccess(`In favorites!`)
+          const message = t('successApiResponse.favorites')
+
+          handleToastSuccess(message)
         }
       }
     } else if (method === 'DELETE') {
       if (status === 200 && statusText === 'OK') {
-        handleToastSuccess(`Deletion deck ${(data as Deck).name} - successful!`)
+        const message = `${(data as Deck).name}  - ${t('successApiResponse.deletion.deck')}  `
+
+        handleToastSuccess(message)
       }
       if (status === 204 && statusText === 'No Content') {
         if (url.endsWith('/favorite')) {
-          handleToastSuccess(`Removed from favorites!`)
+          const message = t('successApiResponse.deleteFavorites')
+
+          handleToastSuccess(message)
         } else {
-          handleToastSuccess('Deletion - successful!')
+          const message = t('successApiResponse.deleted')
+
+          handleToastSuccess(message)
         }
       }
     }

@@ -1,5 +1,9 @@
 .customClass {
   width: 420px;
+
+  @media (max-width: 767px) {
+    width: 100vw;
+  }
 }
 
 .form {
@@ -24,7 +28,7 @@
   z-index: 1;
 
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
 
   margin-bottom: 45px;
@@ -86,4 +90,42 @@
   display: flex;
   justify-content: space-between;
   padding-bottom: 30px;
+}
+
+.wrapperCoverImg {
+  position: relative;
+
+  .coverImg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 0.2s;
+
+    &.withImg:hover {
+      transform: scale(1.6);
+      height: auto;
+      object-fit: cover;
+      position: absolute;
+      z-index: 999;
+    }
+  }
+}
+
+.checkboxWrapper {
+  display: inline-block;
+  position: relative;
+  .privacyIcon {
+    color: var(--color-accent-100);
+    height: 20px;
+    opacity: 0.6;
+    position: absolute;
+    right: -50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    width: 20px;
+  }
 }

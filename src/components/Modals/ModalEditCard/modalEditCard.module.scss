@@ -1,5 +1,9 @@
 .customClass {
   width: 542px;
+
+  @media (max-width: 767px) {
+    width: 100vw;
+  }
 }
 
 .form {

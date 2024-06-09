@@ -131,6 +131,23 @@ export const decksService = flashCardsAPI.injectEndpoints({
           url: 'v2/decks',
         }),
       }),
+      getFavoritesDecksCount: builder.query<number, void>({
+        providesTags: ['Decks'],
+        query: () => ({
+          method: 'GET',
+          params: {
+            itemsPerPage: 999999,
+          },
+          url: 'v2/decks',
+        }),
+        transformResponse: (res: DecksListResponse) => {
+          const favoriteCount = res.items.filter(deck => deck.isFavorite).length
+
+          localStorage.setItem('favoriteCount', favoriteCount.toString())
+
+          return favoriteCount
+        },
+      }),
       getMinMaxCardsCount: builder.query<MinMaxArgs, void>({
         query: () => ({
           method: 'GET',
@@ -209,6 +226,7 @@ export const {
   useDeleteFavoriteDeckStatusMutation,
   useGetDeckByIdQuery,
   useGetDecksQuery,
+  useGetFavoritesDecksCountQuery,
   useGetMinMaxCardsCountQuery,
   useSetFavoriteDeckMutation,
   useUpdateDeckMutation,

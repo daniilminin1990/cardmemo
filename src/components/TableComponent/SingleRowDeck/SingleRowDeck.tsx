@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
+import PrivacyMask from '@/assets/icons/svg/PrivacyMask'
+import defaultCard from '@/assets/img/defaultCard.jpg'
 import { RowDeckBtns } from '@/components/TableComponent/SingleRowDeck/btns/RowDeckBtns'
 import Typography from '@/components/ui/Typography/Typography'
 import { Table } from '@/components/ui/table'
@@ -25,18 +27,33 @@ export const SingleRowDeck = ({
   const { data: meData } = useMeQuery()
 
   const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
+  // Сэтаем в локальное хранилище параметры поиска
+  const location = useLocation()
+  const setDeckQueryHandler = () => {
+    localStorage.setItem('deckQuery', location.search)
+  }
 
   return (
     <Table.Row key={item.id}>
-      <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
-        <Typography as={Link} className={s.imgWrapper} to={`${path.decks}/${item.id}`}>
-          {item.cover && (
-            <div className={s.wrapperCoverImg}>
-              <img alt={'default card img'} className={s.coverImg} src={item.cover} />
-            </div>
-          )}
-          {item.name}
+      <Table.Cell className={clsx(s.deckRowCell, item?.cardsCount === 0 && s.disabledCell)}>
+        <Typography
+          as={Link}
+          className={s.imgWrapper}
+          onClick={setDeckQueryHandler}
+          to={`${path.decks}/${item.id}`}
+        >
+          <div className={s.wrapperCoverImg}>
+            <img
+              alt={'default card img'}
+              className={clsx(s.coverImg, item?.cover && s.withImg)}
+              src={item.cover ? item.cover : defaultCard}
+            />
+          </div>
+          <Typography>{item.name}</Typography>
         </Typography>
+        <div className={clsx(s.privacyStep, 'step-private-deck')}>
+          {item?.isPrivate && <PrivacyMask className={s.privacyIcon} />}
+        </div>
       </Table.Cell>
       <Table.Cell>
         <Typography>{item.cardsCount}</Typography>

@@ -25,10 +25,14 @@ const ChangeTheme = () => {
 
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
+      if (!context) {
+        return
+      } // Add this line to check if context is undefined
+
       if (event.key === 'theme') {
         const newTheme = localStorage.getItem('theme') as Theme
 
-        context?.setTheme(newTheme)
+        context.setTheme(newTheme)
         updateThemeColors(newTheme)
       }
     }
@@ -38,9 +42,12 @@ const ChangeTheme = () => {
     return () => {
       window.removeEventListener('storage', handleStorageChange)
     }
-  }, [context])
+  }, [context]) // Make sure to include context in the dependency array
 
   const onChangeThemeHandler = () => {
+    if (!context) {
+      return
+    } // Add this line to check if context is undefined
     const newTheme = context?.theme === 'moon' ? 'sun' : 'moon'
 
     context?.setTheme(newTheme)
@@ -52,23 +59,27 @@ const ChangeTheme = () => {
     const newThemeColors =
       theme === 'sun'
         ? {
-            'color-dark-100': '#4f4f4f',
-            'color-dark-300': '#cccccc',
-            'color-dark-500': '#999',
-            'color-dark-700': '#666',
-            'color-dark-900': '#e6e6e6',
-            'color-light-100': '#212846',
-            'color-light-300': '#4c4c4c',
+            //dark
+            'color-dark-100': '#c3c1c7',
+            'color-dark-300': '#dcdae0',
+            'color-dark-500': '#f4f2fa',
+            'color-dark-700': '#f9f7ff',
+            'color-dark-900': '#fff',
+            // light
+            'color-light-100': '#000000',
+            'color-light-300': '#171717',
             'color-light-500': '#333',
-            'color-light-700': '#171717',
-            'color-light-900': '#000000',
+            'color-light-700': '#4c4c4c',
+            'color-light-900': '#a8afcc',
           }
         : {
-            'color-dark-100': '#60636a',
+            //dark
+            'color-dark-100': '#a8afcc',
             'color-dark-300': '#4c4c4c',
             'color-dark-500': '#333',
             'color-dark-700': '#171717',
             'color-dark-900': '#000000',
+            // light
             'color-light-100': '#fff',
             'color-light-300': '#f9f7ff',
             'color-light-500': '#f4f2fa',

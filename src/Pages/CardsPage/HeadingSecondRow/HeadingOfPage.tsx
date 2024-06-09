@@ -1,12 +1,13 @@
-import React, { ChangeEvent, useContext } from 'react'
+import React, { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import groupIcon from '@/assets/icons/WhiteSVG/Group 1399.svg'
-import groupIconBlack from '@/assets/icons/WhiteSVG/Group 1399Black.svg'
-import menuIcon2 from '@/assets/icons/WhiteSVG/edit-2-outline.svg'
-import playIcon from '@/assets/icons/WhiteSVG/play-circle-outline.svg'
-import menuIcon from '@/assets/icons/WhiteSVG/trash-outline.svg'
+import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
+import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
+import PrivacyMask from '@/assets/icons/svg/PrivacyMask'
+import TrashOutline from '@/assets/icons/svg/TrashOutline'
+import defaultCard from '@/assets/img/defaultCard.jpg'
 import { handleToastInfo } from '@/common/consts/toastVariants'
 import { initCurrentPage } from '@/common/globalVariables'
 import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
@@ -15,17 +16,16 @@ import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
-import { UserContext } from '@/components/ui/changeTheme/Context'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { path } from '@/router/path'
 import { router } from '@/router/router'
-import { Deck } from '@/services/decks/deck.types'
+import { useGetCardsQuery } from '@/services/cards/cards.service'
+import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 import { clsx } from 'clsx'
 
 import s from '@/Pages/CardsPage/HeadingSecondRow/headingOfPage.module.scss'
 
 type HeadingSecondRowProps = {
-  deck?: Deck
   deckId: string
   isCardsCountZero: boolean
   isMineCards: boolean
@@ -33,10 +33,8 @@ type HeadingSecondRowProps = {
   openDeleteDeckModalHandler: (value: boolean) => void
   openEditDeckModalHandler: (value: boolean) => void
   openEmptyDeckModalHandler: (value: boolean) => void
-  openModalHandler?: (value: boolean) => void
 }
 export const HeadingOfPage = ({
-  deck,
   deckId,
   isCardsCountZero,
   isMineCards,
@@ -44,21 +42,22 @@ export const HeadingOfPage = ({
   openDeleteDeckModalHandler,
   openEditDeckModalHandler,
   openEmptyDeckModalHandler,
-  openModalHandler,
 }: HeadingSecondRowProps) => {
-  const context = useContext(UserContext)
+  const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
   const { t } = useTranslation()
+  const { data: deck } = useGetDeckByIdQuery({ id: deckId })
+  const { currentData, isLoading } = useGetCardsQuery({ args: {}, id: deckId ?? '' })
   const notifyLearnHandler = () => {
-    handleToastInfo(`Add card before learning!`)
+    handleToastInfo(`${t(`successApiResponse.commonInfo.nothingLearn`)}`)
   }
-  const { search, setCurrentPageQuery, setSearchQuery } = useQueryParams()
+
+  const { debouncedSearchValue, setCurrentPageQuery, setSearchQuery } = useQueryParams()
   const handleOpenModal = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    if (isMineCards && isCardsCountZero) {
+    if (isMineCards && isCardsCountZero && deck?.cardsCount === 0) {
       e.preventDefault()
       openEmptyDeckModalHandler(true)
     } else {
-      console.log('baga')
-      router.navigate(`${path.decks}`)
+      router.navigate(`${path.decks}${deckQuery}`)
     }
   }
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -66,11 +65,11 @@ export const HeadingOfPage = ({
     setSearchQuery(e.currentTarget.value)
   }
 
-  const isCardsCountFilled = !isCardsCountZero
+  const condition = deck?.cardsCount !== 0 || currentData?.items.length !== 0
 
   return (
     <div className={s.heading}>
-      <BackBtn onClick={handleOpenModal} to={path.decks}>
+      <BackBtn onClick={handleOpenModal} to={path.decks + deckQuery}>
         {t('cardsPage.backDeckList')}
       </BackBtn>
       <div className={s.headingSecondRow}>
@@ -80,65 +79,64 @@ export const HeadingOfPage = ({
               {deck?.name}
             </Typography>
             {isMineCards && (
-              <DropdownMenuDemo
-                className={s.dropdown}
-                icon={context?.theme === 'moon' ? groupIcon : groupIconBlack}
-                type={'menu'}
-              >
+              <DropdownMenuDemo className={s.dropdown} icon={groupIcon} type={'menu'}>
                 {isCardsCountZero ? (
                   <DropDownItem
                     handleOnClick={notifyLearnHandler}
-                    icon={playIcon}
+                    icon={<PlayCircleOutline />}
                     text={t('cardsPage.learn')}
                   />
                 ) : (
                   <DropDownItem
                     href={`${path.decks}/${deckId}${path.learn}`}
-                    icon={playIcon}
+                    icon={<PlayCircleOutline />}
                     text={t('cardsPage.learn')}
                   />
                 )}
-
                 <DropDownItem
                   handleOnClick={() => openEditDeckModalHandler(true)}
-                  icon={menuIcon2}
+                  icon={<Edit2Outline />}
                   text={t('cardsPage.edit')}
                 />
                 <DropDownItem
                   handleOnClick={() => openDeleteDeckModalHandler(true)}
-                  icon={menuIcon}
+                  icon={<TrashOutline />}
                   text={t('cardsPage.delete')}
                 />
               </DropdownMenuDemo>
             )}
+            {deck?.isPrivate && <PrivacyMask className={s.privacyIcon} />}
           </div>
-          {deck?.cover && <img alt={'img'} src={deck?.cover} width={'120px'} />}
+          {/*{deck?.cover && (*/}
+          {/*  <img alt={'img'} className={s.coverImg} src={deck?.cover ? deck?.cover : defaultCard} />*/}
+          {/*)}*/}
+          <div className={s.wrapperCoverImg}>
+            <img alt={'img'} className={s.coverImg} src={deck?.cover ? deck?.cover : defaultCard} />
+          </div>
         </div>
-        {isCardsCountFilled && (
-          <div className={s.switchButton}>
-            {isMineCards ? (
-              <Button onClick={() => openCreateCardModalHandler(true)} type={'button'}>
-                <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
-              </Button>
-            ) : (
-              <Button
-                as={Link}
-                className={s.learnCards}
-                onClick={() => openModalHandler?.(true)}
-                to={`${path.decks}/${deckId}${path.learn}`}
-                type={'button'}
-              >
-                <Typography variant={'subtitle2'}>{t('cardsPage.learnCards')}</Typography>
-              </Button>
-            )}
-          </div>
-        )}
+        <div className={s.switchButton}>
+          {isMineCards && !isLoading && currentData?.items.length !== 0 && (
+            <Button onClick={() => openCreateCardModalHandler(true)} type={'button'}>
+              <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
+            </Button>
+          )}
+          {!isMineCards && (
+            <Button
+              as={Link}
+              className={s.learnCards}
+              to={`${path.decks}/${deckId}${path.learn}`}
+              type={'button'}
+            >
+              <Typography variant={'subtitle2'}>{t('cardsPage.learnCards')}</Typography>
+            </Button>
+          )}
+        </div>
       </div>
-      {isCardsCountFilled && (
+      {condition && !isLoading && (
         <Input
           callback={setSearchQuery}
           className={s.input}
-          currentValue={search}
+          currentValue={debouncedSearchValue}
           onChange={handleSearch}
           type={'search'}
         />

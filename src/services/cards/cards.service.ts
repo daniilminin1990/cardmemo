@@ -53,11 +53,13 @@ export const cardsService = flashCardsAPI.injectEndpoints({
         },
       }),
       deleteCardById: builder.mutation<void, DeleteCardArgs>({
-        invalidatesTags: ['Cards'],
+        invalidatesTags: ['Cards', 'Deck'],
         async onQueryStarted({ id }, { dispatch, getState, queryFulfilled }) {
           const invalidateBy = cardsService.util.selectInvalidatedBy(getState(), [
-            { type: 'Cards' },
+            { type: 'Cards' || 'Deck' },
           ])
+
+          console.log(invalidateBy)
           const patchResults: any[] = []
 
           invalidateBy.forEach(({ originalArgs }) => {
