@@ -30,6 +30,7 @@
   width: 30px;
   height: 20px;
   object-fit: cover;
+  border: solid rgba(0, 0, 0, 1) 0.7px;
 }
 
 .DropdownMenuContent {
@@ -45,9 +46,9 @@
 
   background-color: var(--color-dark-300);
   border-radius: 6px;
-  box-shadow:
+  /*box-shadow:
     0 10px 38px -10px rgb(22 23 24 / 35%),
-    0 10px 20px -15px rgb(22 23 24 / 20%);
+    0 10px 20px -15px rgb(22 23 24 / 20%);*/
 }
 
 .IconButton {
@@ -61,8 +62,6 @@
 
   padding: 5px;
 
-  /* background-color: #0f9954; */
-  //background-color: rgb(255 255 255 / 10%);
   background-color: var(--color-dark-300);
   border-radius: 5px;
 
@@ -78,7 +77,6 @@
   transition: 0.2s;
 
   & path {
-    //fill: var(--color-light-900);
     fill: var(--color-light-700);
   }
 }
@@ -90,12 +88,14 @@
 .flag {
   width: 30px;
   height: 20px;
+  object-fit: cover;
+  border: solid rgba(0, 0, 0, 1) 0.7px;
 }
 
-/* .IconButton[data-state='open'] img,
+ .IconButton[data-state='open'] img,
 .IconButton:focus-visible img {
   box-shadow: 0 0 10px 8px rgb(137 74 255 / 50%);
-} */
+}
 
 .IconButton[data-state='open'],
 .IconButton:focus-visible {

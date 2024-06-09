@@ -7,10 +7,10 @@ import kzIcon from '@/assets/Lang/kz.svg'
 import ruIcon from '@/assets/Lang/ru.svg'
 import uaIcon from '@/assets/Lang/ua.svg'
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
-import Typography from '@/components/ui/Typography/Typography'
+import LocaleMenuItem from '@/components/ui/LocaleSwitcher/LocaleMenuItem'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import s from './localeSwitcher.module.scss'
+import s from './LocaleSwitcher.module.scss'
 
 type LangIcon = typeof byIcon | typeof enIcon | typeof kzIcon | typeof ruIcon | typeof uaIcon
 type LangType = 'by' | 'en' | 'kz' | 'ru' | 'ua'
@@ -32,15 +32,19 @@ const LocaleSwitcherDrop = () => {
     ua: { icon: uaIcon, isoCode: 'ua' },
   }
   const [iconFlag, setIconFlag] = useState(
-    i18n.language === 'en' ? enIcon : `${langData[i18n.language as LangType].isoCode}`
+    /*i18n.language === 'en' ? enIcon : `${langData[i18n.language as LangType].isoCode}`*/
+    langData[i18n.language as LangType]?.icon || enIcon
   )
 
   useLayoutEffect(() => {
-    const storedLocale = localStorage.getItem('locale')
+    /*const storedLocale = localStorage.getItem('locale')
 
     if (storedLocale) {
       setIconFlag(`${langData[storedLocale as LangType].icon}`)
-    }
+    }*/
+    const storedLocale = localStorage.getItem('locale') || i18n.language
+
+    setIconFlag(langData[storedLocale as LangType]?.icon || enIcon)
   }, [])
 
   const changeLanguage = useCallback(
@@ -63,7 +67,7 @@ const LocaleSwitcherDrop = () => {
       <DropdownMenu.Portal>
         <DropdownMenu.Content className={s.DropdownMenuContent} sideOffset={3}>
           {Object.entries(langData).map(([key, value]) => (
-            <DropdownMenuItem
+            <LocaleMenuItem
               icon={value.icon}
               isoCode={value.isoCode}
               key={key}
@@ -74,36 +78,6 @@ const LocaleSwitcherDrop = () => {
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
-  )
-}
-
-type DropdownMenuItemProps = {
-  icon: string
-  isoCode: string
-  onSelect: () => void
-}
-
-const DropdownMenuItem = (props: DropdownMenuItemProps) => {
-  const { t } = useTranslation()
-  const { icon, isoCode, onSelect } = props
-
-  return (
-    <DropdownMenu.Item asChild>
-      <div
-        className={s.boxContent}
-        onClick={onSelect}
-        onKeyDown={e => {
-          if (e.key === 'Enter') {
-            onSelect()
-          }
-        }}
-      >
-        <img alt={`${isoCode} flag`} className={s.dropItemFlag} src={icon} />
-        <Typography className={s.dropdownText} variant={'caption'}>
-          {t(`localeSwitcher.ownLanguages.${isoCode}`)}
-        </Typography>
-      </div>
-    </DropdownMenu.Item>
   )
 }
 
