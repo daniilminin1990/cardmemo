@@ -2,12 +2,16 @@
   width: 420px;
 
   @media (max-width: 767px) {
-    width: 100vw;
+    max-width: 360px;
   }
 }
 
 .form {
   max-height: 70vh;
+
+  @media (max-width: 767px) {
+    max-height: 100svh;
+  }
 }
 
 .body {

@@ -2,12 +2,17 @@
   width: 542px;
 
   @media (max-width: 767px) {
-    width: 100vw;
+    max-width: 360px;
+    max-height: 100svh;
   }
 }
 
 .form {
   max-height: 70vh;
+
+  @media (max-width: 767px) {
+    max-height: 100svh;
+  }
 }
 
 .body {
