@@ -80,6 +80,7 @@ const SvgCardMemoLogoGolden = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGEl
         <stop offset={'0.73'} stopColor={'#9839ff'} />
         <stop offset={'1'} stopColor={'#a236ff'} />
       </linearGradient>
+      {/*!ЗАЛИВКА МОЛЛНИИ*/}
       <linearGradient
         gradientTransform={'matrix(0.96, -0.26, -0.26, -0.96, 32.96, 203.84)'}
         gradientUnits={'userSpaceOnUse'}
@@ -92,6 +93,7 @@ const SvgCardMemoLogoGolden = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGEl
         <stop offset={'0'} stopColor={'#3a00e7'} />
         <stop offset={'1'} stopColor={'#8d00b9'} />
       </linearGradient>
+      {/*!КОНТУР МОЛНИИ*/}
       <linearGradient
         gradientTransform={'translate(-1.61 77.47) rotate(-15.3)'}
         gradientUnits={'userSpaceOnUse'}
