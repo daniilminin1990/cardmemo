@@ -65,6 +65,7 @@ input {
   padding: 14px;
 
   border-bottom: 1px solid var(--color-dark-500);
+  gap: 10px;
 
   @media (width <= 767px) {
     margin-left: 0;

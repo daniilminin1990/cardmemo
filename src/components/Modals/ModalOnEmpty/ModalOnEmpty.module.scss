@@ -7,10 +7,11 @@
 }
 
 .modal {
+  width: 420px;
   @include animation-appearance;
 
   @media (max-width: 767px) {
-    max-width: 100vw;
+    max-width: 360px;
   }
 }
 
