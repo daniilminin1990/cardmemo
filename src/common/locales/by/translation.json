@@ -56,7 +56,6 @@
     "uploadImage": "Загрузіць абкладзінку",
     "changeCover": "Змяніць абкладзінку",
     "private": "Прыватная",
-    "namePack": "Імя калоды",
     "cancel": "Адмена",
     "saveChanges": "Захаваць",
     "createPack": "Стварыць"
@@ -100,7 +99,9 @@
     "noContent": "Няма дадзеных з такімі ўмовамі",
     "question": "Пытанне",
     "answer": "Адказ",
-    "grade": "Ацэнка"
+    "grade": "Ацэнка",
+    "noResultsFound": "Не знойдзена ніводнага выніку",
+    "unknownCondition": "Невядомы стан"
   },
   "cardsPage": {
     "backDeckList": "Вярнуцца на старонку з калодамі",
@@ -124,7 +125,8 @@
     "answer": "Адказ",
     "saveChanges": "Захаваць змены",
     "createCard": "Стварыць карту",
-    "cancel": "Адмена"
+    "cancel": "Адмена",
+    "removeCover": "Выдаліць абкладзінку"
   },
   "dataFiller": {
     "uploadImage": "Загрузіць абкладзінку",

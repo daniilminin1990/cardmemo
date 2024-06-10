@@ -56,7 +56,6 @@
     "uploadImage": "Загрузить обложку",
     "changeCover": "Изменить обложку",
     "private": "Приватная",
-    "namePack": "Имя колоды",
     "cancel": "Отмена",
     "saveChanges": "Сохранить",
     "createPack": "Создать"
@@ -126,7 +125,8 @@
     "answer": "Ответ",
     "saveChanges": "Сохранить",
     "createCard": "Создать",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+    "removeCover": "Удалить обложку"
   },
   "dataFiller": {
     "uploadImage": "Загрузить обложку",
