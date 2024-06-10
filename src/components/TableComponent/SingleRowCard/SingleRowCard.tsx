@@ -54,17 +54,12 @@ export const SingleRowCard = ({
   const onMouseUp = () => {
     setBlur(true) // При отпускании мыши снимаем эффект "блюра"
   }
-  const fragmetWithBlur = context.blur && blur ? s.coverImg + ' ' + s.blur : s.coverImg
+  const fragmentWithBlur = context.blur && blur ? s.coverImg + ' ' + s.blur : s.coverImg
 
   return (
     <Table.Row>
       <Table.Cell>
         <div className={s.imgWrapper}>
-          {/*{item.questionImg && (*/}
-          {/*  <div className={s.wrapperCoverImg}>*/}
-          {/*    <img alt={'default card img'} className={s.coverImg} src={item.questionImg} />*/}
-          {/*  </div>*/}
-          {/*)}*/}
           <div className={s.wrapperCoverImg}>
             <img
               alt={'default card img'}
@@ -80,7 +75,7 @@ export const SingleRowCard = ({
       </Table.Cell>
       <Table.Cell style={{ userSelect: 'none' }}>
         <div
-          className={clsx(s.imgWrapper, context.blur && blur ? s.blur : s.unBlur)}
+          className={clsx(context.blur && blur ? s.blur : s.unBlur)}
           onMouseDown={onMouseDown}
           onMouseLeave={onMouseUp}
           onMouseUp={onHandleBlur}
@@ -89,12 +84,15 @@ export const SingleRowCard = ({
             <div className={s.wrapperCoverImg}>
               <img
                 alt={'default card img'}
-                className={item.answerImg ? fragmetWithBlur : s.wrapperCoverImg + ' ' + s.withImg}
+                className={clsx(
+                  s.coverImg,
+                  item.answerImg ? fragmentWithBlur : s.wrapperCoverImg + ' ' + s.withImg
+                )}
                 src={item.answerImg ? item.answerImg : defaultCard}
               />
             </div>
+            <Typography>{item.answer}</Typography>
           </div>
-          <Typography>{item.answer}</Typography>
         </div>
       </Table.Cell>
       <Table.Cell>

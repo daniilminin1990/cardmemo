@@ -2,9 +2,11 @@
 
 .modal {
   @include animation-appearance;
+  width: 420px;
 
   @media (max-width: 767px) {
-    width: 100vw;
+    max-width: 360px;
+    padding-bottom: 20px;
   }
 }
 

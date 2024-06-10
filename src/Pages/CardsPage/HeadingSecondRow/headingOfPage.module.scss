@@ -25,6 +25,11 @@
   display: flex;
   gap: 6px;
   align-items: center;
+  .privacyIcon {
+    opacity: 0.6;
+    width: 25px;
+    color: var(--color-accent-300);
+  }
 }
 
 .dropdown {
@@ -50,4 +55,26 @@
 
 .input {
   width: 100%;
+}
+
+.wrapperCoverImg {
+  position: relative;
+  .coverImg {
+    max-width: 200px;
+    width: 100%;
+    position: relative;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 0.2s;
+
+    &.withImg:hover {
+      transform: scale(1.6);
+      height: auto;
+      object-fit: cover;
+      position: absolute;
+      z-index: 999;
+    }
+  }
 }

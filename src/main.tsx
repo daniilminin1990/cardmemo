@@ -4,7 +4,7 @@ import { App } from '@/App'
 import Context from '@/components/ui/changeTheme/Context'
 import { createRoot } from 'react-dom/client'
 
-import '@/components/ui/localeSwitcher/i18nConfiguration'
+import '@/components/ui/LocaleSwitcher/i18nConfiguration'
 import './styles/index.scss'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'

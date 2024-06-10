@@ -122,6 +122,7 @@ export const ProfilePage = () => {
                   className={s.logoutBtn}
                   onClick={logoutHandler}
                   to={`${path.login}`}
+                  variant={'secondary'}
                 >
                   <LogOut className={s.logoutIcon} />
                   <Typography variant={'body2'}>{t('profilePage.logout')}</Typography>

@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom'
 import groupIcon from '@/assets/icons/WhiteSVG/Group 1399.svg'
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
+import PrivacyMask from '@/assets/icons/svg/PrivacyMask'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
+import defaultCard from '@/assets/img/defaultCard.jpg'
 import { handleToastInfo } from '@/common/consts/toastVariants'
 import { initCurrentPage } from '@/common/globalVariables'
 import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
@@ -27,7 +29,6 @@ type HeadingSecondRowProps = {
   deckId: string
   isCardsCountZero: boolean
   isMineCards: boolean
-  loadingStatus: boolean
   openCreateCardModalHandler: (value: boolean) => void
   openDeleteDeckModalHandler: (value: boolean) => void
   openEditDeckModalHandler: (value: boolean) => void
@@ -37,7 +38,6 @@ export const HeadingOfPage = ({
   deckId,
   isCardsCountZero,
   isMineCards,
-  loadingStatus,
   openCreateCardModalHandler,
   openDeleteDeckModalHandler,
   openEditDeckModalHandler,
@@ -46,11 +46,12 @@ export const HeadingOfPage = ({
   const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
   const { t } = useTranslation()
   const { data: deck } = useGetDeckByIdQuery({ id: deckId })
-  const { currentData } = useGetCardsQuery({ args: {}, id: deckId ?? '' })
+  const { currentData, isLoading } = useGetCardsQuery({ args: {}, id: deckId ?? '' })
   const notifyLearnHandler = () => {
     handleToastInfo(`${t(`successApiResponse.commonInfo.nothingLearn`)}`)
   }
-  const { debouncedSearchValue, search, setCurrentPageQuery, setSearchQuery } = useQueryParams()
+
+  const { debouncedSearchValue, setCurrentPageQuery, setSearchQuery } = useQueryParams()
   const handleOpenModal = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (isMineCards && isCardsCountZero && deck?.cardsCount === 0) {
       e.preventDefault()
@@ -65,13 +66,6 @@ export const HeadingOfPage = ({
   }
 
   const condition = deck?.cardsCount !== 0 || currentData?.items.length !== 0
-
-  console.log({
-    curDataLengthNotZero: currentData?.items.length !== 0,
-    deckCardCountNotZero: deck?.cardsCount !== 0,
-    isMineCards,
-    searchZero: search === '',
-  })
 
   return (
     <div className={s.heading}>
@@ -111,11 +105,17 @@ export const HeadingOfPage = ({
                 />
               </DropdownMenuDemo>
             )}
+            {deck?.isPrivate && <PrivacyMask className={s.privacyIcon} />}
           </div>
-          {deck?.cover && <img alt={'img'} src={deck?.cover} width={'120px'} />}
+          {/*{deck?.cover && (*/}
+          {/*  <img alt={'img'} className={s.coverImg} src={deck?.cover ? deck?.cover : defaultCard} />*/}
+          {/*)}*/}
+          <div className={s.wrapperCoverImg}>
+            <img alt={'img'} className={s.coverImg} src={deck?.cover ? deck?.cover : defaultCard} />
+          </div>
         </div>
         <div className={s.switchButton}>
-          {isMineCards && !loadingStatus && currentData?.items.length !== 0 && (
+          {isMineCards && !isLoading && currentData?.items.length !== 0 && (
             <Button onClick={() => openCreateCardModalHandler(true)} type={'button'}>
               <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
             </Button>
@@ -132,7 +132,7 @@ export const HeadingOfPage = ({
           )}
         </div>
       </div>
-      {condition && (
+      {condition && !isLoading && (
         <Input
           callback={setSearchQuery}
           className={s.input}

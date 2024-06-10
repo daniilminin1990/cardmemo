@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 
+import PrivacyMask from '@/assets/icons/svg/PrivacyMask'
 import defaultCard from '@/assets/img/defaultCard.jpg'
 import { RowDeckBtns } from '@/components/TableComponent/SingleRowDeck/btns/RowDeckBtns'
 import Typography from '@/components/ui/Typography/Typography'
@@ -34,7 +35,7 @@ export const SingleRowDeck = ({
 
   return (
     <Table.Row key={item.id}>
-      <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
+      <Table.Cell className={clsx(s.deckRowCell, item?.cardsCount === 0 && s.disabledCell)}>
         <Typography
           as={Link}
           className={s.imgWrapper}
@@ -48,8 +49,11 @@ export const SingleRowDeck = ({
               src={item.cover ? item.cover : defaultCard}
             />
           </div>
-          {item.name}
+          <Typography>{item.name}</Typography>
         </Typography>
+        <div className={clsx(s.privacyStep, 'step-private-deck')}>
+          {item?.isPrivate && <PrivacyMask className={s.privacyIcon} />}
+        </div>
       </Table.Cell>
       <Table.Cell>
         <Typography>{item.cardsCount}</Typography>

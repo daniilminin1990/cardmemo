@@ -42,6 +42,8 @@ import { clsx } from 'clsx'
 
 import s from '@/Pages/DecksPage/decksPage.module.scss'
 
+import helpImg from '../../assets/icons/informationIcon.svg'
+
 export function DecksPage() {
   const { t } = useTranslation()
   const [run, setRun] = useState(false)
@@ -156,20 +158,24 @@ export function DecksPage() {
       <Page className={s.common}>
         <div className={s.heading}>
           <div className={s.headingFirstRow}>
-            <Typography as={'h1'} variant={'h1'}>
-              {t('decksPage.decksList')}
-            </Typography>
-            <div className={'my-nine-step'}>
+            <div className={s.headingName}>
+              <Typography as={'h1'} variant={'h1'}>
+                {t('decksPage.decksList')}
+              </Typography>
+              <Button className={s.buttonHelp} onClick={() => setRun(!run)}>
+                <img alt={'help button'} src={helpImg} />
+              </Button>
+            </div>
+
+            <div className={'step-add-new-deck'}>
               <Button onClick={() => setIsCreateModal(true)} variant={'primary'}>
                 <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
               </Button>
             </div>
           </div>
-          <Button className={s.buttonHelp} onClick={() => setRun(!run)}>
-            {t('help.help')}
-          </Button>
+
           <div className={s.filters}>
-            <div className={clsx(s.boxForInput, 'my-five-step')}>
+            <div className={clsx(s.boxForInput, 'step-search')}>
               <Input
                 callback={setSearchQuery}
                 className={s.input}
@@ -178,7 +184,7 @@ export function DecksPage() {
                 type={'search'}
               />
             </div>
-            <div className={'my-six-step'}>
+            <div className={'step-tab-filter'}>
               <div className={s.tabsContainer}>
                 <TabSwitcher
                   className={s.tabsSwitcher}
@@ -188,12 +194,12 @@ export function DecksPage() {
                   value={tabsValue}
                 />
                 <div className={clsx(s.countsFav, context?.theme === 'sun' ? s.sun : '')}>
-                  {favoriteCounts}
+                  <Typography variant={'caption'}>{favoriteCounts}</Typography>
                 </div>
               </div>
             </div>
 
-            <div className={clsx(s.boxForSlider, 'my-seven-step')}>
+            <div className={clsx(s.boxForSlider, 'step-slider-filter')}>
               <Slider
                 className={s.slider}
                 label={t('decksPage.numberOfCards')}
@@ -203,7 +209,7 @@ export function DecksPage() {
                 value={[sliderMin, sliderMax]}
               />
             </div>
-            <div className={'my-eight-step'}>
+            <div className={'step-clear-filter'}>
               <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
                 <TrashOutline />
                 <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
@@ -231,7 +237,7 @@ export function DecksPage() {
             })}
           </TableHeadMobile>
         ) : (
-          <div className={'my-ten-step'}>
+          <div className={'step-this-is-table'}>
             <TableComponentWithTypes
               data={decksData}
               isFetching={isFetching}
@@ -253,7 +259,7 @@ export function DecksPage() {
           </div>
         )}
 
-        <div className={clsx(s.footer, 'my-twelve-step')}>
+        <div className={clsx(s.footer, 'step-pagination')}>
           <PaginationWithSelect
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}
