@@ -24,6 +24,25 @@
   text-decoration: none;
 }
 
+.nameWrapper {
+  @include focus-visible-default;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+
+  text-decoration: none;
+
+  a {
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
 .wrapperCoverImg {
   max-width: 118px;
   height: 48px;

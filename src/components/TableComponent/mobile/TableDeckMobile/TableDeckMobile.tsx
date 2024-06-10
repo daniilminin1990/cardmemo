@@ -39,7 +39,14 @@ export const TableDeckMobile = ({
       <Table.Root>
         <Table.Body>
           <Table.Row>
-            <Table.HeadCell scope={'row'}>{name}</Table.HeadCell>
+            <Table.HeadCell
+              className={clsx(item?.cardsCount === 0 && s.disabledCell)}
+              scope={'row'}
+            >
+              <Typography as={Link} className={s.nameWrapper} to={`${path.decks}/${item.id}`}>
+                {item.name}
+              </Typography>
+            </Table.HeadCell>
             <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
               <Typography as={Link} className={s.imgWrapper} to={`${path.decks}/${item.id}`}>
                 {item.cover && (
