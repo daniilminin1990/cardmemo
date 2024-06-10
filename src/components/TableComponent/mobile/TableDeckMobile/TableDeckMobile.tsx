@@ -44,7 +44,7 @@ export const TableDeckMobile = ({
               scope={'row'}
             >
               <Typography as={Link} className={s.nameWrapper} to={`${path.decks}/${item.id}`}>
-                {item.name}
+                {name}
               </Typography>
             </Table.HeadCell>
             <Table.Cell className={clsx(item?.cardsCount === 0 && s.disabledCell)}>
