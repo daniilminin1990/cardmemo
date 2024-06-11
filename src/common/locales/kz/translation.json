@@ -56,7 +56,6 @@
     "uploadImage": "Мұқаба жүктеу",
     "changeCover": "Мұқабаны өзгерту",
     "private": "Жеке",
-    "namePack": "Колоданың атауы",
     "cancel": "Болдырмау",
     "saveChanges": "Өзгерістерді сақтау",
     "createPack": "Жасау"
@@ -100,7 +99,9 @@
     "noContent": "Бұл шарттармен деректер жоқ",
     "question": "Сұрақ",
     "answer": "Жауап",
-    "grade": "Баға"
+    "grade": "Баға",
+    "noResultsFound": "Мәліметтер табылмады",
+    "unknownCondition": "Белгісіз жағдай"
   },
   "cardsPage": {
     "backDeckList": "Колодалар бетіне қайту",
@@ -124,7 +125,8 @@
     "answer": "Жауап",
     "saveChanges": "Өзгерістерді сақтау",
     "createCard": "Картаны жасау",
-    "cancel": "Болдырмау"
+    "cancel": "Болдырмау",
+    "removeCover": "Мұқабаны алып тастау"
   },
   "dataFiller": {
     "uploadImage": "Мұқабаны жүктеу",

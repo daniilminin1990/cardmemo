@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
-import { headersNameCards, headersNameDecks } from '@/common/globalVariables'
+import { headersNameDecks } from '@/common/globalVariables'
 import Loading from '@/components/ui/Loading/Loading'
 import Typography from '@/components/ui/Typography/Typography'
 import { UserContext } from '@/components/ui/changeTheme/Context'
@@ -26,7 +26,7 @@ type Props<T extends CardResponse[] | Deck[]> = {
   deckId?: string
   isFetching?: boolean
   isLoading?: boolean
-  tableHeader: { key: string; title: string }[]
+  tableHeader: { key: string; locale: string; title: string }[]
 }
 
 export const TableComponentWithTypes = memo(
@@ -38,7 +38,7 @@ export const TableComponentWithTypes = memo(
     tableHeader,
   }: Props<T>) => {
     const { currentOrderBy, setSortByQuery } = useQueryParams()
-    const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
+    // const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
     const { t } = useTranslation()
     const context = useContext(UserContext)
 
@@ -81,7 +81,7 @@ export const TableComponentWithTypes = memo(
         <Table.Root className={s.tableRoot}>
           <Table.Head>
             <Table.Row>
-              {header.map(name => (
+              {tableHeader.map(name => (
                 <Table.HeadCell
                   className={clsx(
                     tableHeader === headersNameDecks ? s.tableHeadCellDecks : s.tableHeadCellCards
@@ -93,7 +93,7 @@ export const TableComponentWithTypes = memo(
                     <Typography as={'button'} className={s.nameSortBtn} variant={'subtitle2'}>
                       {/*{name.title}*/}
                       {t(`${name.locale}`)}
-                      {currentOrderBy.includes(name.key) && (
+                      {(currentOrderBy === `${name.key}-asc` || currentOrderBy === `${name.key}-desc`)  && (
                         <ArrowIosDownOutline
                           className={`${s.arrow} ${currentOrderBy.includes('asc') ? s.rotate : ''}`}
                         />
@@ -108,7 +108,7 @@ export const TableComponentWithTypes = memo(
           </Table.Head>
           <>
             {isLoading ? (
-              <EmptyTable header={header}>
+              <EmptyTable header={tableHeader}>
                 <Loading style={{ height: '50px' }} type={'small'} />
               </EmptyTable>
             ) : (
@@ -116,7 +116,7 @@ export const TableComponentWithTypes = memo(
                 {data && data?.length !== 0 ? (
                   <Table.Body>{children}</Table.Body>
                 ) : (
-                  <EmptyTable header={header}>
+                  <EmptyTable header={tableHeader}>
                     <Typography>{message}</Typography>
                   </EmptyTable>
                 )}

@@ -30,6 +30,9 @@
     "deleteDeck": "Delete Deck",
     "isDeleteDeck": "Do you really want to delete deck? All cards will be deleted."
   },
+  "deleteModal": {
+    "cancel": "Cancel"
+  },
   "useTabsValuesParams": {
     "allDecks": "All decks",
     "myDecks": "My decks",
@@ -56,9 +59,6 @@
     "cancel": "Cancel",
     "saveChanges": "Save changes",
     "createPack": "Create Deck"
-  },
-  "deleteModal": {
-    "cancel": "Cancel"
   },
   "signInPage": {
     "signIn": "Sign In",

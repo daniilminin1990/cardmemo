@@ -56,7 +56,6 @@
     "uploadImage": "Завантажити обкладинку",
     "changeCover": "Змінити обкладинку",
     "private": "Приватний",
-    "namePack": "Ім'я колоди",
     "cancel": "Скасувати",
     "saveChanges": "Зберегти зміни",
     "createPack": "Створити"
@@ -100,7 +99,9 @@
     "noContent": "Немає даних з такими умовами",
     "question": "Питання",
     "answer": "Відповідь",
-    "grade": "Оцінка"
+    "grade": "Оцінка",
+    "noResultsFound": "Результатів не знайдено",
+    "unknownCondition": "Невідомий стан"
   },
   "cardsPage": {
     "backDeckList": "Повернутися на сторінку з колодами",
@@ -124,7 +125,8 @@
     "answer": "Відповідь",
     "saveChanges": "Зберегти",
     "createCard": "Створити",
-    "cancel": "Скасувати"
+    "cancel": "Скасувати",
+    "removeCover": "Видалити обкладинку"
   },
   "dataFiller": {
     "uploadImage": "Завантажити обкладинку",

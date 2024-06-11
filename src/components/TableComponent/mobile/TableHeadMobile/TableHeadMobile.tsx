@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
-import { headersNameCards, headersNameDecks } from '@/common/globalVariables'
 import Loading from '@/components/ui/Loading/Loading'
 import Typography from '@/components/ui/Typography/Typography'
 import { useQueryParams } from '@/hooks/useQueryParams'
@@ -17,7 +16,7 @@ type Props = {
   data?: CardResponse[] | Deck[]
   isFetching?: boolean
   isLoading?: boolean
-  tableHeader: { key: string; title: string }[]
+  tableHeader: { key: string; locale: string; title: string }[]
 }
 
 export const TableHeadMobile = ({ children, data, isLoading, tableHeader }: Props) => {
@@ -40,12 +39,12 @@ export const TableHeadMobile = ({ children, data, isLoading, tableHeader }: Prop
     message = `${t('tableComponentWithTypes.unknownCondition')}`
   }
 
-  const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
+  // const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
 
   return (
     <>
       <div className={s.box}>
-        {header.map(name => {
+        {tableHeader.map(name => {
           return (
             <Typography
               as={'button'}
@@ -54,7 +53,7 @@ export const TableHeadMobile = ({ children, data, isLoading, tableHeader }: Prop
               onClick={() => setSortByQuery(name.key)}
             >
               {t(`${name.locale}`)}
-              {currentOrderBy.includes(name.key) && (
+              {(currentOrderBy === `${name.key}-asc` || currentOrderBy === `${name.key}-desc`) && (
                 <ArrowIosDownOutline
                   className={`${s.arrow} ${currentOrderBy.includes('asc') ? s.rotate : ''}`}
                 />
