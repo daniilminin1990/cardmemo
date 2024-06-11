@@ -93,7 +93,7 @@ export const TableComponentWithTypes = memo(
                     <Typography as={'button'} className={s.nameSortBtn} variant={'subtitle2'}>
                       {/*{name.title}*/}
                       {t(`${name.locale}`)}
-                      {currentOrderBy.includes(name.key) && (
+                      {(currentOrderBy === `${name.key}-asc` || currentOrderBy === `${name.key}-desc`)  && (
                         <ArrowIosDownOutline
                           className={`${s.arrow} ${currentOrderBy.includes('asc') ? s.rotate : ''}`}
                         />

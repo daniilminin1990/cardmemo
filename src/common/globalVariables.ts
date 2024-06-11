@@ -2,7 +2,7 @@ export const headersNameDecks = [
   { key: 'name', locale: 'tableComponentWithTypes.name', title: 'Name' },
   { key: 'cardsCount', locale: 'tableComponentWithTypes.cards', title: 'Cards' },
   { key: 'updated', locale: 'tableComponentWithTypes.lastUpdated', title: 'Last Updated' },
-  { key: 'created', locale: 'tableComponentWithTypes.createdBy', title: 'Created by' },
+  { key: 'author.name', locale: 'tableComponentWithTypes.createdBy', title: 'Created by' },
 ]
 
 export const headersNameCards = [
