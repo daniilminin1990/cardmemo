@@ -120,7 +120,7 @@ export const HeadingOfPage = ({
               <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
             </Button>
           )}
-          {!isMineCards && (
+          {currentData?.items.length !== 0 && !isMineCards && (
             <Button
               as={Link}
               className={s.learnCards}
