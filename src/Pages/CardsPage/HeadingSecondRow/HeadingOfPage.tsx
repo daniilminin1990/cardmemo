@@ -14,6 +14,7 @@ import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
 import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Input from '@/components/ui/Input/Input'
+import Loading from '@/components/ui/Loading/Loading'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { useQueryParams } from '@/hooks/useQueryParams'
@@ -66,6 +67,10 @@ export const HeadingOfPage = ({
   }
 
   const condition = deck?.cardsCount !== 0 || currentData?.items.length !== 0
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   return (
     <div className={s.heading}>
