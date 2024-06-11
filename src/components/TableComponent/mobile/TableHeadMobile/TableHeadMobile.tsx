@@ -53,7 +53,7 @@ export const TableHeadMobile = ({ children, data, isLoading, tableHeader }: Prop
               onClick={() => setSortByQuery(name.key)}
             >
               {t(`${name.locale}`)}
-              {currentOrderBy.includes(name.key) && (
+              {(currentOrderBy === `${name.key}-asc` || currentOrderBy === `${name.key}-desc`) && (
                 <ArrowIosDownOutline
                   className={`${s.arrow} ${currentOrderBy.includes('asc') ? s.rotate : ''}`}
                 />
