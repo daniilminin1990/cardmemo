@@ -1,7 +1,8 @@
 import { Link, useLocation } from 'react-router-dom'
 
 import PrivacyMask from '@/assets/icons/svg/PrivacyMask'
-import defaultCard from '@/assets/img/defaultCard.jpg'
+// import defaultCard from '@/assets/img/defaultCard.jpg'
+import flashCardsDefault2 from '@/assets/img/flashcardsDefault2.png'
 import { RowDeckBtns } from '@/components/TableComponent/SingleRowDeck/btns/RowDeckBtns'
 import Typography from '@/components/ui/Typography/Typography'
 import { Table } from '@/components/ui/table'
@@ -45,8 +46,10 @@ export const SingleRowDeck = ({
           <div className={s.wrapperCoverImg}>
             <img
               alt={'default card img'}
-              className={clsx(s.coverImg, item?.cover && s.withImg)}
-              src={item.cover ? item.cover : defaultCard}
+              // className={clsx(s.coverImg, item?.cover ? s.withImg : s.defImg)}
+              className={clsx(item?.cover ? s.coverImg : s.defImg)}
+              src={item.cover ? item.cover : flashCardsDefault2}
+              // src={item.cover ? item.cover : defaultCard}
             />
           </div>
           <Typography>{item.name}</Typography>
