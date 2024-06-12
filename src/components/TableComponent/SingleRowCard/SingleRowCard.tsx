@@ -4,7 +4,7 @@ import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import Star from '@/assets/icons/svg/Star'
 import StarOutline from '@/assets/icons/svg/StarOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
-import defaultCard from '@/assets/img/defaultCard.jpg'
+import questionImg from '@/assets/img/questionImg.png'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { UserContext } from '@/components/ui/changeTheme/Context'
@@ -65,10 +65,11 @@ export const SingleRowCard = ({
             <img
               alt={'default card img'}
               className={clsx(
-                s.coverImg,
+                // s.coverImg,
+                item?.questionImg ? s.coverImg : s.defImg,
                 !item?.questionImg && s.wrapperCoverImg + ' ' + s.withImg
               )}
-              src={item.questionImg ? item.questionImg : defaultCard}
+              src={item.questionImg ? item.questionImg : questionImg}
             />
           </div>
           <Typography>{item.question}</Typography>
@@ -82,16 +83,28 @@ export const SingleRowCard = ({
           onMouseUp={onHandleBlur}
         >
           <div className={s.imgWrapper}>
-            <div className={s.wrapperCoverImg}>
-              <img
-                alt={'default card img'}
-                className={clsx(
-                  s.coverImg,
-                  item.answerImg ? fragmentWithBlur : s.wrapperCoverImg + ' ' + s.withImg
-                )}
-                src={item.answerImg ? item.answerImg : defaultCard}
-              />
-            </div>
+            {item.answerImg && (
+              <div className={s.wrapperCoverImg}>
+                <img
+                  alt={'default card img'}
+                  className={clsx(
+                    s.coverImg,
+                    item.answerImg ? fragmentWithBlur : s.wrapperCoverImg + ' ' + s.withImg
+                  )}
+                  src={item.answerImg}
+                />
+              </div>
+            )}
+            {/*<div className={s.wrapperCoverImg}>*/}
+            {/*  <img*/}
+            {/*    alt={'default card img'}*/}
+            {/*    className={clsx(*/}
+            {/*      s.coverImg,*/}
+            {/*      item.answerImg ? fragmentWithBlur : s.wrapperCoverImg + ' ' + s.withImg*/}
+            {/*    )}*/}
+            {/*    src={item.answerImg ? item.answerImg : questionImg}*/}
+            {/*  />*/}
+            {/*</div>*/}
             <Typography>{item.answer}</Typography>
           </div>
         </div>

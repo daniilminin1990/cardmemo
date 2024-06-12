@@ -17,16 +17,74 @@
   }
 }
 
-.wrapperCoverImg {
-  width: 118px;
-  height: 48px;
+//! Было
+//.wrapperCoverImg {
+//  width: 118px;
+//  height: 48px;
+//
+//  .coverImg {
+//    width: 118px;
+//    height: 48px;
+//    object-fit: cover;
+//    object-position: center;
+//    transition: transform 0.2s;
+//
+//    &:not(.blur) {
+//      &:hover {
+//        position: relative;
+//        z-index: 2;
+//        transform: scale(1.6);
+//        height: auto;
+//        object-fit: cover;
+//
+//        ~ .blur {
+//          transform: none;
+//          filter: blur(3px);
+//        }
+//      }
+//    }
+//  }
+//
+//  .withImg:not(.blur):hover {
+//    transform: none;
+//    filter: none;
+//    height: 48px;
+//  }
+//}
 
+//! Стало
+.wrapperCoverImg {
+  //width: 118px;
+  //height: 48px;
+  width: 48px;
+  height: 48px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .defImg,
   .coverImg {
-    width: 118px;
-    height: 48px;
-    object-fit: cover;
-    object-position: center;
+    width: 100%;
+    height: 100%;
     transition: transform 0.2s;
+  }
+  .defImg {
+    border-radius: 50%;
+    object-fit: cover; /* Используем object-fit: cover для сохранения пропорций */
+    object-position: center;
+    &:hover {
+      transform: scale(1.5);
+    }
+  }
+  .coverImg {
+    //width: 118px;
+    //height: 48px;
+    //object-fit: cover;
+    //object-position: center;
+    //transition: transform 0.2s;
+    object-fit: cover; /* Используем object-fit: cover для начального отображения */
+    object-position: center;
 
     &:not(.blur) {
       &:hover {
@@ -41,6 +99,14 @@
           filter: blur(3px);
         }
       }
+    }
+    &:hover .coverImg {
+      /* Масштабируем изображение, сохраняя его пропорции и позволяя выходить за пределы контейнера */
+      transform: scale(2.5); /* Увеличиваем размер изображения в 2 раза */
+      object-fit: contain; /* Изменяем object-fit на contain, чтобы изображение не обрезалось */
+      object-position: center; /* Центрируем изображение */
+      position: absolute;
+      z-index: 1;
     }
   }
 
