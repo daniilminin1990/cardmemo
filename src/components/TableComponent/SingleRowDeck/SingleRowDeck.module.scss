@@ -28,6 +28,9 @@
 
   text-decoration: none;
   //position: relative;
+  .isMine {
+    color: var(--color-accent-500);
+  }
 }
 
 // Оригинально как было

@@ -34,6 +34,8 @@ export const SingleRowDeck = ({
     localStorage.setItem('deckQuery', location.search)
   }
 
+  const isMine = item?.author.id === meData?.id
+
   return (
     <Table.Row key={item.id}>
       <Table.Cell className={clsx(s.deckRowCell, item?.cardsCount === 0 && s.disabledCell)}>
@@ -52,7 +54,10 @@ export const SingleRowDeck = ({
               // src={item.cover ? item.cover : defaultCard}
             />
           </div>
-          <Typography>{item.name}</Typography>
+          {/*<Typography>{item.name}</Typography>*/}
+          <Typography className={clsx(isMine && s.isMine)} variant={isMine ? 'subtitle1' : 'body1'}>
+            {item.name}
+          </Typography>
         </Typography>
         <div className={clsx(s.privacyStep, 'step-private-deck')}>
           {item?.isPrivate && <PrivacyMask className={s.privacyIcon} />}
