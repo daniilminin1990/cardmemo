@@ -46,7 +46,7 @@ export const HeadingOfPage = ({
   const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
   const { t } = useTranslation()
   const { data: deck } = useGetDeckByIdQuery({ id: deckId })
-  const { currentData, isLoading } = useGetCardsQuery({ args: {}, id: deckId ?? '' })
+  const { isLoading } = useGetCardsQuery({ args: {}, id: deckId ?? '' })
   const notifyLearnHandler = () => {
     handleToastInfo(`${t(`successApiResponse.commonInfo.nothingLearn`)}`)
   }
@@ -65,7 +65,7 @@ export const HeadingOfPage = ({
     setSearchQuery(e.currentTarget.value)
   }
 
-  const condition = deck?.cardsCount !== 0 || currentData?.items.length !== 0
+  const condition = deck?.cardsCount !== 0 || !isCardsCountZero
 
   return (
     <div className={s.heading}>
@@ -107,20 +107,17 @@ export const HeadingOfPage = ({
             )}
             {deck?.isPrivate && <PrivacyMask className={s.privacyIcon} />}
           </div>
-          {/*{deck?.cover && (*/}
-          {/*  <img alt={'img'} className={s.coverImg} src={deck?.cover ? deck?.cover : defaultCard} />*/}
-          {/*)}*/}
           <div className={s.wrapperCoverImg}>
             <img alt={'img'} className={s.coverImg} src={deck?.cover ? deck?.cover : defaultCard} />
           </div>
         </div>
         <div className={s.switchButton}>
-          {isMineCards && !isLoading && currentData?.items.length !== 0 && (
+          {isMineCards && !isLoading && !isCardsCountZero && (
             <Button onClick={() => openCreateCardModalHandler(true)} type={'button'}>
               <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
             </Button>
           )}
-          {currentData?.items.length !== 0 && !isMineCards && (
+          {!isCardsCountZero && !isMineCards && (
             <Button
               as={Link}
               className={s.learnCards}
