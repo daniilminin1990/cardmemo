@@ -28,7 +28,8 @@ export const TableCardMobile = ({
 }: Props) => {
   const { data: meData } = useMeQuery()
 
-  const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
+  // ! Убрал updated столбец
+  // const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
 
   const onDeleteCardHandler = () => {
     retrieveCardItem(item)
@@ -42,8 +43,10 @@ export const TableCardMobile = ({
   const { t } = useTranslation()
   const question = t(`${headersNameCards[0].locale}`)
   const answer = t(`${headersNameCards[1].locale}`)
-  const updated = t(`${headersNameCards[2].locale}`)
-  const grade = t(`${headersNameCards[3].locale}`)
+  // ! Убрал updated столбец
+  // const updated = t(`${headersNameCards[2].locale}`)
+  // const grade = t(`${headersNameCards[3].locale}`)
+  const grade = t(`${headersNameCards[2].locale}`)
 
   return (
     <div className={s.root}>
@@ -75,12 +78,13 @@ export const TableCardMobile = ({
               </div>
             </Table.Cell>
           </Table.Row>
-          <Table.Row>
-            <Table.HeadCell scope={'row'}>{updated}</Table.HeadCell>
-            <Table.Cell>
-              <Typography>{updatedAr}</Typography>
-            </Table.Cell>
-          </Table.Row>
+          {/*! Убрал updated столбец нахрен*/}
+          {/*<Table.Row>*/}
+          {/*  <Table.HeadCell scope={'row'}>{updated}</Table.HeadCell>*/}
+          {/*  <Table.Cell>*/}
+          {/*    <Typography>{updatedAr}</Typography>*/}
+          {/*  </Table.Cell>*/}
+          {/*</Table.Row>*/}
           <Table.Row>
             <Table.HeadCell scope={'row'}>{grade}</Table.HeadCell>
             <Table.Cell className={s.grade}>

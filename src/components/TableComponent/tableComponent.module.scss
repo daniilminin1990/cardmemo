@@ -6,7 +6,8 @@
 
 //.emptyTableHeadCell {
 .lastTableHeadCell {
-  width: 15%;
+  //width: 15%;
+  width: 10%;
 }
 
 .nameSortBtn {
@@ -17,7 +18,8 @@
 
 // Для Decks
 .tableHeadCellDecks:nth-child(1) {
-  width: 35%;
+  //width: 35%;
+  width: 45%;
   position: relative;
 }
 
@@ -29,7 +31,11 @@
 // Для Cards
 .tableHeadCellCards:nth-child(1),
 .tableHeadCellCards:nth-child(2) {
-  width: 27%;
+  //width: 27%;
+  position: relative;
+}
+.tableHeadCellCards:nth-child(3) {
+  width: 15%;
   position: relative;
 }
 
