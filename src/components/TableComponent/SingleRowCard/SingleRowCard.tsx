@@ -107,8 +107,8 @@ export const SingleRowCard = ({
           )
         )}
       </Table.Cell>
-      <Table.Cell>
-        {item.userId === meData?.id && (
+      {item.userId === meData?.id && (
+        <Table.Cell>
           <div className={s.iconBtns}>
             <Button className={s.btn} onClick={onEditCardHandler}>
               <Edit2Outline className={s.Edit2Outline} />
@@ -117,8 +117,8 @@ export const SingleRowCard = ({
               <TrashOutline className={s.TrashOutline} />
             </Button>
           </div>
-        )}
-      </Table.Cell>
+        </Table.Cell>
+      )}
     </Table.Row>
   )
 }

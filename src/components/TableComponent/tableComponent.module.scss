@@ -4,7 +4,8 @@
   table-layout: fixed;
 }
 
-.emptyTableHeadCell {
+//.emptyTableHeadCell {
+.lastTableHeadCell {
   width: 15%;
 }
 
@@ -46,17 +47,17 @@
   padding: 60px 0;
   text-align: center;
 }
-.answer{
-  display:flex;
+.answer {
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.boxEye{
+.boxEye {
   display: flex;
   justify-content: center;
   width: 17%;
   height: 100%;
-  transform: translate(0,0);
+  transform: translate(0, 0);
   position: absolute;
   right: 0;
   align-items: center;
