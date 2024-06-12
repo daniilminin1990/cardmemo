@@ -4,8 +4,10 @@
   table-layout: fixed;
 }
 
-.emptyTableHeadCell {
-  width: 15%;
+//.emptyTableHeadCell {
+.lastTableHeadCell {
+  //width: 15%;
+  width: 10%;
 }
 
 .nameSortBtn {
@@ -16,7 +18,8 @@
 
 // Для Decks
 .tableHeadCellDecks:nth-child(1) {
-  width: 35%;
+  //width: 35%;
+  width: 45%;
   position: relative;
 }
 
@@ -28,7 +31,11 @@
 // Для Cards
 .tableHeadCellCards:nth-child(1),
 .tableHeadCellCards:nth-child(2) {
-  width: 27%;
+  //width: 27%;
+  position: relative;
+}
+.tableHeadCellCards:nth-child(3) {
+  width: 15%;
   position: relative;
 }
 
@@ -46,17 +53,17 @@
   padding: 60px 0;
   text-align: center;
 }
-.answer{
-  display:flex;
+.answer {
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.boxEye{
+.boxEye {
   display: flex;
   justify-content: center;
   width: 17%;
   height: 100%;
-  transform: translate(0,0);
+  transform: translate(0, 0);
   position: absolute;
   right: 0;
   align-items: center;

@@ -5,10 +5,16 @@ export const headersNameDecks = [
   { key: 'author.name', locale: 'tableComponentWithTypes.createdBy', title: 'Created by' },
 ]
 
+// export const headersNameCards = [
+//   { key: 'question', locale: 'tableComponentWithTypes.question', title: 'Question' },
+//   { key: 'answer', locale: 'tableComponentWithTypes.answer', title: 'Answer' },
+//   { key: 'updated', locale: 'tableComponentWithTypes.lastUpdated', title: 'Last Updated' },
+//   { key: 'grade', locale: 'tableComponentWithTypes.grade', title: 'Grade' },
+// ]
 export const headersNameCards = [
   { key: 'question', locale: 'tableComponentWithTypes.question', title: 'Question' },
   { key: 'answer', locale: 'tableComponentWithTypes.answer', title: 'Answer' },
-  { key: 'updated', locale: 'tableComponentWithTypes.lastUpdated', title: 'Last Updated' },
+  // { key: 'updated', locale: 'tableComponentWithTypes.lastUpdated', title: 'Last Updated' },
   { key: 'grade', locale: 'tableComponentWithTypes.grade', title: 'Grade' },
 ]
 

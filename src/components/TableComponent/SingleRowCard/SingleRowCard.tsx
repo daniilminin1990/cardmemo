@@ -16,6 +16,7 @@ import { clsx } from 'clsx'
 import s from './SingleRowCard.module.scss'
 
 type Props = {
+  // item: CardResponse
   item: CardResponse
   openDeleteModalHandler: (value: boolean) => void
   openEditModalHandler: (value: boolean) => void
@@ -28,7 +29,7 @@ export const SingleRowCard = ({
   retrieveCardItem,
 }: Props) => {
   const { data: meData } = useMeQuery()
-  const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
+  // const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
   const [blur, setBlur] = useState(true)
   const context = useContext(UserContext)
 
@@ -95,9 +96,10 @@ export const SingleRowCard = ({
           </div>
         </div>
       </Table.Cell>
-      <Table.Cell>
-        <Typography>{updatedAr}</Typography>
-      </Table.Cell>
+      {/*! нахрен убрал update колонку*/}
+      {/*<Table.Cell>*/}
+      {/*  <Typography>{updatedAr}</Typography>*/}
+      {/*</Table.Cell>*/}
       <Table.Cell className={s.grade}>
         {[...Array(5)].map((_, index) =>
           index < item.grade ? (
@@ -107,8 +109,8 @@ export const SingleRowCard = ({
           )
         )}
       </Table.Cell>
-      <Table.Cell>
-        {item.userId === meData?.id && (
+      {item.userId === meData?.id && (
+        <Table.Cell>
           <div className={s.iconBtns}>
             <Button className={s.btn} onClick={onEditCardHandler}>
               <Edit2Outline className={s.Edit2Outline} />
@@ -117,8 +119,8 @@ export const SingleRowCard = ({
               <TrashOutline className={s.TrashOutline} />
             </Button>
           </div>
-        )}
-      </Table.Cell>
+        </Table.Cell>
+      )}
     </Table.Row>
   )
 }

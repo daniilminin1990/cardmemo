@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
-import { headersNameDecks } from '@/common/globalVariables'
+import { isDeck } from '@/common/predicateTypes'
 import Loading from '@/components/ui/Loading/Loading'
 import Typography from '@/components/ui/Typography/Typography'
 import { UserContext } from '@/components/ui/changeTheme/Context'
@@ -26,6 +26,7 @@ type Props<T extends CardResponse[] | Deck[]> = {
   deckId?: string
   isFetching?: boolean
   isLoading?: boolean
+  isMineCards?: boolean
   tableHeader: { key: string; locale: string; title: string }[]
 }
 
@@ -33,8 +34,9 @@ export const TableComponentWithTypes = memo(
   <T extends CardResponse[] | Deck[]>({
     children,
     data,
-    // isFetching,
     isLoading,
+    // isFetching,
+    isMineCards,
     tableHeader,
   }: Props<T>) => {
     const { currentOrderBy, setSortByQuery } = useQueryParams()
@@ -45,6 +47,7 @@ export const TableComponentWithTypes = memo(
     const { search: queryParameters } = useLocation()
     let message
     const { data: dataFromGetDecksQuery } = useGetDecksQuery()
+    const isDeckEl = isDeck(data?.[0] as Deck)
 
     const conditionOfZeroData = dataFromGetDecksQuery?.items.length === 0 || data?.length === 0
 
@@ -83,9 +86,10 @@ export const TableComponentWithTypes = memo(
             <Table.Row>
               {tableHeader.map(name => (
                 <Table.HeadCell
-                  className={clsx(
-                    tableHeader === headersNameDecks ? s.tableHeadCellDecks : s.tableHeadCellCards
-                  )}
+                  // className={clsx(
+                  //   tableHeader === headersNameDecks ? s.tableHeadCellDecks : s.tableHeadCellCards
+                  // )}
+                  className={clsx(isDeckEl ? s.tableHeadCellDecks : s.tableHeadCellCards)}
                   key={name.key}
                   onClick={() => setSortByQuery(name.key)}
                 >
@@ -93,7 +97,8 @@ export const TableComponentWithTypes = memo(
                     <Typography as={'button'} className={s.nameSortBtn} variant={'subtitle2'}>
                       {/*{name.title}*/}
                       {t(`${name.locale}`)}
-                      {(currentOrderBy === `${name.key}-asc` || currentOrderBy === `${name.key}-desc`)  && (
+                      {(currentOrderBy === `${name.key}-asc` ||
+                        currentOrderBy === `${name.key}-desc`) && (
                         <ArrowIosDownOutline
                           className={`${s.arrow} ${currentOrderBy.includes('asc') ? s.rotate : ''}`}
                         />
@@ -103,7 +108,10 @@ export const TableComponentWithTypes = memo(
                   </div>
                 </Table.HeadCell>
               ))}
-              <Table.HeadCell className={s.emptyTableHeadCell}></Table.HeadCell>
+              {/*<Table.HeadCell className={s.emptyTableHeadCell}></Table.HeadCell>*/}
+              {(isMineCards || isDeckEl || data?.length === 0 || !data) && (
+                <Table.HeadCell className={s.lastTableHeadCell}></Table.HeadCell>
+              )}
             </Table.Row>
           </Table.Head>
           <>

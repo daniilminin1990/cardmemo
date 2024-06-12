@@ -49,7 +49,7 @@ export const CardsPage = () => {
 
   const {
     currentData: currentDeckData,
-    data: deck,
+    data: deckData,
     isFetching: isDeckFetching,
     isLoading: isDeckLoading,
   } = useGetDeckByIdQuery({ id: deckId })
@@ -131,7 +131,7 @@ export const CardsPage = () => {
           setOpen={setIsDeleteDeckModal}
           title={t('cardsPage.deleteDeck')}
         >
-          <Typography variant={'h1'}>{deck?.name}</Typography>
+          <Typography variant={'h1'}>{deckData?.name}</Typography>
           <Typography variant={'body1'}>{t('cardsPage.isDeleteDeck')}</Typography>
         </DeleteModal>
         <DeleteModal
@@ -157,7 +157,7 @@ export const CardsPage = () => {
             <Typography variant={'body1'}>{conditionMessage}</Typography>
             {search === '' &&
               isMineCards &&
-              deck?.cardsCount === 0 &&
+              deckData?.cardsCount === 0 &&
               currentData?.items.length === 0 && (
                 <Button
                   className={s.addCard}
@@ -193,6 +193,7 @@ export const CardsPage = () => {
               <TableComponentWithTypes
                 data={cardsData?.items}
                 isLoading={loadingStatus}
+                isMineCards={isMineCards}
                 tableHeader={headersNameCards}
               >
                 {cardsData?.items.map(card => {
