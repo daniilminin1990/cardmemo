@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
+import l from '@/common/locales/LangData'
+import { LangType } from '@/components/ui/LocaleSwitcher/LocaleSwitcherDrop'
 import Typography from '@/components/ui/Typography/Typography'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
@@ -28,7 +30,7 @@ const LocaleMenuItem = (props: DropdownMenuItemProps) => {
       >
         <img alt={`${isoCode} flag`} className={s.dropItemFlag} src={icon} />
         <Typography className={s.dropdownText} variant={'caption'}>
-          {t(`localeSwitcher.ownLanguages.${isoCode}`)}
+          {t(l.localeSwitcher.ownLanguages[isoCode as LangType])}
         </Typography>
       </div>
     </DropdownMenu.Item>

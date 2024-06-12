@@ -11,6 +11,7 @@ import {
   selectOptionPagination,
   tabsValuesData,
 } from '@/common/globalVariables'
+import l from '@/common/locales/LangData'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
@@ -126,7 +127,7 @@ export function DecksPage() {
   const onClearFilter = () => {
     setTabsValue(tabsValuesData[1].locale)
     clearQuery()
-    handleToastInfo(`${t('successApiResponse.commonInfo.clearFilters')}`, 2000)
+    handleToastInfo(`${t(l.successApiResponse.commonInfo.clearFilters)}`, 2000)
   }
 
   const handleItemsPerPageChange = (value: number) => {
