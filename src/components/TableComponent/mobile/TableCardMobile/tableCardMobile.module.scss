@@ -155,3 +155,9 @@
   cursor: default;
   opacity: 0.5;
 }
+.blur {
+ filter: blur(4px);
+}
+.sell {
+  user-select: none;
+}

@@ -74,7 +74,7 @@ export const SingleRowCard = ({
           <Typography>{item.question}</Typography>
         </div>
       </Table.Cell>
-      <Table.Cell style={{ userSelect: 'none' }}>
+      <Table.Cell className={s.sell}>
         <div
           className={clsx(context.blur && blur ? s.blur : s.unBlur)}
           onMouseDown={onMouseDown}
@@ -96,10 +96,6 @@ export const SingleRowCard = ({
           </div>
         </div>
       </Table.Cell>
-      {/*! нахрен убрал update колонку*/}
-      {/*<Table.Cell>*/}
-      {/*  <Typography>{updatedAr}</Typography>*/}
-      {/*</Table.Cell>*/}
       <Table.Cell className={s.grade}>
         {[...Array(5)].map((_, index) =>
           index < item.grade ? (
