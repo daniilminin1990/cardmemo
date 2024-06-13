@@ -1,15 +1,17 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import Star from '@/assets/icons/svg/Star'
 import StarOutline from '@/assets/icons/svg/StarOutline'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
-import { headersNameCards } from '@/common/globalVariables'
+import { headersNameCardsMobile } from '@/common/globalVariables'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
 import { useMeQuery } from '@/services/auth/auth.service'
 import { CardResponse } from '@/services/cards/cards.types'
+import { clsx } from 'clsx'
 
 import s from './tableCardMobile.module.scss'
 
@@ -28,8 +30,17 @@ export const TableCardMobile = ({
 }: Props) => {
   const { data: meData } = useMeQuery()
 
-  // ! Убрал updated столбец
-  // const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
+  const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
+
+  const [blur, setBlur] = useState(true)
+
+  const onTouchStart = () => {
+    setBlur(!blur)
+  }
+
+  const onTouchEnd = () => {
+    setBlur(!blur)
+  }
 
   const onDeleteCardHandler = () => {
     retrieveCardItem(item)
@@ -41,12 +52,10 @@ export const TableCardMobile = ({
   }
 
   const { t } = useTranslation()
-  const question = t(`${headersNameCards[0].locale}`)
-  const answer = t(`${headersNameCards[1].locale}`)
-  // ! Убрал updated столбец
-  // const updated = t(`${headersNameCards[2].locale}`)
-  // const grade = t(`${headersNameCards[3].locale}`)
-  const grade = t(`${headersNameCards[2].locale}`)
+  const question = t(`${headersNameCardsMobile[0].locale}`)
+  const answer = t(`${headersNameCardsMobile[1].locale}`)
+  const updated = t(`${headersNameCardsMobile[2].locale}`)
+  const grade = t(`${headersNameCardsMobile[3].locale}`)
 
   return (
     <div className={s.root}>
@@ -54,7 +63,7 @@ export const TableCardMobile = ({
         <Table.Body>
           <Table.Row>
             <Table.HeadCell scope={'row'}>{question}</Table.HeadCell>
-            <Table.Cell>
+            <Table.Cell className={s.sell}>
               <div className={s.imgWrapper}>
                 {item.questionImg && (
                   <div className={s.wrapperCoverImg}>
@@ -67,8 +76,12 @@ export const TableCardMobile = ({
           </Table.Row>
           <Table.Row>
             <Table.HeadCell scope={'row'}>{answer}</Table.HeadCell>
-            <Table.Cell>
-              <div className={s.imgWrapper}>
+            <Table.Cell className={s.sell}>
+              <div
+                className={blur ? clsx(s.imgWrapper, s.blur) : s.imgWrapper}
+                onTouchEnd={onTouchEnd}
+                onTouchStart={onTouchStart}
+              >
                 {item.answerImg && (
                   <div className={s.wrapperCoverImg}>
                     <img alt={'default card img'} className={s.coverImg} src={item.answerImg} />
@@ -78,13 +91,12 @@ export const TableCardMobile = ({
               </div>
             </Table.Cell>
           </Table.Row>
-          {/*! Убрал updated столбец нахрен*/}
-          {/*<Table.Row>*/}
-          {/*  <Table.HeadCell scope={'row'}>{updated}</Table.HeadCell>*/}
-          {/*  <Table.Cell>*/}
-          {/*    <Typography>{updatedAr}</Typography>*/}
-          {/*  </Table.Cell>*/}
-          {/*</Table.Row>*/}
+          <Table.Row>
+            <Table.HeadCell scope={'row'}>{updated}</Table.HeadCell>
+            <Table.Cell>
+              <Typography>{updatedAr}</Typography>
+            </Table.Cell>
+          </Table.Row>
           <Table.Row>
             <Table.HeadCell scope={'row'}>{grade}</Table.HeadCell>
             <Table.Cell className={s.grade}>
