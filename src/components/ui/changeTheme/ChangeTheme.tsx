@@ -59,6 +59,7 @@ const ChangeTheme = () => {
     const newThemeColors =
       theme === 'sun'
         ? {
+            'color-border-dark': '#000000',
             //dark
             'color-dark-100': '#c3c1c7',
             'color-dark-300': '#dcdae0',
@@ -73,6 +74,7 @@ const ChangeTheme = () => {
             'color-light-900': '#a8afcc',
           }
         : {
+            'color-border-dark': '#ffffff',
             //dark
             'color-dark-100': '#a8afcc',
             'color-dark-300': '#4c4c4c',
