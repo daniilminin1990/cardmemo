@@ -10,6 +10,7 @@
   margin-bottom: 36px;
 
   background-color: var(--color-dark-700);
+
   &.sun {
     background-color: var(--color-dark-500);
   }
@@ -50,9 +51,9 @@
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding-inline: 24px;
+  padding-inline: 16px;
 
-  @media (max-width: 1023px) {
+  @media (width <= 1023px) {
     gap: 20px;
     padding-inline: 10px;
   }
@@ -69,10 +70,6 @@
 .name {
   text-decoration: none;
 
-  @media (max-width: 1023px) {
-    display: none;
-  }
-
   &:focus-visible {
     @include focus-visible-default;
 
@@ -81,6 +78,10 @@
 
   &:hover {
     color: var(--color-accent-100);
+  }
+
+  @media (width <= 767px) {
+    display: none;
   }
 }
 
@@ -102,7 +103,7 @@
   background-color: var(--color-dark-300);
   box-shadow: none;
 
-  @media (max-width: 1023px) {
+  @media (width <= 1023px) {
     padding: 0.1rem 0.5rem;
     text-align: center;
   }

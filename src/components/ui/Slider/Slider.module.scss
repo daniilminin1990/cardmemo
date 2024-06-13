@@ -1,10 +1,6 @@
 .sliderContainer {
   display: flex;
   gap: 1.2rem;
-
-  @media (width <= 767px) {
-    gap: 0.5rem;
-  }
 }
 
 .valueWrapper {
@@ -27,6 +23,8 @@
 
   display: flex;
   align-items: center;
+
+  width: 100%;
 }
 
 .track {
@@ -34,7 +32,8 @@
 
   flex-grow: 1;
 
-  width: 15.5rem;
+  width: 100%;
+  min-width: 150px;
   height: 0.25rem;
 
   background-color: var(--color-accent-900);

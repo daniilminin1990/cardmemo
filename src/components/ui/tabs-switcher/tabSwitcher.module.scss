@@ -7,11 +7,14 @@
   align-items: flex-start;
   justify-content: center;
 
+  width: 100%;
+
   .root {
     width: 100%;
 
     .tabList {
       display: flex;
+      width: 100%;
     }
 
     .trigger {
@@ -21,6 +24,8 @@
 
       flex-grow: 1;
 
+      width: 100%;
+      min-width: max-content;
       padding: 6px 24px;
 
       color: var(--color-light-100);
@@ -60,6 +65,7 @@
         color: var(--color-light-100);
         background-color: var(--color-accent-500);
         border-color: var(--color-accent-500);
+
         &.sun p {
           color: var(--color-dark-900);
         }
@@ -72,7 +78,7 @@
         border-color: var(--color-dark-300);
       }
 
-      @media (max-width: 1279px) {
+      @media (width <= 1279px) {
         padding: 6px 18px;
       }
     }
