@@ -1,13 +1,12 @@
 import { initReactI18next } from 'react-i18next'
 
+import { byTranslation } from '@/common/locales/by/translation'
+import { enTranslation } from '@/common/locales/en/translation'
+import { kzTranslation } from '@/common/locales/kz/translation'
+import { ruTranslation } from '@/common/locales/ru/translation'
+import { uaTranslation } from '@/common/locales/ua/translation'
 import i18n, { InitOptions } from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
-
-import byTranslations from '../../../common/locales/by/translation.json'
-import enTranslations from '../../../common/locales/en/translation.json'
-import kzTranslations from '../../../common/locales/kz/translation.json'
-import ruTranslations from '../../../common/locales/ru/translation.json'
-import uaTranslations from '../../../common/locales/ua/translation.json'
 
 const defaultLanguage = localStorage.getItem('locale') || 'en'
 
@@ -33,21 +32,21 @@ const i18nextOptions: InitOptions = {
   },
   resources: {
     by: {
-      translation: byTranslations,
+      translation: byTranslation,
     },
     en: {
-      translation: enTranslations,
+      translation: enTranslation,
     },
     kz: {
-      translation: kzTranslations,
+      translation: kzTranslation,
     },
     ru: {
-      translation: ruTranslations,
+      translation: ruTranslation,
     },
     ua: {
-      translation: uaTranslations,
+      translation: uaTranslation,
     },
-  } as const,
+  },
 }
 
 i18n

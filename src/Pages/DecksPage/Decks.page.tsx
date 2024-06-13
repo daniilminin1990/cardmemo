@@ -11,6 +11,7 @@ import {
   selectOptionPagination,
   tabsValuesData,
 } from '@/common/globalVariables'
+import l from '@/common/locales/LangData'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
@@ -126,7 +127,7 @@ export function DecksPage() {
   const onClearFilter = () => {
     setTabsValue(tabsValuesData[1].locale)
     clearQuery()
-    handleToastInfo(`${t('successApiResponse.commonInfo.clearFilters')}`, 2000)
+    handleToastInfo(`${t(l.successApiResponse.commonInfo.clearFilters)}`, 2000)
   }
 
   const handleItemsPerPageChange = (value: number) => {
@@ -149,10 +150,10 @@ export function DecksPage() {
         deleteFn={onDeleteDeckHandler}
         open={isDeleteModal}
         setOpen={setIsDeleteModal}
-        title={t('decksPage.deleteDeck')}
+        title={t(l.decksPage.deleteDeck)}
       >
         <Typography variant={'h1'}>{deckItem?.name}</Typography>
-        <Typography variant={'body1'}>{t('decksPage.isDeleteDeck')}</Typography>
+        <Typography variant={'body1'}>{t(l.decksPage.isDeleteDeck)}</Typography>
       </DeleteModal>
       <ModalAddEditDeck open={isCreateModal} setOpen={setIsCreateModal} />
       <Page className={s.common}>
@@ -160,7 +161,7 @@ export function DecksPage() {
           <div className={s.headingFirstRow}>
             <div className={s.headingName}>
               <Typography as={'h1'} variant={'h1'}>
-                {t('decksPage.decksList')}
+                {t(l.decksPage.decksList)}
               </Typography>
               <Button className={s.buttonHelp} onClick={() => setRun(!run)}>
                 <img alt={'help button'} src={helpImg} />
@@ -169,7 +170,7 @@ export function DecksPage() {
 
             <div className={'step-add-new-deck'}>
               <Button onClick={() => setIsCreateModal(true)} variant={'primary'}>
-                <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
+                <Typography variant={'subtitle2'}>{t(l.decksPage.addNewDeck)}</Typography>
               </Button>
             </div>
           </div>
@@ -188,7 +189,7 @@ export function DecksPage() {
               <div className={s.tabsContainer}>
                 <TabSwitcher
                   className={s.tabsSwitcher}
-                  label={t('decksPage.showDecksCards')}
+                  label={t(l.decksPage.showDecksCards)}
                   onValueChange={handleTabsSwitch}
                   tabs={tabsValuesData}
                   value={tabsValue}
@@ -202,7 +203,7 @@ export function DecksPage() {
             <div className={clsx(s.boxForSlider, 'step-slider-filter')}>
               <Slider
                 className={s.slider}
-                label={t('decksPage.numberOfCards')}
+                label={t(l.decksPage.numberOfCards)}
                 max={minMaxData?.max}
                 min={minMaxData?.min}
                 onValueChange={changeMinMaxHandler}
@@ -212,7 +213,7 @@ export function DecksPage() {
             <div className={'step-clear-filter'}>
               <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
                 <TrashOutline />
-                <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
+                <Typography variant={'subtitle2'}>{t(l.decksPage.clearFilter)}</Typography>
               </Button>
             </div>
           </div>
