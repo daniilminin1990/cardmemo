@@ -34,7 +34,6 @@ export const TableCardMobile = ({
 
   const [blur, setBlur] = useState(true)
   const onTouchStart = () => {
-    console.log('touch')
     setBlur(!blur)
   }
 
@@ -46,7 +45,6 @@ export const TableCardMobile = ({
   }
 
   const onMouseUp = () => {
-    console.log('click')
     setBlur(true)
   }
   const onHandleBlur = () => {

@@ -185,7 +185,7 @@ export function DecksPage() {
                 type={'search'}
               />
             </div>
-            <div className={'step-tab-filter'}>
+            <div className={clsx(s.stepTabFilter, 'step-tab-filter')}>
               <div className={s.tabsContainer}>
                 <TabSwitcher
                   className={s.tabsSwitcher}
@@ -210,7 +210,7 @@ export function DecksPage() {
                 value={[sliderMin, sliderMax]}
               />
             </div>
-            <div className={'step-clear-filter'}>
+            <div className={clsx(s.clearFilterBox, 'step-clear-filter')}>
               <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
                 <TrashOutline />
                 <Typography variant={'subtitle2'}>{t(l.decksPage.clearFilter)}</Typography>

@@ -17,13 +17,8 @@
 .heading {
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 7px;
+  gap: 24px;
   width: 100%;
-
-  @media (width <= 1279px) {
-    display: flex;
-    flex-direction: column;
-  }
 }
 
 .headingFirstRow {
@@ -48,13 +43,18 @@
 
   margin-bottom: 36px;
 
-  @media (width <= 1279px) {
-    flex-flow: row wrap;
+  @media (width <= 860px) {
+    flex-flow: column nowrap;
+    align-items: center;
   }
 }
 
 .tabsContainer {
   position: relative;
+}
+
+.stepTabFilter {
+  width: 100%;
 }
 
 .countsFav {
@@ -71,6 +71,7 @@
 
   background-color: var(--color-accent-500);
   border-radius: 50%;
+
   p {
     color: white;
   }
@@ -84,16 +85,24 @@
   width: 100%;
   max-width: 250px;
 
-  .slider {
-    max-width: 150px;
+  //.slider {
+  //  max-width: 150px;
+  //
+  //  @media (width <= 767px) {
+  //    max-width: 100%;
+  //  }
+  //}
+  //
+  //@media (width <= 767px) {
+  //  max-width: 100%;
+  //}
+}
 
-    @media (width <= 767px) {
-      max-width: 100%;
-    }
-  }
+.clearFilterBox {
+  width: max-content;
 
-  @media (width <= 767px) {
-    max-width: 100%;
+  @media (width <= 860px) {
+    width: 100%;
   }
 }
 
@@ -107,8 +116,7 @@
 
   white-space: nowrap;
 
-  @media (width <= 1279px) {
-    gap: 10px;
+  @media (width <= 860px) {
     justify-content: center;
     width: 100%;
     max-width: 100%;
@@ -148,7 +156,7 @@
 }
 
 .boxForSlider {
-  width: max-content;
+  width: 100%;
 }
 
 .buttonHelp {

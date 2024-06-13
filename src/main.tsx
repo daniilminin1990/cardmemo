@@ -12,11 +12,9 @@ import '@fontsource/roboto/700.css'
 import { store } from './services/store'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
-  // <StrictMode>
   <Provider store={store}>
     <Context>
       <App />
     </Context>
   </Provider>
-  // </StrictMode>
 )
