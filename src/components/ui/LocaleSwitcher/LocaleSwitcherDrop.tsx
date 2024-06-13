@@ -13,7 +13,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import s from './LocaleSwitcher.module.scss'
 
 type LangIcon = typeof byIcon | typeof enIcon | typeof kzIcon | typeof ruIcon | typeof uaIcon
-type LangType = 'by' | 'en' | 'kz' | 'ru' | 'ua'
+export type LangType = 'by' | 'en' | 'kz' | 'ru' | 'ua'
 type LangData = {
   icon: LangIcon
   isoCode: LangType
@@ -31,17 +31,9 @@ const LocaleSwitcherDrop = () => {
     ru: { icon: ruIcon, isoCode: 'ru' },
     ua: { icon: uaIcon, isoCode: 'ua' },
   }
-  const [iconFlag, setIconFlag] = useState(
-    /*i18n.language === 'en' ? enIcon : `${langData[i18n.language as LangType].isoCode}`*/
-    langData[i18n.language as LangType]?.icon || enIcon
-  )
+  const [iconFlag, setIconFlag] = useState(langData[i18n.language as LangType]?.icon || enIcon)
 
   useLayoutEffect(() => {
-    /*const storedLocale = localStorage.getItem('locale')
-
-    if (storedLocale) {
-      setIconFlag(`${langData[storedLocale as LangType].icon}`)
-    }*/
     const storedLocale = localStorage.getItem('locale') || i18n.language
 
     setIconFlag(langData[storedLocale as LangType]?.icon || enIcon)
