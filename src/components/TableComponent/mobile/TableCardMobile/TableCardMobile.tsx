@@ -33,12 +33,21 @@ export const TableCardMobile = ({
   const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
 
   const [blur, setBlur] = useState(true)
-
   const onTouchStart = () => {
     setBlur(!blur)
   }
 
   const onTouchEnd = () => {
+    setBlur(!blur)
+  }
+  const onMouseDown = () => {
+    setBlur(!blur)
+  }
+
+  const onMouseUp = () => {
+    setBlur(true)
+  }
+  const onHandleBlur = () => {
     setBlur(!blur)
   }
 
@@ -79,6 +88,9 @@ export const TableCardMobile = ({
             <Table.Cell className={s.sell}>
               <div
                 className={blur ? clsx(s.imgWrapper, s.blur) : s.imgWrapper}
+                onMouseDown={onMouseDown}
+                onMouseLeave={onMouseUp}
+                onMouseUp={onHandleBlur}
                 onTouchEnd={onTouchEnd}
                 onTouchStart={onTouchStart}
               >
