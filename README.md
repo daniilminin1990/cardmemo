@@ -1,7 +1,7 @@
 # Cards
 
 <p align="center">
-  <img src="src/assets/LogoVariantsSVG/cardMemoLogoGolden.svg" style="width: 400px" alt="logo" />
+  <img src="src/assets/img/cardMemoLogoGolden.png" style="width: 400px" alt="logo" />
 </p>
 
 React + TypeScript SPA 🚀

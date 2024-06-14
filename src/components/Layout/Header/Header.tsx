@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 
 import CardMemoLogoGolden from '@/assets/icons/svg/CardMemo/CardMemoLogoGolden'
+import CardMemoMiniLogoCards from '@/assets/icons/svg/CardMemo/CardMemoMiniLogoCards'
 import LogOut from '@/assets/icons/svg/LogOut'
 import PersonOutline from '@/assets/icons/svg/PersonOutline'
 import CardMemoLogoGoldenPng from '@/assets/img/cardMemoLogoGolden.png'
@@ -33,13 +35,30 @@ const Header = ({ data }: HeaderProps) => {
   }
   const theme = localStorage.getItem('theme')
 
+  const [isSmallScreen, setIsSmallScreen] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 480)
+    }
+
+    window.addEventListener('resize', handleResize)
+    handleResize() // Проверяем при первой загрузке
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <div className={clsx(style.box, theme === 'sun' ? style.sun : '')}>
       <div className={style.wrapper}>
         <div className={style.boxImg}>
           <Typography as={'a'} className={style.logo} href={`${path.decks}`} variant={'body2'}>
             <div className={'step-go-home'}>
-              <CardMemoLogoGolden className={style.img} />
+              {isSmallScreen ? (
+                <CardMemoMiniLogoCards className={style.img} />
+              ) : (
+                <CardMemoLogoGolden className={style.img} />
+              )}
               <img
                 alt={'cardMemoLogoGoldenPng'}
                 className={style.imgHidden}
