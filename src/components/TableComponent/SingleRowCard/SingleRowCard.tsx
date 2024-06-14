@@ -51,14 +51,6 @@ export const SingleRowCard = ({
   const onMouseDown = () => {
     setBlur(!blur) // При зажатии мыши устанавливаем эффект "блюра"
   }
-  const onTouchStart = () => {
-    console.log('touch')
-    setBlur(!blur)
-  }
-
-  const onTouchEnd = () => {
-    setBlur(!blur)
-  }
 
   const onMouseUp = () => {
     setBlur(true) // При отпускании мыши снимаем эффект "блюра"
@@ -88,8 +80,8 @@ export const SingleRowCard = ({
           onMouseDown={onMouseDown}
           onMouseLeave={onMouseUp}
           onMouseUp={onHandleBlur}
-          onTouchEnd={onTouchEnd}
-          onTouchStart={onTouchStart}
+          onTouchEnd={onHandleBlur}
+          onTouchStart={onHandleBlur}
         >
           <div className={s.imgWrapper}>
             <div className={s.wrapperCoverImg}>

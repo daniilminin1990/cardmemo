@@ -37,13 +37,6 @@ export const TableCardMobile = ({
     setBlur(!blur)
   }
 
-  const onTouchEnd = () => {
-    setBlur(!blur)
-  }
-  const onMouseDown = () => {
-    setBlur(!blur)
-  }
-
   const onMouseUp = () => {
     setBlur(true)
   }
@@ -88,10 +81,10 @@ export const TableCardMobile = ({
             <Table.Cell className={s.sell}>
               <div
                 className={blur ? clsx(s.imgWrapper, s.blur) : s.imgWrapper}
-                onMouseDown={onMouseDown}
+                onMouseDown={onHandleBlur}
                 onMouseLeave={onMouseUp}
                 onMouseUp={onHandleBlur}
-                onTouchEnd={onTouchEnd}
+                onTouchEnd={onHandleBlur}
                 onTouchStart={onTouchStart}
               >
                 {item.answerImg && (

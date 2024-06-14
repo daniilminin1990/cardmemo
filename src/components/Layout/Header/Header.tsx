@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useMediaQuery } from 'react-responsive'
 import { Link, useLocation } from 'react-router-dom'
 
 import CardMemoLogoGolden from '@/assets/icons/svg/CardMemo/CardMemoLogoGolden'
@@ -35,18 +35,7 @@ const Header = ({ data }: HeaderProps) => {
   }
   const theme = localStorage.getItem('theme')
 
-  const [isSmallScreen, setIsSmallScreen] = useState(false)
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 480)
-    }
-
-    window.addEventListener('resize', handleResize)
-    handleResize() // Проверяем при первой загрузке
-
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 480px)' })
 
   return (
     <div className={clsx(style.box, theme === 'sun' ? style.sun : '')}>
