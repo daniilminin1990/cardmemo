@@ -1,0 +1,29 @@
+@import '../../../styles/mixins';
+
+section {
+  width: 100%;
+}
+
+.card {
+  @include slide-up-to-down;
+
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 32px 36px 48px;
+}
+
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 18px;
+}
+
+.animNext {
+  @include animation-appearance(1s);
+}
+
+.showBtn {
+  text-align: center;
+  word-break: break-word;
+}

@@ -1,0 +1,23 @@
+.logoutBtn {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: 122px;
+  height: 36px;
+
+  text-decoration-line: none;
+
+  background-color: var(--color-dark-300);
+  border-radius: 4px;
+  box-shadow: none;
+
+  &:focus-visible {
+    background-color: var(--color-dark-100);
+  }
+
+  &:hover {
+    background-color: var(--color-dark-100);
+  }
+}

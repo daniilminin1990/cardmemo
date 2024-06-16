@@ -32,5 +32,12 @@ export const tabsValuesData = [
   { locale: 'useTabsValuesParams.allDecks', text: `allDecks`, value: 'All decks' },
   { locale: 'useTabsValuesParams.favorites', text: `favorites`, value: 'Favorites' },
 ]
+export const gradeNames = [
+  { grade: 1, name: 'learnPage.didtKnow' },
+  { grade: 2, name: 'learnPage.forgot' },
+  { grade: 3, name: 'learnPage.aLotThought' },
+  { grade: 4, name: 'learnPage.confused' },
+  { grade: 5, name: 'learnPage.knewAnswer' },
+]
 
 export const initCurrentPage = '1'

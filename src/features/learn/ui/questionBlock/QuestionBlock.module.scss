@@ -1,0 +1,21 @@
+@import '../../../../styles/mixins';
+
+.title {
+  margin: 0 auto 27px;
+}
+
+.question {
+  color: var(--color-ligth-100);
+}
+
+.text {
+  overflow-wrap: break-word;
+}
+
+.questionCardImg {
+  width: 100%;
+
+  img {
+    width: 100%;
+  }
+}
