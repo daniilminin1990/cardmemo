@@ -1,0 +1,17 @@
+@import '../../../../styles/mixins';
+
+.question {
+  color: var(--color-ligth-100);
+}
+
+.text {
+  overflow-wrap: break-word;
+}
+
+.answerCardImg {
+  width: 100%;
+
+  img {
+    width: 100%;
+  }
+}
