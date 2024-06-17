@@ -1,162 +1,115 @@
-import { useState } from 'react'
-import { useMediaQuery } from 'react-responsive'
-import { useParams } from 'react-router-dom'
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { HeadingOfPage } from "@/Pages/CardsPage/HeadingSecondRow/HeadingOfPage";
+import { ModalAddEditDeck } from "@/components/Modals/ModalAddEditDeck/ModalAddEditDeck";
+import { ModalAddEditCard } from "@/components/Modals/ModalEditCard/ModalAddEditCard";
+import ModalOnEmpty from "@/components/Modals/ModalOnEmpty/ModalOnEmpty";
+import Loading from "@/components/ui/Loading/Loading";
+import { LoadingBar } from "@/components/ui/LoadingBar/LoadingBar";
+import { Page } from "@/components/ui/Page/Page";
+import { useCards } from "@/features/cards/lib/hooks/useCards";
+import { DeleteCard } from "@/features/cards/ui/Cards/components/modals/DeleteCard/DeleteCard";
+import { DeleteDeck } from "@/features/cards/ui/Cards/components/modals/DeleteDeck/DeleteDeck";
+import { useQueryParams } from "@/hooks/useQueryParams";
+import { useGetCardsQuery } from "@/services/cards/cards.service";
+import { CardResponse } from "@/services/cards/cards.types";
+import { useGetDeckByIdQuery } from "@/services/decks/decks.service";
 
-import { HeadingOfPage } from '@/Pages/CardsPage/HeadingSecondRow/HeadingOfPage'
-import { headersNameCards } from '@/common/globalVariables'
-import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
-import { ModalAddEditCard } from '@/components/Modals/ModalEditCard/ModalAddEditCard'
-import ModalOnEmpty from '@/components/Modals/ModalOnEmpty/ModalOnEmpty'
-import { SingleRowCard } from '@/components/TableComponent/SingleRowCard/SingleRowCard'
-import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
-import { TableCardMobile } from '@/components/TableComponent/mobile/TableCardMobile/TableCardMobile'
-import { TableHeadMobile } from '@/components/TableComponent/mobile/TableHeadMobile/TableHeadMobile'
-import Loading from '@/components/ui/Loading/Loading'
-import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
-import { Page } from '@/components/ui/Page/Page'
-import { useCards } from '@/features/cards/lib/hooks/useCards'
-import { DeleteCard } from '@/features/cards/ui/DeleteCard/DeleteCard'
-import { DeleteDeck } from '@/features/cards/ui/DeleteDeck/DeleteDeck'
-import { EmptyContent } from '@/features/cards/ui/EmptyContent/EmptyContent'
-import { PaginationCard } from '@/features/cards/ui/PaginationCard/PaginationCard'
-import { useQueryParams } from '@/hooks/useQueryParams'
-import { useGetCardsQuery } from '@/services/cards/cards.service'
-import { CardResponse } from '@/services/cards/cards.types'
-import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
-
-import s from './Cards.module.scss'
+import s from "./Cards.module.scss";
+import { Table } from "@/features/cards/ui/Cards/components";
+import { ModalProvider } from "@/features/cards/ui/Cards/components/ModalProvider/ModalProvider";
+import { ModalKey, useModal } from "@/features/cards/lib/hooks/useModal";
 
 export const Cards = () => {
   const { currentOrderBy, currentPage, debouncedSearchValue, itemsPerPage, search } =
-    useQueryParams()
+    useQueryParams();
 
-  const { deckId = '' } = useParams()
+  const { deckId = "" } = useParams();
 
   const {
     currentData: currentDeckData,
     data: deckData,
     isFetching: isDeckFetching,
-    isLoading: isDeckLoading,
-  } = useGetDeckByIdQuery({ id: deckId })
+    isLoading: isDeckLoading
+  } = useGetDeckByIdQuery({ id: deckId });
 
   const { currentData, data, isFetching, isLoading } = useGetCardsQuery(
     {
       args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
-      id: deckId ?? '',
+      id: deckId ?? ""
     },
     { skip: !currentDeckData }
-  )
+  );
 
-  const [cardItem, setCardItem] = useState<CardResponse>()
-  const [isEmptyModal, setIsEmptyModal] = useState(false) // Переход назад с пустой таблицей
-  const [isUpdateDeckModal, setIsUpdateDeckModal] = useState(false) // Изменение Deck
-  const [isDeleteDeckModal, setIsDeleteDeckModal] = useState(false) // Удаление Deck
-  const [isCreateCardModal, setIsCreateCardModal] = useState(false) // Добавление Card | Переход в Learn?
-  const [isUpdateCardModal, setIsUpdateCardModal] = useState(false) // Изменение Card | Переход в Learn
-  const [isDeleteCardModal, setIsDeleteCardModal] = useState(false) // Удаление Card
-
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
-
-  const cardsData = currentData ?? data
+  const [cardItem, setCardItem] = useState<CardResponse>();
+  const [isEmptyModal, setIsEmptyModal] = useState(false); // Переход назад с пустой таблицей
+  const [isUpdateDeckModal, setIsUpdateDeckModal] = useState(false); // Изменение Deck
+  const [isDeleteDeckModal, setIsDeleteDeckModal] = useState(false); // Удаление Deck
+  const [isCreateCardModal, setIsCreateCardModal] = useState(false); // Добавление Card | Переход в Learn?
+  const [isUpdateCardModal, setIsUpdateCardModal] = useState(false); // Изменение Card | Переход в Learn
+  // const [isDeleteCardModal, setIsDeleteCardModal] = useState(false); // Удаление Card
 
   const { conditionMessage, isCardsCountZero, isMineCards, loadingStatus } = useCards({
     currentData,
     currentDeckData,
     isDeckLoading,
-    isFetching,
-  })
+    isFetching
+  });
+
+  const cardsData = currentData ?? data;
 
   if (isLoading || isDeckLoading || isDeckFetching) {
-    return <Loading type={'pageLoader'} />
+    return <Loading type={"pageLoader"} />;
   }
 
   return (
     <>
       {loadingStatus && <LoadingBar />}
-      <Page className={s.common} mt={'24px'}>
-        <ModalOnEmpty open={isEmptyModal} setIsOpenModal={setIsEmptyModal} />
-        <ModalAddEditDeck
-          item={currentDeckData}
-          open={isUpdateDeckModal}
-          setOpen={setIsUpdateDeckModal}
-        />
-        <ModalAddEditCard item={cardItem} open={isUpdateCardModal} setOpen={setIsUpdateCardModal} />
-        <ModalAddEditCard open={isCreateCardModal} setOpen={setIsCreateCardModal} />
-        <DeleteDeck
-          deckData={deckData}
-          deckId={deckId}
-          isDeleteDeckModal={isDeleteDeckModal}
-          setIsDeleteDeckModal={setIsDeleteCardModal}
-        />
-        <DeleteCard
-          cardItem={cardItem}
-          isDeleteCardModal={isDeleteCardModal}
-          setIsDeleteCardModal={setIsDeleteCardModal}
-        />
-        <HeadingOfPage
-          deckId={deckId}
-          isCardsCountZero={isCardsCountZero}
-          isMineCards={isMineCards}
-          openCreateCardModalHandler={setIsCreateCardModal}
-          openDeleteDeckModalHandler={setIsDeleteDeckModal}
-          openEditDeckModalHandler={setIsUpdateDeckModal}
-          openEmptyDeckModalHandler={setIsEmptyModal}
-        />
-        {isCardsCountZero ? (
-          <EmptyContent
-            conditionMessage={conditionMessage}
-            isMineCards={isMineCards}
-            search={search}
-            setIsCreateCardModal={setIsUpdateCardModal}
+      <Page className={s.common} mt={"24px"}>
+        <ModalProvider>
+          <ModalOnEmpty open={isEmptyModal} setIsOpenModal={setIsEmptyModal} />
+          <ModalAddEditDeck
+            item={currentDeckData}
+            open={isUpdateDeckModal}
+            setOpen={setIsUpdateDeckModal}
           />
-        ) : (
-          <>
-            {isTabletOrMobile ? (
-              <TableHeadMobile
-                data={cardsData?.items}
-                isFetching={isFetching}
-                isLoading={isLoading}
-                tableHeader={headersNameCards}
-              >
-                {cardsData?.items.map(card => {
-                  return (
-                    <TableCardMobile
-                      item={card}
-                      key={card.id}
-                      openDeleteModalHandler={setIsDeleteCardModal}
-                      openEditModalHandler={setIsUpdateCardModal}
-                      retrieveCardItem={setCardItem}
-                    />
-                  )
-                })}
-              </TableHeadMobile>
-            ) : (
-              <TableComponentWithTypes
-                data={cardsData?.items}
-                isLoading={loadingStatus}
-                isMineCards={isMineCards}
-                tableHeader={headersNameCards}
-              >
-                {cardsData?.items.map(card => {
-                  return (
-                    <SingleRowCard
-                      item={card}
-                      key={card.id}
-                      openDeleteModalHandler={setIsDeleteCardModal}
-                      openEditModalHandler={setIsUpdateCardModal}
-                      retrieveCardItem={setCardItem}
-                    />
-                  )
-                })}
-              </TableComponentWithTypes>
-            )}
-
-            <div className={s.footer}>
-              <PaginationCard cardsData={cardsData} currentData={cardsData} />
-            </div>
-          </>
-        )}
+          <ModalAddEditCard item={cardItem} open={isUpdateCardModal} setOpen={setIsUpdateCardModal} />
+          <ModalAddEditCard open={isCreateCardModal} setOpen={setIsCreateCardModal} />
+          <DeleteDeck
+            deckData={deckData}
+            deckId={deckId}
+            isDeleteDeckModal={isDeleteDeckModal}
+            setIsDeleteDeckModal={setIsDeleteDeckModal}
+          />
+          <DeleteCard
+            cardItem={cardItem}
+          />
+          <HeadingOfPage
+            deckId={deckId}
+            isCardsCountZero={isCardsCountZero}
+            isMineCards={isMineCards}
+            openCreateCardModalHandler={setIsCreateCardModal}
+            openDeleteDeckModalHandler={setIsDeleteDeckModal}
+            openEditDeckModalHandler={setIsUpdateDeckModal}
+            openEmptyDeckModalHandler={setIsEmptyModal}
+          />
+          <Table
+            cardsData={cardsData}
+            conditionMessage={conditionMessage}
+            currentData={currentData}
+            deckData={deckData}
+            isCardsCountZero={isCardsCountZero}
+            isFetching={isFetching}
+            isLoading={isLoading}
+            isMineCards={isMineCards}
+            loadingStatus={loadingStatus}
+            search={search}
+            setCardItem={setCardItem}
+            setIsCreateCardModal={setIsCreateCardModal}
+            setIsUpdateCardModal={setIsUpdateCardModal}
+          />
+        </ModalProvider>
       </Page>
     </>
-  )
-}
+  );
+};

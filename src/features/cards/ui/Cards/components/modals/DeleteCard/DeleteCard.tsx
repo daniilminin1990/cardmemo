@@ -4,17 +4,18 @@ import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import Typography from '@/components/ui/Typography/Typography'
 import { CardResponse } from '@/features/cards/api/cardsApi.types'
 import { useDeleteCardByIdMutation } from '@/services/cards/cards.service'
+import { ModalKey, useModal } from "@/features/cards/lib/hooks/useModal";
 
 type Props = {
   cardItem?: CardResponse
-  isDeleteCardModal: boolean
-  setIsDeleteCardModal: (isDeleteCardModal: boolean) => void
 }
 
-export const DeleteCard = ({ cardItem, isDeleteCardModal, setIsDeleteCardModal }: Props) => {
+export const DeleteCard = ({ cardItem }: Props) => {
   const [deleteCard] = useDeleteCardByIdMutation()
 
   const { t } = useTranslation()
+
+  const {setOpen,isOpen} = useModal(ModalKey.DeleteCard)
 
   const onDeleteCardHandler = () => {
     deleteCard({ id: cardItem?.id ?? '' })
@@ -23,8 +24,8 @@ export const DeleteCard = ({ cardItem, isDeleteCardModal, setIsDeleteCardModal }
   return (
     <DeleteModal
       deleteFn={onDeleteCardHandler}
-      open={isDeleteCardModal}
-      setOpen={setIsDeleteCardModal}
+      open={isOpen}
+      setOpen={setOpen}
       title={t('cardsPage.deleteCard')}
     >
       <Typography variant={'h1'}>{cardItem?.question}</Typography>
