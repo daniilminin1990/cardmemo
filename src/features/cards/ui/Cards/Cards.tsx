@@ -1,12 +1,10 @@
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useMediaQuery } from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
 import { HeadingOfPage } from '@/Pages/CardsPage/HeadingSecondRow/HeadingOfPage'
 import { headersNameCards } from '@/common/globalVariables'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
-import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { ModalAddEditCard } from '@/components/Modals/ModalEditCard/ModalAddEditCard'
 import ModalOnEmpty from '@/components/Modals/ModalOnEmpty/ModalOnEmpty'
 import { SingleRowCard } from '@/components/TableComponent/SingleRowCard/SingleRowCard'
@@ -16,11 +14,10 @@ import { TableHeadMobile } from '@/components/TableComponent/mobile/TableHeadMob
 import Loading from '@/components/ui/Loading/Loading'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
-import Typography from '@/components/ui/Typography/Typography'
-import { Button } from '@/components/ui/button'
 import { useCards } from '@/features/cards/lib/hooks/useCards'
 import { DeleteCard } from '@/features/cards/ui/DeleteCard/DeleteCard'
 import { DeleteDeck } from '@/features/cards/ui/DeleteDeck/DeleteDeck'
+import { EmptyContent } from '@/features/cards/ui/EmptyContent/EmptyContent'
 import { PaginationCard } from '@/features/cards/ui/PaginationCard/PaginationCard'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { useGetCardsQuery } from '@/services/cards/cards.service'
@@ -30,7 +27,6 @@ import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 import s from './Cards.module.scss'
 
 export const Cards = () => {
-  const { t } = useTranslation()
   const { currentOrderBy, currentPage, debouncedSearchValue, itemsPerPage, search } =
     useQueryParams()
 
@@ -107,21 +103,12 @@ export const Cards = () => {
           openEmptyDeckModalHandler={setIsEmptyModal}
         />
         {isCardsCountZero ? (
-          <div className={s.emptyContent}>
-            <Typography variant={'body1'}>{conditionMessage}</Typography>
-            {search === '' &&
-              isMineCards &&
-              deckData?.cardsCount === 0 &&
-              currentData?.items.length === 0 && (
-                <Button
-                  className={s.addCard}
-                  onClick={() => setIsCreateCardModal(true)}
-                  type={'button'}
-                >
-                  <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
-                </Button>
-              )}
-          </div>
+          <EmptyContent
+            conditionMessage={conditionMessage}
+            isMineCards={isMineCards}
+            search={search}
+            setIsCreateCardModal={setIsUpdateCardModal}
+          />
         ) : (
           <>
             {isTabletOrMobile ? (

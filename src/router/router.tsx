@@ -10,6 +10,7 @@ import { DecksPage } from '@/Pages/DecksPage/Decks.page'
 import ErrorPage from '@/Pages/ErrorPage/ErrorPage'
 import { Layout } from '@/components/Layout/Layout'
 import Loading from '@/components/ui/Loading/Loading'
+import { Cards } from '@/features/cards/ui/Cards/Cards'
 import { LearnPage } from '@/features/learn/ui/LearnPage'
 import { ProfilePage } from '@/features/profile/ui/ProfilePage'
 import { path } from '@/router/path'
@@ -56,7 +57,7 @@ const privateRoutes: RouteObject[] = [
         path: `${path.decks}`,
       },
       {
-        element: <CardsPage />,
+        element: <Cards />,
         path: `${path.decks}/:deckId`,
       },
       {
