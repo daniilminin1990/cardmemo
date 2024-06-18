@@ -15,11 +15,11 @@ import {
   Empty,
   HeadingOfPage,
   Table,
-} from '@/features/cards/ui/Cards/components/index'
+} from '@/features/cards/ui/Cards/components'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 
-import s from '../Cards.module.scss'
+import s from './Cards.module.scss'
 
 const Cards = () => {
   const { currentOrderBy, currentPage, debouncedSearchValue, itemsPerPage } = useQueryParams()

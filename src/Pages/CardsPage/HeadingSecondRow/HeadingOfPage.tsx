@@ -16,7 +16,6 @@ import DropDownItem from '@/components/ui/DropDown/DropDownItem'
 import Input from '@/components/ui/Input/Input'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
-import { ModalKey, useModal } from '@/hooks/useModal'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { path } from '@/router/path'
 import { router } from '@/router/router'
@@ -30,8 +29,20 @@ type HeadingSecondRowProps = {
   deckId: string
   isCardsCountZero: boolean
   isMineCards: boolean
+  openCreateCardModalHandler: (value: boolean) => void
+  openDeleteDeckModalHandler: (value: boolean) => void
+  openEditDeckModalHandler: (value: boolean) => void
+  openEmptyDeckModalHandler: (value: boolean) => void
 }
-export const HeadingOfPage = ({ deckId, isCardsCountZero, isMineCards }: HeadingSecondRowProps) => {
+export const HeadingOfPage = ({
+  deckId,
+  isCardsCountZero,
+  isMineCards,
+  openCreateCardModalHandler,
+  openDeleteDeckModalHandler,
+  openEditDeckModalHandler,
+  openEmptyDeckModalHandler,
+}: HeadingSecondRowProps) => {
   const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
   const { t } = useTranslation()
   const { data: deck } = useGetDeckByIdQuery({ id: deckId })
@@ -41,7 +52,6 @@ export const HeadingOfPage = ({ deckId, isCardsCountZero, isMineCards }: Heading
   }
 
   const { debouncedSearchValue, setCurrentPageQuery, setSearchQuery } = useQueryParams()
-  const { setOpen: openEmptyDeckModalHandler } = useModal(ModalKey.Empty)
   const handleOpenModal = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (isMineCards && isCardsCountZero && deck?.cardsCount === 0) {
       e.preventDefault()
@@ -56,10 +66,6 @@ export const HeadingOfPage = ({ deckId, isCardsCountZero, isMineCards }: Heading
   }
 
   const condition = deck?.cardsCount !== 0 || !isCardsCountZero
-
-  const { setOpen: openCreateCardModalHandler } = useModal(ModalKey.AddEditCard)
-  const { setOpen: openDeleteDeckModalHandler } = useModal(ModalKey.DeleteDeck)
-  const { setOpen: openEditDeckModalHandler } = useModal(ModalKey.AddEditDeck)
 
   return (
     <div className={s.heading}>
@@ -88,12 +94,12 @@ export const HeadingOfPage = ({ deckId, isCardsCountZero, isMineCards }: Heading
                   />
                 )}
                 <DropDownItem
-                  handleOnClick={() => openEditDeckModalHandler(false)}
+                  handleOnClick={() => openEditDeckModalHandler(true)}
                   icon={<Edit2Outline />}
                   text={t('cardsPage.edit')}
                 />
                 <DropDownItem
-                  handleOnClick={() => openDeleteDeckModalHandler(false)}
+                  handleOnClick={() => openDeleteDeckModalHandler(true)}
                   icon={<TrashOutline />}
                   text={t('cardsPage.delete')}
                 />
@@ -107,7 +113,7 @@ export const HeadingOfPage = ({ deckId, isCardsCountZero, isMineCards }: Heading
         </div>
         <div className={s.switchButton}>
           {isMineCards && !isLoading && !isCardsCountZero && (
-            <Button onClick={() => openCreateCardModalHandler(false)} type={'button'}>
+            <Button onClick={() => openCreateCardModalHandler(true)} type={'button'}>
               <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
             </Button>
           )}
