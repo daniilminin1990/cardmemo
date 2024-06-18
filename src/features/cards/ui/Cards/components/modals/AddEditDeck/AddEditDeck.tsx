@@ -7,7 +7,22 @@ type Props = {
 }
 
 export const AddEditDeck = ({ item }: Props) => {
-  const { isOpen, setOpen } = useModal(ModalKey.AddEditDeck)
+  const {
+    contextModalKey,
+    isOpen: isOpenAddDeck,
+    setOpen: setOpenAddDeck,
+  } = useModal(ModalKey.AddDeck)
 
-  return <ModalAddEditDeck item={item} open={isOpen} setOpen={setOpen} />
+  const { isOpen: isOpenEditDeck, setOpen: setOpenEditDeck } = useModal(ModalKey.EditDeck)
+
+  return (
+    <>
+      {contextModalKey === ModalKey.AddDeck && (
+        <ModalAddEditDeck open={isOpenAddDeck} setOpen={setOpenAddDeck} />
+      )}
+      {contextModalKey === ModalKey.EditDeck && (
+        <ModalAddEditDeck item={item} open={isOpenEditDeck} setOpen={setOpenEditDeck} />
+      )}
+    </>
+  )
 }

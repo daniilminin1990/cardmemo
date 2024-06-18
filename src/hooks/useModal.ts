@@ -4,11 +4,11 @@ import { ModalContext } from '@/common/contexts/ModalProvider/ModalProvider'
 
 export enum ModalKey {
   AddCard = 'AddCard',
-  AddEditDeck = 'AddEditDeck',
-  CreateCard = 'CreateCard',
+  AddDeck = 'AddDeck',
   DeleteCard = 'DeleteCard',
   DeleteDeck = 'DeleteDeck',
   EditCard = 'EditCard',
+  EditDeck = 'EditDeck',
   Empty = 'Empty',
 }
 

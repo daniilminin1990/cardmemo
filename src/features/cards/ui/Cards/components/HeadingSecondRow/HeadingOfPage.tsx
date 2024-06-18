@@ -59,7 +59,7 @@ export const HeadingOfPage = ({ deckId, isCardsCountZero, isMineCards }: Heading
 
   const { setOpen: openCreateCardModalHandler } = useModal(ModalKey.AddCard)
   const { setOpen: openDeleteDeckModalHandler } = useModal(ModalKey.DeleteDeck)
-  const { setOpen: openEditDeckModalHandler } = useModal(ModalKey.AddEditDeck)
+  const { setOpen: openEditDeckModalHandler } = useModal(ModalKey.EditDeck)
 
   return (
     <div className={s.heading}>
@@ -88,12 +88,12 @@ export const HeadingOfPage = ({ deckId, isCardsCountZero, isMineCards }: Heading
                   />
                 )}
                 <DropDownItem
-                  handleOnClick={() => openEditDeckModalHandler(false)}
+                  handleOnClick={() => openEditDeckModalHandler(true)}
                   icon={<Edit2Outline />}
                   text={t('cardsPage.edit')}
                 />
                 <DropDownItem
-                  handleOnClick={() => openDeleteDeckModalHandler(false)}
+                  handleOnClick={() => openDeleteDeckModalHandler(true)}
                   icon={<TrashOutline />}
                   text={t('cardsPage.delete')}
                 />
