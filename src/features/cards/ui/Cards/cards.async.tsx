@@ -2,4 +2,5 @@ import { lazy } from 'react'
 
 const CardsAsync = lazy(() => import('./Cards'))
 
-export { CardsAsync as CardsPage }
+export default CardsAsync
+// export { CardsAsync as CardsPage }
