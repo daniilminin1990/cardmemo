@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 
+import { ModalProvider } from '@/common/contexts/ModalProvider/ModalProvider'
 import Header from '@/components/Layout/Header/Header'
 import Loading from '@/components/ui/Loading/Loading'
 import { UserContext } from '@/components/ui/changeTheme/Context'
@@ -22,10 +23,12 @@ export const Layout = () => {
 
   return (
     <div>
-      <Header data={meData} />
-      <main className={s.main}>
-        <Outlet />
-      </main>
+      <ModalProvider>
+        <Header data={meData} />
+        <main className={s.main}>
+          <Outlet />
+        </main>
+      </ModalProvider>
       <ToastContainer
         autoClose={5000}
         closeOnClick
