@@ -13,7 +13,7 @@ import {
   DeleteCard,
   DeleteDeck,
   Empty,
-  HeadingOfPage,
+  HeadingCardsPage,
   Table,
 } from '@/features/cards/ui/Cards/components'
 import { useQueryParams } from '@/hooks/useQueryParams'
@@ -63,7 +63,7 @@ const Cards = () => {
         <AddEditCard item={cardItem} />
         <DeleteDeck deckData={deckData} deckId={deckId} />
         <DeleteCard cardItem={cardItem} />
-        <HeadingOfPage
+        <HeadingCardsPage
           deckId={deckId}
           isCardsCountZero={isCardsCountZero}
           isMineCards={isMineCards}

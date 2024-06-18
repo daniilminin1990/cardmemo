@@ -24,14 +24,18 @@ import { useGetCardsQuery } from '@/services/cards/cards.service'
 import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 import { clsx } from 'clsx'
 
-import s from '@/features/cards/ui/Cards/components/HeadingSecondRow/HeadingOfPage.module.scss'
+import s from '@/features/cards/ui/Cards/components/HeadingCardsPage/HeadingCardsPage.module.scss'
 
 type HeadingSecondRowProps = {
   deckId: string
   isCardsCountZero: boolean
   isMineCards: boolean
 }
-export const HeadingOfPage = ({ deckId, isCardsCountZero, isMineCards }: HeadingSecondRowProps) => {
+export const HeadingCardsPage = ({
+  deckId,
+  isCardsCountZero,
+  isMineCards,
+}: HeadingSecondRowProps) => {
   const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
   const { t } = useTranslation()
   const { data: deck } = useGetDeckByIdQuery({ id: deckId })
