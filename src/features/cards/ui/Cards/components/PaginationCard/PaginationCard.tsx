@@ -4,6 +4,8 @@ import { CardsListResponse } from '@/features/cards/api/cardsApi.types'
 import { useItemsPerPage } from '@/features/cards/lib/hooks/useItemsPerPage'
 import { useQueryParams } from '@/hooks/useQueryParams'
 
+import s from '@/features/cards/ui/Cards/Cards.module.scss'
+
 type Props = {
   cardsData?: CardsListResponse
   currentData?: CardsListResponse
@@ -19,7 +21,7 @@ export const PaginationCard = ({ cardsData, currentData }: Props) => {
   }
 
   return (
-    <>
+    <div className={s.footer}>
       <PaginationWithSelect
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
@@ -28,6 +30,6 @@ export const PaginationCard = ({ cardsData, currentData }: Props) => {
         setItemsPerPage={handleItemsPerPageChange}
         totalItems={cardsData?.pagination.totalItems || 0}
       />
-    </>
+    </div>
   )
 }

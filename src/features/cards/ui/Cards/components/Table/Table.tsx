@@ -1,54 +1,59 @@
-import { useTranslation } from "react-i18next";
-import { useMediaQuery } from "react-responsive";
+import { useTranslation } from 'react-i18next'
+import { useMediaQuery } from 'react-responsive'
 
-import { headersNameCards } from "@/common/globalVariables";
-import { SingleRowCard } from "@/components/TableComponent/SingleRowCard/SingleRowCard";
-import { TableComponentWithTypes } from "@/components/TableComponent/TableComponentWithTypes";
-import { TableCardMobile } from "@/components/TableComponent/mobile/TableCardMobile/TableCardMobile";
-import { TableHeadMobile } from "@/components/TableComponent/mobile/TableHeadMobile/TableHeadMobile";
-import Typography from "@/components/ui/Typography/Typography";
-import { Button } from "@/components/ui/button";
-import { CardResponse, CardsListResponse } from "@/services/cards/cards.types";
-import { Deck } from "@/services/decks/deck.types";
+import { headersNameCards } from '@/common/globalVariables'
+import { SingleRowCard } from '@/components/TableComponent/SingleRowCard/SingleRowCard'
+import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
+import { TableCardMobile } from '@/components/TableComponent/mobile/TableCardMobile/TableCardMobile'
+import { TableHeadMobile } from '@/components/TableComponent/mobile/TableHeadMobile/TableHeadMobile'
+import Typography from '@/components/ui/Typography/Typography'
+import { Button } from '@/components/ui/button'
+import { useCards } from '@/features/cards/lib/hooks/useCards'
+import { PaginationCard } from '@/features/cards/ui/Cards/components/PaginationCard/PaginationCard'
+import { ModalKey, useModal } from '@/hooks/useModal'
+import { useQueryParams } from '@/hooks/useQueryParams'
+import { useGetCardsQuery } from '@/services/cards/cards.service'
+import { CardResponse } from '@/services/cards/cards.types'
+import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 
-import s from "@/features/cards/ui/Cards/Cards.module.scss";
-import { PaginationCard } from "@/features/cards/ui/PaginationCard/PaginationCard";
-import { ModalKey, useModal } from "@/features/cards/lib/hooks/useModal";
+import s from '@/features/cards/ui/Cards/Cards.module.scss'
 
 type Props = {
-  cardsData?: CardsListResponse
-  conditionMessage: string
-  currentData?: CardsListResponse
-  deckData?: Deck
-  isCardsCountZero: boolean
-  isFetching: boolean
-  isLoading: boolean
-  isMineCards: boolean
-  loadingStatus: boolean
-  search: string
+  deckId: string
   setCardItem: (card: CardResponse) => void
-  setIsCreateCardModal: (isCreateCardModal: boolean) => void
-  setIsUpdateCardModal: (isUpdateCardModal: boolean) => void
 }
 
-export const Table = ({
-  cardsData,
-  conditionMessage,
-  currentData,
-  deckData,
-  isCardsCountZero,
-  isFetching,
-  isLoading,
-  isMineCards,
-  loadingStatus,
-  search,
-  setCardItem,
-  setIsCreateCardModal,
-  setIsUpdateCardModal,
-}: Props) => {
+export const Table = ({ deckId, setCardItem }: Props) => {
+  const { currentOrderBy, currentPage, debouncedSearchValue, itemsPerPage, search } =
+    useQueryParams()
+
+  const {
+    currentData: currentDeckData,
+    data: deckData,
+    isLoading: isDeckLoading,
+  } = useGetDeckByIdQuery({ id: deckId })
+
+  const { currentData, data, isFetching, isLoading } = useGetCardsQuery(
+    {
+      args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
+      id: deckId ?? '',
+    },
+    { skip: !currentDeckData }
+  )
+
+  const { conditionMessage, isCardsCountZero, isMineCards, loadingStatus } = useCards({
+    currentData,
+    currentDeckData,
+    isDeckLoading,
+    isFetching,
+  })
+
+  const cardsData = currentData ?? data
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
   const { t } = useTranslation()
-  const {setOpen:setIsDeleteCardModal} = useModal(ModalKey.DeleteCard)
+  const { setOpen: setIsDeleteCardModal } = useModal(ModalKey.DeleteCard)
+  const { setOpen: setIsUpdateCardModal } = useModal(ModalKey.EditCard)
+  const { setOpen: setIsCreateCardModal } = useModal(ModalKey.AddCard)
 
   return (
     <>
@@ -109,7 +114,7 @@ export const Table = ({
               })}
             </TableComponentWithTypes>
           )}
-          <PaginationCard cardsData={cardsData} currentData={currentData}/>
+          <PaginationCard cardsData={cardsData} currentData={currentData} />
         </>
       )}
     </>

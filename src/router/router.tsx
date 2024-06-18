@@ -1,3 +1,5 @@
+//import { CardsPage } from '@/features/cards'
+import { Suspense } from 'react'
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
 import { CheckEmail } from '@/Pages/Auth/CheckEmail/CheckEmail'
@@ -5,18 +7,18 @@ import { CreateNewPassword } from '@/Pages/Auth/CreateNewPassword/CreateNewPassw
 import { ForgotPassword } from '@/Pages/Auth/ForgotPassword/ForgotPassword'
 import { SignInPage } from '@/Pages/Auth/SignInPage/SignIn.page'
 import SignUp from '@/Pages/Auth/SignUp/SignUp'
-// import { CardsPage } from '@/Pages/CardsPage/Cards.page'
+//import { CardsPage } from '@/Pages/CardsPage/Cards.page'
 import { DecksPage } from '@/Pages/DecksPage/Decks.page'
 import ErrorPage from '@/Pages/ErrorPage/ErrorPage'
 import { Layout } from '@/components/Layout/Layout'
 import Loading from '@/components/ui/Loading/Loading'
+import { CardsPage } from '@/features/cards/ui/Cards/cards.async'
 // import { Cards } from '@/features/cards/ui/Cards'
 import { LearnPage } from '@/features/learn/ui/LearnPage'
 import { ProfilePage } from '@/features/profile/ui/ProfilePage'
 import { path } from '@/router/path'
 import { useMeQuery } from '@/services/auth/auth.service'
 import { useGetDecksQuery, useGetMinMaxCardsCountQuery } from '@/services/decks/decks.service'
-import { Cards } from "@/features/cards";
 
 export const publicRoutes: RouteObject[] = [
   {
@@ -58,7 +60,11 @@ const privateRoutes: RouteObject[] = [
         path: `${path.decks}`,
       },
       {
-        element: <Cards/>,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <CardsPage />
+          </Suspense>
+        ),
         path: `${path.decks}/:deckId`,
       },
       {

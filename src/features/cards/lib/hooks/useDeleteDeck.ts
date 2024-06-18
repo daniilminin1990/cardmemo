@@ -1,20 +1,22 @@
+import { useNavigate } from 'react-router-dom'
+
+import { ModalKey, useModal } from '@/hooks/useModal'
 import { path } from '@/router/path'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service'
-import { useNavigate } from "react-router-dom";
 
 type Props = {
   deckId: string
-  setIsDeleteDeckModal: (isDeleteDeckModal: boolean) => void
 }
 
-export const useDeleteDeck = ({ deckId, setIsDeleteDeckModal }: Props) => {
+export const useDeleteDeck = ({ deckId }: Props) => {
   const [deleteDeck] = useDeleteDeckMutation()
   const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
+  const { setOpen } = useModal(ModalKey.DeleteDeck)
   const navigate = useNavigate()
 
   const onDeleteDeckHandler = () => {
     deleteDeck({ id: deckId })
-    setIsDeleteDeckModal(true)
+    setOpen(false)
     if (deckId) {
       navigate(`${path.decks}${deckQuery}`)
     }

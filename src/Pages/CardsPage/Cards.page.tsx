@@ -29,13 +29,6 @@ import { useDeleteDeckMutation, useGetDeckByIdQuery } from '@/services/decks/dec
 
 import s from './cardsPage.module.scss'
 
-
- enum ModalKey  {
-  CreateDeck = 'CreateDeck',
-   DeleteDeck = 'DeleteDeck'
-}
-
-
 export const CardsPage = () => {
   const { t } = useTranslation()
   const deckQuery = localStorage.getItem('deckQuery') ? `/${localStorage.getItem('deckQuery')}` : ''
@@ -109,7 +102,6 @@ export const CardsPage = () => {
   const loadingStatus = isFetching || isDeckLoading
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
-
 
   //const {isOpened, onClose, open} = useModal(ModalKey.CreateDeck)
 
@@ -236,19 +228,3 @@ export const CardsPage = () => {
     </>
   )
 }
-
-
-// const useModal = (modalKey: ModalKey) => {
-//
-//   const open = () => {}
-//   const onClose = () => {}
-//
-//
-//
-//   return {
-//     open,
-//     onClose,
-//     isOpened: value.isOpened
-//   }
-//
-// }
