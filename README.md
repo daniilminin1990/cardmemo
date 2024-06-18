@@ -5,7 +5,9 @@
 </p>
 
 React + TypeScript SPA 🚀
-
+<div style={background: 'red'}>
+  Вы были на Гаити?
+</div>
 <hr>
 
 ### Links:
