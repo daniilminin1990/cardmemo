@@ -1,5 +1,6 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
+import { modalSlice } from '@/services/modal/modal.slice'
 import { configureStore } from '@reduxjs/toolkit'
 
 import { flashCardsAPI } from './flashCardsAPI'
@@ -9,6 +10,7 @@ export const store = configureStore({
   reducer: {
     // [cardsSlice.name]: cardsSlice.reducer,
     [flashCardsAPI.reducerPath]: flashCardsAPI.reducer,
+    modal: modalSlice.reducer,
   },
 })
 
