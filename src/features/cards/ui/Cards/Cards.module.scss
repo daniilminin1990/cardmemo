@@ -1,0 +1,28 @@
+.emptyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+
+  & > p:first-child {
+    margin-bottom: 30px;
+    font-size: 16px;
+    color: var(--color-dark-100);
+  }
+}
+
+.clearFilter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+}
+
+.footer {
+  width: 100%;
+  margin: 24px 0;
+}
+
+.learnCards {
+  text-decoration: none;
+}

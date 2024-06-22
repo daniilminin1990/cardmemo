@@ -5,7 +5,6 @@
 </p>
 
 React + TypeScript SPA 🚀
-
 <hr>
 
 ### Links:

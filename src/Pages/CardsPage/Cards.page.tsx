@@ -103,6 +103,8 @@ export const CardsPage = () => {
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
 
+  //const {isOpened, onClose, open} = useModal(ModalKey.CreateDeck)
+
   const conditionIsMineMessage = isMineCards
     ? `${t('cardsPage.emptyDeck')}`
     : `${t('cardsPage.unfortunatelyEmptyDeck')}`
