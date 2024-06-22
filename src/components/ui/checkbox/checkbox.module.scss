@@ -2,99 +2,85 @@ button {
   all: unset;
 }
 
-.CheckboxContainer,
-.CheckboxRoot {
+.CheckboxContainer {
   display: flex;
   gap: 15px;
   align-items: center;
   width: max-content;
-}
-
-.CheckboxContainer {
   font-size: 16px;
+
+  &:active .CheckboxRoot:not([disabled])::before {
+    transform: translate(-50%, -50%) scale(1);
+    background: var(--color-dark-100);
+  }
 }
 
 .CheckboxRoot {
-  cursor: pointer;
-
-  position: relative;
-
+  display: flex;
   justify-content: center;
-
+  position: relative;
+  cursor: pointer;
   width: 18px;
   height: 18px;
-
   background-color: transparent;
   border-radius: 2px;
   box-shadow: inset 0 0 0 2px var(--color-light-900);
-}
 
-.CheckboxRoot::before {
-  content: '';
+  &[data-state='checked'] {
+    background-color: var(--color-light-100);
+    box-shadow: inset 0 0 0 2px var(--color-light-100);
+  }
 
-  position: absolute;
-  z-index: -1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
+  &[disabled] {
+    cursor: no-drop;
+    box-shadow: inset 0 0 0 2px var(--color-dark-100);
 
-  width: 36px;
-  height: 36px;
+    &[data-state='checked'] {
+      background-color: var(--color-dark-100);
+      box-shadow: inset 0 0 0 2px var(--color-dark-100);
+    }
 
-  background-color: transparent;
-  border-radius: 50%;
+    svg path {
+      fill: var(--color-light-900);
+    }
+  }
 
-  transition: transform 0.3s ease-out;
-}
+  svg path {
+    fill: var(--color-dark-900);
+  }
 
-.CheckboxRoot:hover:not(.disabled)::before,
-.Label:hover .CheckboxRoot::before {
-  transform: translate(-50%, -50%) scale(1);
-  background: var(--color-dark-500);
-}
+  &:hover:not([disabled])::before,
+  .Label:hover &::before {
+    transform: translate(-50%, -50%) scale(1);
+    background: var(--color-dark-500);
+  }
 
-.CheckboxRoot .checked {
-  background-color: var(--color-light-100);
-  border-radius: 2px;
-  box-shadow: inset 0 0 0 2px var(--color-light-100);
-}
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+    border-radius: 50%;
+    transition: transform 0.3s ease-out;
+  }
 
-.CheckboxRoot svg path {
-  fill: var(--color-dark-900);
-}
-
-.CheckboxRoot.disabled svg path,
-.CheckboxRoot.disabled[data-state='checked'] {
-  background-color: var(--color-dark-100);
-  fill: var(--color-light-900);
-}
-
-.CheckboxRoot.disabled {
-  cursor: no-drop;
-  box-shadow: inset 0 0 0 2px var(--color-dark-100);
-}
-
-.CheckboxRoot.disabled .checked {
-  background-color: var(--color-dark-100);
-  box-shadow: inset 0 0 0 2px var(--color-dark-100);
+  &:focus-visible::before {
+    transform: translate(-50%, -50%) scale(1);
+    background: var(--color-dark-500);
+    outline: 2px solid var(--color-success-100);
+  }
 }
 
 .Label {
   cursor: pointer;
-}
 
-.Label.disabled {
-  cursor: no-drop;
-  color: var(--color-dark-100);
-}
-
-.CheckboxContainer:active .CheckboxRoot:not(.disabled)::before {
-  transform: translate(-50%, -50%) scale(1);
-  background: var(--color-dark-100);
-}
-
-.CheckboxRoot:focus-visible::before {
-  transform: translate(-50%, -50%) scale(1);
-  background: var(--color-dark-500);
-  outline: 2px solid var(--color-success-100);
+  &[disabled] {
+    cursor: no-drop;
+    color: var(--color-dark-100);
+  }
 }
