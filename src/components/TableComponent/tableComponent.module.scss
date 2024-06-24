@@ -61,10 +61,25 @@
 .boxEye {
   display: flex;
   justify-content: center;
-  width: 17%;
+  width: 8%;
   height: 100%;
   transform: translate(0, 0);
   position: absolute;
   right: 0;
   align-items: center;
+  margin: 0 4.5%;
+
+  &:focus-visible {
+    @include focus-visible-default;
+  }
+
+  svg g {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  &:hover {
+    svg g {
+      opacity: 0.8;
+    }
+  }
 }
