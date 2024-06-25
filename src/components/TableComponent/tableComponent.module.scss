@@ -74,12 +74,12 @@
   }
 
   svg g {
-    transition: opacity 0.3s ease-in-out;
+    transition: fill 0.3s ease-in-out;
   }
 
   &:hover {
     svg g {
-      opacity: 0.8;
+      fill: var(--color-accent-700);
     }
   }
 }
