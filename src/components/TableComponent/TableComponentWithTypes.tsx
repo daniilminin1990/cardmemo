@@ -66,13 +66,13 @@ export const TableComponentWithTypes = memo(
     }
     // const loadingStatus = isLoading || isFetching
     const changeEye = context?.blur ? (
-      <div className={s.boxEye} onClick={onClickEyeHandler}>
+      <Typography as={'button'} className={s.boxEye} onClick={onClickEyeHandler}>
         <CloseEye height={'100%'} width={20} />
-      </div>
+      </Typography>
     ) : (
-      <div className={s.boxEye} onClick={onClickEyeHandler}>
+      <Typography as={'button'} className={s.boxEye} onClick={onClickEyeHandler}>
         <Eye height={'100%'} width={20} />
-      </div>
+      </Typography>
     )
 
     if (!context) {
