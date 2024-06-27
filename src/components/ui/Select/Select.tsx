@@ -11,10 +11,9 @@ type Props = {
   disabled?: boolean
   onValueChange?: (items: string) => void
   selectOptions: selectOptionsType[]
-  value?: string // РАНЬШЕ БЫЛ  placeholder
+  value?: string
 }
 const SelectUI = ({ className, disabled, onValueChange, selectOptions, value }: Props) => {
-  // const placeholderText = placeholder || selectOptions[0].text
   const selectClasses = {
     button: clsx(className && s.button, s.className),
     content: clsx(s.selectContent),
