@@ -9,9 +9,9 @@ React + TypeScript SPA 🚀
 
 ### Links:
 
-> [UI-kit](https://storybook-flash-cards04272024.vercel.app?_vercel_share=6NtTD7gcX5KUdDHhnXmmWDoIf9P0zNy5) on Storybook
+> [UI-kit](https://storybook-cardmemo.vercel.app?_vercel_share=6NtTD7gcX5KUdDHhnXmmWDoIf9P0zNy5) on Storybook
 >
-> [CardMemo](https://flash-cards04272024.vercel.app) - web application
+> [CardMemo](https://cardmemo.vercel.app) - web application
 
 <hr>
 
