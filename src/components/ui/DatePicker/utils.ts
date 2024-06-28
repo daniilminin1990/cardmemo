@@ -129,30 +129,36 @@ export const getDateFromInputValue = (inputValue: string) => {
     return
   }
 
-  const [date, month, year] = inputValue.split('-').map(v => parseInt(v, 10))
+  const match = inputValue.match(validValueRegex)
 
-  const dateObj = new Date(year, month - 1, date)
+  if (match) {
+    const [, startDay, startMonth, startYear, endDay, endMonth, endYear] = match
 
-  return dateObj
+    // Преобразуем строки в числа и создаем объекты Date
+    const startDate = new Date(Number(startYear), Number(startMonth) - 1, Number(startDay))
+    const endDate = new Date(Number(endYear), Number(endMonth) - 1, Number(endDay))
+
+    return { endDate, startDate }
+  }
 }
 
-const validValueRegex = /^\d{2}-\d{2}-\d{4}$/
+const validValueRegex = /(\d{2})\/(\d{2})\/(\d{4}) - (\d{2})\/(\d{2})\/(\d{4})/
 
 export const isValidDateString = (value: string) => {
   if (!validValueRegex.test(value)) {
     return false
   }
-  const [date, month, year] = value.split('-').map(v => parseInt(v, 10))
-
-  if (month < 1 || month > 12 || date < 1) {
-    return false
-  }
-
-  const maxDaysInAMonth = getDaysAmountInAMonth(year, month - 1)
-
-  if (date > maxDaysInAMonth) {
-    return false
-  }
+  // const [date, month, year] = value.split('-').map(v => parseInt(v, 10))
+  //
+  // if (month < 1 || month > 12 || date < 1) {
+  //   return false
+  // }
+  //
+  // const maxDaysInAMonth = getDaysAmountInAMonth(year, month - 1)
+  //
+  // if (date > maxDaysInAMonth) {
+  //   return false
+  // }
 
   return true
 }
@@ -182,41 +188,77 @@ export function isInRange(value: Date, min?: Date, max?: Date) {
 }
 
 function isBiggerThanDate(value: Date, date: Date) {
-  if (value.getFullYear() > date.getFullYear()) {
+  const isValueFullYear = value.getFullYear()
+  const isValueMonth = value.getMonth()
+  const isValueDate = value.getDate()
+
+  if (isValueFullYear > date.getFullYear()) {
     return true
   }
 
-  if (value.getFullYear() < date.getFullYear()) {
+  if (isValueFullYear < date.getFullYear()) {
     return false
   }
 
-  if (value.getMonth() > date.getMonth()) {
+  if (isValueMonth > date.getMonth()) {
     return true
   }
 
-  if (value.getMonth() < date.getMonth()) {
+  if (isValueMonth < date.getMonth()) {
     return false
   }
 
-  return value.getDate() >= date.getDate()
+  return isValueDate >= date.getDate()
 }
 
 function isSmallerThanDate(value: Date, date: Date) {
-  if (value.getFullYear() > date.getFullYear()) {
+  const isValueFullYear = value.getFullYear()
+  const isValueMonth = value.getMonth()
+  const isValueDate = value.getDate()
+
+  if (isValueFullYear > date.getFullYear()) {
     return false
   }
 
-  if (value.getFullYear() < date.getFullYear()) {
+  if (isValueFullYear < date.getFullYear()) {
     return true
   }
 
-  if (value.getMonth() > date.getMonth()) {
+  if (isValueMonth > date.getMonth()) {
     return false
   }
 
-  if (value.getMonth() < date.getMonth()) {
+  if (isValueMonth < date.getMonth()) {
     return true
   }
 
-  return value.getDate() <= date.getDate()
+  return isValueDate <= date.getDate()
+}
+
+export const removeOneDay = (date: Date): Date => {
+  const newDate = new Date(date)
+
+  newDate.setDate(newDate.getDate() - 1)
+
+  return newDate
+}
+
+export const addDay = (date: Date, day: number): Date => {
+  const newDate = new Date(date)
+
+  newDate.setDate(newDate.getDate() + day)
+
+  return newDate
+}
+
+export const findMiddleDate = (startDate: Date, endDate: Date): Date => {
+  // Получаем временные метки для обеих дат
+  const startTime = startDate.getTime()
+  const endTime = endDate.getTime()
+
+  // Вычисляем середину в миллисекундах
+  const middleTime = (startTime + endTime) / 2
+
+  // Создаем новую дату из вычисленной середины
+  return new Date(middleTime)
 }

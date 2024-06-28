@@ -1,8 +1,11 @@
 import { useLayoutEffect, useMemo, useState } from 'react'
 
+import { RangeDate } from '@/components/ui/DatePicker/DatePicker'
 import {
   DateCellItem,
+  addDay,
   daysOfTheWeek,
+  findMiddleDate,
   getCurrentMothDays,
   getDaysAmountInAMonth,
   getNextMonthDays,
@@ -10,14 +13,20 @@ import {
   isInRange,
   isToday,
   months,
+  removeOneDay,
 } from '@/components/ui/DatePicker/utils'
+import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
 import { clsx } from 'clsx'
 
+const currentDate = new Date().getDate()
+const currentMonth = new Date().getMonth()
+const currentYear = new Date().getFullYear()
+
 interface DatePickerPopupContentProps {
-  inputValueDate?: Date
+  inputValueDate?: RangeDate
   max?: Date
   min?: Date
-  onChange: (value: Date) => void
+  onChange: (value: RangeDate) => void
   selectedValue: Date
 }
 
@@ -37,17 +46,17 @@ export const DatePickerPopupContent = ({
       return
     }
 
-    setPanelMonth(inputValueDate.getMonth())
-    setPanelYear(inputValueDate.getFullYear())
+    setPanelMonth(inputValueDate.endDate.getMonth())
+    setPanelYear(inputValueDate.endDate.getFullYear())
   }, [inputValueDate])
 
-  const [year, month, day] = useMemo(() => {
-    const currentYear = selectedValue.getFullYear()
-    const currentDay = selectedValue.getDate()
-    const currentMonth = selectedValue.getMonth()
-
-    return [currentYear, currentMonth, currentDay]
-  }, [selectedValue])
+  // const [year, month, day] = useMemo(() => {
+  //   const currentYear = selectedValue.getFullYear()
+  //   const currentDay = selectedValue.getDate()
+  //   const currentMonth = selectedValue.getMonth()
+  //
+  //   return [currentYear, currentMonth, currentDay]
+  // }, [selectedValue])
 
   const dateCells = useMemo(() => {
     const daysInAMonth = getDaysAmountInAMonth(panelYear, panelMonth)
@@ -60,7 +69,27 @@ export const DatePickerPopupContent = ({
   }, [panelYear, panelMonth])
 
   const onDateSelect = (item: DateCellItem) => {
-    onChange(new Date(item.year, item.month, item.date))
+    if (!inputValueDate) {
+      return
+    }
+
+    const middleDate = findMiddleDate(inputValueDate.startDate, inputValueDate.endDate)
+
+    if (new Date(item.year, item.month, item.date) < middleDate) {
+      // if (inputValueDate.startDate > new Date(item.year, item.month, item.date)) {
+      // }
+      onChange({ ...inputValueDate, startDate: new Date(item.year, item.month, item.date) })
+    }
+
+    if (new Date(item.year, item.month, item.date) > middleDate) {
+      if (inputValueDate.startDate < new Date(item.year, item.month, item.date)) {
+        onChange({ ...inputValueDate, endDate: new Date(item.year, item.month, item.date) })
+      }
+
+      if (inputValueDate.startDate > new Date(item.year, item.month, item.date)) {
+        onChange({ ...inputValueDate, startDate: new Date(item.year, item.month, item.date) })
+      }
+    }
   }
 
   //@ts-ignore
@@ -90,6 +119,28 @@ export const DatePickerPopupContent = ({
     }
   }
 
+  const checkDate = (cell: DateCellItem, dateSecond: Date) => {
+    return (
+      cell.year === dateSecond.getFullYear() &&
+      cell.month === dateSecond.getMonth() &&
+      cell.date === dateSecond.getDate()
+    )
+  }
+
+  function getIntermediateDates(startDate: Date, endDate: Date): Date[] {
+    const dates: Date[] = []
+    const currentDate = addDay(new Date(startDate), 1)
+
+    const endDateRemoveOneDay = removeOneDay(endDate)
+
+    while (currentDate <= endDateRemoveOneDay) {
+      dates.push(new Date(currentDate))
+      currentDate.setDate(currentDate.getDate() + 1)
+    }
+
+    return dates
+  }
+
   return (
     <div className={'CalendarPanel'}>
       <div className={'CalendarPanel__header'}>
@@ -98,27 +149,28 @@ export const DatePickerPopupContent = ({
         </div>
         <div className={'CalendarPanel__buttons'}>
           <div className={'CalendarPanel__buttons-left'}>
-            <button data-testid={'date-picker-popup-prev-month'} onClick={prevMonth}>
-              {'<'}
+            <button className={'popup-btn-month popup-prev-month'} onClick={prevMonth}>
+              <ChevronLeftIcon />
             </button>
           </div>
           <div className={'CalendarPanel__buttons-right'}>
-            <button data-testid={'date-picker-popup-next-month'} onClick={nextMonth}>
-              {'>'}
+            <button className={'popup-btn-month popup-next-month'} onClick={nextMonth}>
+              <ChevronRightIcon />
             </button>
           </div>
         </div>
       </div>
       <div className={'CalendarPanel__content'}>
         {daysOfTheWeek.map(weekDay => (
-          <div className={'CalendarPanelItem'} key={weekDay}>
+          <div className={'CalendarPanelItem CalendarPanelItem--weekDay'} key={weekDay}>
             {weekDay}
           </div>
         ))}
         {dateCells.map(cell => {
           const date = new Date(cell.year, cell.month, cell.date)
 
-          const isSelectedDate = cell.year === year && cell.month === month && cell.date === day
+          const isCurrentDate =
+            cell.year === currentYear && cell.month === currentMonth && cell.date === currentDate
           const isTodayDate = isToday(cell, todayDate)
           const isNotCurrent = cell.type !== 'current'
 
@@ -126,21 +178,40 @@ export const DatePickerPopupContent = ({
 
           const daysOff = !isNotCurrent && (date.getDay() === 6 || date.getDay() === 0)
 
+          if (!inputValueDate) {
+            return
+          }
+
+          const isSelectedDate = getIntermediateDates(
+            inputValueDate.startDate,
+            inputValueDate.endDate
+          ).find(
+            el =>
+              cell.year === el.getFullYear() &&
+              cell.month === el.getMonth() &&
+              cell.date === el.getDate()
+          )
+          const isSelectedStartDate = checkDate(cell, inputValueDate.startDate)
+          const isSelectedEndDate = checkDate(cell, inputValueDate.endDate)
+
           return (
             <div
               className={clsx(
                 'CalendarPanelItem',
-                isSelectedDate && 'CalendarPanelItem--selected',
+                isCurrentDate && 'CalendarPanelItem--currentDate',
                 isTodayDate && 'CalendarPanelItem--today',
                 isNotCurrent && 'CalendarPanelItem--not-current',
                 !isDateInRange && 'CalendarPanelItem--not-in-range',
-                daysOff && 'CalendarPanelItem--daysOff'
+                daysOff && 'CalendarPanelItem--daysOff',
+                isSelectedStartDate && 'CalendarPanelItem--selectedStartDate',
+                isSelectedEndDate && 'CalendarPanelItem--selectedEndDate',
+                isSelectedDate && 'CalendarPanelItem--selectedDate'
               )}
               data-testid={'date-picker-popup-cell'}
               key={`${cell.date}-${cell.month}-${cell.year}`}
               onClick={() => isDateInRange && onDateSelect(cell)}
             >
-              <div className={'CalendarPanelItem__date'}>{cell.date}</div>
+              <span className={'CalendarPanelItem__date'}>{cell.date}</span>
             </div>
           )
         })}

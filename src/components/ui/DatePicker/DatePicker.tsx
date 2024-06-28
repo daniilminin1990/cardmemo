@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
+import CalendarOutline from '@/assets/icons/svg/CalendarOutline'
 import { DatePickerPopupContent } from '@/components/ui/DatePicker/DatePickerPopupContent'
 import { useLatest } from '@/components/ui/DatePicker/lib/hooks/hooks'
 import { clsx } from 'clsx'
@@ -8,11 +9,16 @@ import './DatePicker.scss'
 
 import { getDateFromInputValue, getInputValueFromDate, isInRange } from './utils'
 
+export type RangeDate = {
+  endDate: Date
+  startDate: Date
+}
+
 export interface DatePickerProps {
   max?: Date
   min?: Date
-  onChange: (value: Date) => void
-  value: Date
+  onChange: (value: RangeDate) => void
+  value: RangeDate
 }
 
 /* 
@@ -40,7 +46,9 @@ export const DatePicker = ({ max, min, onChange, value }: DatePickerProps) => {
   const elementRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
-    setInputValue(`${getInputValueFromDate(value)} - ${getInputValueFromDate(value)}`)
+    setInputValue(
+      `${getInputValueFromDate(value.startDate)} - ${getInputValueFromDate(value.endDate)}`
+    )
   }, [value])
 
   const updateValueOnPopupCloseAction = () => {
@@ -51,18 +59,20 @@ export const DatePicker = ({ max, min, onChange, value }: DatePickerProps) => {
     if (!date) {
       // input value is invalid
       // reset it
-      setInputValue(getInputValueFromDate(value))
+      setInputValue(
+        `${getInputValueFromDate(value.startDate)} - ${getInputValueFromDate(value.endDate)}`
+      )
 
       return
     }
 
-    const isDateInRange = isInRange(date, min, max)
+    const isDateInRange = isInRange(date.startDate, min, max) && isInRange(date.endDate, min, max)
 
     if (!isDateInRange) {
       return
     }
 
-    onChange(date)
+    onChange({ ...date })
   }
 
   const latestUpdateValueFromInput = useLatest(updateValueOnPopupCloseAction)
@@ -95,8 +105,8 @@ export const DatePicker = ({ max, min, onChange, value }: DatePickerProps) => {
     }
   }, [latestUpdateValueFromInput])
 
-  const handleChange = (value: Date) => {
-    onChange(value)
+  const handleChange = (value: RangeDate) => {
+    onChange({ ...value })
     // setShowPopup(false)
   }
 
@@ -115,7 +125,7 @@ export const DatePicker = ({ max, min, onChange, value }: DatePickerProps) => {
       return [undefined, false]
     }
 
-    const isDateInRange = isInRange(date, min, max)
+    const isDateInRange = isInRange(date.startDate, min, max) && isInRange(date.endDate, min, max)
 
     return [date, isDateInRange]
   }, [inputValue, min, max])
@@ -139,6 +149,7 @@ export const DatePicker = ({ max, min, onChange, value }: DatePickerProps) => {
         type={'text'}
         value={inputValue}
       />
+      <CalendarOutline />
 
       {showPopup && (
         <div className={'DatePicker__popup'} data-testid={'date-picker-popup'}>
@@ -147,7 +158,7 @@ export const DatePicker = ({ max, min, onChange, value }: DatePickerProps) => {
             max={max}
             min={min}
             onChange={handleChange}
-            selectedValue={value}
+            selectedValue={value.endDate}
           />
         </div>
       )}
