@@ -1,3 +1,5 @@
+import { RangeDate } from '@/components/ui/DatePicker/DatePicker'
+
 export const daysOfTheWeek = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
 export const months = [
   'January',
@@ -124,7 +126,7 @@ export const getInputValueFromDate = (value: Date) => {
   return `${date}/${month}/${year}`
 }
 
-export const getDateFromInputValue = (inputValue: string) => {
+export const getDateFromInputValue = (inputValue: string): RangeDate | undefined => {
   if (!isValidDateString(inputValue)) {
     return
   }

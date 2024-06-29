@@ -14,7 +14,7 @@ import {
   isToday,
   months,
   removeOneDay,
-} from '@/components/ui/DatePicker/utils'
+} from '@/components/ui/DatePicker/lib/utils'
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
 import { clsx } from 'clsx'
 
@@ -76,12 +76,10 @@ export const DatePickerPopupContent = ({
     const middleDate = findMiddleDate(inputValueDate.startDate, inputValueDate.endDate)
 
     if (new Date(item.year, item.month, item.date) < middleDate) {
-      // if (inputValueDate.startDate > new Date(item.year, item.month, item.date)) {
-      // }
       onChange({ ...inputValueDate, startDate: new Date(item.year, item.month, item.date) })
     }
 
-    if (new Date(item.year, item.month, item.date) > middleDate) {
+    if (new Date(item.year, item.month, item.date) >= middleDate) {
       if (inputValueDate.startDate < new Date(item.year, item.month, item.date)) {
         onChange({ ...inputValueDate, endDate: new Date(item.year, item.month, item.date) })
       }
@@ -90,6 +88,14 @@ export const DatePickerPopupContent = ({
         onChange({ ...inputValueDate, startDate: new Date(item.year, item.month, item.date) })
       }
     }
+  }
+
+  const onDateSelectOne = (item: DateCellItem) => {
+    onChange({
+      ...inputValueDate,
+      endDate: new Date(item.year, item.month, item.date),
+      startDate: new Date(item.year, item.month, item.date),
+    })
   }
 
   //@ts-ignore
@@ -193,6 +199,7 @@ export const DatePickerPopupContent = ({
           )
           const isSelectedStartDate = checkDate(cell, inputValueDate.startDate)
           const isSelectedEndDate = checkDate(cell, inputValueDate.endDate)
+          const isSelectedStartAndEndDate = isSelectedStartDate && isSelectedEndDate
 
           return (
             <div
@@ -205,11 +212,13 @@ export const DatePickerPopupContent = ({
                 daysOff && 'CalendarPanelItem--daysOff',
                 isSelectedStartDate && 'CalendarPanelItem--selectedStartDate',
                 isSelectedEndDate && 'CalendarPanelItem--selectedEndDate',
-                isSelectedDate && 'CalendarPanelItem--selectedDate'
+                isSelectedDate && 'CalendarPanelItem--selectedDate',
+                isSelectedStartAndEndDate && 'CalendarPanelItem--selectedStartAndEndDate'
               )}
               data-testid={'date-picker-popup-cell'}
               key={`${cell.date}-${cell.month}-${cell.year}`}
               onClick={() => isDateInRange && onDateSelect(cell)}
+              onDoubleClick={() => isDateInRange && onDateSelectOne(cell)}
             >
               <span className={'CalendarPanelItem__date'}>{cell.date}</span>
             </div>

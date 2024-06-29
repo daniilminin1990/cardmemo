@@ -13,9 +13,6 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import s from './layout.module.scss'
 
-const MIN_DATE = new Date(2022, 6, 1)
-const MAX_DATE = new Date(2024, 8, 0)
-
 const addTwoDay = (date: Date): Date => {
   const newDate = new Date(date)
 
@@ -45,7 +42,7 @@ export const Layout = () => {
         <Outlet />
       </main>
       <div style={{ width: '300px' }}>
-        <DatePicker max={MAX_DATE} min={MIN_DATE} onChange={setDate} value={date} />
+        <DatePicker onChange={setDate} value={date} />
       </div>
       <ToastContainer
         autoClose={5000}
