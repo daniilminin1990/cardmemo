@@ -220,7 +220,9 @@ export const DatePickerPopupContent = ({
               onClick={() => isDateInRange && onDateSelect(cell)}
               onDoubleClick={() => isDateInRange && onDateSelectOne(cell)}
             >
-              <span className={'CalendarPanelItem__date'}>{cell.date}</span>
+              <span className={'CalendarPanelItem__date'} tabIndex={0}>
+                {cell.date}
+              </span>
             </div>
           )
         })}

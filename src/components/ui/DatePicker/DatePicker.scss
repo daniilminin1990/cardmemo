@@ -1,3 +1,5 @@
+@import 'src/styles/mixins';
+
 * {
   box-sizing: border-box;
 }
@@ -26,9 +28,13 @@ body {
   background-color: var(--color-dark-700);
   border: 1px solid var(--color-dark-500);
   cursor: pointer;
+
+  &:focus {
+    border: 2px solid var(--color-success-100);
+  }
 }
 
-.showPopup .DatePicker__input{
+.showPopup .DatePicker__input {
   cursor: text;
 }
 
@@ -85,14 +91,24 @@ body {
   border-radius: 50%;
   background-color: var(--color-dark-300);
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  border: 1px solid var(--color-dark-300);
 
   &:hover {
     background-color: var(--color-dark-500);
+    border: 1px solid var(--color-dark-500);
   }
 
   &:active {
     background-color: var(--color-light-500);
+    border: 1px solid var(--color-light-500);
     color: var(--color-dark-500)
+  }
+
+  &:focus {
+    outline: 1px solid #4C8DFF !important;
+    border: 1px solid #4C8DFF !important;
+    border-radius: 50%;
   }
 }
 
@@ -128,9 +144,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: var(--color-info-700);
+  }
 
   &:focus {
-    border-radius: 1px solid var(--color-accent-500);
+    outline: 1px solid #4C8DFF !important;
+    border: 1px solid #4C8DFF !important;
+    border-radius: 50%;
   }
 }
 
@@ -170,7 +193,7 @@ body {
   border-radius: 0;
 }
 
-.CalendarPanelItem--selectedStartAndEndDate .CalendarPanelItem__date{
+.CalendarPanelItem--selectedStartAndEndDate .CalendarPanelItem__date {
   border-radius: 50%;
 }
 
