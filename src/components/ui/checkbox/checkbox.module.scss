@@ -25,6 +25,10 @@ button {
   border-radius: 2px;
   box-shadow: inset 0 0 0 2px var(--color-light-900);
 
+  /*&.checked{
+    animation: input-animate 0.7s forwards;
+  }*/
+
   &::before {
     content: '';
     position: absolute;
@@ -66,15 +70,14 @@ button {
       box-shadow: inset 0 0 0 2px var(--color-dark-100);
     }
   }
-
-  &:focus-visible::before,
-  &:focus::before {
-    transform: translate(-50%, -50%) scale(1);
-    background: var(--color-dark-500);
-  }
-
   &:focus-visible::before {
     outline: 2px solid var(--color-success-100);
+  }
+
+  &:focus-visible:not(.disabled)::before,
+  &:focus:not(.disabled)::before {
+    transform: translate(-50%, -50%) scale(1);
+    background: var(--color-dark-500);
   }
 }
 
@@ -89,5 +92,29 @@ button {
   &:hover .CheckboxRoot::before {
     transform: translate(-50%, -50%) scale(1);
     background: var(--color-dark-500);
+  }
+}
+
+@keyframes input-animate {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.3, 0.7);
+  }
+  55% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.2, 0.8);
+  }
+  80% {
+    transform: scale(1);
+  }
+  90% {
+    transform: scale(1.1, 0.9);
+  }
+  100% {
+    transform: scale(1);
   }
 }

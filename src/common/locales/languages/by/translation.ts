@@ -1,4 +1,4 @@
-import { Translation } from '@/common/locales/TranslationType'
+import { Translation } from '@/common/locales/types/TranslationType'
 
 export const byTranslation: Translation = {
   cardsPage: {
@@ -226,4 +226,4 @@ export const byTranslation: Translation = {
     favorites: 'Улюбёныя',
     myDecks: 'Мае',
   },
-}
+} as const
