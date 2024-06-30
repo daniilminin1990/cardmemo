@@ -72,3 +72,7 @@ input:-webkit-autofill:active {
 
   -webkit-text-fill-color: var(--color-light-900) !important;
 }
+
+input:-webkit-autofill {
+  caret-color: var(--color-light-900);
+}

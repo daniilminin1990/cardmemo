@@ -5,7 +5,7 @@ import Context from '@/components/ui/changeTheme/Context'
 import { createRoot } from 'react-dom/client'
 
 import './styles/index.scss'
-import '@/components/ui/LocaleSwitcher/i18nConfiguration'
+import './common/locales/i18nConfiguration'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'
 

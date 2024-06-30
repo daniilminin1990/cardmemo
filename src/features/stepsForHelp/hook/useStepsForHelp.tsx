@@ -1,17 +1,17 @@
 import { useTranslation } from 'react-i18next'
 
-import l from '@/common/locales/LangData'
+import l from '@/common/locales/LangPathVariables'
 
 export const useStepsForHelp = () => {
   const { t } = useTranslation()
 
   const steps = [
     {
-      content: t(l.help['step-go-home']),
+      content: t('help.step-go-home'),
       target: '.step-go-home',
     },
     {
-      content: t(l.help['step-select-language']),
+      content: t('help.step-select-language'),
       target: '.step-select-language',
     },
     {
