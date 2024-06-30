@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react'
 
-import { changeTheme } from '@/common/utillThemeChanger'
+import { changeTheme } from '@/common/utils/utillThemeChanger'
 import { UserContext } from '@/components/ui/changeTheme/Context'
 import ToggleDemo from '@/components/ui/changeTheme/ThemeToggle'
 

@@ -1,4 +1,4 @@
-import { getCardsFormData } from '@/common/getCardsFormData'
+import { getCardsFormData } from '@/common/utils/getCardsFormData'
 
 import { flashCardsAPI } from '../flashCardsAPI'
 import {
