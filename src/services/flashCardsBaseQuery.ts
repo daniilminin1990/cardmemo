@@ -1,8 +1,8 @@
 import { matchPath } from 'react-router-dom'
 
+import { publicRoutes, router } from '@/app/router/router'
 import { throttledToastError } from '@/common/consts/toastVariants'
 import { RefreshTokenResponseSchema } from '@/common/zodSchemas/auth/auth.schemas'
-import { publicRoutes, router } from '@/router/router'
 import { failedApiResponse } from '@/services/failedApiResponse'
 import { successApiResponse } from '@/services/successApiResponse'
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQuery } from '@reduxjs/toolkit/query'

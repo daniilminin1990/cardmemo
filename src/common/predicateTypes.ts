@@ -1,4 +1,4 @@
-import { MeResponse, SignUpResponse } from '@/services/auth/auth.types'
+import { MeResponse, SignUpResponse } from '@/features/auth/services/auth.types'
 import { CardResponse } from '@/services/cards/cards.types'
 import { Deck } from '@/services/decks/deck.types'
 

@@ -1,10 +1,10 @@
 import { memo } from 'react'
 
+import { path } from '@/app/router/path'
+import { router } from '@/app/router/router'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
-import { path } from '@/router/path'
-import { router } from '@/router/router'
 
 import s from './SuccessModal.module.scss'
 type Props = {

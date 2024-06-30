@@ -1,4 +1,4 @@
-import { ModalKey } from '@/hooks/useModal'
+import { ModalKey } from '@/common/hooks/useModal'
 
 export interface Modal {
   isOpen: boolean

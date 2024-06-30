@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 
+import { path } from '@/app/router/path'
 import PlayCircleOutline from '@/assets/icons/svg/PlayCircleOutline'
 import { Button } from '@/components/ui/button'
-import { path } from '@/router/path'
 import { Deck } from '@/services/decks/deck.types'
 
 import s from './RowDeckBtns.module.scss'

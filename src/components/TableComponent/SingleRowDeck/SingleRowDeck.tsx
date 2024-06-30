@@ -1,12 +1,12 @@
 import { Link, useLocation } from 'react-router-dom'
 
+import { path } from '@/app/router/path'
 import PrivacyMask from '@/assets/icons/svg/PrivacyMask'
 import defaultCard from '@/assets/img/defaultCard.jpg'
 import { RowDeckBtns } from '@/components/TableComponent/SingleRowDeck/btns/RowDeckBtns'
 import Typography from '@/components/ui/Typography/Typography'
 import { Table } from '@/components/ui/table'
-import { path } from '@/router/path'
-import { useMeQuery } from '@/services/auth/auth.service'
+import { useMeQuery } from '@/features/auth/services/auth.service'
 import { Deck } from '@/services/decks/deck.types'
 import clsx from 'clsx'
 

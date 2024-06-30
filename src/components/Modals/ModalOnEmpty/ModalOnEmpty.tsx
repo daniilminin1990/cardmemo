@@ -2,10 +2,10 @@ import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { path } from '@/app/router/path'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal/modal'
-import { path } from '@/router/path'
 
 import s from './ModalOnEmpty.module.scss'
 

@@ -1,8 +1,8 @@
-import { selectOptionPagination } from '@/common/globalVariables'
+import { selectOptionPagination } from '@/common/consts/globalVariables'
+import { useQueryParams } from '@/common/hooks/useQueryParams'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import { CardsListResponse } from '@/features/cards/api/cardsApi.types'
 import { useItemsPerPage } from '@/features/cards/lib/hooks/useItemsPerPage'
-import { useQueryParams } from '@/hooks/useQueryParams'
 
 import s from '@/features/cards/ui/Cards/Cards.module.scss'
 

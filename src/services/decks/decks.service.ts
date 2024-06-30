@@ -1,4 +1,4 @@
-import { router } from '@/router/router'
+import { router } from '@/app/router/router'
 
 import { flashCardsAPI } from '../flashCardsAPI'
 import {

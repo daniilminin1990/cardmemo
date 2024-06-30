@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
+import { useQueryParams } from '@/common/hooks/useQueryParams'
 import Loading from '@/components/ui/Loading/Loading'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
@@ -16,7 +17,6 @@ import {
   HeadingCardsPage,
   Table,
 } from '@/features/cards/ui/Cards/components'
-import { useQueryParams } from '@/hooks/useQueryParams'
 import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 
 import s from './Cards.module.scss'

@@ -1,5 +1,5 @@
+import { useQueryParams } from '@/common/hooks/useQueryParams'
 import { CardsListResponse } from '@/features/cards/api/cardsApi.types'
-import { useQueryParams } from '@/hooks/useQueryParams'
 
 type Props = {
   currentData?: CardsListResponse

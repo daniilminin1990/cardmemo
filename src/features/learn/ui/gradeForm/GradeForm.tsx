@@ -1,7 +1,7 @@
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import { gradeNames } from '@/common/globalVariables'
+import { gradeNames } from '@/common/consts/globalVariables'
 import { LearnCardFormValues } from '@/common/zodSchemas/cards/cards.schemas'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'

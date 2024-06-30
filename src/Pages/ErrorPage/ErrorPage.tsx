@@ -1,7 +1,7 @@
 import { memo } from 'react'
 
+import { path } from '@/app/router/path'
 import { Button } from '@/components/ui/button'
-import { path } from '@/router/path'
 
 import style from './ErrorPage.module.scss'
 

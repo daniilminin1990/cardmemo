@@ -1,8 +1,8 @@
 import { ChangeEvent, useRef } from 'react'
 
 import defaultAvatar from '@/assets/img/defaultAvatar.png'
-import { useUpdateUserDataMutation } from '@/services/auth/auth.service'
-import { MeResponse } from '@/services/auth/auth.types'
+import { useUpdateUserDataMutation } from '@/features/auth/services/auth.service'
+import { MeResponse } from '@/features/auth/services/auth.types'
 
 type Props = {
   me?: MeResponse

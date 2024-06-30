@@ -3,7 +3,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { PersonalInfoFormValue, PersonalInfoScheme } from '@/common/zodSchemas/auth/auth.schemas'
-import { useMeQuery, useUpdateUserDataMutation } from '@/services/auth/auth.service'
+import { useMeQuery, useUpdateUserDataMutation } from '@/features/auth/services/auth.service'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export const useProfilePage = () => {

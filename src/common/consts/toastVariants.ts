@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify'
 
-import { useThrottle } from '@/hooks/useThrottle'
+import { useThrottle } from '@/common/hooks/useThrottle'
 import i18n from 'i18next'
 
 import s from '../../styles/toastStyles.module.scss'

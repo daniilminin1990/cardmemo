@@ -3,14 +3,19 @@ import { useTranslation } from 'react-i18next'
 import { useMediaQuery } from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
+import { path } from '@/app/router/path'
+import { router } from '@/app/router/router'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
-import { handleToastInfo } from '@/common/consts/toastVariants'
 import {
   headersNameDecks,
   initCurrentPage,
   selectOptionPagination,
   tabsValuesData,
-} from '@/common/globalVariables'
+} from '@/common/consts/globalVariables'
+import { handleToastInfo } from '@/common/consts/toastVariants'
+import { useQueryParams } from '@/common/hooks/useQueryParams'
+import { useSliderQueryParams } from '@/common/hooks/useSliderQueryParams'
+import { useTabsValuesParams } from '@/common/hooks/useTabsValuesParams'
 import l from '@/common/locales/LangData'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
@@ -27,18 +32,13 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { UserContext } from '@/components/ui/changeTheme/Context'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
-import { useQueryParams } from '@/hooks/useQueryParams'
-import { useSliderQueryParams } from '@/hooks/useSliderQueryParams'
-import { useTabsValuesParams } from '@/hooks/useTabsValuesParams'
-import { path } from '@/router/path'
-import { router } from '@/router/router'
+import MyJoyRide from '@/features/stepsForHelp/myJoyRide'
 import { Deck } from '@/services/decks/deck.types'
 import {
   useDeleteDeckMutation,
   useGetDecksQuery,
   useGetFavoritesDecksCountQuery,
 } from '@/services/decks/decks.service'
-import MyJoyRide from '@/stepsForHelp/myJoyRide'
 import { clsx } from 'clsx'
 
 import s from '@/Pages/DecksPage/decksPage.module.scss'

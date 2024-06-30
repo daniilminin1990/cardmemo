@@ -2,9 +2,9 @@ import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
+import { MeResponse } from '@/features/auth/services/auth.types'
 import { useNickName } from '@/features/profile/lib/hooks/useNickName'
 import { LogoutBtn } from '@/features/profile/ui/logoutBtn/LogoutBtn'
-import { MeResponse } from '@/services/auth/auth.types'
 
 import s from './NickName.module.scss'
 
