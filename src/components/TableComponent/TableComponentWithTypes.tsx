@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
+import l from '@/common/locales/LangPathVariables'
 import { isDeck } from '@/common/predicateTypes'
 import Loading from '@/components/ui/Loading/Loading'
 import Typography from '@/components/ui/Typography/Typography'
@@ -53,7 +54,8 @@ export const TableComponentWithTypes = memo(
 
     if (conditionOfZeroData) {
       if (queryParameters) {
-        message = `${t('tableComponentWithTypes.noContent')}...`
+        /*message = `${t('tableComponentWithTypes.noContent')}...`*/
+        message = `${t(l.tableComponentWithTypes.noContent)}...`
       } else {
         message = `${t('tableComponentWithTypes.pleaseAddAnyData')}`
       }

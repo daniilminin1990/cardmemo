@@ -1,4 +1,4 @@
-import { Translation } from '@/common/locales/TranslationType'
+import { Translation } from '@/common/locales/types/TranslationType'
 
 export const ruTranslation: Translation = {
   cardsPage: {

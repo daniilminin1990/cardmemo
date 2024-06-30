@@ -1,16 +1,6 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useMediaQuery } from 'react-responsive'
-import { useParams } from 'react-router-dom'
-
+import helpImg from '@/assets/icons/informationIcon.svg'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
-import { handleToastInfo } from '@/common/consts/toastVariants'
-import {
-  headersNameDecks,
-  initCurrentPage,
-  selectOptionPagination,
-  tabsValuesData,
-} from '@/common/globalVariables'
+import { tabsValuesData } from '@/common/globalVariables'
 import l from '@/common/locales/LangPathVariables'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
@@ -25,121 +15,51 @@ import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithS
 import Slider from '@/components/ui/Slider/Slider'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
-import { UserContext } from '@/components/ui/changeTheme/Context'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
-import { useQueryParams } from '@/hooks/useQueryParams'
-import { useSliderQueryParams } from '@/hooks/useSliderQueryParams'
-import { useTabsValuesParams } from '@/hooks/useTabsValuesParams'
-import { path } from '@/router/path'
-import { router } from '@/router/router'
-import { Deck } from '@/services/decks/deck.types'
-import {
-  useDeleteDeckMutation,
-  useGetDecksQuery,
-  useGetFavoritesDecksCountQuery,
-} from '@/services/decks/decks.service'
+import { useDecks } from '@/features/decks/lib/hooks/useDecks'
 import MyJoyRide from '@/stepsForHelp/myJoyRide'
 import { clsx } from 'clsx'
 
 import s from '@/Pages/DecksPage/decksPage.module.scss'
 
-import helpImg from '../../assets/icons/informationIcon.svg'
-
 export function DecksPage() {
-  const { t } = useTranslation()
-  const [run, setRun] = useState(false)
-  const context = useContext(UserContext)
-  const {
-    clearQuery,
-    currentOrderBy,
-    currentPage,
-    debouncedSearchValue,
-    itemsPerPage,
-    search,
-    setCurrentPageQuery,
-    setItemsPerPageQuery,
-    setSearchQuery,
-  } = useQueryParams()
-
   const {
     changeMinMaxHandler,
-    debouncedEndValue,
-    debouncedStartValue,
+    context,
+    currentPage,
+    data,
+    deckItem,
+    decksData,
+    favoriteCounts,
+    handleCurrentPageChange,
+    handleItemsPerPageChange,
+    handleSearchChange,
+    handleTabsSwitch,
+    headersNameDecks,
+    isCreateModal,
+    isDeleteModal,
+    isFetching,
+    isLoading,
+    isTabletOrMobile,
+    isUpdateModal,
+    itemsPerPage,
     minMaxData,
+    onClearFilter,
+    onDeleteDeckHandler,
+    run,
+    search,
+    selectOptionPagination,
+    setDeckItem,
+    setIsCreateModal,
+    setIsDeleteModal,
+    setIsUpdateModal,
+    setRun,
+    setSearchQuery,
     sliderMax,
     sliderMin,
-  } = useSliderQueryParams()
-
-  const { authorId, favoritedBy, setTabsValue, setTabsValueQuery, tabsValue } =
-    useTabsValuesParams()
-  const [deleteDeck] = useDeleteDeckMutation()
-  // const { data: meData, isLoading: meIsLoading } = useMeQuery()
-  const { currentData, data, isFetching, isLoading } = useGetDecksQuery({
-    authorId: authorId || '',
-    currentPage,
-    favoritedBy: favoritedBy || '',
-    itemsPerPage,
-    maxCardsCount: debouncedEndValue,
-    minCardsCount: debouncedStartValue,
-    name: debouncedSearchValue,
-    orderBy: currentOrderBy,
-  })
-  const { data: favoriteCounts } = useGetFavoritesDecksCountQuery()
-
-  useEffect(() => {
-    if (currentData) {
-      const maxNumberOfPages = Math.ceil((currentData.pagination.totalItems ?? 0) / itemsPerPage)
-
-      if (maxNumberOfPages < currentPage && maxNumberOfPages !== 0) {
-        setCurrentPageQuery(maxNumberOfPages)
-      }
-      if (currentData?.items.length === 0) {
-        setCurrentPageQuery(Number(initCurrentPage))
-      }
-    }
-  }, [currentData, itemsPerPage, currentPage])
-
-  const { deckId } = useParams()
-
-  const [isCreateModal, setIsCreateModal] = useState(false)
-  const [isUpdateModal, setIsUpdateModal] = useState(false)
-  const [isDeleteModal, setIsDeleteModal] = useState(false)
-  const [deckItem, setDeckItem] = useState<Deck>()
-
-  const onDeleteDeckHandler = () => {
-    deleteDeck({ id: deckItem?.id ?? '' })
-    setIsDeleteModal(true)
-    if (deckId) {
-      router.navigate(path.decks)
-    }
-  }
-
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCurrentPageQuery(Number(initCurrentPage))
-    setSearchQuery(e.currentTarget.value)
-  }
-
-  const handleTabsSwitch = (value: string) => {
-    setTabsValueQuery(value)
-    setTabsValue(value)
-  }
-
-  const onClearFilter = () => {
-    setTabsValue(tabsValuesData[1].locale)
-    clearQuery()
-    handleToastInfo(`${t(l.successApiResponse.commonInfo.clearFilters)}`, 2000)
-  }
-
-  const handleItemsPerPageChange = (value: number) => {
-    setItemsPerPageQuery(value)
-  }
-  const handleCurrentPageChange = (value: number) => {
-    setCurrentPageQuery(value)
-  }
-
-  const decksData = currentData?.items ?? data?.items
-
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
+    t,
+    tabsValue,
+  } = useDecks()
 
   return (
     <>
@@ -175,6 +95,7 @@ export function DecksPage() {
             </div>
           </div>
 
+          {/*filters area*/}
           <div className={s.filters}>
             <div className={clsx(s.boxForInput, 'step-search')}>
               <Input

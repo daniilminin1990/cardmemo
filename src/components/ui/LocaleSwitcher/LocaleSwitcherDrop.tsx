@@ -14,7 +14,10 @@ import s from './LocaleSwitcher.module.scss'
 
 type LangIcon = typeof byIcon | typeof enIcon | typeof kzIcon | typeof ruIcon | typeof uaIcon
 export type LangType = 'by' | 'en' | 'kz' | 'ru' | 'ua'
+export type FullName = 'English' | 'Беларуская' | 'Русский' | 'Українська' | 'Қазақ'
+
 type LangData = {
+  fullName: FullName
   icon: LangIcon
   isoCode: LangType
 }
@@ -25,11 +28,11 @@ const LocaleSwitcherDrop = () => {
   const { i18n } = useTranslation()
 
   const langData: TypedLangData = {
-    by: { icon: byIcon, isoCode: 'by' },
-    en: { icon: enIcon, isoCode: 'en' },
-    kz: { icon: kzIcon, isoCode: 'kz' },
-    ru: { icon: ruIcon, isoCode: 'ru' },
-    ua: { icon: uaIcon, isoCode: 'ua' },
+    by: { fullName: 'Беларуская', icon: byIcon, isoCode: 'by' },
+    en: { fullName: 'English', icon: enIcon, isoCode: 'en' },
+    kz: { fullName: 'Қазақ', icon: kzIcon, isoCode: 'kz' },
+    ru: { fullName: 'Русский', icon: ruIcon, isoCode: 'ru' },
+    ua: { fullName: 'Українська', icon: uaIcon, isoCode: 'ua' },
   }
   const [iconFlag, setIconFlag] = useState(langData[i18n.language as LangType]?.icon || enIcon)
 
@@ -60,6 +63,7 @@ const LocaleSwitcherDrop = () => {
         <DropdownMenu.Content className={s.DropdownMenuContent} sideOffset={3}>
           {Object.entries(langData).map(([key, value]) => (
             <LocaleMenuItem
+              fullName={value.fullName}
               icon={value.icon}
               isoCode={value.isoCode}
               key={key}

@@ -1,6 +1,6 @@
-import { Translation } from '@/common/locales/TranslationType'
+import { Translation } from '@/common/locales/types/TranslationType'
 
-const langData: Translation = {
+const langPathVariables: Translation = {
   cardsPage: {
     addNewCard: 'cardsPage.addNewCard',
     backDeckList: 'cardsPage.backDeckList',
@@ -154,11 +154,11 @@ const langData: Translation = {
   },
   signInPage: {
     dontHaveAccount: 'signInPage.dontHaveAccount',
-    email: 'signIn.email',
-    forgotPassword: 'signIn.forgotPassword',
-    password: 'signIn.password',
+    email: 'signInPage.email',
+    forgotPassword: 'signInPage.forgotPassword',
+    password: 'signInPage.password',
     rememberMe: 'signInPage.rememberMe',
-    signIn: 'signIn.signIn',
+    signIn: 'signInPage.signIn',
     signUp: 'signInPage.signUp',
   },
   signUp: {
@@ -220,6 +220,6 @@ const langData: Translation = {
     favorites: 'useTabsValuesParams.favorites',
     myDecks: 'useTabsValuesParams.myDecks',
   },
-}
+} as const
 
-export default langData
+export default langPathVariables
