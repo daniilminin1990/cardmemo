@@ -38,7 +38,7 @@ const Typography = <E extends ElementType = typeof defaultElement>({
   variant = 'body1',
   ...otherProps
 }: TextProps<E>) => {
-  const classNames = clsx(s.text, s[variant], className)
+  const classNames = clsx(s[variant], className)
   const Component = as || 'p'
 
   return (
