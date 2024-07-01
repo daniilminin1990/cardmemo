@@ -1,1 +1,1 @@
-export * from './ui/Cards/Cards'
+export * from './ui/Cards/Cards.page'

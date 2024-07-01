@@ -15,7 +15,7 @@ type Props = {
 }
 const ModalOnEmpty = memo((props: Props) => {
   const { open, setIsOpenModal } = props
-  const onDeleteDeckHandler = () => {
+  const onCloseModalHandler = () => {
     setIsOpenModal(false)
   }
   const { t } = useTranslation()
@@ -31,10 +31,16 @@ const ModalOnEmpty = memo((props: Props) => {
         <Typography variant={'body1'}>{t('modalOnEmpty.reallyWant')}</Typography>
       </div>
       <div className={s.footer}>
-        <Button className={s.button} onClick={onDeleteDeckHandler} variant={'secondary'}>
+        <Button className={s.button} onClick={onCloseModalHandler} variant={'secondary'}>
           <Typography variant={'subtitle2'}>{t('modalOnEmpty.no')}</Typography>
         </Button>
-        <Button as={Link} className={s.button} to={`${path.decks}`} variant={'primary'}>
+        <Button
+          as={Link}
+          className={s.button}
+          onClick={onCloseModalHandler}
+          to={`${path.decks}`}
+          variant={'primary'}
+        >
           <Typography variant={'subtitle2'}>{t('modalOnEmpty.yes')}</Typography>
         </Button>
       </div>

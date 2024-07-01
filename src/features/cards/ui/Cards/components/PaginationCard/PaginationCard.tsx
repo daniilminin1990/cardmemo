@@ -4,7 +4,7 @@ import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithS
 import { CardsListResponse } from '@/features/cards/api/cardsApi.types'
 import { useItemsPerPage } from '@/features/cards/lib/hooks/useItemsPerPage'
 
-import s from '@/features/cards/ui/Cards/Cards.module.scss'
+import s from '@/features/cards/ui/Cards/CardsPage.module.scss'
 
 type Props = {
   cardsData?: CardsListResponse
