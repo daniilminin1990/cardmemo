@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useQueryParams } from '@/common/hooks/useQueryParams'
-import ModalOnEmpty from '@/components/Modals/ModalOnEmpty/ModalOnEmpty'
 import Loading from '@/components/ui/Loading/Loading'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
@@ -17,6 +16,7 @@ import {
   HeadingCardsPage,
   Table,
 } from '@/features/cards/ui/Cards/components'
+import { Empty } from '@/features/cards/ui/Cards/components/modals/Empty/Empty'
 import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 
 import s from './CardsPage.module.scss'
@@ -58,7 +58,7 @@ const CardsPage = () => {
     <>
       {loadingStatus && <LoadingBar />}
       <Page className={s.common} mt={'24px'}>
-        <ModalOnEmpty />
+        <Empty />
         <AddEditDeck item={currentDeckData} />
         <AddEditCard item={cardItem} />
         <DeleteDeck deckData={deckData} deckId={deckId} />
