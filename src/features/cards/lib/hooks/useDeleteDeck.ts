@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
-import { ModalKey, useModal } from '@/hooks/useModal'
-import { path } from '@/router/path'
+import { path } from '@/app/router/path'
+import { ModalKey, useModal } from '@/common/hooks/useModal'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service'
 
 type Props = {

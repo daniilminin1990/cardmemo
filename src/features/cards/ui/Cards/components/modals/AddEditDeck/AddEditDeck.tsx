@@ -1,5 +1,5 @@
+import { ModalKey, useModal } from '@/common/hooks/useModal'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
-import { ModalKey, useModal } from '@/hooks/useModal'
 import { Deck } from '@/services/decks/deck.types'
 
 type Props = {

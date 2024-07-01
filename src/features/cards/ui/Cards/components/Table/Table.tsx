@@ -1,6 +1,8 @@
 import { useMediaQuery } from 'react-responsive'
 
-import { headersNameCards } from '@/common/globalVariables'
+import { headersNameCards } from '@/common/consts/globalVariables'
+import { ModalKey, useModal } from '@/common/hooks/useModal'
+import { useQueryParams } from '@/common/hooks/useQueryParams'
 import { SingleRowCard } from '@/components/TableComponent/SingleRowCard/SingleRowCard'
 import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
 import { TableCardMobile } from '@/components/TableComponent/mobile/TableCardMobile/TableCardMobile'
@@ -8,8 +10,6 @@ import { TableHeadMobile } from '@/components/TableComponent/mobile/TableHeadMob
 import { useCards } from '@/features/cards/lib/hooks/useCards'
 import { EmptyContent } from '@/features/cards/ui/Cards/components'
 import { PaginationCard } from '@/features/cards/ui/Cards/components/PaginationCard/PaginationCard'
-import { ModalKey, useModal } from '@/hooks/useModal'
-import { useQueryParams } from '@/hooks/useQueryParams'
 import { useGetCardsQuery } from '@/services/cards/cards.service'
 import { CardResponse } from '@/services/cards/cards.types'
 import { useGetDeckByIdQuery } from '@/services/decks/decks.service'

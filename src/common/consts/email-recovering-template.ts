@@ -1,5 +1,5 @@
+import { path } from '@/app/router/path'
 import { appDeploy } from '@/common/consts/app-deploy'
-import { path } from '@/router/path'
 
 export const emailRecoveringTemplate = `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"

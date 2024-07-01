@@ -1,7 +1,7 @@
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import { Button } from '@/components/ui/button'
+import { MeResponse } from '@/features/auth/services/auth.types'
 import { useAvatar } from '@/features/profile/lib/hooks/useAvatar'
-import { MeResponse } from '@/services/auth/auth.types'
 
 import s from './Avatar.module.scss'
 

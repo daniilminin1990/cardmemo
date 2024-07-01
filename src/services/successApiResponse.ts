@@ -1,6 +1,6 @@
 import { handleToastInfo, handleToastSuccess } from '@/common/consts/toastVariants'
-import { isCard, isDeck, isProfile, isSignUp } from '@/common/predicateTypes'
-import { MeResponse, SignUpResponse } from '@/services/auth/auth.types'
+import { isCard, isDeck, isProfile, isSignUp } from '@/common/utils/predicateTypes'
+import { MeResponse, SignUpResponse } from '@/features/auth/services/auth.types'
 import { CardResponse } from '@/services/cards/cards.types'
 import { Deck } from '@/services/decks/deck.types'
 import i18n from 'i18next'

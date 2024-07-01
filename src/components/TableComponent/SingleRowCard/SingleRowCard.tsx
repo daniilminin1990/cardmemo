@@ -9,7 +9,7 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { UserContext } from '@/components/ui/changeTheme/Context'
 import { Table } from '@/components/ui/table'
-import { useMeQuery } from '@/services/auth/auth.service'
+import { useMeQuery } from '@/features/auth/services/auth.service'
 import { CardResponse } from '@/services/cards/cards.types'
 import { clsx } from 'clsx'
 

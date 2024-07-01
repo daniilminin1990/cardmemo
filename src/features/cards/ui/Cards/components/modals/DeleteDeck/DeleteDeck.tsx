@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
 
+import { ModalKey, useModal } from '@/common/hooks/useModal'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import Typography from '@/components/ui/Typography/Typography'
 import { useDeleteDeck } from '@/features/cards/lib/hooks/useDeleteDeck'
-import { ModalKey, useModal } from '@/hooks/useModal'
 import { Deck } from '@/services/decks/deck.types'
 
 type Props = {

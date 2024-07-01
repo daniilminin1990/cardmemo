@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react'
 import MoreVerticalOutline from '@/assets/icons/svg/MoreVerticalOutline'
 import defaultAvatar from '@/assets/img/defaultAvatar.png'
 import Typography from '@/components/ui/Typography/Typography'
-import { MeResponse } from '@/services/auth/auth.types'
+import { MeResponse } from '@/features/auth/services/auth.types'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { clsx } from 'clsx'
 

@@ -1,4 +1,4 @@
-import { ModalKey } from '@/hooks/useModal'
+import { ModalKey } from '@/common/hooks/useModal'
 import { Modal } from '@/services/modal/modal.types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 

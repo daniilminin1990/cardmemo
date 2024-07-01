@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
+import { useQueryParams } from '@/common/hooks/useQueryParams'
 import Loading from '@/components/ui/Loading/Loading'
 import Typography from '@/components/ui/Typography/Typography'
-import { useQueryParams } from '@/hooks/useQueryParams'
 import { CardResponse } from '@/services/cards/cards.types'
 import { Deck } from '@/services/decks/deck.types'
 

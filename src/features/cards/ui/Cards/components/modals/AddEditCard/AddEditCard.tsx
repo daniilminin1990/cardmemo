@@ -1,6 +1,6 @@
+import { ModalKey, useModal } from '@/common/hooks/useModal'
 import { ModalAddEditCard } from '@/components/Modals/ModalEditCard/ModalAddEditCard'
 import { CardResponse } from '@/features/cards/api/cardsApi.types'
-import { ModalKey, useModal } from '@/hooks/useModal'
 
 type Props = {
   item?: CardResponse

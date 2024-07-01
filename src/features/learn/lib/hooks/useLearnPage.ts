@@ -3,9 +3,9 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
+import { path } from '@/app/router/path'
 import { handleToastWarning } from '@/common/consts/toastVariants'
 import { LearnCardFormValues } from '@/common/zodSchemas/cards/cards.schemas'
-import { path } from '@/router/path'
 import {
   useGetRandomCardByIdQuery,
   useUpdateCardGradeMutation,

@@ -1,6 +1,6 @@
 import helpImg from '@/assets/icons/informationIcon.svg'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
-import { tabsValuesData } from '@/common/globalVariables'
+import { tabsValuesData } from '@/common/consts/globalVariables'
 import l from '@/common/locales/LangPathVariables'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
@@ -17,11 +17,10 @@ import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { useDecks } from '@/features/decks/lib/hooks/useDecks'
-import MyJoyRide from '@/stepsForHelp/myJoyRide'
+import MyJoyRide from '@/features/stepsForHelp/myJoyRide'
 import { clsx } from 'clsx'
 
-import s from '@/Pages/DecksPage/decksPage.module.scss'
-
+import s from './DecksPage.module.scss'
 export function DecksPage() {
   const {
     changeMinMaxHandler,

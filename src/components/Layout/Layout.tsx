@@ -5,7 +5,7 @@ import { Bounce, ToastContainer } from 'react-toastify'
 import Header from '@/components/Layout/Header/Header'
 import Loading from '@/components/ui/Loading/Loading'
 import { UserContext } from '@/components/ui/changeTheme/Context'
-import { useMeQuery } from '@/services/auth/auth.service'
+import { useMeQuery } from '@/features/auth/services/auth.service'
 
 import 'react-toastify/dist/ReactToastify.css'
 

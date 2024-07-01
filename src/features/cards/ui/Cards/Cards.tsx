@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
+import { ModalKey, useModal } from '@/common/hooks/useModal'
+import { useQueryParams } from '@/common/hooks/useQueryParams'
 import ModalOnEmpty from '@/components/Modals/ModalOnEmpty/ModalOnEmpty'
 import Loading from '@/components/ui/Loading/Loading'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
@@ -16,8 +18,6 @@ import {
   HeadingCardsPage,
   Table,
 } from '@/features/cards/ui/Cards/components'
-import { ModalKey, useModal } from '@/hooks/useModal'
-import { useQueryParams } from '@/hooks/useQueryParams'
 import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 
 import s from './Cards.module.scss'

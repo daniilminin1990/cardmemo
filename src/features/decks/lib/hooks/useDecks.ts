@@ -3,20 +3,19 @@ import { useTranslation } from 'react-i18next'
 import { useMediaQuery } from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { handleToastInfo } from '@/common/consts/toastVariants'
+import { path } from '@/app/router/path'
 import {
   headersNameDecks,
   initCurrentPage,
   selectOptionPagination,
   tabsValuesData,
-} from '@/common/globalVariables'
+} from '@/common/consts/globalVariables'
+import { handleToastInfo } from '@/common/consts/toastVariants'
+import { useQueryParams } from '@/common/hooks/useQueryParams'
+import { useSliderQueryParams } from '@/common/hooks/useSliderQueryParams'
+import { useTabsValuesParams } from '@/common/hooks/useTabsValuesParams'
 import l from '@/common/locales/LangPathVariables'
 import { UserContext } from '@/components/ui/changeTheme/Context'
-import { useQueryParams } from '@/hooks/useQueryParams'
-import { useSliderQueryParams } from '@/hooks/useSliderQueryParams'
-import { useTabsValuesParams } from '@/hooks/useTabsValuesParams'
-import { path } from '@/router/path'
-import { router } from '@/router/router'
 import { Deck } from '@/services/decks/deck.types'
 import {
   useDeleteDeckMutation,
@@ -24,6 +23,7 @@ import {
   useGetFavoritesDecksCountQuery,
 } from '@/services/decks/decks.service'
 
+import { router } from '../../../../app/router/router'
 export function useDecks() {
   const { t } = useTranslation()
   const [run, setRun] = useState(false)

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
-import { path } from '@/router/path'
-import { useLogoutMutation } from '@/services/auth/auth.service'
+import { path } from '@/app/router/path'
+import { useLogoutMutation } from '@/features/auth/services/auth.service'
 
 export const useLogoutBtn = () => {
   const { t } = useTranslation()
