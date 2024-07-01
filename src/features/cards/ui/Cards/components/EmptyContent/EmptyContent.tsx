@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { CardsListResponse } from '@/features/cards/api/cardsApi.types'
 import { Deck } from '@/services/decks/deck.types'
 
-import s from '@/features/cards/ui/Cards/Cards.module.scss'
+import s from '@/features/cards/ui/Cards/CardsPage.module.scss'
 
 type Props = {
   conditionMessage: string

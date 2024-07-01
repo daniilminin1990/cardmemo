@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { ModalKey, useModal } from '@/common/hooks/useModal'
 import { useQueryParams } from '@/common/hooks/useQueryParams'
 import ModalOnEmpty from '@/components/Modals/ModalOnEmpty/ModalOnEmpty'
 import Loading from '@/components/ui/Loading/Loading'
@@ -20,9 +19,9 @@ import {
 } from '@/features/cards/ui/Cards/components'
 import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 
-import s from './Cards.module.scss'
+import s from './CardsPage.module.scss'
 
-const Cards = () => {
+const CardsPage = () => {
   const { currentOrderBy, currentPage, debouncedSearchValue, itemsPerPage } = useQueryParams()
 
   const { deckId = '' } = useParams()
@@ -33,8 +32,6 @@ const Cards = () => {
     isFetching: isDeckFetching,
     isLoading: isDeckLoading,
   } = useGetDeckByIdQuery({ id: deckId })
-
-  const { isOpen, setOpen } = useModal(ModalKey.Empty)
 
   const { currentData, isFetching, isLoading } = useGetCardsQuery(
     {
@@ -61,7 +58,7 @@ const Cards = () => {
     <>
       {loadingStatus && <LoadingBar />}
       <Page className={s.common} mt={'24px'}>
-        <ModalOnEmpty open={isOpen} setIsOpenModal={setOpen} />
+        <ModalOnEmpty />
         <AddEditDeck item={currentDeckData} />
         <AddEditCard item={cardItem} />
         <DeleteDeck deckData={deckData} deckId={deckId} />
@@ -77,4 +74,4 @@ const Cards = () => {
   )
 }
 
-export default Cards
+export default CardsPage
