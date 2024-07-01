@@ -1,12 +1,6 @@
-import { useState } from 'react'
-import { useParams } from 'react-router-dom'
-
-import { useQueryParams } from '@/common/hooks/useQueryParams'
 import Loading from '@/components/ui/Loading/Loading'
 import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
-import { useGetCardsQuery } from '@/features/cards/api/cardsApi'
-import { CardResponse } from '@/features/cards/api/cardsApi.types'
 import { useCards } from '@/features/cards/lib/hooks/useCards'
 import {
   AddEditCard,
@@ -17,40 +11,23 @@ import {
   Table,
 } from '@/features/cards/ui/Cards/components'
 import { Empty } from '@/features/cards/ui/Cards/components/modals/Empty/Empty'
-import { useGetDeckByIdQuery } from '@/services/decks/decks.service'
 
 import s from './CardsPage.module.scss'
 
 const CardsPage = () => {
-  const { currentOrderBy, currentPage, debouncedSearchValue, itemsPerPage } = useQueryParams()
-
-  const { deckId = '' } = useParams()
-
   const {
-    currentData: currentDeckData,
-    data: deckData,
-    isFetching: isDeckFetching,
-    isLoading: isDeckLoading,
-  } = useGetDeckByIdQuery({ id: deckId })
-
-  const { currentData, isFetching, isLoading } = useGetCardsQuery(
-    {
-      args: { currentPage, itemsPerPage, orderBy: currentOrderBy, question: debouncedSearchValue },
-      id: deckId ?? '',
-    },
-    { skip: !currentDeckData }
-  )
-
-  const [cardItem, setCardItem] = useState<CardResponse>()
-
-  const { isCardsCountZero, isMineCards, loadingStatus } = useCards({
-    currentData,
+    cardItem,
     currentDeckData,
-    isDeckLoading,
-    isFetching,
-  })
+    deckData,
+    deckId,
+    isCardsCountZero,
+    isCardsLoader,
+    isMineCards,
+    loadingStatus,
+    setCardItem,
+  } = useCards()
 
-  if (isLoading || isDeckLoading || isDeckFetching) {
+  if (isCardsLoader) {
     return <Loading type={'pageLoader'} />
   }
 
