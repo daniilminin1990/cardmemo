@@ -1,5 +1,7 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
+import { selectApp, selectBlur } from '@/app/model'
+import { useAppSelector } from '@/app/store/store'
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
 import Star from '@/assets/icons/svg/Star'
 import StarOutline from '@/assets/icons/svg/StarOutline'
@@ -7,7 +9,6 @@ import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import defaultCard from '@/assets/img/defaultCard.jpg'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
-import { UserContext } from '@/components/ui/changeTheme/Context'
 import { Table } from '@/components/ui/table'
 import { useMeQuery } from '@/features/auth/services/auth.service'
 import { CardResponse } from '@/services/cards/cards.types'
@@ -31,9 +32,10 @@ export const SingleRowCard = ({
   const { data: meData } = useMeQuery()
   // const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
   const [blur, setBlur] = useState(true)
-  const context = useContext(UserContext)
+  const app = useAppSelector(selectApp)
+  const blurGlobal = useAppSelector(selectBlur)
 
-  if (!context) {
+  if (!app) {
     return null
   }
   const onDeleteCardHandler = () => {
@@ -55,7 +57,7 @@ export const SingleRowCard = ({
   const onMouseUp = () => {
     setBlur(true) // При отпускании мыши снимаем эффект "блюра"
   }
-  const fragmentWithBlur = context.blur && blur ? s.coverImg + ' ' + s.blur : s.coverImg
+  const fragmentWithBlur = blurGlobal && blur ? s.coverImg + ' ' + s.blur : s.coverImg
 
   return (
     <Table.Row>
@@ -76,7 +78,7 @@ export const SingleRowCard = ({
       </Table.Cell>
       <Table.Cell className={s.sell}>
         <div
-          className={clsx(context.blur && blur ? s.blur : s.unBlur)}
+          className={clsx(blurGlobal && blur ? s.blur : s.unBlur)}
           onMouseDown={onMouseDown}
           onMouseLeave={onMouseUp}
           onMouseUp={onHandleBlur}

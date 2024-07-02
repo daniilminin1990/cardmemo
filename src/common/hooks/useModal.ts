@@ -1,6 +1,6 @@
+import { selectIsOpen, selectModalKey } from '@/app/model'
+import { toggleModal } from '@/app/model/app.slice'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
-import { selectIsOpen, selectModalKey } from '@/services/modal'
-import { toggleModal } from '@/services/modal/modal.slice'
 
 export enum ModalKey {
   AddCard = 'AddCard',
