@@ -24,7 +24,6 @@ import s from './DecksPage.module.scss'
 export function DecksPage() {
   const {
     changeMinMaxHandler,
-    context,
     currentPage,
     data,
     deckItem,
@@ -58,6 +57,7 @@ export function DecksPage() {
     sliderMin,
     t,
     tabsValue,
+    theme,
   } = useDecks()
 
   return (
@@ -114,7 +114,7 @@ export function DecksPage() {
                   tabs={tabsValuesData}
                   value={tabsValue}
                 />
-                <div className={clsx(s.countsFav, context?.theme === 'sun' ? s.sun : '')}>
+                <div className={clsx(s.countsFav, theme === 'sun' ? s.sun : '')}>
                   <Typography variant={'caption'}>{favoriteCounts}</Typography>
                 </div>
               </div>

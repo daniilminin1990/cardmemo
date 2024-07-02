@@ -1,16 +1,14 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
-import { modalSlice } from '@/services/modal/modal.slice'
+import { appSlice } from '@/app/model/app.slice'
+import { flashCardsAPI } from '@/services/flashCardsAPI'
 import { configureStore } from '@reduxjs/toolkit'
-
-import { flashCardsAPI } from '../../services/flashCardsAPI'
 
 export const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(flashCardsAPI.middleware),
   reducer: {
-    // [cardsSlice.name]: cardsSlice.reducer,
+    app: appSlice.reducer,
     [flashCardsAPI.reducerPath]: flashCardsAPI.reducer,
-    modal: modalSlice.reducer,
   },
 })
 

@@ -1,14 +1,16 @@
-import { ReactNode, memo, useContext } from 'react'
+import { ReactNode, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
+import { selectApp, selectBlur } from '@/app/model'
+import { setBlur } from '@/app/model/app.slice'
+import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import { useQueryParams } from '@/common/hooks/useQueryParams'
 import l from '@/common/locales/LangPathVariables'
 import { isDeck } from '@/common/utils/predicateTypes'
 import Loading from '@/components/ui/Loading/Loading'
 import Typography from '@/components/ui/Typography/Typography'
-import { UserContext } from '@/components/ui/changeTheme/Context'
 import { Table } from '@/components/ui/table'
 import { CardResponse } from '@/services/cards/cards.types'
 import { Deck } from '@/services/decks/deck.types'
@@ -43,7 +45,9 @@ export const TableComponentWithTypes = memo(
     const { currentOrderBy, setSortByQuery } = useQueryParams()
     // const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
     const { t } = useTranslation()
-    const context = useContext(UserContext)
+    const app = useAppSelector(selectApp)
+    const blur = useAppSelector(selectBlur)
+    const dispatch = useAppDispatch()
 
     const { search: queryParameters } = useLocation()
     let message
@@ -64,10 +68,10 @@ export const TableComponentWithTypes = memo(
     }
     const onClickEyeHandler = (e: any) => {
       e.stopPropagation()
-      context?.setBlur(!context?.blur)
+      dispatch(setBlur({ blur: !blur }))
     }
     // const loadingStatus = isLoading || isFetching
-    const changeEye = context?.blur ? (
+    const changeEye = blur ? (
       <Typography as={'button'} className={s.boxEye} onClick={onClickEyeHandler}>
         <CloseEye height={'100%'} width={20} />
       </Typography>
@@ -77,7 +81,7 @@ export const TableComponentWithTypes = memo(
       </Typography>
     )
 
-    if (!context) {
+    if (!app) {
       return
     }
 

@@ -1,9 +1,12 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useMediaQuery } from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
+import { selectTheme } from '@/app/model'
 import { path } from '@/app/router/path'
+import { router } from '@/app/router/router'
+import { useAppSelector } from '@/app/store/store'
 import {
   headersNameDecks,
   initCurrentPage,
@@ -15,7 +18,6 @@ import { useQueryParams } from '@/common/hooks/useQueryParams'
 import { useSliderQueryParams } from '@/common/hooks/useSliderQueryParams'
 import { useTabsValuesParams } from '@/common/hooks/useTabsValuesParams'
 import l from '@/common/locales/LangPathVariables'
-import { UserContext } from '@/components/ui/changeTheme/Context'
 import { Deck } from '@/services/decks/deck.types'
 import {
   useDeleteDeckMutation,
@@ -23,11 +25,10 @@ import {
   useGetFavoritesDecksCountQuery,
 } from '@/services/decks/decks.service'
 
-import { router } from '../../../../app/router/router'
 export function useDecks() {
   const { t } = useTranslation()
   const [run, setRun] = useState(false)
-  const context = useContext(UserContext)
+  const theme = useAppSelector(selectTheme)
   const {
     clearQuery,
     currentOrderBy,
@@ -121,7 +122,6 @@ export function useDecks() {
 
   return {
     changeMinMaxHandler,
-    context,
     currentPage,
     data,
     deckItem,
@@ -155,5 +155,6 @@ export function useDecks() {
     sliderMin,
     t,
     tabsValue,
+    theme,
   }
 }

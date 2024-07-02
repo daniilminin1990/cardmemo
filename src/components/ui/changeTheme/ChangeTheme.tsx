@@ -1,7 +1,10 @@
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
+import { Theme, selectTheme } from '@/app/model'
+import { setTheme } from '@/app/model/app.slice'
+import { useAppSelector } from '@/app/store/store'
 import { changeTheme } from '@/common/utils/utillThemeChanger'
-import { UserContext } from '@/components/ui/changeTheme/Context'
 import ToggleDemo from '@/components/ui/changeTheme/ThemeToggle'
 
 import style from './ChangeTheme.module.scss'
@@ -9,30 +12,29 @@ import style from './ChangeTheme.module.scss'
 import moon from '../../../assets/ChangeTheme/moonIcon.png'
 import sun from '../../../assets/ChangeTheme/sunIcon.png'
 
-export type Theme = 'moon' | 'sun'
-
 const ChangeTheme = () => {
-  const context = useContext(UserContext)
+  const theme = useAppSelector(selectTheme)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const storedTheme: Theme = localStorage.getItem('theme') as Theme
 
-    if (storedTheme) {
-      context?.setTheme(storedTheme)
+    if (theme && storedTheme) {
+      dispatch(setTheme({ theme: storedTheme }))
       updateThemeColors(storedTheme)
     }
-  }, [context])
+  }, [theme])
 
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
-      if (!context) {
+      if (!theme) {
         return
       } // Add this line to check if context is undefined
 
       if (event.key === 'theme') {
         const newTheme = localStorage.getItem('theme') as Theme
 
-        context.setTheme(newTheme)
+        dispatch(setTheme({ theme: newTheme }))
         updateThemeColors(newTheme)
       }
     }
@@ -42,15 +44,15 @@ const ChangeTheme = () => {
     return () => {
       window.removeEventListener('storage', handleStorageChange)
     }
-  }, [context]) // Make sure to include context in the dependency array
+  }, [theme]) // Make sure to include context in the dependency array
 
   const onChangeThemeHandler = () => {
-    if (!context) {
+    if (!theme) {
       return
     } // Add this line to check if context is undefined
-    const newTheme = context?.theme === 'moon' ? 'sun' : 'moon'
+    const newTheme = theme === 'moon' ? 'sun' : 'moon'
 
-    context?.setTheme(newTheme)
+    dispatch(setTheme({ theme: newTheme }))
     localStorage.setItem('theme', newTheme)
     updateThemeColors(newTheme)
   }
@@ -97,7 +99,7 @@ const ChangeTheme = () => {
       <ToggleDemo
         moonIcon={moon}
         onPressedChange={onChangeThemeHandler}
-        pressed={context?.theme === 'moon'}
+        pressed={theme === 'moon'}
         sunIcon={sun}
       />
     </div>
