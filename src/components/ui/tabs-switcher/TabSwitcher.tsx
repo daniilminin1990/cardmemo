@@ -42,10 +42,8 @@ export const TabSwitcher = ({ className, label, onValueChange, tabs, value }: Pr
               className={clsx(s.trigger, theme === 'sun' ? s.sun : '')}
               disabled={t.disabled}
               key={t.value}
-              // value={t.value}
               value={t.locale}
             >
-              {/*<Typography variant={'subtitle2'}>{t.value}</Typography>*/}
               <Typography variant={'subtitle2'}>{tab(`${t.locale}`)}</Typography>
             </Tabs.Trigger>
           ))}

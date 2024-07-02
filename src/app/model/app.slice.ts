@@ -1,8 +1,8 @@
-import { App, Theme } from '@/app/model/app.types'
+import { AppSettings, Theme } from '@/app/model/app.types'
 import { ModalKey } from '@/common/hooks/useModal'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-const initialState: App = {
+const initialState: AppSettings = {
   blur: true,
   modal: {
     isOpen: false,

@@ -17,7 +17,6 @@ import { clsx } from 'clsx'
 import s from './SingleRowCard.module.scss'
 
 type Props = {
-  // item: CardResponse
   item: CardResponse
   openDeleteModalHandler: (value: boolean) => void
   openEditModalHandler: (value: boolean) => void
@@ -89,10 +88,7 @@ export const SingleRowCard = ({
             <div className={s.wrapperCoverImg}>
               <img
                 alt={'default card img'}
-                className={clsx(
-                  s.coverImg,
-                  item.answerImg ? fragmentWithBlur : s.wrapperCoverImg + ' ' + s.withImg
-                )}
+                className={clsx(s.coverImg, fragmentWithBlur)}
                 src={item.answerImg ? item.answerImg : defaultCard}
               />
             </div>

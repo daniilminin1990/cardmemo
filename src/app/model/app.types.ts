@@ -1,6 +1,6 @@
 import { ModalKey } from '@/common/hooks/useModal'
 
-export interface App {
+export interface AppSettings {
   blur: boolean
   modal: Modal
   theme: Theme

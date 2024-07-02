@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import { selectTheme } from '@/app/model'
 import { path } from '@/app/router/path'
+import { router } from '@/app/router/router'
 import { useAppSelector } from '@/app/store/store'
 import {
   headersNameDecks,
@@ -23,8 +24,6 @@ import {
   useGetDecksQuery,
   useGetFavoritesDecksCountQuery,
 } from '@/services/decks/decks.service'
-
-import { router } from '../../../../app/router/router'
 
 export function useDecks() {
   const { t } = useTranslation()
