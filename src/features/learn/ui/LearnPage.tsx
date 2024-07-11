@@ -1,5 +1,5 @@
-import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import Typography from '@/components/ui/Typography/Typography'
+import { BackBtn } from '@/components/ui/backBtn/BackBtn'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { useLearnPage } from '@/features/learn/lib/hooks/useLearnPage'

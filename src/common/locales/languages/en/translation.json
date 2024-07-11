@@ -1,221 +1,221 @@
 {
-  "localeSwitcher": {
-    "currentLanguage": "English",
-    "language": {
-      "en": "English",
-      "ru": "Russian",
-      "by": "Belarusian",
-      "kz": "Kazakh",
-      "ua": "Ukrainian"
+  "cardsPage":{
+    "addNewCard":"Add New Card",
+    "backDeckList":"Back to Deck List",
+    "delete":"Delete",
+    "deleteCard":"Delete Card",
+    "deleteDeck":"Delete Deck",
+    "edit":"Edit",
+    "emptyDeck":"This deck is empty. Click add new card to fill this pack",
+    "isDeleteCard":"Do you really want to delete card? All data will be deleted.",
+    "isDeleteDeck":"Do you really want to delete deck? All cards will be deleted.",
+    "learn":"Learn",
+    "learnCards":"Learn Cards",
+    "noResultsFound":"No results found with this terms. Try to change filters.",
+    "unfortunatelyEmptyDeck":"Unfortunately this deck is empty"
+  },
+  "checkEmail":{
+    "backToSignIn":"Back to Sign in",
+    "checkEmail":"Check Email",
+    "instruction":"We’ve sent an Email with instructions to"
+  },
+  "controlButtons":{
+    "back":"Back",
+    "close":"Close",
+    "last":"Last",
+    "next":"Next",
+    "open":"Open",
+    "skip":"Skip"
+  },
+  "dataFiller":{
+    "changeCover":"Change cover",
+    "removeCover":"Remove cover",
+    "uploadImage":"Upload Image"
+  },
+  "decksPage":{
+    "addNewDeck":"Add New Deck",
+    "clearFilter":"Clear Filter",
+    "decksList":"Decks list",
+    "deleteDeck":"Delete Deck",
+    "isDeleteDeck":"Do you really want to delete deck? All cards will be deleted.",
+    "numberOfCards":"Number of cards",
+    "showDecksCards":"Show decks cards"
+  },
+  "deleteModal":{
+    "cancel":"Cancel"
+  },
+  "failedApiResponse":{
+    "network":"Please check the network and try again or later!",
+    "unknown":"Try again later"
+  },
+  "forgotPassword":{
+    "email":"Email",
+    "enterYourEmail":"Enter your email address and we will send you further instructions",
+    "forgotPassword":"Forgot your password?",
+    "rememberPassword":"Did you remember your password?",
+    "sendInstructions":"Send Instructions",
+    "tryLogIn":"Try logging in"
+  },
+  "header":{
+    "myProfile":"My Profile",
+    "signIn":"Sign In",
+    "signOut":"Sign Out"
+  },
+  "help":{
+    "help":"Help",
+    "step-add-new-deck":"Click here to add new deck.",
+    "step-change-theme":"Click here to change the theme (light or dark).",
+    "step-clear-filter":"Click here to clear filters.",
+    "step-edit-table-deck-btns":"Here you can edit your deck (change title, make it private, add card, remove card, study deck).",
+    "step-go-home":"Click here to go home.",
+    "step-pagination":"Here you can move between page and set quantity сards per page.",
+    "step-private-deck":"Here you can find mask-icon indicating this deck is private and only you can see this deck.",
+    "step-profile-drop-down":"Click here to open the menu, in the drop-down menu you can view your profile or log out of your account.",
+    "step-search":"You can search for decks by name.",
+    "step-select-language":"Click here and select the display language on the page.",
+    "step-slider-filter":"You can filter the decks in the table by the number of cards. To do this, move these sliders.",
+    "step-tab-filter":"Filter for displaying table decks",
+    "step-this-is-table":"This is a table in which you can see your cards, pay attention at the top in the header you can see the names of the columns when you click on which your cards will be sorted."
+  },
+  "learnPage":{
+    "aLotThought":"A lot of thought",
+    "answer":"Answer",
+    "backCardsPage":"Back to Cards Page",
+    "confused":"Confused",
+    "countAttempts":"Count of attempts",
+    "didtKnow":"Did not know",
+    "forgot":"Forgot",
+    "knewAnswer":"Knew the answer",
+    "learn":"Learn",
+    "nextQuestion":"Next Question",
+    "question":"Question",
+    "rateYourself":"Rate yourself",
+    "showAnswer":"Show Answer"
+  },
+  "localeSwitcher":{
+    "currentLanguage":"English",
+    "languages":{
+      "by":"Belarusian",
+      "en":"English",
+      "kz":"Kazakh",
+      "ru":"Russian",
+      "ua":"Ukrainian"
     },
-    "ownLanguages": {
-      "en": "English",
-      "ru": "Русский",
-      "by": "Беларуская",
-      "kz": "Қазақ",
-      "ua": "Українська"
+    "ownLanguages":{
+      "by":"Беларуская",
+      "en":"English",
+      "kz":"Қазақ",
+      "ru":"Русский",
+      "ua":"Українська"
     }
   },
-  "header": {
-    "signIn": "Sign In",
-    "signOut": "Sign Out",
-    "myProfile": "My Profile"
+  "modalAddEditCard":{
+    "addNewCard":"Add New Card",
+    "answer":"answer",
+    "cancel":"Cancel",
+    "createCard":"Create Card",
+    "question":"question",
+    "removeCover":"Remove cover",
+    "saveChanges":"Save changes",
+    "updateCard":"Update Card"
   },
-  "decksPage": {
-    "numberOfCards": "Number of cards",
-    "showDecksCards": "Show decks cards",
-    "decksList": "Decks list",
-    "addNewDeck": "Add New Deck",
-    "clearFilter": "Clear Filter",
-    "deleteDeck": "Delete Deck",
-    "isDeleteDeck": "Do you really want to delete deck? All cards will be deleted."
+  "modalAddEditDeck":{
+    "addNewDeck":"Add New Deck",
+    "cancel":"Cancel",
+    "changeCover":"Change cover",
+    "createPack":"Create Deck",
+    "editTitle":"Edit title",
+    "nameDeck":"Name Deck",
+    "private":"Private",
+    "removeCover":"Remove cover",
+    "saveChanges":"Save changes",
+    "updateDeck":"Update Deck",
+    "uploadImage":"Upload Image"
   },
-  "deleteModal": {
-    "cancel": "Cancel"
+  "modalOnEmpty":{
+    "areYouSure":"Are you sure you want to leave this page?",
+    "no":"No",
+    "reallyWant":"You haven't created any cards !!!",
+    "yes":"Yes"
   },
-  "useTabsValuesParams": {
-    "allDecks": "All decks",
-    "myDecks": "My decks",
-    "favorites": "Favorites"
+  "paginationWithSelect":{
+    "onPage":"on page",
+    "show":"Show"
   },
-  "paginationWithSelect": {
-    "show": "Show",
-    "onPage": "on page"
+  "profilePage":{
+    "backDeckList":"Back to Deck List",
+    "logout":"Logout",
+    "nickname":"Nickname",
+    "personalInfo":"Personal Information",
+    "saveChanges":"Save changes",
+    "signUp":"Sign Up"
   },
-  "checkEmail": {
-    "checkEmail": "Check Email",
-    "instruction": "We’ve sent an Email with instructions to",
-    "backToSignIn": "Back to Sign in"
+  "signInPage":{
+    "dontHaveAccount":"Don`t have an account?",
+    "email":"Email",
+    "forgotPassword":"Forgot Password?",
+    "password":"Password",
+    "rememberMe":"Remember me",
+    "signIn":"Sign In",
+    "signUp":"Sign Up"
   },
-  "modalAddEditDeck": {
-    "addNewDeck": "Add New Deck",
-    "updateDeck": "Update Deck",
-    "editTitle": "Edit title",
-    "nameDeck": "Name Deck",
-    "removeCover": "Remove cover",
-    "uploadImage": "Upload Image",
-    "changeCover": "Change cover",
-    "private": "Private",
-    "cancel": "Cancel",
-    "saveChanges": "Save changes",
-    "createPack": "Create Deck"
+  "signUp":{
+    "confirmPassword":"Confirm Password",
+    "email":"Email",
+    "haveAccount":"Already have an account?",
+    "password":"Password",
+    "signIn":"Sign In",
+    "signUp":"Sign Up",
+    "submit":"Submit"
   },
-  "signInPage": {
-    "signIn": "Sign In",
-    "email": "Email",
-    "password": "Password",
-    "rememberMe": "Remember me",
-    "forgotPassword": "Forgot Password?",
-    "dontHaveAccount": "Don`t have an account?",
-    "signUp": "Sign Up"
-  },
-  "learnPage": {
-    "backCardsPage": "Back to Cards Page",
-    "learn": "Learn",
-    "question": "Question",
-    "countAttempts": "Count of attempts",
-    "answer": "Answer",
-    "showAnswer": "Show Answer",
-    "rateYourself": "Rate yourself",
-    "nextQuestion": "Next Question",
-    "didtKnow": "Did not know",
-    "forgot": "Forgot",
-    "aLotThought": "A lot of thought",
-    "confused": "Confused",
-    "knewAnswer": "Knew the answer"
-  },
-  "modalOnEmpty": {
-    "areYouSure": "Are you sure you want to leave this page?",
-    "reallyWant": "You haven't created any cards !!!",
-    "no": "No",
-    "yes": "Yes"
-  },
-  "tableComponentWithTypes": {
-    "name": "Name",
-    "cards": "Cards",
-    "lastUpdated": "Last Updated",
-    "createdBy": "Created by",
-    "pleaseAddAnyData": "Please add any data to show",
-    "noContent": "No content with these terms. Try to change filters or click another page",
-    "question": "Question",
-    "answer": "Answer",
-    "grade": "Grade",
-    "noResultsFound": "No results found",
-    "unknownCondition": "Unknown condition"
-  },
-  "cardsPage": {
-    "backDeckList": "Back to Deck List",
-    "learn": "Learn",
-    "learnCards": "Learn Cards",
-    "edit": "Edit",
-    "delete": "Delete",
-    "emptyDeck": "This deck is empty. Click add new card to fill this pack",
-    "unfortunatelyEmptyDeck": "Unfortunately this deck is empty",
-    "addNewCard": "Add New Card",
-    "deleteDeck": "Delete Deck",
-    "isDeleteDeck": "Do you really want to delete deck? All cards will be deleted.",
-    "deleteCard": "Delete Card",
-    "isDeleteCard": "Do you really want to delete card? All data will be deleted.",
-    "noResultsFound": "No results found with this terms. Try to change filters."
-  },
-  "modalAddEditCard": {
-    "updateCard": "Update Card",
-    "addNewCard": "Add New Card",
-    "question": "question",
-    "answer": "answer",
-    "saveChanges": "Save changes",
-    "createCard": "Create Card",
-    "cancel": "Cancel",
-    "removeCover": "Remove cover"
-  },
-  "dataFiller": {
-    "uploadImage": "Upload Image",
-    "changeCover": "Change cover",
-    "removeCover": "Remove cover"
-  },
-  "profilePage": {
-    "personalInfo": "Personal Information",
-    "signUp": "Sign Up",
-    "backDeckList": "Back to Deck List",
-    "saveChanges": "Save changes",
-    "logout": "Logout",
-    "nickname": "Nickname"
-  },
-  "forgotPassword": {
-    "forgotPassword": "Forgot your password?",
-    "email": "Email",
-    "enterYourEmail": "Enter your email address and we will send you further instructions",
-    "rememberPassword": "Did you remember your password?",
-    "tryLogIn": "Try logging in",
-    "sendInstructions": "Send Instructions"
-  },
-  "signUp": {
-    "signUp": "Sign Up",
-    "email": "Email",
-    "password": "Password",
-    "confirmPassword": "Confirm Password",
-    "haveAccount": "Already have an account?",
-    "signIn": "Sign In",
-    "submit": "Submit"
-  },
-  "successApiResponse": {
-    "update": {
-      "deck": "Deck updated!",
-      "card": "Card updated",
-      "profile": "Profile updated"
-    },
-    "loggedIn": "Logged in!",
-    "logOut": "Logged out!",
-    "creation": {
-      "deck": "Deck created",
-      "card": "Card created"
-    },
-    "deletion": {
-      "deck": "Deck deleted",
-      "card": "Card deleted"
-    },
-    "deleted": "Deleted!",
-    "favorites": "In favorites!",
-    "deleteFavorites": "Removed from favorites!",
-    "registrationSuccessful": "Registered",
-    "commonInfo": {
-      "equal": {
-        "deckName": "Deck name is equal to previous.",
-        "deckImg": "Image is equal to previous.",
-        "common": "Deck name and cover image are equal to previous.",
-        "success": "It is ok, just let you know 👌"
+  "successApiResponse":{
+    "commonInfo":{
+      "clearFilters":"All filters reset!",
+      "equal":{
+        "common":"Deck name and cover image are equal to previous.",
+        "deckImg":"Image is equal to previous.",
+        "deckName":"Deck name is equal to previous.",
+        "success":"It is ok, just let you know 👌"
       },
-      "clearFilters": "All filters reset!",
-      "setGrade": "Set Grade!",
-      "nothingLearn": "Add card before learning!"
+      "nothingLearn":"Add card before learning!",
+      "setGrade":"Set Grade!"
+    },
+    "creation":{
+      "card":"Card created",
+      "deck":"Deck created"
+    },
+    "deleteFavorites":"Removed from favorites!",
+    "deleted":"Deleted!",
+    "deletion":{
+      "card":"Card deleted",
+      "deck":"Deck deleted"
+    },
+    "favorites":"In favorites!",
+    "logOut":"Logged out!",
+    "loggedIn":"Logged in!",
+    "registrationSuccessful":"Registered",
+    "update":{
+      "card":"Card updated",
+      "deck":"Deck updated!",
+      "profile":"Profile updated"
     }
   },
-  "failedApiResponse": {
-    "network": "Please check the network and try again or later!",
-    "unknown": "Try again later"
+  "tableComponentWithTypes":{
+    "answer":"Answer",
+    "cards":"Cards",
+    "createdBy":"Created by",
+    "grade":"Grade",
+    "lastUpdated":"Last Updated",
+    "name":"Name",
+    "noContent":"No content with these terms. Try to change filters or click another page",
+    "noResultsFound":"No results found",
+    "pleaseAddAnyData":"Please add any data to show",
+    "question":"Question",
+    "unknownCondition":"Unknown condition"
   },
-  "help": {
-    "help": "Help",
-    "step-go-home": "Click here to go home.",
-    "step-select-language": "Click here and select the display language on the page.",
-    "step-change-theme": "Click here to change the theme (light or dark).",
-    "step-profile-drop-down": "Click here to open the menu, in the drop-down menu you can view your profile or log out of your account.",
-    "step-search": "You can search for decks by name.",
-    "step-tab-filter": "Filter for displaying table decks",
-    "step-slider-filter": "You can filter the decks in the table by the number of cards. To do this, move these sliders.",
-    "step-clear-filter": "Click here to clear filters.",
-    "step-add-new-deck": "Click here to add new deck.",
-    "step-this-is-table": "This is a table in which you can see your cards, pay attention at the top in the header you can see the names of the columns when you click on which your cards will be sorted.",
-    "step-edit-table-deck-btns": "Here you can edit your deck (change title, make it private, add card, remove card, study deck).",
-    "step-pagination": "Here you can move between page and set quantity сards per page.",
-    "step-private-deck": "Here you can find mask-icon indicating this deck is private and only you can see this deck."
-  },
-  "controlButtons": {
-    "back": "Back",
-    "close": "Close",
-    "last": "Last",
-    "next": "Next",
-    "open": "Open",
-    "skip": "Skip"
+  "useTabsValuesParams":{
+    "allDecks":"All decks",
+    "favorites":"Favorites",
+    "myDecks":"My decks"
   }
 }

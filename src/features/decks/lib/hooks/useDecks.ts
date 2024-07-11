@@ -17,7 +17,6 @@ import { handleToastInfo } from '@/common/consts/toastVariants'
 import { useQueryParams } from '@/common/hooks/useQueryParams'
 import { useSliderQueryParams } from '@/common/hooks/useSliderQueryParams'
 import { useTabsValuesParams } from '@/common/hooks/useTabsValuesParams'
-import l from '@/common/locales/LangPathVariables'
 import { Deck } from '@/services/decks/deck.types'
 import {
   useDeleteDeckMutation,
@@ -106,7 +105,7 @@ export function useDecks() {
   const onClearFilter = () => {
     setTabsValue(tabsValuesData[1].locale)
     clearQuery()
-    handleToastInfo(`${t(l.successApiResponse.commonInfo.clearFilters)}`, 2000)
+    handleToastInfo(`${t('successApiResponse.commonInfo.clearFilters')}`, 2000)
   }
 
   const handleItemsPerPageChange = (value: number) => {

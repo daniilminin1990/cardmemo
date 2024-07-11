@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import DropdownMenuDemo from '@/components/ui/DropDown/DropDown'
-import DropDownItem from '@/components/ui/DropDown/DropDownItem'
+import DropdownMenuDemo from '@/components/ui/dropDown/DropDown'
+import DropDownItem from '@/components/ui/dropDown/DropDownItem'
 
 import groupIcon from '../../../assets/icons/WhiteSVG/Group 1399.svg'
 import headerIcon1 from '../../../assets/icons/WhiteSVG/Layer 2.svg'

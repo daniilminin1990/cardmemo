@@ -1,9 +1,9 @@
 import { SuccessModal } from '@/components/Modals/ModalSuccess/SuccessModal'
-import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
+import { LoadingBar } from '@/components/ui/loadingBar/LoadingBar'
 import { UseCreateNewPassword } from '@/features/auth/lib/hook/useCreateNewPassword'
 
 import s from './createNewPassword.module.scss'

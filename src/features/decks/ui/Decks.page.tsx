@@ -1,7 +1,6 @@
 import helpImg from '@/assets/icons/informationIcon.svg'
 import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { tabsValuesData } from '@/common/consts/globalVariables'
-import l from '@/common/locales/LangPathVariables'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
 import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
@@ -9,12 +8,12 @@ import { TableComponentWithTypes } from '@/components/TableComponent/TableCompon
 import { TableDeckMobile } from '@/components/TableComponent/mobile/TableDeckMobile/TableDeckMobile'
 import { TableHeadMobile } from '@/components/TableComponent/mobile/TableHeadMobile/TableHeadMobile'
 import Input from '@/components/ui/Input/Input'
-import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import { Page } from '@/components/ui/Page/Page'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
 import Slider from '@/components/ui/Slider/Slider'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
+import { LoadingBar } from '@/components/ui/loadingBar/LoadingBar'
 import { TabSwitcher } from '@/components/ui/tabs-switcher/TabSwitcher'
 import { useDecks } from '@/features/decks/lib/hooks/useDecks'
 import MyJoyRide from '@/features/stepsForHelp/myJoyRide'
@@ -69,10 +68,10 @@ export function DecksPage() {
         deleteFn={onDeleteDeckHandler}
         open={isDeleteModal}
         setOpen={setIsDeleteModal}
-        title={t(l.decksPage.deleteDeck)}
+        title={t('decksPage.deleteDeck')}
       >
         <Typography variant={'h1'}>{deckItem?.name}</Typography>
-        <Typography variant={'body1'}>{t(l.decksPage.isDeleteDeck)}</Typography>
+        <Typography variant={'body1'}>{t('decksPage.isDeleteDeck')}</Typography>
       </DeleteModal>
       <ModalAddEditDeck open={isCreateModal} setOpen={setIsCreateModal} />
       <Page className={s.common}>
@@ -80,7 +79,7 @@ export function DecksPage() {
           <div className={s.headingFirstRow}>
             <div className={s.headingName}>
               <Typography as={'h1'} variant={'h1'}>
-                {t(l.decksPage.decksList)}
+                {t('decksPage.decksList')}
               </Typography>
               <Button className={s.buttonHelp} onClick={() => setRun(!run)}>
                 <img alt={'help button'} src={helpImg} />
@@ -89,7 +88,7 @@ export function DecksPage() {
 
             <div className={'step-add-new-deck'}>
               <Button onClick={() => setIsCreateModal(true)} variant={'primary'}>
-                <Typography variant={'subtitle2'}>{t(l.decksPage.addNewDeck)}</Typography>
+                <Typography variant={'subtitle2'}>{t('decksPage.addNewDeck')}</Typography>
               </Button>
             </div>
           </div>
@@ -109,7 +108,7 @@ export function DecksPage() {
               <div className={s.tabsContainer}>
                 <TabSwitcher
                   className={s.tabsSwitcher}
-                  label={t(l.decksPage.showDecksCards)}
+                  label={t('decksPage.showDecksCards')}
                   onValueChange={handleTabsSwitch}
                   tabs={tabsValuesData}
                   value={tabsValue}
@@ -123,7 +122,7 @@ export function DecksPage() {
             <div className={clsx(s.boxForSlider, 'step-slider-filter')}>
               <Slider
                 className={s.slider}
-                label={t(l.decksPage.numberOfCards)}
+                label={t('decksPage.numberOfCards')}
                 max={minMaxData?.max}
                 min={minMaxData?.min}
                 onValueChange={changeMinMaxHandler}
@@ -133,7 +132,7 @@ export function DecksPage() {
             <div className={clsx(s.clearFilterBox, 'step-clear-filter')}>
               <Button className={s.clearFilter} onClick={onClearFilter} variant={'secondary'}>
                 <TrashOutline />
-                <Typography variant={'subtitle2'}>{t(l.decksPage.clearFilter)}</Typography>
+                <Typography variant={'subtitle2'}>{t('decksPage.clearFilter')}</Typography>
               </Button>
             </div>
           </div>

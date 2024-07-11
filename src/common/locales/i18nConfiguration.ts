@@ -1,10 +1,10 @@
 import { initReactI18next } from 'react-i18next'
 
-import { byTranslation } from '@/common/locales/languages/by/translation'
-import { enTranslation } from '@/common/locales/languages/en/translation'
-import { kzTranslation } from '@/common/locales/languages/kz/translation'
-import { ruTranslation } from '@/common/locales/languages/ru/translation'
-import { uaTranslation } from '@/common/locales/languages/ua/translation'
+import byTranslation from '@/common/locales/languages/by/translation.json'
+import enTranslation from '@/common/locales/languages/en/translation.json'
+import kzTranslation from '@/common/locales/languages/kz/translation.json'
+import ruTranslation from '@/common/locales/languages/ru/translation.json'
+import uaTranslation from '@/common/locales/languages/ua/translation.json'
 import i18n, { InitOptions } from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 

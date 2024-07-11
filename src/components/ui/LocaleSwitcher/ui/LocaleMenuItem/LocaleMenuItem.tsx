@@ -1,8 +1,8 @@
-import { FullName } from '@/components/ui/LocaleSwitcher/LocaleSwitcherDrop'
+import { FullName } from '@/components/ui/LocaleSwitcher/lib/hooks/useLangData'
 import Typography from '@/components/ui/Typography/Typography'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import s from './LocaleSwitcher.module.scss'
+import s from '@/components/ui/LocaleSwitcher/ui/LocaleSwitcher.module.scss'
 
 type DropdownMenuItemProps = {
   fullName: FullName
