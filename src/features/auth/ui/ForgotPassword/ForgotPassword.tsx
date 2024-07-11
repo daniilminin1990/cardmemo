@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 
 import { path } from '@/app/router/path'
-import { LoadingBar } from '@/components/ui/LoadingBar/LoadingBar'
 import Typography from '@/components/ui/Typography/Typography'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { FormTextfield } from '@/components/ui/form/form-textfield'
+import { LoadingBar } from '@/components/ui/loadingBar/LoadingBar'
 import { useForgotPassword } from '@/features/auth/lib/hook/useForgotPassword'
 
 import s from './forgotPassword.module.scss'

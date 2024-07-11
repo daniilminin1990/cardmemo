@@ -2,7 +2,7 @@ import { ComponentProps, memo } from 'react'
 
 import clsx from 'clsx'
 
-import s from './loading.module.scss'
+import s from '@/components/ui/Loading/Loading.module.scss'
 
 import img from '../../../assets/img/Loading.svg'
 

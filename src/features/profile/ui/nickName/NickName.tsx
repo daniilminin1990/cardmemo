@@ -1,6 +1,6 @@
 import Edit2Outline from '@/assets/icons/svg/Edit2Outline'
-import { BackBtn } from '@/components/ui/BackBtn/BackBtn'
 import Typography from '@/components/ui/Typography/Typography'
+import { BackBtn } from '@/components/ui/backBtn/BackBtn'
 import { Button } from '@/components/ui/button'
 import { MeResponse } from '@/features/auth/services/auth.types'
 import { useNickName } from '@/features/profile/lib/hooks/useNickName'

@@ -1,25 +1,22 @@
 import { UpdateCardArgs } from '@/services/cards/cards.types'
-
+type ValueType = File | null | string | undefined
 export const getCardsFormData = (data: UpdateCardArgs) => {
   const formData = new FormData()
   const { answer, answerImg, question, questionImg } = data
 
-  if (answer) {
-    formData.append('answer', answer)
+  const appendField = (fieldName: string, value: ValueType) => {
+    if (value) {
+      formData.append(fieldName, value)
+    }
+    if (value === null) {
+      formData.append(fieldName, '')
+    }
   }
-  if (question) {
-    formData.append('question', question)
-  }
-  if (answerImg) {
-    formData.append('answerImg', answerImg)
-  } else if (answerImg === null) {
-    formData.append('answerImg', '')
-  }
-  if (questionImg) {
-    formData.append('questionImg', questionImg)
-  } else if (questionImg === null) {
-    formData.append('questionImg', '')
-  }
+
+  appendField('answer', answer)
+  appendField('question', question)
+  appendField('answerImg', answerImg)
+  appendField('questionImg', questionImg)
 
   return formData
 }

@@ -1,10 +1,9 @@
-import type { SVGProps } from 'react'
-import { Ref, forwardRef, memo } from 'react'
+import { Ref, SVGProps, forwardRef, memo } from 'react'
 
 const SvgCardMemoLogoGolden = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
-    data-name={'Слой 5'}
-    id={'Слой_5'}
+    data-name={'logo'}
+    id={'logo'}
     ref={ref}
     viewBox={'0 0 560.85 113.49'}
     xmlns={'http://www.w3.org/2000/svg'}

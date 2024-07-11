@@ -7,7 +7,6 @@ import { setBlur } from '@/app/model/app.slice'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { ArrowIosDownOutline } from '@/assets/icons/svg'
 import { useQueryParams } from '@/common/hooks/useQueryParams'
-import l from '@/common/locales/LangPathVariables'
 import { isDeck } from '@/common/utils/predicateTypes'
 import Loading from '@/components/ui/Loading/Loading'
 import Typography from '@/components/ui/Typography/Typography'
@@ -21,7 +20,6 @@ import s from './tableComponent.module.scss'
 
 import Eye from '../../assets/icons/svg/Eye'
 import CloseEye from '../../assets/icons/svg/EyeOff'
-// type Item<T> = T extends Deck[] ? Deck : CardResponse
 
 type Props<T extends CardResponse[] | Deck[]> = {
   children: ReactNode
@@ -38,12 +36,10 @@ export const TableComponentWithTypes = memo(
     children,
     data,
     isLoading,
-    // isFetching,
     isMineCards,
     tableHeader,
   }: Props<T>) => {
     const { currentOrderBy, setSortByQuery } = useQueryParams()
-    // const header = tableHeader === headersNameDecks ? headersNameDecks : headersNameCards
     const { t } = useTranslation()
     const app = useAppSelector(selectApp)
     const blur = useAppSelector(selectBlur)
@@ -58,8 +54,7 @@ export const TableComponentWithTypes = memo(
 
     if (conditionOfZeroData) {
       if (queryParameters) {
-        /*message = `${t('tableComponentWithTypes.noContent')}...`*/
-        message = `${t(l.tableComponentWithTypes.noContent)}...`
+        message = `${t('tableComponentWithTypes.noContent')}...`
       } else {
         message = `${t('tableComponentWithTypes.pleaseAddAnyData')}`
       }
@@ -70,7 +65,6 @@ export const TableComponentWithTypes = memo(
       e.stopPropagation()
       dispatch(setBlur({ blur: !blur }))
     }
-    // const loadingStatus = isLoading || isFetching
     const changeEye = blur ? (
       <Typography as={'button'} className={s.boxEye} onClick={onClickEyeHandler}>
         <CloseEye height={'100%'} width={20} />
@@ -92,16 +86,12 @@ export const TableComponentWithTypes = memo(
             <Table.Row>
               {tableHeader.map(name => (
                 <Table.HeadCell
-                  // className={clsx(
-                  //   tableHeader === headersNameDecks ? s.tableHeadCellDecks : s.tableHeadCellCards
-                  // )}
                   className={clsx(isDeckEl ? s.tableHeadCellDecks : s.tableHeadCellCards)}
                   key={name.key}
                   onClick={() => setSortByQuery(name.key)}
                 >
                   <div className={s.answer}>
                     <Typography as={'button'} className={s.nameSortBtn} variant={'subtitle2'}>
-                      {/*{name.title}*/}
                       {t(`${name.locale}`)}
                       {(currentOrderBy === `${name.key}-asc` ||
                         currentOrderBy === `${name.key}-desc`) && (
@@ -114,7 +104,6 @@ export const TableComponentWithTypes = memo(
                   </div>
                 </Table.HeadCell>
               ))}
-              {/*<Table.HeadCell className={s.emptyTableHeadCell}></Table.HeadCell>*/}
               {(isMineCards || isDeckEl || data?.length === 0 || !data) && (
                 <Table.HeadCell className={s.lastTableHeadCell}></Table.HeadCell>
               )}
