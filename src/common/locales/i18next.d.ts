@@ -1,4 +1,4 @@
-import { enTranslation } from "@/common/locales/languages/en/translation";
+import { enTranslation } from "@/common/locales/languages/en/translation.json";
 
 const resources = { translation: enTranslation } as const
 
