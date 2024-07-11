@@ -20,7 +20,6 @@ import s from './tableComponent.module.scss'
 
 import Eye from '../../assets/icons/svg/Eye'
 import CloseEye from '../../assets/icons/svg/EyeOff'
-// type Item<T> = T extends Deck[] ? Deck : CardResponse
 
 type Props<T extends CardResponse[] | Deck[]> = {
   children: ReactNode
@@ -93,8 +92,7 @@ export const TableComponentWithTypes = memo(
                 >
                   <div className={s.answer}>
                     <Typography as={'button'} className={s.nameSortBtn} variant={'subtitle2'}>
-                      {/*{t(`${name.locale}`)}*/}
-                      {'test'}
+                      {t(`${name.locale}`)}
                       {(currentOrderBy === `${name.key}-asc` ||
                         currentOrderBy === `${name.key}-desc`) && (
                         <ArrowIosDownOutline
