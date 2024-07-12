@@ -110,7 +110,7 @@ export const HeadingCardsPage = ({
           </div>
         </div>
         <div className={s.switchButton}>
-          {isMineCards && !isLoading && !isCardsCountZero && (
+          {isMineCards && !isLoading && (
             <Button onClick={() => openCreateCardModalHandler(true)} type={'button'}>
               <Typography variant={'subtitle2'}>{t('cardsPage.addNewCard')}</Typography>
             </Button>
