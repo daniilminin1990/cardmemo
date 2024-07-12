@@ -156,7 +156,17 @@
   opacity: 0.5;
 }
 .blur {
- filter: blur(4px);
+  text-shadow: 0 0 4px white;
+  opacity: 0.5;
+  transition: 0.1s all;
+}
+
+.blur p {
+  color: transparent;
+}
+
+.blur img {
+  filter: blur(4px);
 }
 .sell {
   user-select: none;

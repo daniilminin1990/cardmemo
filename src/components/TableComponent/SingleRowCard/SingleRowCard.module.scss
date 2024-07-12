@@ -61,10 +61,6 @@
   width: 100%;
   height: 100%;
 
-  //@media (max-width: 1200px) {
-  //  gap: 1px;
-  //}
-
   .star {
     width: 16px;
     height: 16px;
@@ -156,31 +152,10 @@
   }
 }
 
-/*.blur,
-.unBlur {
-  filter: blur(2.5px) contrast(1);
-  opacity: 0.5;
-  cursor: pointer;
-}
-.unBlur {
-  filter: none;
-  opacity: 1;
-}*/
-
 .blur {
-  /*filter: blur(2.5px);
-  backdrop-filter: blur(10px);
-
-
-  background: var(--color-dark-300);
-  opacity: 0.5;
   cursor: pointer;
-  transition: opacity 0.3s ease, filter 0.3s ease;*/
-  /*content: var(--hidden);
-  filter: blur(0.5em);*/
-
-
-  text-shadow: 0 0 10px white;
+  text-shadow: 0 0 4px white;
+  opacity: 0.5;
   transition: 0.1s all;
 }
 
@@ -189,11 +164,10 @@
 }
 
 .blur img {
-  filter: blur(2px);
+  filter: blur(4px);
 }
 
 .unBlur {
-  /*opacity:1;*/
   text-shadow: none;
   transition: 0.1s all;
 }
