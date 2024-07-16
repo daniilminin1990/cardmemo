@@ -1,5 +1,7 @@
 import { Ref, SVGProps, forwardRef, memo } from 'react'
 
+import s from '@/components/Layout/Header/Header.module.scss'
+
 const SvgCardMemoLogoGolden = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
     data-name={'logo'}
@@ -81,6 +83,7 @@ const SvgCardMemoLogoGolden = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGEl
       </linearGradient>
       {/*!ЗАЛИВКА МОЛЛНИИ*/}
       <linearGradient
+        className={s.flashlight}
         gradientTransform={'matrix(0.96, -0.26, -0.26, -0.96, 32.96, 203.84)'}
         gradientUnits={'userSpaceOnUse'}
         id={'Безымянный_градиент_4'}
@@ -94,6 +97,7 @@ const SvgCardMemoLogoGolden = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGEl
       </linearGradient>
       {/*!КОНТУР МОЛНИИ*/}
       <linearGradient
+        className={s.flashlightContour}
         gradientTransform={'translate(-1.61 77.47) rotate(-15.3)'}
         gradientUnits={'userSpaceOnUse'}
         id={'Безымянный_градиент_24'}
