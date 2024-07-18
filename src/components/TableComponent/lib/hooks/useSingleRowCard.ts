@@ -5,6 +5,8 @@ import { useAppSelector } from '@/app/store/store'
 import { useMeQuery } from '@/features/auth/services/auth.service'
 import { CardResponse } from '@/services/cards/cards.types'
 
+import s from '@/components/TableComponent/ui/singleRowCard/SingleRowCard.module.scss'
+
 type Props = {
   item: CardResponse
   openDeleteModalHandler: (value: boolean) => void
@@ -15,6 +17,7 @@ type Props = {
 export const useSingleRowCard = (props: Props) => {
   const { item, openDeleteModalHandler, openEditModalHandler, retrieveCardItem } = props
   const { data: meData } = useMeQuery()
+  // const updatedAr = new Date(item.updated).toLocaleDateString('ru-RU')
   const [blur, setBlur] = useState(true)
   const app = useAppSelector(selectApp)
   const blurGlobal = useAppSelector(selectBlur)
@@ -23,12 +26,10 @@ export const useSingleRowCard = (props: Props) => {
     retrieveCardItem(item)
     openDeleteModalHandler(true)
   }
-
   const onEditCardHandler = () => {
     retrieveCardItem(item)
     openEditModalHandler(true)
   }
-
   const onHandleBlur = () => {
     setBlur(!blur)
   }
@@ -40,8 +41,7 @@ export const useSingleRowCard = (props: Props) => {
   const onMouseUp = () => {
     setBlur(true) // При отпускании мыши снимаем эффект "блюра"
   }
-
-  const fragmentWithBlur = blurGlobal && blur ? 'coverImg blur' : 'coverImg'
+  const fragmentWithBlur = blurGlobal && blur ? s.coverImg + ' ' + s.blur : s.coverImg
 
   return {
     app,
