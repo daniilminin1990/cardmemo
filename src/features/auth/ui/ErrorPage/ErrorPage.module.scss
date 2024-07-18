@@ -1,0 +1,27 @@
+@import '../../../../styles/mixins';
+
+.box {
+  @include animation-appearance;
+
+  display: grid;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100vh;
+}
+
+.boxFooter {
+  display: grid;
+  grid-gap: 28px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.text {
+  text-align: center;
+}
+
+.btn {
+  text-decoration-line: none;
+}

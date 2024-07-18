@@ -1,8 +1,8 @@
 import { headersNameCards } from '@/common/consts/globalVariables'
-import { SingleRowCard } from '@/components/TableComponent/SingleRowCard/SingleRowCard'
-import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
-import { TableCardMobile } from '@/components/TableComponent/mobile/TableCardMobile/TableCardMobile'
-import { TableHeadMobile } from '@/components/TableComponent/mobile/TableHeadMobile/TableHeadMobile'
+import { TableComponent } from '@/components/TableComponent/ui/TableComponent'
+import { TableCardMobile } from '@/components/TableComponent/ui/mobile/TableCardMobile/TableCardMobile'
+import { TableHeadMobile } from '@/components/TableComponent/ui/mobile/TableHeadMobile/TableHeadMobile'
+import { SingleRowCard } from '@/components/TableComponent/ui/singleRowCard/SingleRowCard'
 import { useTable } from '@/features/cards/lib/hooks/useTable'
 import { EmptyContent } from '@/features/cards/ui/Cards/components'
 import { PaginationCard } from '@/features/cards/ui/Cards/components/PaginationCard/PaginationCard'
@@ -61,11 +61,12 @@ export const Table = ({ deckId, setCardItem }: Props) => {
               })}
             </TableHeadMobile>
           ) : (
-            <TableComponentWithTypes
+            <TableComponent
               data={cardsData?.items}
               isLoading={loadingStatus}
               isMineCards={isMineCards}
               tableHeader={headersNameCards}
+              tableVariant={'cards'}
             >
               {cardsData?.items.map(card => {
                 return (
@@ -78,7 +79,7 @@ export const Table = ({ deckId, setCardItem }: Props) => {
                   />
                 )
               })}
-            </TableComponentWithTypes>
+            </TableComponent>
           )}
           <PaginationCard cardsData={cardsData} currentData={currentData} />
         </>

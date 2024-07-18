@@ -29,6 +29,8 @@
       outline: none;
       fill: var(--color-success-300);
     }
+
+
   }
 
   .imgHidden {
@@ -106,5 +108,33 @@
   @media (width <= 1023px) {
     padding: 0.1rem 0.5rem;
     text-align: center;
+  }
+}
+
+.flashlight stop {
+  animation: flashlightAnimation 5s infinite;
+}
+
+@keyframes flashlightAnimation {
+  0% {
+  }
+  50% {
+    stop-color: var(--color-success-300);
+  }
+  100% {
+  }
+}
+
+.flashlightContour stop {
+  animation: flashlightContourAnimation 5s infinite;
+}
+
+@keyframes flashlightContourAnimation {
+  0% {
+  }
+  50% {
+    stop-color: #16ad63;
+  }
+  100% {
   }
 }

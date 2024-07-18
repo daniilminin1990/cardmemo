@@ -3,10 +3,10 @@ import TrashOutline from '@/assets/icons/svg/TrashOutline'
 import { tabsValuesData } from '@/common/consts/globalVariables'
 import { ModalAddEditDeck } from '@/components/Modals/ModalAddEditDeck/ModalAddEditDeck'
 import { DeleteModal } from '@/components/Modals/ModalDelete/DeleteModal'
-import { SingleRowDeck } from '@/components/TableComponent/SingleRowDeck/SingleRowDeck'
-import { TableComponentWithTypes } from '@/components/TableComponent/TableComponentWithTypes'
-import { TableDeckMobile } from '@/components/TableComponent/mobile/TableDeckMobile/TableDeckMobile'
-import { TableHeadMobile } from '@/components/TableComponent/mobile/TableHeadMobile/TableHeadMobile'
+import { TableComponent } from '@/components/TableComponent/ui/TableComponent'
+import { TableDeckMobile } from '@/components/TableComponent/ui/mobile/TableDeckMobile/TableDeckMobile'
+import { TableHeadMobile } from '@/components/TableComponent/ui/mobile/TableHeadMobile/TableHeadMobile'
+import { SingleRowDeck } from '@/components/TableComponent/ui/singleRowDeck/SingleRowDeck'
 import Input from '@/components/ui/Input/Input'
 import { Page } from '@/components/ui/Page/Page'
 import { PaginationWithSelect } from '@/components/ui/Pagination/PaginationWithSelect'
@@ -158,11 +158,12 @@ export function DecksPage() {
           </TableHeadMobile>
         ) : (
           <div className={'step-this-is-table'}>
-            <TableComponentWithTypes
+            <TableComponent
               data={decksData}
               isFetching={isFetching}
               isLoading={isLoading}
               tableHeader={headersNameDecks}
+              tableVariant={'decks'}
             >
               {decksData?.map(deck => {
                 return (
@@ -175,7 +176,7 @@ export function DecksPage() {
                   />
                 )
               })}
-            </TableComponentWithTypes>
+            </TableComponent>
           </div>
         )}
 

@@ -20,7 +20,6 @@ const ThemeToggle = (props: ToggleProps) => {
       data-state={pressed ? 'on' : 'off'}
       onPressedChange={onPressedChange}
     >
-      {/*<div className={s.toggleContainer}>*/}
       <div className={`${s.btnIndicator}`}>
         <div className={s.btnIconContainer}>
           {pressed ? (
@@ -30,7 +29,6 @@ const ThemeToggle = (props: ToggleProps) => {
           )}
         </div>
       </div>
-      {/*</div>*/}
     </RadixToggle.Root>
   )
 }

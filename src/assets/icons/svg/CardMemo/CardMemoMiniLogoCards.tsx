@@ -1,5 +1,6 @@
-import type { SVGProps } from 'react'
-import { Ref, forwardRef, memo } from 'react'
+import { Ref, SVGProps, forwardRef, memo } from 'react'
+
+import s from '@/components/Layout/Header/Header.module.scss'
 
 const SvgCardMemoLogoMinimalisticGolden = (
   props: SVGProps<SVGSVGElement>,
@@ -65,6 +66,7 @@ const SvgCardMemoLogoMinimalisticGolden = (
         <stop offset={'1'} stopColor={'#a236ff'} />
       </linearGradient>
       <linearGradient
+        className={s.flashlight}
         gradientTransform={'matrix(0.96, -0.26, -0.26, -0.96, 25.65, 149.43)'}
         gradientUnits={'userSpaceOnUse'}
         id={'b63b1520-fb9b-4686-99d0-5a3e360c5783'}
@@ -77,6 +79,7 @@ const SvgCardMemoLogoMinimalisticGolden = (
         <stop offset={'1'} stopColor={'#8d00b9'} />
       </linearGradient>
       <linearGradient
+        className={s.flashlightContour}
         gradientTransform={'translate(-8.92 23.07) rotate(-15.3)'}
         gradientUnits={'userSpaceOnUse'}
         id={'ae68982e-52af-4939-99b8-d5284380089d'}
