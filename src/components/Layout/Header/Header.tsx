@@ -48,11 +48,7 @@ const Header = ({ data }: HeaderProps) => {
               ) : (
                 <CardMemoLogoGolden className={style.img} />
               )}
-              <img
-                alt={'cardMemoLogoGoldenPng'}
-                className={style.imgHidden}
-                src={CardMemoLogoGoldenPng}
-              />
+              <img alt={'cardMemoLogo'} className={style.imgHidden} src={CardMemoLogoGoldenPng} />
             </div>
           </Typography>
           <div className={'step-select-language'}>

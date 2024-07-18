@@ -10,7 +10,6 @@ const SvgCardMemoLogoGolden = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGEl
     viewBox={'0 0 560.85 113.49'}
     xmlns={'http://www.w3.org/2000/svg'}
     {...props}
-    // xmlns:xlink={'http://www.w3.org/1999/xlink'}
   >
     <defs>
       <linearGradient
@@ -81,7 +80,6 @@ const SvgCardMemoLogoGolden = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGEl
         <stop offset={'0.73'} stopColor={'#9839ff'} />
         <stop offset={'1'} stopColor={'#a236ff'} />
       </linearGradient>
-      {/*!ЗАЛИВКА МОЛЛНИИ*/}
       <linearGradient
         className={s.flashlight}
         gradientTransform={'matrix(0.96, -0.26, -0.26, -0.96, 32.96, 203.84)'}
@@ -95,7 +93,6 @@ const SvgCardMemoLogoGolden = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGEl
         <stop offset={'0'} stopColor={'#3a00e7'} />
         <stop offset={'1'} stopColor={'#8d00b9'} />
       </linearGradient>
-      {/*!КОНТУР МОЛНИИ*/}
       <linearGradient
         className={s.flashlightContour}
         gradientTransform={'translate(-1.61 77.47) rotate(-15.3)'}
