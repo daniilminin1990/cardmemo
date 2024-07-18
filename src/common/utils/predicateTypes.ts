@@ -1,4 +1,4 @@
-import { MeResponse, SignUpResponse } from '@/features/auth/services/auth.types'
+import { MeResponse } from '@/features/auth/services/auth.types'
 import { CardResponse } from '@/services/cards/cards.types'
 import { Deck } from '@/services/decks/deck.types'
 
@@ -19,13 +19,4 @@ export const isCard = (data: CardResponse): data is CardResponse => {
 
 export const isProfile = (data: MeResponse): data is MeResponse => {
   return data && typeof data === 'object' && 'avatar' in data && !('question' in data)
-}
-export const isSignUp = (data: SignUpResponse): data is SignUpResponse => {
-  return (
-    data &&
-    typeof data === 'object' &&
-    'email' in data &&
-    !('question' in data) &&
-    !('author' in data)
-  )
 }

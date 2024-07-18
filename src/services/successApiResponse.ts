@@ -1,6 +1,6 @@
 import { handleToastInfo, handleToastSuccess } from '@/common/consts/toastVariants'
-import { isCard, isDeck, isProfile, isSignUp } from '@/common/utils/predicateTypes'
-import { MeResponse, SignUpResponse } from '@/features/auth/services/auth.types'
+import { isCard, isDeck, isProfile } from '@/common/utils/predicateTypes'
+import { MeResponse } from '@/features/auth/services/auth.types'
 import { CardResponse } from '@/services/cards/cards.types'
 import { Deck } from '@/services/decks/deck.types'
 import i18n from 'i18next'
@@ -54,11 +54,11 @@ export const successApiResponse = (result: any) => {
 
           handleToastSuccess(message)
         }
-        if (isSignUp(data as SignUpResponse)) {
-          const message = t('successApiResponse.registrationSuccessful')
+      }
+      if (url.endsWith('/sign-up')) {
+        const message = t('successApiResponse.registrationSuccessful')
 
-          handleToastSuccess(message)
-        }
+        handleToastSuccess(message)
       }
       if (status === 204 && statusText === 'No Content') {
         if (url.endsWith('/logout')) {
