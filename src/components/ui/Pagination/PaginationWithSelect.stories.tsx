@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { useState } from 'react'
+import { MemoryRouter } from 'react-router-dom'
 
 import {
   PaginationWithSelect,
@@ -10,6 +11,13 @@ import {
 const meta = {
   argTypes: {},
   component: PaginationWithSelect,
+  decorators: [
+    Story => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
   tags: ['autodocs'],
   title: 'Components/PaginationWithSelect',
 } satisfies Meta<typeof PaginationWithSelect>
