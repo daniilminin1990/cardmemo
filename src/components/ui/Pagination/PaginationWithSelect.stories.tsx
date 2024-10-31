@@ -39,7 +39,7 @@ export const Default: Story = {
     ] as selectOptionsType[],
     setCurrentPage: () => {},
     setItemsPerPage: () => {},
-    totalItems: 300,
+    totalItems: 80,
   },
   render: args => {
     const [currentPage, setCurrentPage] = useState<number>(args.currentPage)
