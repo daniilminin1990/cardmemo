@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { useState } from 'react'
+import { MemoryRouter } from 'react-router-dom'
 
 import {
   PaginationWithSelect,
@@ -10,6 +11,13 @@ import {
 const meta = {
   argTypes: {},
   component: PaginationWithSelect,
+  decorators: [
+    Story => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
   tags: ['autodocs'],
   title: 'Components/PaginationWithSelect',
 } satisfies Meta<typeof PaginationWithSelect>
@@ -31,7 +39,7 @@ export const Default: Story = {
     ] as selectOptionsType[],
     setCurrentPage: () => {},
     setItemsPerPage: () => {},
-    totalItems: 300,
+    totalItems: 80,
   },
   render: args => {
     const [currentPage, setCurrentPage] = useState<number>(args.currentPage)
